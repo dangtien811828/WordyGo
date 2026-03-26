@@ -1,0 +1,25 @@
+<div class="auth-card">
+  <div class="auth-header">
+    <div class="auth-logo">E</div>
+    <h1>English Admin</h1>
+    <p>Đăng nhập vào bảng điều khiển</p>
+  </div>
+
+  <form action="/auth/login" method="POST" class="auth-form">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="admin@english-app.com" required autofocus>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Mật khẩu</label>
+      <input type="password" id="password" name="password" placeholder="Nhập mật khẩu" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-full">Đăng nhập</button>
+  </form>
+
+  <div class="auth-footer">
+    <a href="/auth/register">Tạo tài khoản admin mới</a>
+  </div>
+</div>

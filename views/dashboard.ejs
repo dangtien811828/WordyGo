@@ -1,0 +1,85 @@
+<div class="page-header">
+  <h1>Dashboard</h1>
+  <p>Tổng quan hệ thống English Learning App</p>
+</div>
+
+<!-- Stat Cards -->
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="stat-icon">👥</div>
+    <div class="stat-info">
+      <div class="stat-value"><%= stats.users || 0 %></div>
+      <div class="stat-label">Người dùng</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon">🔑</div>
+    <div class="stat-info">
+      <div class="stat-value"><%= stats.admins || 0 %></div>
+      <div class="stat-label">Admin</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon">📖</div>
+    <div class="stat-info">
+      <div class="stat-value"><%= stats.entries || 0 %></div>
+      <div class="stat-label">Từ vựng</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon">📝</div>
+    <div class="stat-info">
+      <div class="stat-value"><%= stats.lessons || 0 %></div>
+      <div class="stat-label">Bài học</div>
+    </div>
+  </div>
+</div>
+
+<!-- Admin Accounts Table -->
+<div class="card">
+  <div class="card-header">
+    <h2>Tài khoản Admin</h2>
+    <a href="/auth/register" class="btn btn-primary btn-sm">+ Thêm admin</a>
+  </div>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Họ tên</th>
+          <th>Email</th>
+          <th>Vai trò</th>
+          <th>Trạng thái</th>
+          <th>Đăng nhập lần cuối</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (admins && admins.length > 0) { %>
+          <% admins.forEach(a => { %>
+            <tr>
+              <td>
+                <div class="user-cell">
+                  <div class="avatar-sm"><%= a.full_name.charAt(0).toUpperCase() %></div>
+                  <span><%= a.full_name %></span>
+                </div>
+              </td>
+              <td><%= a.email %></td>
+              <td>
+                <span class="badge badge-<%= a.role === 'super_admin' ? 'primary' : a.role === 'content_editor' ? 'info' : 'warning' %>">
+                  <%= a.role.replace('_', ' ') %>
+                </span>
+              </td>
+              <td>
+                <span class="badge badge-<%= a.status === 'active' ? 'success' : 'danger' %>">
+                  <%= a.status %>
+                </span>
+              </td>
+              <td><%= a.last_login_at ? new Date(a.last_login_at).toLocaleString('vi-VN') : 'Chưa đăng nhập' %></td>
+            </tr>
+          <% }) %>
+        <% } else { %>
+          <tr><td colspan="5" class="text-center">Chưa có dữ liệu</td></tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</div>

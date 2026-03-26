@@ -1,0 +1,12 @@
+<header class="top-header">
+  <div class="breadcrumb">
+    <a href="/dashboard">Home</a>
+    <% if (typeof title !== 'undefined' && title !== 'Dashboard') { %>
+      <span class="sep">›</span>
+      <span><%= title %></span>
+    <% } %>
+  </div>
+  <div class="header-right">
+    <span class="greeting">Xin chào, <strong><%= admin.full_name %></strong></span>
+  </div>
+</header>
