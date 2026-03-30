@@ -1,6 +1,12 @@
 /**
- * Domain 1: Auth & Users (2 bảng)
- * Domain 2: Dictionary & Lessons (8 bảng)
+ * Domain 1: Auth & Users (2 tables)
+ * Domain 2: Dictionary & Lessons (10 tables — was 8, +2 new)
+ *
+ * Changes from previous version:
+ *   dictionary_entries: ipa → ipa_us + ipa_uk, +audio_us/uk_url, +cefr_level, +frequency_rank
+ *                       lemma now NOT NULL (fixes NULL unique bug)
+ *   NEW: entry_synonyms (junction — self-referencing dictionary_entries)
+ *   NEW: entry_antonyms (junction — self-referencing dictionary_entries)
  */
 module.exports = async (client) => {
   // ══ DOMAIN 1: AUTH ══
@@ -60,13 +66,24 @@ module.exports = async (client) => {
     CREATE TABLE IF NOT EXISTS dictionary_entries (
       id              UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
       headword        VARCHAR(255) NOT NULL,
-      lemma           VARCHAR(255),
-      ipa             VARCHAR(255),
+      lemma           VARCHAR(255) NOT NULL,
+
+      -- Pronunciation: UK & US separated
+      ipa_us          VARCHAR(255),
+      ipa_uk          VARCHAR(255),
+      audio_us_url    VARCHAR(500),
+      audio_uk_url    VARCHAR(500),
+
       pos             VARCHAR(50)[] DEFAULT '{}',
       meaning_vi      TEXT NOT NULL,
       meaning_en      TEXT,
       example_en      TEXT,
       example_vi      TEXT,
+
+      -- Metadata for learning prioritization
+      cefr_level      VARCHAR(2) CHECK (cefr_level IN ('A1','A2','B1','B2','C1','C2')),
+      frequency_rank  INT,
+
       source          VARCHAR(20) NOT NULL DEFAULT 'manual'
                       CHECK (source IN ('stardict','wiktionary','manual','user')),
       admin_note      TEXT,
@@ -77,7 +94,7 @@ module.exports = async (client) => {
       UNIQUE (headword, lemma)
     );
   `);
-  console.log('  [✓] dictionary_entries');
+  console.log('  [✓] dictionary_entries (improved: ipa_us/uk, cefr, frequency)');
 
   await client.query(`
     CREATE TABLE IF NOT EXISTS entry_tags (
@@ -87,6 +104,26 @@ module.exports = async (client) => {
     );
   `);
   console.log('  [✓] entry_tags');
+
+  await client.query(`
+    CREATE TABLE IF NOT EXISTS entry_synonyms (
+      entry_id    UUID NOT NULL REFERENCES dictionary_entries(id) ON DELETE CASCADE,
+      synonym_id  UUID NOT NULL REFERENCES dictionary_entries(id) ON DELETE CASCADE,
+      PRIMARY KEY (entry_id, synonym_id),
+      CHECK (entry_id != synonym_id)
+    );
+  `);
+  console.log('  [✓] entry_synonyms (NEW)');
+
+  await client.query(`
+    CREATE TABLE IF NOT EXISTS entry_antonyms (
+      entry_id    UUID NOT NULL REFERENCES dictionary_entries(id) ON DELETE CASCADE,
+      antonym_id  UUID NOT NULL REFERENCES dictionary_entries(id) ON DELETE CASCADE,
+      PRIMARY KEY (entry_id, antonym_id),
+      CHECK (entry_id != antonym_id)
+    );
+  `);
+  console.log('  [✓] entry_antonyms (NEW)');
 
   await client.query(`
     CREATE TABLE IF NOT EXISTS entry_edit_history (
@@ -114,7 +151,7 @@ module.exports = async (client) => {
                       CHECK (status IN ('draft','published','archived')),
       publish_at      TIMESTAMPTZ,
       sort_order      INT DEFAULT 0,
-      created_by      UUID NOT NULL REFERENCES admin_accounts(id),
+      created_by      UUID REFERENCES admin_accounts(id) ON DELETE SET NULL,
       created_at      TIMESTAMPTZ DEFAULT NOW(),
       updated_at      TIMESTAMPTZ DEFAULT NOW()
     );
@@ -154,4 +191,28 @@ module.exports = async (client) => {
     );
   `);
   console.log('  [✓] user_lesson_progress');
+
+  // ── Auto-update updated_at trigger ──
+  await client.query(`
+    CREATE OR REPLACE FUNCTION update_updated_at()
+    RETURNS TRIGGER AS $$
+    BEGIN
+      NEW.updated_at = NOW();
+      RETURN NEW;
+    END;
+    $$ LANGUAGE plpgsql;
+  `);
+
+  const tablesWithUpdatedAt = [
+    'users', 'admin_accounts', 'dictionary_entries', 'lessons'
+  ];
+  for (const table of tablesWithUpdatedAt) {
+    await client.query(`
+      DROP TRIGGER IF EXISTS trg_${table}_updated_at ON ${table};
+      CREATE TRIGGER trg_${table}_updated_at
+        BEFORE UPDATE ON ${table}
+        FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+    `);
+  }
+  console.log('  [✓] updated_at triggers (4 tables)');
 };

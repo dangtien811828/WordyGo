@@ -1,5 +1,7 @@
 /**
- * Domain 9: System — Config, Audit, Notifications, Activity (4 bảng)
+ * Domain 9: System — Config, Audit, Notifications, Activity (4 tables)
+ *
+ * Fix: user_activity_log.action — removed CHECK constraint (allow new activity types)
  */
 module.exports = async (client) => {
 
@@ -50,13 +52,11 @@ module.exports = async (client) => {
     CREATE TABLE IF NOT EXISTS user_activity_log (
       id            UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
       user_id       UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-      action        VARCHAR(30) NOT NULL
-                    CHECK (action IN ('flashcard_session','review_session','ebook_read',
-                           'game_play','retrieval_practice','lesson_view','word_lookup')),
+      action        VARCHAR(50) NOT NULL,
       details       JSONB,
       duration_sec  INT,
       created_at    TIMESTAMPTZ DEFAULT NOW()
     );
   `);
-  console.log('  [✓] user_activity_log');
+  console.log('  [✓] user_activity_log (fix: flexible action)');
 };

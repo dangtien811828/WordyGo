@@ -1,18 +1,29 @@
 /**
- * Indexes — tối ưu performance cho các query quan trọng
+ * Indexes — performance-critical queries
+ *
+ * Updated: added indexes for cefr_level, frequency_rank, entry_synonyms, entry_antonyms
+ * Fixed: review_interval (was interval)
  */
 module.exports = async (client) => {
   const indexes = [
-    // Domain 2: Dictionary
+    // Domain 2: Dictionary (EXPANDED)
     'CREATE INDEX IF NOT EXISTS idx_dict_headword ON dictionary_entries(headword)',
     'CREATE INDEX IF NOT EXISTS idx_dict_lemma ON dictionary_entries(lemma)',
     'CREATE INDEX IF NOT EXISTS idx_dict_source ON dictionary_entries(source)',
     'CREATE INDEX IF NOT EXISTS idx_dict_published ON dictionary_entries(published)',
+    'CREATE INDEX IF NOT EXISTS idx_dict_cefr ON dictionary_entries(cefr_level)',
+    'CREATE INDEX IF NOT EXISTS idx_dict_frequency ON dictionary_entries(frequency_rank)',
     'CREATE INDEX IF NOT EXISTS idx_edit_history_entry ON entry_edit_history(entry_id)',
     'CREATE INDEX IF NOT EXISTS idx_lessons_status ON lessons(status)',
     'CREATE INDEX IF NOT EXISTS idx_user_progress_user ON user_lesson_progress(user_id)',
 
-    // Domain 3: SRS (CRITICAL — query "cards cần ôn" chạy hàng triệu lần/ngày)
+    // Domain 2: Synonyms & Antonyms (NEW)
+    'CREATE INDEX IF NOT EXISTS idx_synonyms_entry ON entry_synonyms(entry_id)',
+    'CREATE INDEX IF NOT EXISTS idx_synonyms_synonym ON entry_synonyms(synonym_id)',
+    'CREATE INDEX IF NOT EXISTS idx_antonyms_entry ON entry_antonyms(entry_id)',
+    'CREATE INDEX IF NOT EXISTS idx_antonyms_antonym ON entry_antonyms(antonym_id)',
+
+    // Domain 3: SRS
     'CREATE INDEX IF NOT EXISTS idx_ucp_user_due ON user_card_progress(user_id, due_at)',
     'CREATE INDEX IF NOT EXISTS idx_ucp_card ON user_card_progress(card_id)',
     'CREATE INDEX IF NOT EXISTS idx_reviews_user_time ON reviews(user_id, created_at)',

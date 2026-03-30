@@ -2,13 +2,13 @@
  * Master Migration Runner
  * Chạy: npm run db:migrate
  * 
- * Tạo toàn bộ 42 bảng + indexes cho English Learning App
+ * Tạo toàn bộ 44 bảng + indexes cho English Learning App
  */
 require('dotenv').config();
 const pool = require('../config/db');
 
 const migrations = [
-  { name: 'Domain 1+2: Auth & Content (10 bảng)',     file: './migrations/01_auth_content' },
+  { name: 'Domain 1+2: Auth & Content (12 tables)', file: './migrations/01_auth_content' },
   { name: 'Domain 3+4: Learning & Retrieval (6 bảng)', file: './migrations/02_learning_srs' },
   { name: 'Domain 5: Ebook & TTS (6 bảng)',            file: './migrations/03_reading_ebook' },
   { name: 'Domain 6: Gaming (6 bảng)',                 file: './migrations/04_gaming' },

@@ -1,6 +1,8 @@
 /**
- * Domain 3: Flashcards & SRS (5 bảng)
- * Domain 4: Retrieval Practice (1 bảng)
+ * Domain 3: Flashcards & SRS (5 tables)
+ * Domain 4: Retrieval Practice (1 table)
+ *
+ * Fix: renamed 'interval' → 'review_interval' (interval is a PostgreSQL reserved word)
  */
 module.exports = async (client) => {
   // ══ DOMAIN 3: FLASHCARDS & SRS ══
@@ -49,22 +51,22 @@ module.exports = async (client) => {
 
   await client.query(`
     CREATE TABLE IF NOT EXISTS user_card_progress (
-      id          UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-      user_id     UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-      card_id     UUID NOT NULL REFERENCES cards(id) ON DELETE CASCADE,
-      leitner_box INT DEFAULT 1 CHECK (leitner_box >= 1 AND leitner_box <= 5),
-      ease        REAL DEFAULT 2.5,
-      interval    INT DEFAULT 0,
-      due_at      TIMESTAMPTZ,
-      stability   REAL,
-      lapses      INT DEFAULT 0,
-      last_review TIMESTAMPTZ,
-      created_at  TIMESTAMPTZ DEFAULT NOW(),
-      updated_at  TIMESTAMPTZ DEFAULT NOW(),
+      id              UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+      user_id         UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      card_id         UUID NOT NULL REFERENCES cards(id) ON DELETE CASCADE,
+      leitner_box     INT DEFAULT 1 CHECK (leitner_box >= 1 AND leitner_box <= 5),
+      ease            REAL DEFAULT 2.5,
+      review_interval INT DEFAULT 0,
+      due_at          TIMESTAMPTZ,
+      stability       REAL,
+      lapses          INT DEFAULT 0,
+      last_review     TIMESTAMPTZ,
+      created_at      TIMESTAMPTZ DEFAULT NOW(),
+      updated_at      TIMESTAMPTZ DEFAULT NOW(),
       UNIQUE (user_id, card_id)
     );
   `);
-  console.log('  [✓] user_card_progress');
+  console.log('  [✓] user_card_progress (fix: review_interval)');
 
   await client.query(`
     CREATE TABLE IF NOT EXISTS reviews (
@@ -93,8 +95,7 @@ module.exports = async (client) => {
       fixes            TEXT[],
       results_json     JSONB,
       all_passed       BOOLEAN DEFAULT FALSE,
-      model_used       VARCHAR(30)
-                       CHECK (model_used IN ('gpt-4o','gpt-4o-mini','languagetool')),
+      model_used       VARCHAR(30),
       latency_ms       INT,
       tokens_in        INT,
       tokens_out       INT,
@@ -102,5 +103,5 @@ module.exports = async (client) => {
       created_at       TIMESTAMPTZ DEFAULT NOW()
     );
   `);
-  console.log('  [✓] retrieval_sessions');
+  console.log('  [✓] retrieval_sessions (fix: removed model CHECK)');
 };

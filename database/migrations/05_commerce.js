@@ -1,5 +1,8 @@
 /**
- * Domain 7: Commerce — Subscriptions & Payments (4 bảng)
+ * Domain 7: Commerce — Subscriptions & Payments (4 tables)
+ *
+ * Fix: transactions.subscription_id ON DELETE RESTRICT (not CASCADE)
+ *      — financial records must never be cascade-deleted
  */
 module.exports = async (client) => {
 
@@ -41,7 +44,7 @@ module.exports = async (client) => {
     CREATE TABLE IF NOT EXISTS user_subscriptions (
       id                    UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
       user_id               UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-      plan_id               UUID NOT NULL REFERENCES subscription_plans(id),
+      plan_id               UUID NOT NULL REFERENCES subscription_plans(id) ON DELETE RESTRICT,
       billing_cycle         VARCHAR(20) NOT NULL
                             CHECK (billing_cycle IN ('monthly','yearly','weekly')),
       price_paid            BIGINT NOT NULL,
@@ -60,8 +63,8 @@ module.exports = async (client) => {
   await client.query(`
     CREATE TABLE IF NOT EXISTS transactions (
       id              UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-      user_id         UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-      subscription_id UUID NOT NULL REFERENCES user_subscriptions(id) ON DELETE CASCADE,
+      user_id         UUID NOT NULL REFERENCES users(id) ON DELETE RESTRICT,
+      subscription_id UUID NOT NULL REFERENCES user_subscriptions(id) ON DELETE RESTRICT,
       type            VARCHAR(20) NOT NULL
                       CHECK (type IN ('new','renew','upgrade','downgrade','cancel','refund')),
       amount          BIGINT NOT NULL,
@@ -72,5 +75,5 @@ module.exports = async (client) => {
       created_at      TIMESTAMPTZ DEFAULT NOW()
     );
   `);
-  console.log('  [✓] transactions');
+  console.log('  [✓] transactions (fix: ON DELETE RESTRICT)');
 };

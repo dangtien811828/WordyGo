@@ -1,5 +1,7 @@
 /**
- * Domain 8: AI Content & Micro-delta Sync (6 bảng)
+ * Domain 8: AI Content & Micro-delta Sync (6 tables)
+ *
+ * Fix: removed CHECK constraint on prompt_templates.model (allow future models)
  */
 module.exports = async (client) => {
 
@@ -8,8 +10,7 @@ module.exports = async (client) => {
       id              UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
       name            VARCHAR(255) NOT NULL,
       description     TEXT,
-      model           VARCHAR(30) NOT NULL
-                      CHECK (model IN ('gpt-4o','gpt-4o-mini')),
+      model           VARCHAR(50) NOT NULL,
       system_prompt   TEXT NOT NULL,
       expected_schema JSONB NOT NULL DEFAULT '{}',
       version         INT NOT NULL DEFAULT 1,
@@ -20,7 +21,7 @@ module.exports = async (client) => {
       updated_at      TIMESTAMPTZ DEFAULT NOW()
     );
   `);
-  console.log('  [✓] prompt_templates');
+  console.log('  [✓] prompt_templates (fix: flexible model field)');
 
   await client.query(`
     CREATE TABLE IF NOT EXISTS moderation_logs (
