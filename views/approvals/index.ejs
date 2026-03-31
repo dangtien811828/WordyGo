@@ -1,0 +1,91 @@
+<div class="page-header">
+  <h1>Yêu cầu chờ duyệt</h1>
+  <p>Danh sách các thao tác cần phê duyệt từ editor/moderator</p>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h2>Đang chờ (<%= requests.length %>)</h2>
+  </div>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Người yêu cầu</th>
+          <th>Thao tác</th>
+          <th>Module</th>
+          <th>Đối tượng</th>
+          <th>Payload</th>
+          <th>Thời gian</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (requests && requests.length > 0) { %>
+          <% requests.forEach(function(r) { %>
+            <tr>
+              <td>
+                <div class="user-cell">
+                  <div class="avatar-sm"><%= r.requester_name.charAt(0).toUpperCase() %></div>
+                  <div>
+                    <div><%= r.requester_name %></div>
+                    <div style="font-size:12px;color:var(--text-secondary)"><%= r.requester_email %></div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <span class="badge badge-<%= r.action === 'delete' ? 'danger' : r.action === 'create' ? 'success' : 'warning' %>">
+                  <%= r.action %>
+                </span>
+              </td>
+              <td><%= r.module %></td>
+              <td>
+                <% if (r.target_type) { %>
+                  <span style="font-size:12px"><%= r.target_type %></span>
+                  <% if (r.target_id) { %>
+                    <br><code style="font-size:11px;color:var(--text-secondary)"><%= r.target_id.toString().substring(0, 8) %>…</code>
+                  <% } %>
+                <% } else { %>
+                  <span style="color:var(--text-light)">—</span>
+                <% } %>
+              </td>
+              <td>
+                <details>
+                  <summary class="btn btn-sm btn-secondary" style="cursor:pointer;list-style:none">Xem payload</summary>
+                  <pre style="font-size:11px;max-width:300px;overflow:auto;padding:8px;background:var(--bg);border-radius:var(--radius);margin-top:4px"><%= JSON.stringify(r.payload, null, 2) %></pre>
+                </details>
+              </td>
+              <td style="font-size:12px;color:var(--text-secondary)">
+                <%= new Date(r.created_at).toLocaleString('vi-VN') %>
+              </td>
+              <td>
+                <div style="display:flex;gap:6px;flex-wrap:wrap">
+                  <form action="/approvals/<%= r.id %>/approve" method="POST" style="margin:0">
+                    <button type="submit" class="btn btn-sm btn-primary">Duyệt</button>
+                  </form>
+                  <details>
+                    <summary class="btn btn-sm btn-danger" style="list-style:none;cursor:pointer">Từ chối</summary>
+                    <form action="/approvals/<%= r.id %>/reject" method="POST"
+                          style="margin-top:6px;display:flex;flex-direction:column;gap:6px;min-width:220px">
+                      <div class="form-group" style="margin:0">
+                        <label>Lý do từ chối (tuỳ chọn)</label>
+                        <textarea name="reviewer_note" rows="2" placeholder="Nhập lý do..."></textarea>
+                      </div>
+                      <button type="submit" class="btn btn-sm btn-danger">Xác nhận từ chối</button>
+                    </form>
+                  </details>
+                </div>
+              </td>
+            </tr>
+          <% }) %>
+        <% } else { %>
+          <tr>
+            <td colspan="7" class="text-center" style="padding:40px;color:var(--text-secondary)">
+              Không có yêu cầu nào đang chờ duyệt
+            </td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</div>

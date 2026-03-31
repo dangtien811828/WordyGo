@@ -43,6 +43,15 @@
 
     <% if (admin && admin.role === 'super_admin') { %>
       <div class="nav-divider"></div>
+      <a href="/approvals" class="nav-item <%= typeof active !== 'undefined' && active === 'approvals' ? 'active' : '' %>">
+        <span class="nav-icon">📋</span>
+        <span class="nav-label">
+          Chờ duyệt
+          <% if (pendingApprovals > 0) { %>
+            <span class="badge badge-danger" style="margin-left:6px"><%= pendingApprovals %></span>
+          <% } %>
+        </span>
+      </a>
       <a href="#" class="nav-item <%= typeof active !== 'undefined' && active === 'settings' ? 'active' : '' %>">
         <span class="nav-icon">⚙️</span>
         <span class="nav-label">Cấu hình</span>

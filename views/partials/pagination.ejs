@@ -1,0 +1,57 @@
+<%
+function buildQuery(overrides) {
+  var merged = Object.assign({}, currentQuery, overrides);
+  return Object.keys(merged)
+    .filter(function(k) { return merged[k] !== '' && merged[k] != null; })
+    .map(function(k) { return encodeURIComponent(k) + '=' + encodeURIComponent(merged[k]); })
+    .join('&');
+}
+
+var start = (pagination.page - 1) * pagination.limit + 1;
+var end   = Math.min(pagination.page * pagination.limit, pagination.total);
+%>
+
+<% if (pagination.total > 0) { %>
+<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-top:1px solid var(--border)">
+  <span style="font-size:13px;color:var(--text-secondary)">
+    Hiển thị <strong><%= start %>–<%= end %></strong> / <strong><%= pagination.total %></strong> kết quả
+  </span>
+  <div style="display:flex;gap:4px;align-items:center;flex-wrap:wrap">
+    <% if (pagination.page > 1) { %>
+      <a href="?<%= buildQuery({ page: pagination.page - 1 }) %>" class="btn btn-sm btn-secondary">‹ Trước</a>
+    <% } else { %>
+      <button class="btn btn-sm btn-secondary" disabled>‹ Trước</button>
+    <% } %>
+
+    <%
+      var delta      = 2;
+      var rangeStart = Math.max(1, pagination.page - delta);
+      var rangeEnd   = Math.min(pagination.totalPages, pagination.page + delta);
+    %>
+
+    <% if (rangeStart > 1) { %>
+      <a href="?<%= buildQuery({ page: 1 }) %>" class="btn btn-sm btn-secondary">1</a>
+      <% if (rangeStart > 2) { %><span style="padding:0 4px;color:var(--text-light)">…</span><% } %>
+    <% } %>
+
+    <% for (var p = rangeStart; p <= rangeEnd; p++) { %>
+      <% if (p === pagination.page) { %>
+        <button class="btn btn-sm btn-primary" disabled><%= p %></button>
+      <% } else { %>
+        <a href="?<%= buildQuery({ page: p }) %>" class="btn btn-sm btn-secondary"><%= p %></a>
+      <% } %>
+    <% } %>
+
+    <% if (rangeEnd < pagination.totalPages) { %>
+      <% if (rangeEnd < pagination.totalPages - 1) { %><span style="padding:0 4px;color:var(--text-light)">…</span><% } %>
+      <a href="?<%= buildQuery({ page: pagination.totalPages }) %>" class="btn btn-sm btn-secondary"><%= pagination.totalPages %></a>
+    <% } %>
+
+    <% if (pagination.page < pagination.totalPages) { %>
+      <a href="?<%= buildQuery({ page: pagination.page + 1 }) %>" class="btn btn-sm btn-secondary">Tiếp ›</a>
+    <% } else { %>
+      <button class="btn btn-sm btn-secondary" disabled>Tiếp ›</button>
+    <% } %>
+  </div>
+</div>
+<% } %>

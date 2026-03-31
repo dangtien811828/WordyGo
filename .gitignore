@@ -1,5 +1,7 @@
 node_modules/
+CLAUDE.md
 .env
 *.log
 .DS_Store
 .gitignore
+/public/uploads/

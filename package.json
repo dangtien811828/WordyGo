@@ -12,14 +12,16 @@
     "db:fresh": "node database/reset.js && node database/seed.js"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.80.0",
     "bcryptjs": "^2.4.3",
     "connect-flash": "^0.1.1",
-    "dotenv": "^16.4.7",
+    "dotenv": "^16.6.1",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
     "express-ejs-layouts": "^2.5.1",
     "express-session": "^1.18.1",
     "express-validator": "^7.2.1",
+    "multer": "^2.1.1",
     "pg": "^8.20.0",
     "uuid": "^13.0.0"
   },

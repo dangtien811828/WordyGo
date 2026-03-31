@@ -41,8 +41,9 @@ app.use(flash());
 app.use(injectAdmin);
 
 // ── Routes ──
-app.use('/auth', require('./routes/auth'));
+app.use('/auth',      require('./routes/auth'));
 app.use('/dashboard', require('./routes/dashboard'));
+app.use('/approvals', require('./routes/approvals'));
 
 // Root redirect
 app.get('/', (req, res) => {

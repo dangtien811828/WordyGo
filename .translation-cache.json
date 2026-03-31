@@ -1,0 +1,1122 @@
+{
+  "eleven": {
+    "meaning_vi": "11",
+    "example_vi": "Chỉ còn lại mười một con vật hiếm này."
+  },
+  "fifteen": {
+    "meaning_vi": "15",
+    "example_vi": "Anh ấy nằm trong danh sách mười lăm người."
+  },
+  "fifty": {
+    "meaning_vi": "50",
+    "example_vi": "Cô ấy được sinh ra vào những năm năm mươi."
+  },
+  "five": {
+    "meaning_vi": "5",
+    "example_vi": "Chỉ còn lại năm cái bánh quy."
+  },
+  "hundred": {
+    "meaning_vi": "100",
+    "example_vi": "Một trăm (trẻ em) đã được sắp xếp với các gia đình nuôi dưỡng."
+  },
+  "million": {
+    "meaning_vi": "1 000 000",
+    "example_vi": "dân số nửa triệu người"
+  },
+  "nine": {
+    "meaning_vi": "9",
+    "example_vi": "Chỉ còn lại chín con vật hiếm này."
+  },
+  "ninety": {
+    "meaning_vi": "90",
+    "example_vi": "Nhiệt độ hôm nay chắc chắn trong khoảng chín mươi độ."
+  },
+  "seven": {
+    "meaning_vi": "7",
+    "example_vi": "Còn lại bảy cái bánh quy."
+  },
+  "six": {
+    "meaning_vi": "6",
+    "example_vi": "Còn lại sáu cái bánh quy."
+  },
+  "swim": {
+    "meaning_vi": "khoảng thời gian bơi lội",
+    "example_vi": "Chúng ta cùng đi bơi thôi."
+  },
+  "swimming": {
+    "meaning_vi": "môn thể thao hoặc hoạt động bơi lội",
+    "example_vi": "Bơi lội là một hình thức tập luyện tốt."
+  },
+  "t-shirt": {
+    "meaning_vi": "áo thun không chính thức, thường có tay áo ngắn, không cổ hoặc không có nút, hoặc chỉ có một vài nút ở phía trên",
+    "example_vi": "Anh ấy mặc một chiếc quần jean xanh cũ phai và một chiếc áo thun cũ."
+  },
+  "table": {
+    "meaning_vi": "đồ nội thất gồm mặt phẳng được hỗ trợ bởi các chân",
+    "example_vi": "Chúng tôi ngồi ở một chiếc bàn tròn ở góc."
+  },
+  "take": {
+    "meaning_vi": "mang hoặc di chuyển cái gì từ nơi này sang nơi khác",
+    "example_vi": "Hãy nhớ mang theo áo khoác khi bạn rời đi."
+  },
+  "talk": {
+    "meaning_vi": "bài phát biểu hoặc bài giảng về một chủ đề cụ thể",
+    "example_vi": "Tôi đã tham dự một số bài thuyết trình thú vị tại hội nghị."
+  },
+  "tall": {
+    "meaning_vi": "có chiều cao lớn hơn mức trung bình",
+    "example_vi": "Cô ấy cao và gầy."
+  },
+  "taxi": {
+    "meaning_vi": "ô tô có tài xế mà bạn trả tiền để đưa bạn đến một nơi nào đó. Taxi thường có công tơ mét hiển thị số tiền bạn phải trả.",
+    "example_vi": "Chúng tôi đã bắt một chiếc taxi đến sân bay."
+  },
+  "tea": {
+    "meaning_vi": "lá chè khô (gọi là lá trà) của cây chè",
+    "example_vi": "một gói trà"
+  },
+  "teach": {
+    "meaning_vi": "giảng dạy cho học sinh tại trường, cao đẳng, đại học, v.v.; giúp ai đó học cái gì bằng cách cung cấp thông tin về nó",
+    "example_vi": "Cô ấy dạy tại trường địa phương của chúng tôi."
+  },
+  "teacher": {
+    "meaning_vi": "người có nghề dạy học, đặc biệt là ở trường",
+    "example_vi": "giáo viên tiếng Anh/khoa học"
+  },
+  "team": {
+    "meaning_vi": "nhóm người chơi một môn thể thao hoặc trò chơi nào đó với nhóm khác",
+    "example_vi": "đội bóng đá/bóng rổ/bóng đá"
+  },
+  "teenager": {
+    "meaning_vi": "người có độ tuổi từ 13 đến 19 tuổi",
+    "example_vi": "tạp chí hướng đến thanh thiếu niên"
+  },
+  "telephone": {
+    "meaning_vi": "hệ thống để trò chuyện với ai đó ở xa bằng dây điện hoặc sóng vô tuyến; máy móc dùng để làm việc này",
+    "example_vi": "Chuông điện thoại reo và Pat trả lời."
+  },
+  "television": {
+    "meaning_vi": "thiết bị điện tử có màn hình để xem các chương trình có hình động và âm thanh",
+    "example_vi": "tivi màn hình rộng/phẳng/plasma"
+  },
+  "tell": {
+    "meaning_vi": "cung cấp thông tin cho ai đó bằng cách nói hoặc viết",
+    "example_vi": "Anh ấy đã kể tin tức cho mọi người mà anh gặp."
+  },
+  "ten": {
+    "meaning_vi": "số 10",
+    "example_vi": "Chỉ còn mười loài động vật hiếm này."
+  },
+  "tennis": {
+    "meaning_vi": "trò chơi trong đó hai hoặc bốn người dùng vợt đánh một quả bóng qua lại nhau qua một lưới trên sân có vạch đặc biệt",
+    "example_vi": "chơi quần vợt"
+  },
+  "terrible": {
+    "meaning_vi": "rất khó chịu; khiến bạn cảm thấy rất bất hạnh, buồn phiền hoặc sợ hãi",
+    "example_vi": "một trải nghiệm khủng khiếp"
+  },
+  "test": {
+    "meaning_vi": "bài kiểm tra kiến thức hoặc khả năng của ai đó, bao gồm các câu hỏi cần trả lời hoặc hoạt động cần thực hiện",
+    "example_vi": "kiểm tra chỉ số thông minh/thể lực"
+  },
+  "than": {
+    "meaning_vi": "dùng để giới thiệu phần thứ hai của so sánh",
+    "example_vi": "Tôi lớn tuổi hơn cô ấy."
+  },
+  "thank": {
+    "meaning_vi": "bảo ai đó rằng bạn biết ơn họ về cái gì",
+    "example_vi": "Tôi phải viết thư cảm ơn Mary về món quà."
+  },
+  "thanks": {
+    "meaning_vi": "dùng để bảo lộ rằng bạn biết ơn ai đó vì điều gì họ đã làm",
+    "example_vi": "'Cảm ơn' (cảm ơn vì đã hỏi)."
+  },
+  "that": {
+    "meaning_vi": "ở mức độ như vậy; vậy",
+    "example_vi": "Tôi không thể đi xa như vậy."
+  },
+  "the": {
+    "meaning_vi": "dùng để chỉ người/vật đã được đề cập hoặc dễ hiểu",
+    "example_vi": "Có ba câu hỏi. Hai câu đầu tiên tương đối dễ nhưng câu thứ ba khó."
+  },
+  "theatre": {
+    "meaning_vi": "tòa nhà hoặc khu vực ngoài trời nơi diễn ra các vở kịch và các loại giải trí tương tự",
+    "example_vi": "các nhà hát trên Broadway"
+  },
+  "their": {
+    "meaning_vi": "của hoặc thuộc về người, động vật hoặc vật thể đã được đề cập hoặc dễ nhận dạng",
+    "example_vi": "Những bữa tiệc của họ luôn vui vẻ."
+  },
+  "them": {
+    "meaning_vi": "dùng khi chỉ người, động vật hoặc vật thể làm tân ngữ của động từ hoặc giới từ, hoặc sau động từ là",
+    "example_vi": "Kể tin tức cho họ."
+  },
+  "then": {
+    "meaning_vi": "dùng để chỉ một thời điểm nhất định trong quá khứ hoặc tương lai",
+    "example_vi": "Cuộc sống khó khăn hơn lúc đó vì cả hai chúng tôi đều không có việc."
+  },
+  "there": {
+    "meaning_vi": "dùng để chỉ rằng cái gì đó tồn tại hoặc xảy ra",
+    "example_vi": "Có một nhà hàng quanh góc."
+  },
+  "they": {
+    "meaning_vi": "những người, động vật hoặc vật thể đã được đề cập trước đó hoặc dễ dàng nhận biết",
+    "example_vi": "'John và Liz ở đâu?' 'Họ đi dạo.'"
+  },
+  "thing": {
+    "meaning_vi": "một vật có tên mà bạn không dùng vì không cần thiết hoặc không muốn, hoặc vì không biết tên nó",
+    "example_vi": "Bạn có thể lấy cái đó cho tôi được không?"
+  },
+  "think": {
+    "meaning_vi": "có một ý kiến hoặc quan điểm riêng về điều gì/ai; tin rằng điều gì đó",
+    "example_vi": "Bạn thực sự nghĩ (rằng) anh ấy sẽ thắng không?"
+  },
+  "third": {
+    "meaning_vi": "mỗi phần bằng nhau khi chia một cái gì đó thành ba phần",
+    "example_vi": "Anh ấy chia số tiền đó thành ba phần bằng nhau."
+  },
+  "thirsty": {
+    "meaning_vi": "cần hoặc muốn uống nước",
+    "example_vi": "Chúng tôi vừa đói vừa khát."
+  },
+  "this": {
+    "meaning_vi": "đến mức độ này; như vậy",
+    "example_vi": "Nó cao khoảng vậy (= cao bằng cách tôi chỉ bằng tay)."
+  },
+  "thousand": {
+    "meaning_vi": "1 000",
+    "example_vi": "Có hàng nghìn người ở đó."
+  },
+  "three": {
+    "meaning_vi": "3",
+    "example_vi": "Chỉ còn lại ba cái bánh quy."
+  },
+  "through": {
+    "meaning_vi": "từ một đầu hay một bên của cái gì đó sang đầu hay bên kia",
+    "example_vi": "Đổ cà phê vào bộ lọc và để nước chảy xuyên qua."
+  },
+  "thursday": {
+    "meaning_vi": "ngày trong tuần sau thứ tư và trước thứ năm",
+    "example_vi": "Hôm nay là thứ năm, phải không?"
+  },
+  "ticket": {
+    "meaning_vi": "một tờ giấy in hoặc tin nhắn/hình ảnh nhận được trên điện thoại hay máy tính cho phép bạn đi lên một phương tiện giao thông nhất định hoặc vào một địa điểm nhất định",
+    "example_vi": "vé máy bay/xe buýt/tàu lửa"
+  },
+  "tired": {
+    "meaning_vi": "cảm thấy muốn ngủ hoặc nghỉ ngơi; cần được nghỉ",
+    "example_vi": "mệt/trông mệt/cảm thấy mệt"
+  },
+  "to": {
+    "meaning_vi": "dùng để chỉ mục đích hoặc ý định",
+    "example_vi": "Tôi bắt đầu ra để mua thực phẩm."
+  },
+  "today": {
+    "meaning_vi": "vào ngày hôm nay",
+    "example_vi": "Tôi có bài học piano vào chiều nay."
+  },
+  "together": {
+    "meaning_vi": "cùng với hoặc gần ai/cái gì; cùng với nhau",
+    "example_vi": "Chúng tôi lớn lên cùng nhau."
+  },
+  "toilet": {
+    "meaning_vi": "một chậu lớn gắn với ống nước mà bạn ngồi hoặc đứng trên đó để thoát các chất thải từ cơ thể",
+    "example_vi": "Bạn có xả nước bồn cầu chưa?"
+  },
+  "tomato": {
+    "meaning_vi": "một loại quả mềm có nhiều nước và da bóng màu đỏ được ăn như rau hoặc sống hoặc nấu chín",
+    "example_vi": "bánh mì cà chua với thịt ba rơi và cà chua"
+  },
+  "tomorrow": {
+    "meaning_vi": "vào hoặc trong ngày sau ngày hôm nay",
+    "example_vi": "Tôi đi bây giờ. Hẹn gặp lại ngày mai."
+  },
+  "tonight": {
+    "meaning_vi": "vào hoặc trong buổi tối hoặc đêm của ngày hôm nay",
+    "example_vi": "Bạn có dùng bữa tối với tôi tối nay không?"
+  },
+  "too": {
+    "meaning_vi": "dùng trước tính từ và trạng từ để nói rằng điều gì đó vượt quá mức tốt, cần thiết, có thể được, v.v.",
+    "example_vi": "Anh ấy quá trẻ để đi một mình."
+  },
+  "tooth": {
+    "meaning_vi": "bất kỳ cấu trúc cứng, trắng nào trong miệng dùng để cắn thức ăn",
+    "example_vi": "Tôi vừa nhổ một cái răng ở nha sĩ."
+  },
+  "topic": {
+    "meaning_vi": "chủ đề mà bạn nói chuyện, viết hoặc học tập",
+    "example_vi": "Chủ đề chính của cuộc trò chuyện là bạn gái mới của Tom."
+  },
+  "tourist": {
+    "meaning_vi": "người du lịch hoặc đi thăm một địa điểm vì lý do giải trí",
+    "example_vi": "hàng loạt xe buýt chở du khách nước ngoài"
+  },
+  "town": {
+    "meaning_vi": "nơi có nhiều nhà cửa, cửa hàng, v.v. nơi mọi người sống và làm việc; lớn hơn làng nhưng nhỏ hơn thành phố",
+    "example_vi": "Thị trấn gần nhất cách đây mười dặm."
+  },
+  "traffic": {
+    "meaning_vi": "các phương tiện giao thông trên đường vào một thời điểm cụ thể",
+    "example_vi": "Lúc này hôm nay luôn có nhiều xe cộ."
+  },
+  "travel": {
+    "meaning_vi": "hành động hoặc hoạt động đi lại",
+    "example_vi": "du lịch hàng không/đường sắt/vũ trụ"
+  },
+  "tree": {
+    "meaning_vi": "cây cao có thể sống lâu; có thân gỗ trung tâm dày từ đó mọc các nhánh, thường có lá",
+    "example_vi": "cây sồi/cây ô liu/cây táo"
+  },
+  "trousers": {
+    "meaning_vi": "quần áo che phủ phần dưới cơ thể, chia thành hai phần để che mỗi chân riêng biệt",
+    "example_vi": "một chiếc quần xám"
+  },
+  "true": {
+    "meaning_vi": "liên quan đến sự thật chứ không phải những điều được bịa đặt hoặc đoán",
+    "example_vi": "Cho biết các phát biểu sau đây đúng hay sai."
+  },
+  "try": {
+    "meaning_vi": "lần cố gắng làm điều gì đó",
+    "example_vi": "Tôi nghi ngờ họ có thể giúp được nhưng cũng đáng thử."
+  },
+  "tuesday": {
+    "meaning_vi": "ngày trong tuần sau thứ Hai và trước thứ Tư",
+    "example_vi": "Hôm nay là thứ Ba phải không?"
+  },
+  "turn": {
+    "meaning_vi": "thời điểm khi ai đó trong một nhóm người nên hoặc được phép làm điều gì đó",
+    "example_vi": "Đến lượt bạn, hãy lấy một quân bài khác."
+  },
+  "tv": {
+    "meaning_vi": "truyền hình",
+    "example_vi": "Chúng tôi dành buổi tối để xem tivi."
+  },
+  "twelve": {
+    "meaning_vi": "mười hai",
+    "example_vi": "Chỉ còn lại mười hai con vật hiếm này."
+  },
+  "twice": {
+    "meaning_vi": "hai lần; trong hai dịp",
+    "example_vi": "Tôi không biết anh ấy lắm; tôi chỉ gặp anh ấy hai lần."
+  },
+  "two": {
+    "meaning_vi": "hai",
+    "example_vi": "Chỉ còn lại hai cái bánh quy."
+  },
+  "umbrella": {
+    "meaning_vi": "vật có khung gập được làm từ các thanh kim loại dài, thẳng được phủ bằng vải, dùng để bảo vệ khỏi mưa hoặc nắng nóng",
+    "example_vi": "mang/cầm một chiếc ô"
+  },
+  "uncle": {
+    "meaning_vi": "anh em trai của bố hoặc mẹ bạn; chồng của dì hoặc chú bạn",
+    "example_vi": "Chú Ian"
+  },
+  "under": {
+    "meaning_vi": "ở phía dưới cái gì đó",
+    "example_vi": "Anh ấy kéo chăn lên và lần dưới."
+  },
+  "understand": {
+    "meaning_vi": "biết hoặc nhận ra ý nghĩa của từ, ngôn ngữ, điều ai đó nói, v.v.",
+    "example_vi": "Bạn có thể hiểu tiếng Pháp không?"
+  },
+  "university": {
+    "meaning_vi": "một cơ sở giáo dục ở cấp độ cao nhất nơi bạn có thể học lấy bằng cấp hoặc tiến hành nghiên cứu",
+    "example_vi": "Có trường đại học nào trong thị trấn này không?"
+  },
+  "until": {
+    "meaning_vi": "cho đến thời điểm hoặc sự kiện được đề cập",
+    "example_vi": "Hãy chờ cho đến khi mưa dừng."
+  },
+  "up": {
+    "meaning_vi": "hướng lên trên hoặc ở vị trí cao hơn",
+    "example_vi": "Anh ta nhảy dựng người từ ghế."
+  },
+  "upstairs": {
+    "meaning_vi": "ở tầng của một ngôi nhà hoặc tòa nhà khác cao hơn tầng mà bạn đang ở",
+    "example_vi": "một phòng/cửa sổ/phòng tắm ở tầng trên"
+  },
+  "us": {
+    "meaning_vi": "được dùng khi người nói hoặc viết và người hoặc những người khác là tân ngữ của động từ hoặc giới từ, hoặc sau động từ be",
+    "example_vi": "Cô ấy tặng cho chúng tôi một bức tranh làm quà cưới."
+  },
+  "use": {
+    "meaning_vi": "hành động sử dụng cái gì đó; trạng thái được sử dụng",
+    "example_vi": "Một lệnh cấm được áp dụng đối với việc sử dụng vũ khí hóa học."
+  },
+  "useful": {
+    "meaning_vi": "có thể giúp bạn làm được hoặc đạt được điều bạn muốn",
+    "example_vi": "một công cụ hữu ích"
+  },
+  "usually": {
+    "meaning_vi": "theo cách thường lệ hoặc bình thường; thường xuyên nhất",
+    "example_vi": "Chuyến đi thường mất bao lâu?"
+  },
+  "vacation": {
+    "meaning_vi": "một khoảng thời gian dành để đi du lịch hoặc nghỉ ngơi ở nơi khác xa nhà",
+    "example_vi": "đang đi nghỉ, Họ đang đi nghỉ ở Hawaii lúc này."
+  },
+  "vegetable": {
+    "meaning_vi": "một cây hoặc bộ phận của cây được dùng làm thực phẩm. Khoai tây, đậu và hành tây đều là rau.",
+    "example_vi": "Những đứa trẻ không ăn đủ rau tươi."
+  },
+  "very": {
+    "meaning_vi": "được dùng để nhấn mạnh rằng bạn đang nói về một điều hoặc người cụ thể và không phải là điều hoặc người khác",
+    "example_vi": "Anh ta có thể đang gọi điện cho cô ấy vào chính lúc này."
+  },
+  "video": {
+    "meaning_vi": "một hệ thống ghi lại hình ảnh chuyển động và âm thanh, sử dụng phương pháp lưu trữ dữ liệu kỹ thuật số hoặc (trước đây) sử dụng băng video",
+    "example_vi": "Một đám cưới là đối tượng hoàn hảo cho video."
+  },
+  "village": {
+    "meaning_vi": "một thị trấn rất nhỏ nằm ở vùng nông thôn",
+    "example_vi": "Chúng tôi đã thăm các thị trấn và làng xóm khắp Tây Ban Nha."
+  },
+  "visit": {
+    "meaning_vi": "một dịp hoặc khoảng thời gian khi ai đó đến thăm một nơi hoặc người nào đó và dành thời gian ở đó",
+    "example_vi": "một chuyến thăm kéo dài hai ngày/ba ngày"
+  },
+  "visitor": {
+    "meaning_vi": "một người đến thăm một người hoặc nơi nào đó",
+    "example_vi": "Chúng tôi có khách đến vào cuối tuần này."
+  },
+  "wait": {
+    "meaning_vi": "hành động chờ đợi; khoảng thời gian đã chờ",
+    "example_vi": "Thời gian chờ đợi dường như không bao giờ kết thúc."
+  },
+  "waiter": {
+    "meaning_vi": "một người đàn ông có công việc phục vụ khách hàng tại bàn của họ trong nhà hàng, v.v.",
+    "example_vi": "Tôi sẽ hỏi bồi bàn về hóa đơn."
+  },
+  "wake": {
+    "meaning_vi": "dừng ngủ; làm cho ai đó dừng ngủ",
+    "example_vi": "Tôi luôn thức dậy sớm vào mùa hè."
+  },
+  "walk": {
+    "meaning_vi": "một chuyến đi bộ, thường là vì thích hoặc tập thể dục",
+    "example_vi": "Hãy đi dạo."
+  },
+  "wall": {
+    "meaning_vi": "một cấu trúc dài, chắc chắn tăng thẳng lên từ mặt đất, được xây dựng từ đá, gạch hoặc bê tông, bao quanh, chia hoặc bảo vệ một diện tích đất",
+    "example_vi": "xây dựng một bức tường"
+  },
+  "want": {
+    "meaning_vi": "muốn có điều gì hoặc có mong muốn với ai/cái gì",
+    "example_vi": "Bạn muốn thêm trà không?"
+  },
+  "wash": {
+    "meaning_vi": "hành động làm sạch ai/cái gì bằng nước và thường là xà phòng",
+    "example_vi": "Những chiếc khăn này đã sẵn sàng để giặt."
+  },
+  "watch": {
+    "meaning_vi": "một loại đồng hồ nhỏ mà bạn đeo trên cổ tay hoặc (trước đây) mang trong túi",
+    "example_vi": "Cô ấy liên tục nhìn đồng hồ đeo tay của mình một cách lo lắng."
+  },
+  "way": {
+    "meaning_vi": "rất xa; vượt quá số lượng lớn",
+    "example_vi": "Cô ấy về đích ở phía trước những vận động viên khác rất xa."
+  },
+  "we": {
+    "meaning_vi": "tôi và những người khác; tôi và bạn",
+    "example_vi": "Chúng tôi đã chuyển đến Atlanta."
+  },
+  "wear": {
+    "meaning_vi": "mặc một cái gì đó trên người như quần áo, trang sức, v.v.",
+    "example_vi": "Anh ấy đang mặc một bộ trang phục mới."
+  },
+  "weather": {
+    "meaning_vi": "tình trạng của bầu không khí tại một nơi và thời điểm cụ thể, chẳng hạn như nhiệt độ, gió, mưa, nắng, v.v.",
+    "example_vi": "thời tiết lạnh/nóng/ấm áp/ẩm/khô"
+  },
+  "website": {
+    "meaning_vi": "một tập hợp các trang trên Internet, nơi một công ty, một tổ chức hoặc một cá nhân đưa thông tin",
+    "example_vi": "Để biết giá hiện tại, vui lòng truy cập trang web của chúng tôi."
+  },
+  "wednesday": {
+    "meaning_vi": "ngày trong tuần sau Thứ Ba và trước Thứ Năm",
+    "example_vi": "Hôm nay là thứ Tư, phải không?"
+  },
+  "week": {
+    "meaning_vi": "một khoảng thời gian bảy ngày, từ Thứ Hai đến Chủ Nhật hoặc từ Chủ Nhật đến Thứ Bảy",
+    "example_vi": "tuần trước/tuần này/tuần tới"
+  },
+  "weekend": {
+    "meaning_vi": "Thứ Bảy và Chủ Nhật",
+    "example_vi": "cuối tuần này/cuối tuần tới/cuối tuần trước"
+  },
+  "welcome": {
+    "meaning_vi": "được chấp nhận hoặc được chào đón ở một nơi nào đó",
+    "example_vi": "Vậy thì tôi đi, tôi hiểu rằng tôi không được chào đón ở đây."
+  },
+  "west": {
+    "meaning_vi": "ở hướng tây hoặc về phía hướng tây",
+    "example_vi": "Tây Phi"
+  },
+  "what": {
+    "meaning_vi": "được sử dụng trong câu hỏi để yêu cầu thông tin cụ thể về ai hoặc cái gì",
+    "example_vi": "Tên của bạn là gì?"
+  },
+  "when": {
+    "meaning_vi": "vào lúc nào; vào dịp nào",
+    "example_vi": "Khi nào bạn gặp anh ấy lần cuối?"
+  },
+  "where": {
+    "meaning_vi": "ở nơi nào hoặc đến nơi nào; ở tình huống nào",
+    "example_vi": "Bạn sống ở đâu?"
+  },
+  "which": {
+    "meaning_vi": "được sử dụng trong câu hỏi để yêu cầu người nói xác định chính xác một hoặc nhiều người hoặc vật từ một số lượng hạn chế",
+    "example_vi": "Cái nào là bài tập tốt hơn—bơi hay quần vợt?"
+  },
+  "white": {
+    "meaning_vi": "có màu sắc của tuyết tươi hoặc sữa",
+    "example_vi": "một chiếc áo sơ mi trắng sạch sẽ"
+  },
+  "who": {
+    "meaning_vi": "được sử dụng trong câu hỏi để hỏi về tên, danh tính hoặc chức năng của một hoặc nhiều người",
+    "example_vi": "Người phụ nữ đó là ai?"
+  },
+  "why": {
+    "meaning_vi": "được sử dụng trong câu hỏi để hỏi lý do hoặc mục đích của một cái gì",
+    "example_vi": "Tại sao bạn đến muộn?"
+  },
+  "wife": {
+    "meaning_vi": "người phụ nữ mà ai đó đã kết hôn; một phụ nữ đã có chồng",
+    "example_vi": "Tôi gặp vợ tôi ở đại học."
+  },
+  "will": {
+    "meaning_vi": "khả năng kiểm soát suy nghĩ và hành động của mình để đạt được điều mình muốn; một mong muốn mạnh mẽ và kiên quyết để làm điều gì đó",
+    "example_vi": "có ý chí mạnh mẽ"
+  },
+  "win": {
+    "meaning_vi": "chiến thắng trong một trò chơi, cuộc thi, v.v.",
+    "example_vi": "hai chiến thắng và ba thất bại"
+  },
+  "window": {
+    "meaning_vi": "khoảng mở trong tường hoặc mái của một tòa nhà, xe ô tô, v.v., thường được che phủ bằng kính, cho phép ánh sáng và không khí đi vào và mọi người nhìn ra ngoài; kính trong cửa sổ",
+    "example_vi": "Cô ấy nhìn ra ngoài cửa sổ."
+  },
+  "wine": {
+    "meaning_vi": "một loại đồ uống có cồn được làm từ nước ép nho đã lên men. Có nhiều loại rượu khác nhau.",
+    "example_vi": "rượu lấp lánh"
+  },
+  "winter": {
+    "meaning_vi": "mùa lạnh nhất trong năm, giữa mùa thu và mùa xuân",
+    "example_vi": "một mùa đông lạnh/ôn hòa/khắc nghiệt"
+  },
+  "with": {
+    "meaning_vi": "cùng với sự có mặt của ai/cái gì đó",
+    "example_vi": "Cô ấy sống với bố mẹ cô ấy."
+  },
+  "without": {
+    "meaning_vi": "không có, không trải qua hoặc không thể hiện cái gì đó",
+    "example_vi": "Họ đã sống hai ngày không có thức ăn."
+  },
+  "woman": {
+    "meaning_vi": "một con người nữ trưởng thành",
+    "example_vi": "một phụ nữ 54 tuổi"
+  },
+  "wonderful": {
+    "meaning_vi": "rất tốt, dễ chịu hoặc vui vẻ",
+    "example_vi": "Đây là một cơ hội tuyệt vời để đầu tư vào các thị trường mới."
+  },
+  "word": {
+    "meaning_vi": "một đơn vị ngôn ngữ duy nhất có ý nghĩa và có thể được nói hoặc viết",
+    "example_vi": "Đừng viết quá 200 từ."
+  },
+  "work": {
+    "meaning_vi": "công việc mà một người làm, đặc biệt là để kiếm tiền",
+    "example_vi": "Anh ấy bắt đầu làm việc như một nhân viên bảo vệ."
+  },
+  "worker": {
+    "meaning_vi": "một người làm việc, đặc biệt là người làm một loại công việc cụ thể",
+    "example_vi": "công nhân nông trại/nhà máy/văn phòng"
+  },
+  "world": {
+    "meaning_vi": "trái đất, với tất cả các quốc gia, người dân và đặc điểm tự nhiên của nó",
+    "example_vi": "một bản đồ của thế giới"
+  },
+  "would": {
+    "meaning_vi": "dùng trong những lời mời hoặc đề nghị lịch sự",
+    "example_vi": "Bạn có muốn ăn bánh sandwich không?"
+  },
+  "write": {
+    "meaning_vi": "tạo ra các chữ cái hoặc chữ số trên một bề mặt, đặc biệt là bằng cách sử dụng bút hoặc bút chì",
+    "example_vi": "Ở một số quốc gia, trẻ em không bắt đầu học đọc và viết cho đến khi chúng sáu tuổi."
+  },
+  "writer": {
+    "meaning_vi": "một người có công việc là viết sách, truyện, bài báo, v.v.",
+    "example_vi": "Tác giả yêu thích của bạn là ai?"
+  },
+  "writing": {
+    "meaning_vi": "hoạt động viết, trái ngược với đọc, nói, v.v.",
+    "example_vi": "Con trai chúng tôi đang gặp vấn đề với kỹ năng đọc và viết của anh ấy (ở trường)"
+  },
+  "year": {
+    "meaning_vi": "khoảng thời gian từ ngày 1 tháng 1 đến ngày 31 tháng 12, kéo dài 365 hoặc 366 ngày, chia thành 12 tháng",
+    "example_vi": "Các cuộc bầu cử diễn ra hàng năm."
+  },
+  "yellow": {
+    "meaning_vi": "có màu của chanh hoặc bơ",
+    "example_vi": "những bông hoa màu vàng nhạt"
+  },
+  "yes": {
+    "meaning_vi": "được dùng để trả lời một câu hỏi và xác nhận rằng điều gì đó là đúng hoặc có thật",
+    "example_vi": "'Đây là xe của bạn sao?' 'Vâng, đúng rồi.'"
+  },
+  "yesterday": {
+    "meaning_vi": "vào ngày trước hôm nay",
+    "example_vi": "Một phát ngôn viên của công ty nói hôm qua rằng chưa có quyết định cuối cùng nào."
+  },
+  "you": {
+    "meaning_vi": "được dùng làm chủ ngữ hoặc tân ngữ của động từ hoặc sau giới từ để chỉ người hoặc những người đang được nói hoặc viết đến",
+    "example_vi": "Bạn nói rằng bạn biết con đường."
+  },
+  "your": {
+    "meaning_vi": "thuộc về hoặc là của người hoặc những người đang được nói hoặc viết đến",
+    "example_vi": "Tôi thích chiếc váy của bạn."
+  },
+  "yourself": {
+    "meaning_vi": "được dùng khi người hoặc những người đang được nói đến vừa gây ra hành động vừa chịu tác động của hành động đó",
+    "example_vi": "Bạn có tự làm mình bị thương không?"
+  },
+  "ability": {
+    "meaning_vi": "tính chất hoặc sự kiện cho phép ai/cái gì có khả năng làm được điều gì",
+    "example_vi": "Những người mắc bệnh này có thể mất khả năng giao tiếp."
+  },
+  "able": {
+    "meaning_vi": "có kỹ năng, trí tuệ, cơ hội, v.v. cần thiết để làm được điều gì",
+    "example_vi": "Bạn phải có khả năng nói tiếng Pháp để làm công việc này."
+  },
+  "abroad": {
+    "meaning_vi": "ở hoặc tới một nước ngoài",
+    "example_vi": "đi/du lịch/sống/học tập nước ngoài"
+  },
+  "accept": {
+    "meaning_vi": "sẵn sàng nhận điều gì được đề nghị; đồng ý với một lời đề nghị, lời mời, v.v.",
+    "example_vi": "Anh ấy cầu hôn tôi và tôi đã đồng ý."
+  },
+  "accident": {
+    "meaning_vi": "một sự kiện không mong muốn, đặc biệt là liên quan đến phương tiện, xảy ra bất ngờ và gây thương tích hoặc thiệt hại",
+    "example_vi": "tai nạn ô tô/giao thông/đường bộ"
+  },
+  "according to": {
+    "meaning_vi": "như được nêu hoặc báo cáo bởi ai/cái gì",
+    "example_vi": "Theo lời Mick, đó là một bộ phim tuyệt vời."
+  },
+  "achieve": {
+    "meaning_vi": "đạt được một mục tiêu, địa vị hoặc tiêu chuẩn nhất định, đặc biệt là bằng cách nỗ lực trong thời gian dài",
+    "example_vi": "Anh ấy cuối cùng cũng đã đạt được thành công."
+  },
+  "act": {
+    "meaning_vi": "một điều cụ thể mà ai đó làm",
+    "example_vi": "Bạn đã phạm một tội lỗi hình sự nghiêm trọng."
+  },
+  "active": {
+    "meaning_vi": "luôn luôn bận rộn làm những việc, đặc biệt là các hoạt động thể chất",
+    "example_vi": "Duy trì hoạt động thể chất ở những năm tháng sau này cũng có thể giúp bạn cảm thấy trẻ trung hơn."
+  },
+  "actually": {
+    "meaning_vi": "được dùng khi nói để nhấn mạnh một sự thật hoặc một bình luận, hoặc rằng điều gì đó thực sự là đúng",
+    "example_vi": "Cô ấy thực sự nói điều gì?"
+  },
+  "advantage": {
+    "meaning_vi": "điều gì giúp bạn vượt trội hoặc thành công hơn những người khác",
+    "example_vi": "lợi thế rõ rệt/đáng kể/to lớn"
+  },
+  "adventure": {
+    "meaning_vi": "một trải nghiệm, hành trình hoặc chuỗi sự kiện bất thường, thú vị hoặc nguy hiểm",
+    "example_vi": "những cuộc phiêu lưu của cô ấy khi du hành ở Châu Phi"
+  },
+  "advertise": {
+    "meaning_vi": "thông báo cho công chúng về một sản phẩm hoặc dịch vụ để khuyến khích mọi người mua hoặc sử dụng nó",
+    "example_vi": "Nếu bạn muốn thu hút khách hàng thì cần phải quảng cáo."
+  },
+  "advertisement": {
+    "meaning_vi": "một thông báo, hình ảnh hoặc phim cho mọi người biết về một sản phẩm, công việc hoặc dịch vụ",
+    "example_vi": "quảng cáo báo chí/truyền hình"
+  },
+  "advertising": {
+    "meaning_vi": "hoạt động và ngành công nghiệp quảng cáo những thứ cho mọi người trên truyền hình, trong báo chí, trên internet, v.v.",
+    "example_vi": "Quảng cáo thuốc lá đã bị cấm."
+  },
+  "affect": {
+    "meaning_vi": "tạo ra sự thay đổi trong ai/cái gì",
+    "example_vi": "Những thay đổi này sẽ ảnh hưởng đến chúng ta như thế nào?"
+  },
+  "against": {
+    "meaning_vi": "phản đối hoặc không đồng ý với ai/cái gì",
+    "example_vi": "cuộc đấu tranh chống khủng bố"
+  },
+  "ah": {
+    "meaning_vi": "dùng để biểu thị sự ngạc nhiên, vui sướng, hoặc đồng cảm, hoặc khi không đồng ý với ai",
+    "example_vi": "Ồ, tìm thấy bạn rồi!"
+  },
+  "airline": {
+    "meaning_vi": "công ty cung cấp các chuyến bay thường xuyên để vận chuyển hành khách và hàng hóa đến những nơi khác nhau",
+    "example_vi": "phi công/hành khách của hãng bay"
+  },
+  "alive": {
+    "meaning_vi": "còn sống; chưa chết",
+    "example_vi": "Mẹ bạn có còn sống không?"
+  },
+  "all right": {
+    "meaning_vi": "chấp nhận được; một cách chấp nhận được",
+    "example_vi": "Cà phê có tốt không?"
+  },
+  "allow": {
+    "meaning_vi": "cho phép ai/cái gì làm gì; để cho cái gì xảy ra hoặc được thực hiện",
+    "example_vi": "Cha mẹ anh ta không cho phép anh ấy ở ra ngoài muộn."
+  },
+  "almost": {
+    "meaning_vi": "gần như; hầu như",
+    "example_vi": "Tôi thích gần như tất cả chúng."
+  },
+  "alone": {
+    "meaning_vi": "không có bất kỳ người nào khác",
+    "example_vi": "Tom không phải là người duy nhất cảm thấy Rick khó làm việc cùng."
+  },
+  "along": {
+    "meaning_vi": "về phía trước",
+    "example_vi": "Tôi vừa đi bộ hát lên tôi."
+  },
+  "already": {
+    "meaning_vi": "trước bây giờ hoặc trước một thời điểm nào đó trong quá khứ",
+    "example_vi": "Ăn cơm? Không, cảm ơn, tôi đã ăn rồi."
+  },
+  "alternative": {
+    "meaning_vi": "có thể được sử dụng thay cho cái gì khác",
+    "example_vi": "Con đường bị đóng cửa nên chúng tôi phải tìm một tuyến đường thay thế."
+  },
+  "although": {
+    "meaning_vi": "dùng để giới thiệu một phát biểu làm cho phát biểu chính trong câu trở nên bất ngờ",
+    "example_vi": "Mặc dù mặt trời sáng, nhưng trời không ấm lắm."
+  },
+  "among": {
+    "meaning_vi": "bị bao quanh bởi ai/cái gì; ở giữa ai/cái gì",
+    "example_vi": "một ngôi nhà giữa những cái cây"
+  },
+  "ancient": {
+    "meaning_vi": "thuộc về một thời kỳ lịch sử cách đây hàng ngàn năm",
+    "example_vi": "Các nhà khảo cổ đang khai quật những ngôi đền hoang tàn của nền văn minh cổ đại này."
+  },
+  "ankle": {
+    "meaning_vi": "khớp nối cổ chân kết nối bàn chân với cái chân; phần hẹp của chân phía trên khớp cổ chân",
+    "example_vi": "bị bong gân/gãy/xoắn cổ chân"
+  },
+  "any more": {
+    "meaning_vi": "thường dùng ở cuối câu phủ định và cuối câu hỏi, có nghĩa là 'không còn'",
+    "example_vi": "Cô ấy không còn sống ở đây nữa."
+  },
+  "anybody": {
+    "meaning_vi": "dùng thay cho ai trong câu phủ định và trong câu hỏi sau if/whether, và sau các động từ như prevent, forbid, avoid, v.v.",
+    "example_vi": "Có ai có thể giúp tôi không?"
+  },
+  "anyway": {
+    "meaning_vi": "dùng khi bổ sung điều gì để hỗ trợ một ý tưởng hoặc lập luận",
+    "example_vi": "Nó quá đắt tiền và dù sao thì màu sắc cũng không phù hợp với bạn."
+  },
+  "anywhere": {
+    "meaning_vi": "dùng trong câu phủ định và trong câu hỏi thay cho somewhere",
+    "example_vi": "Tôi không thể tìm thấy nó ở bất kỳ đâu."
+  },
+  "app": {
+    "meaning_vi": "phần mềm mà bạn có thể tải xuống một thiết bị như điện thoại thông minh hoặc máy tính bảng để tra cứu thông tin hoặc chơi trò chơi chẳng hạn",
+    "example_vi": "Trước tiên bạn cần cài đặt ứng dụng trên thiết bị của mình."
+  },
+  "appear": {
+    "meaning_vi": "bắt đầu được nhìn thấy",
+    "example_vi": "Ba ngày sau, một nốt phát ban xuất hiện."
+  },
+  "appearance": {
+    "meaning_vi": "cách mà ai đó hoặc cái gì đó trông như thế nào bên ngoài; cái gì đó dường như là gì",
+    "example_vi": "ngoại hình vật chất/bên ngoài/bề ngoài của một cái gì đó"
+  },
+  "apply": {
+    "meaning_vi": "gửi một đơn xin chính thức, thường là bằng văn bản, để xin một việc, khoản vay, sự cho phép hoặc chỗ học tại một trường đại học, v.v.",
+    "example_vi": "Bạn nên nộp đơn trực tiếp hoặc bằng thư."
+  },
+  "architect": {
+    "meaning_vi": "người có công việc là thiết kế các tòa nhà",
+    "example_vi": "Ngôi nhà được thiết kế bởi kiến trúc sư Louis Kahn."
+  },
+  "architecture": {
+    "meaning_vi": "nghệ thuật và môn học về thiết kế các tòa nhà",
+    "example_vi": "học kiến trúc"
+  },
+  "argue": {
+    "meaning_vi": "nói chuyện với ai đó một cách tức giận vì bạn không đồng ý với họ",
+    "example_vi": "Anh em tôi luôn cãi vã với nhau."
+  },
+  "argument": {
+    "meaning_vi": "một cuộc trò chuyện hoặc thảo luận trong đó hai hoặc nhiều người không đồng ý, thường là một cách tức giận",
+    "example_vi": "thắng/thua một cuộc tranh cãi"
+  },
+  "army": {
+    "meaning_vi": "một nhóm lớn được tổ chức tốt gồm những người lính được huấn luyện để chiến đấu trên đất liền",
+    "example_vi": "Hai quân đội đối lập đối mặt với nhau trên chiến trường."
+  },
+  "arrange": {
+    "meaning_vi": "lên kế hoạch hoặc tổ chức cái gì đó trước",
+    "example_vi": "Bữa tiệc được tổ chức nhanh chóng."
+  },
+  "arrangement": {
+    "meaning_vi": "một kế hoạch hoặc chuẩn bị mà bạn thực hiện để điều gì đó có thể xảy ra",
+    "example_vi": "Các sắp xếp về du lịch và chỗ ở đã được hoàn tất."
+  },
+  "asleep": {
+    "meaning_vi": "đang ngủ",
+    "example_vi": "Tôi chờ cho đến khi tất cả họ đều ngủ sâu."
+  },
+  "assistant": {
+    "meaning_vi": "có chức vụ thấp hơn một người cao cấp và giúp họ trong công việc",
+    "example_vi": "trợ lý giám đốc/phó giám đốc/phó ủy viên"
+  },
+  "athlete": {
+    "meaning_vi": "người tham gia thi đấu các môn thể thao",
+    "example_vi": "Các vận động viên Olympic"
+  },
+  "attack": {
+    "meaning_vi": "hành động sử dụng bạo lực để cố gắng làm tổn thương hoặc giết ai đó",
+    "example_vi": "Năm người đã bị giết trong các cuộc tấn công diễn ra tối qua."
+  },
+  "attend": {
+    "meaning_vi": "có mặt tại một sự kiện",
+    "example_vi": "Chúng tôi muốn càng nhiều người tham dự càng tốt."
+  },
+  "attention": {
+    "meaning_vi": "được dùng để yêu cầu mọi người lắng nghe một điều gì đó được thông báo",
+    "example_vi": "Xin mọi người chú ý! Hành khách bay KL412 vui lòng đến cổng 21 ngay lập tức."
+  },
+  "attractive": {
+    "meaning_vi": "dễ chịu khi nhìn vào, đặc biệt là theo cách tình dục",
+    "example_vi": "một phụ nữ hấp dẫn"
+  },
+  "audience": {
+    "meaning_vi": "nhóm người đã tập hợp lại để xem hoặc lắng nghe một cái gì đó (một vở kịch, buổi hòa nhạc, ai đó nói, v.v.)",
+    "example_vi": "Khán giả đã vỗ tay trong 10 phút."
+  },
+  "author": {
+    "meaning_vi": "người viết sách hoặc người đã viết một cuốn sách cụ thể",
+    "example_vi": "Tác giả yêu thích của bạn là ai?"
+  },
+  "available": {
+    "meaning_vi": "có thể nhận được, mua hoặc tìm thấy",
+    "example_vi": "các tài nguyên/dữ liệu có sẵn"
+  },
+  "avoid": {
+    "meaning_vi": "ngăn chặn điều gì đó xấu xảy ra",
+    "example_vi": "tránh điều gì đó, tránh xung đột"
+  },
+  "awful": {
+    "meaning_vi": "rất tồi tệ hoặc khó chịu",
+    "example_vi": "Đó là một màu sắc tồi tệ."
+  },
+  "background": {
+    "meaning_vi": "thông tin chi tiết về gia đình, học vấn, kinh nghiệm, v.v. của một người",
+    "example_vi": "nền tảng dân tộc/di truyền/văn hóa của ai đó"
+  },
+  "badly": {
+    "meaning_vi": "không có kỹ năng hoặc chăm sóc",
+    "example_vi": "chơi/hát kém"
+  },
+  "baseball": {
+    "meaning_vi": "một môn thể thao chơi chủ yếu ở Mỹ bởi hai đội gồm chín cầu thủ, sử dụng gậy và banh. Mỗi cầu thủ cố gắng đánh banh rồi chạy quanh bốn vị trí trước khi đội kia có thể trả banh lại.",
+    "example_vi": "gậy/đội/mũ/fan/cầu thủ/trận bóng chày"
+  },
+  "based": {
+    "meaning_vi": "nếu một điều được dựa trên một điều khác, nó sử dụng hoặc được phát triển từ nó",
+    "example_vi": "Bộ phim được dựa trên một sự cố có thật."
+  },
+  "basketball": {
+    "meaning_vi": "một môn thể thao chơi bởi hai đội gồm năm cầu thủ, sử dụng một quả banh lớn mà các cầu thủ cố gắng ném vào một chiếc lưới cao treo từ một cái vòng",
+    "example_vi": "trận bóng rổ/huấn luyện viên/đội/cầu thủ"
+  },
+  "bean": {
+    "meaning_vi": "hạt, hoặc quả chứa hạt, của một cây leo, được ăn như một loại rau. Có nhiều loại đậu và các cây trồng chúng cũng được gọi là đậu.",
+    "example_vi": "đậu xanh"
+  },
+  "beat": {
+    "meaning_vi": "một nhịp đập duy nhất vào vật gì đó, chẳng hạn như một trống, hoặc chuyển động của vật gì đó, chẳng hạn như tim; âm thanh mà nó tạo ra",
+    "example_vi": "nhiều tiếng đập to trên trống"
+  },
+  "beef": {
+    "meaning_vi": "thịt từ một con bò",
+    "example_vi": "thịt bò nướng"
+  },
+  "behave": {
+    "meaning_vi": "hành động theo một cách đặc biệt nào đó",
+    "example_vi": "Bác sĩ cư xử rất thiếu chuyên nghiệp."
+  },
+  "behaviour": {
+    "meaning_vi": "cách mà ai đó cư xử, đặc biệt là đối với những người khác",
+    "example_vi": "hành vi tốt/xấu"
+  },
+  "belong": {
+    "meaning_vi": "ở đúng nơi hoặc nơi thích hợp",
+    "example_vi": "Những chiếc đĩa này nên để ở đâu?"
+  },
+  "belt": {
+    "meaning_vi": "một mảnh dài, hẹp được làm từ da, vải, v.v. mà bạn đeo quanh phần giữa cơ thể",
+    "example_vi": "thắt/buộc/thắt chặt thắt lưng"
+  },
+  "best": {
+    "meaning_vi": "thuộc loại hoặc chất lượng tốt nhất",
+    "example_vi": "Đó là bộ phim hay nhất mà tôi từng xem!"
+  },
+  "billion": {
+    "meaning_vi": "1 000 000 000; một tỷ",
+    "example_vi": "Doanh số toàn cầu đạt 2,5 tỷ."
+  },
+  "bin": {
+    "meaning_vi": "một cái thùng để bạn bỏ rác vào",
+    "example_vi": "thùng rác"
+  },
+  "biology": {
+    "meaning_vi": "nghiên cứu khoa học về sự sống và cấu trúc của thực vật và động vật",
+    "example_vi": "bằng cấp về sinh học"
+  },
+  "birth": {
+    "meaning_vi": "thời điểm khi một em bé ra đời; quá trình được sinh ra",
+    "example_vi": "lúc sinh ra, Em bé nặng ba kilô lúc sinh ra."
+  },
+  "biscuit": {
+    "meaning_vi": "bánh quy nhỏ phẳng khô cho một người, thường có vị ngọt, được nướng cứng",
+    "example_vi": "một gói/hộp bánh quy socola"
+  },
+  "bit": {
+    "meaning_vi": "khá; phần nào",
+    "example_vi": "Chiếc quần này hơi chật."
+  },
+  "blank": {
+    "meaning_vi": "trống, không có gì được viết, in hoặc ghi trên đó",
+    "example_vi": "Ký tên bạn vào chỗ trống dưới đây."
+  },
+  "blood": {
+    "meaning_vi": "chất lỏng màu đỏ chảy trong cơ thể người và động vật",
+    "example_vi": "Anh ấy mất nhiều máu trong vụ tai nạn."
+  },
+  "blow": {
+    "meaning_vi": "cú đánh mạnh bằng tay, vũ khí, v.v.",
+    "example_vi": "Cô ấy bị đánh mạnh vào đầu."
+  },
+  "boil": {
+    "meaning_vi": "khi chất lỏng sôi hoặc khi bạn làm nó sôi, nó được làm nóng đến điểm tạo thành bong bóng và biến thành hơi nước",
+    "example_vi": "Nước đang sủi bọt và sôi trào."
+  },
+  "bone": {
+    "meaning_vi": "bất kỳ bộ phận cứng nào tạo thành bộ xương của cơ thể con người hoặc động vật",
+    "example_vi": "Anh ấy sống sót sau tai nạn mà không có xương nào bị gãy."
+  },
+  "book": {
+    "meaning_vi": "một tập hợp các trang in được cố định bên trong một bìa để bạn có thể lật và đọc chúng",
+    "example_vi": "Bàn làm việc của anh ấy được phủ đầy các chồng sách."
+  },
+  "borrow": {
+    "meaning_vi": "lấy và sử dụng thứ gì đó thuộc về người khác, và trả lại cho họ vào một thời điểm sau",
+    "example_vi": "Tôi có thể mượn chiếc ô của bạn không?"
+  },
+  "boss": {
+    "meaning_vi": "người chỉ huy những người khác tại nơi làm việc và bảo họ phải làm gì",
+    "example_vi": "Tôi sẽ hỏi sếp xem có thể nghỉ phép ngày hôm nay không."
+  },
+  "bottom": {
+    "meaning_vi": "ở vị trí thấp nhất, cuối cùng hoặc xa nhất",
+    "example_vi": "môi dưới của bạn"
+  },
+  "bowl": {
+    "meaning_vi": "một chiếc dĩa tròn sâu có miệng mở rộng, đặc biệt được dùng để chứa thức ăn hoặc chất lỏng",
+    "example_vi": "một tô salad/trái cây/đường"
+  },
+  "brain": {
+    "meaning_vi": "cơ quan bên trong đầu điều khiển chuyển động, tư duy, ký ức và cảm xúc",
+    "example_vi": "Bộ não của con người là một cơ quan phức tạp."
+  },
+  "bridge": {
+    "meaning_vi": "một kết cấu được xây dựng trên đường, đường sắt, sông, v.v. để mọi người, phương tiện, v.v. có thể vượt qua từ bên này sang bên kia",
+    "example_vi": "Chúng tôi vượt qua cây cầu trên sông Windrush."
+  },
+  "bright": {
+    "meaning_vi": "đầy ánh sáng; tỏa sáng mạnh",
+    "example_vi": "ánh sáng sáng/ánh nắng rực rỡ"
+  },
+  "brilliant": {
+    "meaning_vi": "cực kỳ thông minh hoặc ấn tượng",
+    "example_vi": "Thật là ý tưởng tuyệt vời!"
+  },
+  "broken": {
+    "meaning_vi": "đã bị hư hỏng hoặc bị thương; không còn nguyên vẹn hoặc hoạt động chính xác",
+    "example_vi": "cửa sổ/đĩa vỡ"
+  },
+  "brush": {
+    "meaning_vi": "một vật được tạo bằng những sợi cứng ngắn (được gọi là lông) hoặc dây kim loại gắn trong một khối gỗ hoặc nhựa, thường gắn với một cái tay cầm. Cọ được dùng cho nhiều công việc khác nhau, chẳng hạn như vệ sinh, sơn và chải tóc.",
+    "example_vi": "một cái cọ sơn"
+  },
+  "burn": {
+    "meaning_vi": "chấn thương hoặc vết tích gây ra bởi lửa, nhiệt hoặc axit",
+    "example_vi": "có những vết bỏng nhẹ/nặng/bỏng độ ba"
+  },
+  "businessman": {
+    "meaning_vi": "một người đàn ông làm việc trong kinh doanh, đặc biệt là ở cấp cao",
+    "example_vi": "một nhóm các chính trị gia và doanh nhân Ý đến thăm"
+  },
+  "button": {
+    "meaning_vi": "một mảnh nhỏ tròn được làm từ kim loại, nhựa, v.v., may vào quần áo và dùng để gắn hai phần với nhau",
+    "example_vi": "cài/tháo nút áo của bạn"
+  },
+  "camp": {
+    "meaning_vi": "nơi mọi người sống tạm thời trong lều hoặc các công trình tạm thời",
+    "example_vi": "Chúng ta quay lại trại."
+  },
+  "camping": {
+    "meaning_vi": "sống trong lều, v.v. khi đi nghỉ",
+    "example_vi": "Bạn có thích cắm trại không?"
+  },
+  "care": {
+    "meaning_vi": "quá trình chăm sóc ai/cái gì và cung cấp những gì họ cần cho sức khỏe hoặc an toàn của họ",
+    "example_vi": "Một số người bị thương nặng và cần chăm sóc y tế."
+  },
+  "careful": {
+    "meaning_vi": "chú ý hoặc suy nghĩ kỹ về những gì bạn đang làm để tránh làm tổn thương bản thân, làm hỏng thứ gì hoặc làm điều gì sai",
+    "example_vi": "Hãy cẩn thận!"
+  },
+  "carefully": {
+    "meaning_vi": "với sự chú ý hoặc suy nghĩ kỹ lưỡng, để tránh làm tổn thương bản thân, làm hỏng thứ gì hoặc làm điều gì sai",
+    "example_vi": "Lái xe cẩn thận."
+  },
+  "carpet": {
+    "meaning_vi": "một mảnh vật liệu dệt dày được làm từ lông cừu, v.v., dùng để phủ sàn phòng hoặc cầu thang; vật liệu dùng để làm thảm",
+    "example_vi": "Anh ấy đã dành cả buổi sáng để lát thảm mới."
+  },
+  "cartoon": {
+    "meaning_vi": "một bức vẽ hài hước trên báo hoặc tạp chí, đặc biệt là về chính trị hoặc các sự kiện trong tin tức",
+    "example_vi": "một bộ phim hoạt hình chính trị/châm biếm"
+  },
+  "case": {
+    "meaning_vi": "một tình huống cụ thể hoặc một tình huống thuộc một loại cụ thể",
+    "example_vi": "Trong một số trường hợp, mọi người phải chờ đợi nhiều tuần để được hẹn lịch."
+  },
+  "cash": {
+    "meaning_vi": "tiền ở dạng tiền xu hoặc giấy bạc",
+    "example_vi": "Bạn có bao nhiêu tiền mặt trong người?"
+  },
+  "castle": {
+    "meaning_vi": "một tòa nhà lớn vững chắc có tường dày, cao và tháp, được xây dựng trong quá khứ bởi các vua hoặc hoàng hậu hoặc những người quan trọng khác để bảo vệ bản thân chống lại các cuộc tấn công",
+    "example_vi": "một lâu đài thời Trung Cổ"
+  },
+  "catch": {
+    "meaning_vi": "hành động bắt được thứ gì, ví dụ như một quả bóng",
+    "example_vi": "Roger đã bắt được một số quả bóng tuyệt vời trong trận đấu hôm nay."
+  },
+  "cause": {
+    "meaning_vi": "người hoặc vật làm cho thứ gì xảy ra",
+    "example_vi": "Thất nghiệp là nguyên nhân chính dẫn đến nghèo đói."
+  },
+  "celebrate": {
+    "meaning_vi": "cho thấy rằng một ngày hoặc một sự kiện là quan trọng bằng cách làm thứ gì đó đặc biệt vào ngày đó",
+    "example_vi": "Jake đã vượt qua kỳ thi của mình. Chúng tôi sắp đi ra ngoài để kỷ niệm."
+  },
+  "celebrity": {
+    "meaning_vi": "một người nổi tiếng",
+    "example_vi": "một đầu bếp nổi tiếng"
+  },
+  "certain": {
+    "meaning_vi": "tin chắc về điều gì; không có nghi ngờ",
+    "example_vi": "Tôi nghĩ đó là anh ấy, nhưng tôi không chắc chắn."
+  },
+  "certainly": {
+    "meaning_vi": "không có nghi ngờ",
+    "example_vi": "Nếu không điều trị, cô ấy gần như chắc chắn sẽ chết."
+  },
+  "chance": {
+    "meaning_vi": "khả năng xảy ra của thứ gì, đặc biệt là thứ gì mà bạn muốn",
+    "example_vi": "Cô ấy chỉ có cơ hội mong manh để vượt qua kỳ thi."
+  },
+  "character": {
+    "meaning_vi": "một người hoặc một động vật trong một cuốn sách, vở kịch hoặc bộ phim",
+    "example_vi": "nhân vật chính trong bộ phim"
+  },
+  "charity": {
+    "meaning_vi": "một tổ chức để giúp đỡ những người cần sự giúp đỡ",
+    "example_vi": "một tổ chức từ thiện đã đăng ký"
+  },
+  "chat": {
+    "meaning_vi": "cuộc trò chuyện thân mật, bình thường",
+    "example_vi": "Tôi vừa ghé qua để chuyện trò."
+  },
+  "chef": {
+    "meaning_vi": "người có nghề nấu ăn, đặc biệt là người chứ trương cao nhất trong nhà hàng, khách sạn, v.v.",
+    "example_vi": "một cuốn sách mới của đầu bếp nổi tiếng Jamie Oliver"
+  },
+  "chemistry": {
+    "meaning_vi": "ngành khoa học nghiên cứu cấu trúc của các chất, cách chúng phản ứng khi kết hợp hoặc tiếp xúc với nhau, và hành vi của chúng dưới các điều kiện khác nhau",
+    "example_vi": "bằng cấp về hóa học"
+  },
+  "chip": {
+    "meaning_vi": "miếng khoai tây dài, mỏng được chiên trong dầu hoặc mỡ",
+    "example_vi": "Anh ấy đang ăn một chiếc bánh mburger và khoai tây chiên."
+  },
+  "choice": {
+    "meaning_vi": "hành động lựa chọn giữa hai hoặc nhiều khả năng; thứ mà bạn có thể lựa chọn",
+    "example_vi": "Chúng tôi phải đối mặt với một lựa chọn khó khăn."
+  },
+  "church": {
+    "meaning_vi": "tòa nhà nơi các tín đồ Cơ đốc giáo đến để tham dự các buổi lễ, cầu nguyện, v.v.",
+    "example_vi": "Đoàn rước di chuyển vào nhà thờ."
+  },
+  "cigarette": {
+    "meaning_vi": "ống giấy mỏng chứa đầy thuốc lá, dùng để hút",
+    "example_vi": "hút/có một điếu thuốc"
+  },
+  "circle": {
+    "meaning_vi": "hình dạng phẳng hoàn toàn tròn",
+    "example_vi": "tâm/chu vi/bán kính/đường kính của một hình tròn"
+  },
+  "classical": {
+    "meaning_vi": "liên quan đến âm nhạc cổ điển",
+    "example_vi": "một nhà soạn nhạc/nhạc sĩ/nghệ sĩ dương cầm cổ điển"
+  },
+  "clearly": {
+    "meaning_vi": "một cách dễ nhìn hoặc nghe thấy",
+    "example_vi": "Vui lòng nói rõ ràng sau tiếng beep."
+  },
+  "clever": {
+    "meaning_vi": "nhanh chóng trong việc học hỏi và hiểu những điều",
+    "example_vi": "một đứa trẻ thông minh"
+  },
+  "climate": {
+    "meaning_vi": "mô hình thời tiết thường xuyên của một địa điểm cụ thể",
+    "example_vi": "khí hậu nhiệt đới/ấm áp/ôn hòa/cận cơ/lạnh"
+  },
+  "closed": {
+    "meaning_vi": "đóng kín",
+    "example_vi": "Giữ cửa đóng kín."
+  },
+  "clothing": {
+    "meaning_vi": "quần áo, đặc biệt là một loại quần áo cụ thể",
+    "example_vi": "Công nhân tại nhà máy mặc quần áo bảo vệ."
+  },
+  "cloud": {
+    "meaning_vi": "khối xám hoặc trắng nổi lên bầu trời, được tạo thành từ những giọt nước rất nhỏ",
+    "example_vi": "Những đám mây tối đang tập hợp ở phía tây."
+  },
+  "coast": {
+    "meaning_vi": "đất đai nằm gần hoặc sát biển hoặc đại dương",
+    "example_vi": "một chuyến đi đến bờ biển"
+  },
+  "code": {
+    "meaning_vi": "hệ thống các từ, chữ cái, số hoặc ký hiệu đại diện cho một thông điệp hoặc ghi lại thông tin bí mật hoặc dưới dạng rút gọn",
+    "example_vi": "phá vỡ/giải mã một mã (= hiểu và đọc thông điệp)"
+  },
+  "colleague": {
+    "meaning_vi": "người mà bạn làm việc cùng, đặc biệt là trong một ngành nghề hoặc kinh doanh",
+    "example_vi": "đồng nghiệp/đồng nghiệp cấp cao/đồng nghiệp nam"
+  },
+  "collect": {
+    "meaning_vi": "mang những điều từ những người hoặc nơi khác nhau lại với nhau",
+    "example_vi": "thu thập dữ liệu/bằng chứng/thông tin"
+  },
+  "column": {
+    "meaning_vi": "một trong những phần thẳng từ trên xuống dưới mà vào đó văn bản trên trang hoặc màn hình được chia",
+    "example_vi": "một cuốn từ điển có hai cột trên mỗi trang"
+  }
+}

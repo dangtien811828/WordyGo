@@ -15,6 +15,7 @@ const migrations = [
   { name: 'Domain 7: Commerce (4 bảng)',               file: './migrations/05_commerce' },
   { name: 'Domain 8: AI & Sync (6 bảng)',              file: './migrations/06_ai_sync' },
   { name: 'Domain 9: System (4 bảng)',                 file: './migrations/07_system' },
+  { name: 'Domain 10: Approvals (1 bảng)',             file: './migrations/09_approvals' },
   { name: 'Indexes (performance)',                     file: './migrations/08_indexes' },
 ];
 

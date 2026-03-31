@@ -1,6 +1,7 @@
 /**
  * Middleware xác thực & phân quyền
  */
+const Approval = require('../models/Approval');
 
 // Yêu cầu đăng nhập
 function requireAuth(req, res, next) {
@@ -35,11 +36,23 @@ function redirectIfAuth(req, res, next) {
 }
 
 // Inject admin data vào tất cả views
-function injectAdmin(req, res, next) {
-  res.locals.admin = req.session ? req.session.admin : null;
-  res.locals.success = req.flash('success');
-  res.locals.error = req.flash('error');
-  next();
+async function injectAdmin(req, res, next) {
+  try {
+    res.locals.admin = req.session ? req.session.admin : null;
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    res.locals.currentQuery = req.query;
+    res.locals.pendingApprovals = 0;
+
+    if (res.locals.admin && res.locals.admin.role === 'super_admin') {
+      res.locals.pendingApprovals = await Approval.countPending();
+    }
+
+    next();
+  } catch (err) {
+    console.error('[injectAdmin] Error:', err);
+    next(err);
+  }
 }
 
 module.exports = { requireAuth, requireRole, redirectIfAuth, injectAdmin };
