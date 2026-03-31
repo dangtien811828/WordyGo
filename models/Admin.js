@@ -47,7 +47,28 @@ const Admin = {
       `SELECT role, COUNT(*)::int as count FROM admin_accounts GROUP BY role`
     );
     return rows;
-  }
+  },
+
+  async updateProfile(id, { fullName, avatarUrl }) {
+    await pool.query(
+      'UPDATE admin_accounts SET full_name = $1, avatar_url = $2 WHERE id = $3',
+      [fullName, avatarUrl, id]
+    );
+  },
+
+  async updatePassword(id, newPasswordHash) {
+    await pool.query(
+      'UPDATE admin_accounts SET password_hash = $1 WHERE id = $2',
+      [newPasswordHash, id]
+    );
+  },
+
+  async deleteAccount(id) {
+    await pool.query(
+      "UPDATE admin_accounts SET status = 'disabled' WHERE id = $1",
+      [id]
+    );
+  },
 };
 
 module.exports = Admin;

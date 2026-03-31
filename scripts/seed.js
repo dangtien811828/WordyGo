@@ -128,9 +128,9 @@ async function seedApp(client, hash, adminId, editorId, tagIds, entryIds, entrie
     for (let i=8;i<15;i++) await client.query('INSERT INTO lesson_entries VALUES ($1,$2,$3) ON CONFLICT DO NOTHING',[l2,entryIds[i],i-8]);
   }
   if (tagIds) {
-    await client.query('INSERT INTO lesson_tags VALUES ($1,$2) ON CONFLICT DO NOTHING',[l1,tagIds['Business']]);
-    await client.query('INSERT INTO lesson_tags VALUES ($1,$2) ON CONFLICT DO NOTHING',[l2,tagIds['Academic']]);
-    await client.query('INSERT INTO lesson_tags VALUES ($1,$2) ON CONFLICT DO NOTHING',[l2,tagIds['IELTS']]);
+    if (tagIds['Business']) await client.query('INSERT INTO lesson_tags VALUES ($1,$2) ON CONFLICT DO NOTHING',[l1,tagIds['Business']]);
+    if (tagIds['Academic']) await client.query('INSERT INTO lesson_tags VALUES ($1,$2) ON CONFLICT DO NOTHING',[l2,tagIds['Academic']]);
+    if (tagIds['IELTS'])    await client.query('INSERT INTO lesson_tags VALUES ($1,$2) ON CONFLICT DO NOTHING',[l2,tagIds['IELTS']]);
   }
   await client.query('INSERT INTO user_lesson_progress (user_id,lesson_id,completed,progress,started_at) VALUES ($1,$2,false,0.6,$3) ON CONFLICT DO NOTHING',[userIds[1],l1,daysAgo(3)]);
   await client.query('INSERT INTO user_lesson_progress (user_id,lesson_id,completed,progress,started_at,completed_at) VALUES ($1,$2,true,1.0,$3,$4) ON CONFLICT DO NOTHING',[userIds[2],l2,daysAgo(7),daysAgo(5)]);
@@ -141,8 +141,8 @@ async function seedApp(client, hash, adminId, editorId, tagIds, entryIds, entrie
   const d1 = await ins(client,'INSERT INTO decks (title,description,level,status,created_by) VALUES ($1,$2,$3,$4,$5) RETURNING id',['IELTS Core Vocabulary','Tu vung cot loi','intermediate','published',editorId]);
   const d2 = await ins(client,'INSERT INTO decks (title,description,level,status,created_by) VALUES ($1,$2,$3,$4,$5) RETURNING id',['Daily English 500','500 tu giao tiep','beginner','published',editorId]);
   if (tagIds) {
-    await client.query('INSERT INTO deck_tags VALUES ($1,$2) ON CONFLICT DO NOTHING',[d1,tagIds['IELTS']]);
-    await client.query('INSERT INTO deck_tags VALUES ($1,$2) ON CONFLICT DO NOTHING',[d2,tagIds['Daily']]);
+    if (tagIds['IELTS'])  await client.query('INSERT INTO deck_tags VALUES ($1,$2) ON CONFLICT DO NOTHING',[d1,tagIds['IELTS']]);
+    if (tagIds['Daily'])  await client.query('INSERT INTO deck_tags VALUES ($1,$2) ON CONFLICT DO NOTHING',[d2,tagIds['Daily']]);
   }
 
   const cardIds = [];
@@ -253,7 +253,7 @@ const seed = async () => {
     console.log(`║  DB Seed — mode: ${mode.toUpperCase().padEnd(30)}  ║`);
     console.log('╚══════════════════════════════════════════════════╝');
 
-    const hash = await bcrypt.hash('password123', 10);
+    const hash = await bcrypt.hash('123123', 10);
 
     // Admins always needed (both content and app reference them)
     console.log('\n── Admins ──');
@@ -294,7 +294,7 @@ const seed = async () => {
     console.log('\n══════════════════════════════════════════');
     console.log('✅ Seed complete!');
     console.log('══════════════════════════════════════════\n');
-    console.log('  ACCOUNTS (password: password123)');
+    console.log('  ACCOUNTS (password: 123123)');
     console.log('  admin@english-app.com  → super_admin');
     console.log('  editor@english-app.com → content_editor');
     console.log('  mod@english-app.com    → moderator\n');

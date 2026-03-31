@@ -12,7 +12,7 @@
       <span class="nav-icon">📊</span>
       <span class="nav-label">Dashboard</span>
     </a>
-    <a href="#" class="nav-item <%= typeof active !== 'undefined' && active === 'users' ? 'active' : '' %>">
+    <a href="/users" class="nav-item <%= typeof active !== 'undefined' && active === 'users' ? 'active' : '' %>">
       <span class="nav-icon">👥</span>
       <span class="nav-label">Người dùng</span>
     </a>
@@ -60,13 +60,18 @@
   </nav>
 
   <div class="sidebar-footer">
-    <div class="admin-info">
-      <div class="admin-avatar"><%= admin.full_name.charAt(0).toUpperCase() %></div>
+    <a href="/profile" class="admin-info" style="text-decoration:none;color:inherit;flex:1;min-width:0">
+      <% if (admin.avatar_url) { %>
+        <img src="<%= admin.avatar_url %>" alt="Avatar"
+             style="width:36px;height:36px;border-radius:50%;object-fit:cover;flex-shrink:0">
+      <% } else { %>
+        <div class="admin-avatar"><%= admin.full_name.charAt(0).toUpperCase() %></div>
+      <% } %>
       <div class="admin-meta">
         <div class="admin-name"><%= admin.full_name %></div>
         <div class="admin-role"><%= admin.role.replace('_', ' ') %></div>
       </div>
-    </div>
+    </a>
     <form action="/auth/logout" method="POST" style="margin:0">
       <button type="submit" class="btn-logout" title="Đăng xuất">↪</button>
     </form>

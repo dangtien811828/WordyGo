@@ -1,0 +1,170 @@
+<%
+  const levelBadge  = { beginner: 'badge-success', intermediate: 'badge-warning', advanced: 'badge-info' };
+  const statusBadge = { active: 'badge-success', inactive: 'badge-warning', banned: 'badge-danger' };
+  const total = statusCounts.active + statusCounts.inactive + statusCounts.banned;
+%>
+
+<div class="page-header" style="display:flex;align-items:center;justify-content:space-between">
+  <div>
+    <h1>Người dùng</h1>
+    <p>Quản lý tài khoản người dùng mobile app</p>
+  </div>
+  <a href="/users/create" class="btn btn-primary">+ Thêm người dùng</a>
+</div>
+
+<!-- Stat cards -->
+<div class="stats-grid" style="grid-template-columns:repeat(4,1fr)">
+  <div class="stat-card">
+    <div class="stat-icon">👥</div>
+    <div><div class="stat-value"><%= total %></div><div class="stat-label">Tổng cộng</div></div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon">✅</div>
+    <div><div class="stat-value"><%= statusCounts.active %></div><div class="stat-label">Đang hoạt động</div></div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon">⏸️</div>
+    <div><div class="stat-value"><%= statusCounts.inactive %></div><div class="stat-label">Vô hiệu hóa</div></div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon">🚫</div>
+    <div><div class="stat-value"><%= statusCounts.banned %></div><div class="stat-label">Bị cấm</div></div>
+  </div>
+</div>
+
+<!-- Filter bar -->
+<div class="card" style="padding:16px;margin-bottom:20px">
+  <form method="GET" action="/users" style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
+    <div class="form-group" style="margin:0;flex:1;min-width:200px">
+      <label style="font-size:12px">Tìm kiếm</label>
+      <input type="text" name="search" value="<%= filters.search %>" placeholder="Tên, email...">
+    </div>
+    <div class="form-group" style="margin:0;min-width:140px">
+      <label style="font-size:12px">Trạng thái</label>
+      <select name="status">
+        <option value="">Tất cả</option>
+        <option value="active"   <%= filters.status === 'active'   ? 'selected' : '' %>>Active</option>
+        <option value="inactive" <%= filters.status === 'inactive' ? 'selected' : '' %>>Inactive</option>
+        <option value="banned"   <%= filters.status === 'banned'   ? 'selected' : '' %>>Banned</option>
+      </select>
+    </div>
+    <div class="form-group" style="margin:0;min-width:140px">
+      <label style="font-size:12px">Cấp độ</label>
+      <select name="level">
+        <option value="">Tất cả</option>
+        <option value="beginner"     <%= filters.level === 'beginner'     ? 'selected' : '' %>>Beginner</option>
+        <option value="intermediate" <%= filters.level === 'intermediate' ? 'selected' : '' %>>Intermediate</option>
+        <option value="advanced"     <%= filters.level === 'advanced'     ? 'selected' : '' %>>Advanced</option>
+      </select>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button type="submit" class="btn btn-primary">Lọc</button>
+      <a href="/users" class="btn btn-secondary">Xóa bộ lọc</a>
+    </div>
+  </form>
+</div>
+
+<!-- Table -->
+<div class="card">
+  <div class="card-header">
+    <h2>Kết quả (<%= pagination.total %>)</h2>
+  </div>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Người dùng</th>
+          <th>Cấp độ</th>
+          <th>Streak</th>
+          <th>Trạng thái</th>
+          <th>Ngày đăng ký</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (users && users.length > 0) { %>
+          <% users.forEach(function(u) { %>
+            <%
+              const confirmTarget = u.full_name && u.full_name.trim()
+                ? u.full_name.trim() : u.email;
+            %>
+            <tr>
+              <td>
+                <div class="user-cell">
+                  <% if (u.avatar_url) { %>
+                    <img src="<%= u.avatar_url %>" alt=""
+                         style="width:32px;height:32px;border-radius:50%;object-fit:cover;flex-shrink:0">
+                  <% } else { %>
+                    <div class="avatar-sm"><%= u.full_name.charAt(0).toUpperCase() %></div>
+                  <% } %>
+                  <div>
+                    <div style="font-weight:500"><%= u.full_name %></div>
+                    <div style="font-size:12px;color:var(--text-secondary)"><%= u.email %></div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="badge <%= levelBadge[u.level] || '' %>"><%= u.level %></span></td>
+              <td>
+                <span style="display:inline-flex;align-items:center;gap:3px;font-size:13px">
+                  🔥 <%= u.streak_current %>
+                </span>
+              </td>
+              <td><span class="badge <%= statusBadge[u.status] || '' %>"><%= u.status %></span></td>
+              <td style="font-size:13px;color:var(--text-secondary)">
+                <%= new Date(u.created_at).toLocaleDateString('vi-VN') %>
+              </td>
+              <td>
+                <div style="display:flex;gap:4px;flex-wrap:nowrap;align-items:center">
+                  <a href="/users/<%= u.id %>" class="btn btn-sm btn-secondary">Xem</a>
+                  <a href="/users/<%= u.id %>/edit" class="btn btn-sm btn-secondary">Sửa</a>
+                  <form action="/users/<%= u.id %>/toggle-status" method="POST" style="margin:0">
+                    <% if (u.status === 'banned') { %>
+                      <input type="hidden" name="new_status" value="active">
+                      <button class="btn btn-sm btn-secondary">Bỏ cấm</button>
+                    <% } else if (u.status === 'active') { %>
+                      <input type="hidden" name="new_status" value="inactive">
+                      <button class="btn btn-sm btn-secondary">Vô hiệu</button>
+                    <% } else { %>
+                      <input type="hidden" name="new_status" value="active">
+                      <button class="btn btn-sm btn-secondary">Kích hoạt</button>
+                    <% } %>
+                  </form>
+                  <% if (admin.role === 'super_admin') { %>
+                    <button type="button" class="btn btn-sm btn-danger"
+                            onclick="document.getElementById('del-<%= u.id %>').showModal()">Xóa</button>
+                    <dialog id="del-<%= u.id %>"
+                            style="border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;max-width:400px;width:100%;box-shadow:var(--shadow-md)">
+                      <h3 style="margin-bottom:8px;color:var(--danger)">Xóa người dùng</h3>
+                      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">
+                        Hành động này không thể hoàn tác. Hãy nhập:<br>
+                        <code style="background:var(--bg);padding:2px 6px;border-radius:4px;font-size:13px">DELETE <%= confirmTarget %></code>
+                      </p>
+                      <form action="/users/<%= u.id %>/delete" method="POST">
+                        <div class="form-group" style="margin-bottom:16px">
+                          <input type="text" name="confirm_text" autocomplete="off"
+                                 placeholder="DELETE <%= confirmTarget %>" style="width:100%">
+                        </div>
+                        <div style="display:flex;gap:8px;justify-content:flex-end">
+                          <button type="button" class="btn btn-secondary"
+                                  onclick="document.getElementById('del-<%= u.id %>').close()">Hủy</button>
+                          <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+                        </div>
+                      </form>
+                    </dialog>
+                  <% } %>
+                </div>
+              </td>
+            </tr>
+          <% }) %>
+        <% } else { %>
+          <tr>
+            <td colspan="6" class="text-center" style="padding:40px;color:var(--text-secondary)">
+              Không có người dùng nào
+            </td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+  <%- include('../partials/pagination', { pagination }) %>
+</div>

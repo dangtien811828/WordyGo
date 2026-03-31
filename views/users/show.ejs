@@ -1,0 +1,137 @@
+<%
+  const levelBadge  = { beginner: 'badge-success', intermediate: 'badge-warning', advanced: 'badge-info' };
+  const statusBadge = { active: 'badge-success', inactive: 'badge-warning', banned: 'badge-danger' };
+  const confirmTarget = user.full_name && user.full_name.trim()
+    ? user.full_name.trim() : user.email;
+%>
+
+<div class="page-header" style="display:flex;align-items:center;justify-content:space-between">
+  <div>
+    <h1><%= user.full_name %></h1>
+    <p><a href="/users">← Quay lại danh sách</a></p>
+  </div>
+  <div style="display:flex;gap:8px">
+    <a href="/users/<%= user.id %>/edit" class="btn btn-primary">Sửa thông tin</a>
+  </div>
+</div>
+
+<div style="display:grid;grid-template-columns:280px 1fr;gap:24px;align-items:start">
+
+  <!-- Cột trái: Avatar + info -->
+  <div class="card" style="padding:24px;text-align:center">
+    <% if (user.avatar_url) { %>
+      <img src="<%= user.avatar_url %>" alt="Avatar"
+           style="width:88px;height:88px;border-radius:50%;object-fit:cover;border:3px solid var(--border);margin-bottom:12px">
+    <% } else { %>
+      <div style="width:88px;height:88px;border-radius:50%;background:var(--primary);color:white;
+                  display:inline-flex;align-items:center;justify-content:center;
+                  font-size:32px;font-weight:700;margin-bottom:12px">
+        <%= user.full_name.charAt(0).toUpperCase() %>
+      </div>
+    <% } %>
+
+    <div style="font-size:17px;font-weight:600;margin-bottom:6px"><%= user.full_name %></div>
+    <div style="margin-bottom:16px">
+      <span class="badge <%= statusBadge[user.status] || '' %>"><%= user.status %></span>
+      <span class="badge <%= levelBadge[user.level] || '' %>" style="margin-left:4px"><%= user.level %></span>
+    </div>
+
+    <div style="text-align:left;display:flex;flex-direction:column;gap:8px;font-size:13px;border-top:1px solid var(--border);padding-top:12px">
+      <div><span style="font-weight:500;color:var(--text)">Email:</span> <span style="color:var(--text-secondary)"><%= user.email %></span></div>
+      <% if (user.phone) { %>
+        <div><span style="font-weight:500;color:var(--text)">SĐT:</span> <span style="color:var(--text-secondary)"><%= user.phone %></span></div>
+      <% } %>
+      <div><span style="font-weight:500;color:var(--text)">Tham gia:</span> <span style="color:var(--text-secondary)"><%= new Date(user.created_at).toLocaleDateString('vi-VN') %></span></div>
+      <% if (user.last_active_at) { %>
+        <div><span style="font-weight:500;color:var(--text)">Hoạt động:</span> <span style="color:var(--text-secondary)"><%= new Date(user.last_active_at).toLocaleString('vi-VN') %></span></div>
+      <% } %>
+    </div>
+  </div>
+
+  <!-- Cột phải -->
+  <div style="display:flex;flex-direction:column;gap:20px">
+
+    <!-- Stat cards -->
+    <div class="stats-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:0">
+      <div class="stat-card">
+        <div class="stat-icon">🔥</div>
+        <div><div class="stat-value"><%= user.streak_current %></div><div class="stat-label">Streak hiện tại</div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🏆</div>
+        <div><div class="stat-value"><%= user.streak_longest %></div><div class="stat-label">Streak dài nhất</div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📝</div>
+        <div><div class="stat-value"><%= stats.reviews %></div><div class="stat-label">Lần ôn tập</div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📚</div>
+        <div><div class="stat-value"><%= stats.lessonsCompleted %></div><div class="stat-label">Bài hoàn thành</div></div>
+      </div>
+    </div>
+
+    <!-- Quản lý trạng thái -->
+    <div class="card">
+      <div class="card-header"><h2>Quản lý trạng thái</h2></div>
+      <div style="padding:16px;display:flex;gap:8px;flex-wrap:wrap">
+        <% if (user.status !== 'active') { %>
+          <form action="/users/<%= user.id %>/toggle-status" method="POST" style="margin:0">
+            <input type="hidden" name="new_status" value="active">
+            <button class="btn btn-secondary">✅ Kích hoạt</button>
+          </form>
+        <% } %>
+        <% if (user.status !== 'inactive') { %>
+          <form action="/users/<%= user.id %>/toggle-status" method="POST" style="margin:0">
+            <input type="hidden" name="new_status" value="inactive">
+            <button class="btn btn-secondary">⏸️ Vô hiệu hóa</button>
+          </form>
+        <% } %>
+        <% if (user.status !== 'banned') { %>
+          <form action="/users/<%= user.id %>/toggle-status" method="POST" style="margin:0">
+            <input type="hidden" name="new_status" value="banned">
+            <button class="btn btn-danger">🚫 Cấm tài khoản</button>
+          </form>
+        <% } %>
+      </div>
+    </div>
+
+    <!-- Xóa tài khoản (super_admin only) -->
+    <% if (admin.role === 'super_admin') { %>
+      <div class="card" style="border-color:#FECACA">
+        <div class="card-header" style="background:#FEF2F2;border-bottom-color:#FECACA">
+          <h2 style="color:var(--danger)">Vùng nguy hiểm</h2>
+        </div>
+        <div style="padding:16px;display:flex;align-items:center;justify-content:space-between">
+          <div>
+            <div style="font-weight:500">Xóa tài khoản người dùng</div>
+            <div style="font-size:13px;color:var(--text-secondary);margin-top:2px">Xóa vĩnh viễn, không thể phục hồi</div>
+          </div>
+          <button type="button" class="btn btn-danger"
+                  onclick="document.getElementById('deleteUserDialog').showModal()">Xóa tài khoản</button>
+        </div>
+      </div>
+
+      <dialog id="deleteUserDialog"
+              style="border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;max-width:440px;width:100%;box-shadow:var(--shadow-md)">
+        <h3 style="margin-bottom:8px;color:var(--danger)">Xóa người dùng</h3>
+        <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">
+          Hành động này không thể hoàn tác. Hãy nhập:<br>
+          <code style="background:var(--bg);padding:2px 6px;border-radius:4px;font-size:13px">DELETE <%= confirmTarget %></code>
+        </p>
+        <form action="/users/<%= user.id %>/delete" method="POST">
+          <div class="form-group" style="margin-bottom:16px">
+            <input type="text" name="confirm_text" autocomplete="off"
+                   placeholder="DELETE <%= confirmTarget %>" style="width:100%">
+          </div>
+          <div style="display:flex;gap:8px;justify-content:flex-end">
+            <button type="button" class="btn btn-secondary"
+                    onclick="document.getElementById('deleteUserDialog').close()">Hủy</button>
+            <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+          </div>
+        </form>
+      </dialog>
+    <% } %>
+
+  </div>
+</div>

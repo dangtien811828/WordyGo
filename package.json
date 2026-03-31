@@ -7,9 +7,9 @@
     "start": "node app.js",
     "dev": "nodemon app.js",
     "db:migrate": "node database/migrate.js",
-    "db:seed": "node database/seed.js",
+    "db:seed": "node scripts/seed.js",
     "db:reset": "node database/reset.js",
-    "db:fresh": "node database/reset.js && node database/seed.js"
+    "db:fresh": "node database/reset.js && node scripts/seed.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.80.0",
