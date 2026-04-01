@@ -1,0 +1,119 @@
+<div class="page-header" style="display:flex;align-items:center;justify-content:space-between">
+  <div>
+    <h1>Import từ điển (JSON)</h1>
+    <p><a href="/dictionary" style="color:var(--text-secondary)">← Từ điển</a></p>
+  </div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:start">
+
+  <!-- Left: upload + result -->
+  <div style="display:flex;flex-direction:column;gap:16px">
+
+    <div class="card">
+      <div class="card-header"><h2>Chọn file JSON</h2></div>
+      <div style="padding:20px">
+        <form action="/dictionary/import" method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <label>File JSON <span style="color:var(--danger)">*</span></label>
+            <input type="file" name="jsonFile" accept=".json" required
+                   style="padding:8px;border:2px dashed var(--border);border-radius:var(--radius);width:100%;box-sizing:border-box;cursor:pointer">
+            <p style="font-size:12px;color:var(--text-secondary);margin-top:4px">
+              Tối đa 5 MB. Phải là mảng JSON hợp lệ.
+            </p>
+          </div>
+          <button type="submit" class="btn btn-primary">↑ Import</button>
+        </form>
+      </div>
+    </div>
+
+    <% if (result) { %>
+    <div class="card">
+      <div class="card-header"><h2>Kết quả import</h2></div>
+      <div style="padding:20px;display:flex;flex-direction:column;gap:16px">
+        <div class="stats-grid" style="grid-template-columns:repeat(3,1fr)">
+          <div class="stat-card">
+            <div class="stat-icon">✅</div>
+            <div>
+              <div class="stat-value" style="color:var(--success)"><%= result.inserted %></div>
+              <div class="stat-label">Đã thêm</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">⏭️</div>
+            <div>
+              <div class="stat-value" style="color:var(--warning)"><%= result.skipped %></div>
+              <div class="stat-label">Bỏ qua (đã có)</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">❌</div>
+            <div>
+              <div class="stat-value" style="color:var(--danger)"><%= result.errors.length %></div>
+              <div class="stat-label">Lỗi</div>
+            </div>
+          </div>
+        </div>
+
+        <% if (result.errors.length > 0) { %>
+        <div>
+          <h3 style="font-size:14px;margin-bottom:8px;color:var(--danger)">Chi tiết lỗi</h3>
+          <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:12px;max-height:200px;overflow-y:auto">
+            <% result.errors.forEach(err => { %>
+              <div style="font-size:12px;font-family:monospace;padding:3px 0;border-bottom:1px solid var(--border);color:var(--danger)">
+                <%= err %>
+              </div>
+            <% }) %>
+          </div>
+        </div>
+        <% } %>
+      </div>
+    </div>
+    <% } %>
+
+  </div>
+
+  <!-- Right: format guide -->
+  <div class="card">
+    <div class="card-header"><h2>Format JSON</h2></div>
+    <div style="padding:16px">
+      <p style="font-size:13px;color:var(--text-secondary);margin-bottom:12px">
+        File phải là một <strong>mảng</strong> các object với các trường sau:
+      </p>
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:12px;overflow-x:auto">
+        <pre style="font-size:11px;margin:0;color:var(--text)"><code>[
+  {
+    "headword": "run",      <span style="color:var(--danger)">*</span>
+    "lemma": "run",         <span style="color:var(--danger)">*</span>
+    "meaning_vi": "chạy",  <span style="color:var(--danger)">*</span>
+    "ipa_us": "/rʌn/",
+    "ipa_uk": "/rʌn/",
+    "pos": ["verb"],
+    "meaning_en": "to move fast",
+    "example_en": "She runs every day.",
+    "example_vi": "Cô ấy chạy mỗi ngày.",
+    "cefr_level": "A1",
+    "frequency_rank": 100,
+    "source": "manual"
+  }
+]</code></pre>
+      </div>
+      <div style="margin-top:12px">
+        <p style="font-size:12px;margin-bottom:4px"><span style="color:var(--danger)">*</span> Bắt buộc</p>
+        <p style="font-size:12px;color:var(--text-secondary)">
+          <strong>pos:</strong> noun, verb, adjective, adverb, preposition, conjunction, interjection, determiner, pronoun, phrase
+        </p>
+        <p style="font-size:12px;color:var(--text-secondary)">
+          <strong>cefr_level:</strong> A1, A2, B1, B2, C1, C2
+        </p>
+        <p style="font-size:12px;color:var(--text-secondary)">
+          <strong>source:</strong> manual, stardict, wiktionary, user
+        </p>
+        <p style="font-size:12px;color:var(--text-secondary)">
+          Cặp (headword + lemma) trùng lặp sẽ bị bỏ qua (ON CONFLICT DO NOTHING).
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>

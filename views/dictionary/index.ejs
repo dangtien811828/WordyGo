@@ -1,0 +1,173 @@
+<%
+  const cefrBadge = { A1:'badge-success', A2:'badge-success', B1:'badge-warning', B2:'badge-warning', C1:'badge-info', C2:'badge-info' };
+  const srcBadge  = { manual:'badge-primary', stardict:'badge-secondary', wiktionary:'badge-info', user:'badge-warning' };
+%>
+
+<div class="page-header" style="display:flex;align-items:center;justify-content:space-between">
+  <div>
+    <h1>Từ điển</h1>
+    <p>Quản lý từ vựng English–Vietnamese</p>
+  </div>
+  <div style="display:flex;gap:8px">
+    <a href="/dictionary/import" class="btn btn-secondary">↑ Import JSON</a>
+    <a href="/dictionary/create" class="btn btn-primary">+ Thêm từ</a>
+  </div>
+</div>
+
+<!-- Stat cards -->
+<div class="stats-grid" style="grid-template-columns:repeat(3,1fr)">
+  <div class="stat-card">
+    <div class="stat-icon">📖</div>
+    <div><div class="stat-value"><%= stats.total %></div><div class="stat-label">Tổng từ</div></div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon">🔊</div>
+    <div><div class="stat-value"><%= stats.hasIpa %></div><div class="stat-label">Có IPA</div></div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon">⚠️</div>
+    <div><div class="stat-value"><%= stats.missingIpa %></div><div class="stat-label">Thiếu IPA</div></div>
+  </div>
+</div>
+
+<!-- Filter bar -->
+<div class="card" style="padding:16px;margin-bottom:20px">
+  <form method="GET" action="/dictionary" style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
+    <div class="form-group" style="margin:0;flex:1;min-width:180px">
+      <label style="font-size:12px">Tìm kiếm</label>
+      <input type="text" name="search" value="<%= filters.search %>" placeholder="Headword, nghĩa VI...">
+    </div>
+    <div class="form-group" style="margin:0;min-width:120px">
+      <label style="font-size:12px">POS</label>
+      <select name="pos">
+        <option value="">Tất cả</option>
+        <% ['noun','verb','adjective','adverb','preposition','conjunction','interjection','determiner','pronoun','phrase'].forEach(p => { %>
+          <option value="<%= p %>" <%= filters.pos === p ? 'selected' : '' %>><%= p %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div class="form-group" style="margin:0;min-width:100px">
+      <label style="font-size:12px">CEFR</label>
+      <select name="cefrLevel">
+        <option value="">Tất cả</option>
+        <% ['A1','A2','B1','B2','C1','C2'].forEach(c => { %>
+          <option value="<%= c %>" <%= filters.cefrLevel === c ? 'selected' : '' %>><%= c %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div class="form-group" style="margin:0;min-width:120px">
+      <label style="font-size:12px">Nguồn</label>
+      <select name="source">
+        <option value="">Tất cả</option>
+        <% ['manual','stardict','wiktionary','user'].forEach(s => { %>
+          <option value="<%= s %>" <%= filters.source === s ? 'selected' : '' %>><%= s %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div class="form-group" style="margin:0;min-width:110px">
+      <label style="font-size:12px">Trạng thái</label>
+      <select name="published">
+        <option value="">Tất cả</option>
+        <option value="true"  <%= filters.published === 'true'  ? 'selected' : '' %>>Published</option>
+        <option value="false" <%= filters.published === 'false' ? 'selected' : '' %>>Unpublished</option>
+      </select>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button type="submit" class="btn btn-primary">Lọc</button>
+      <a href="/dictionary" class="btn btn-secondary">Xóa lọc</a>
+    </div>
+  </form>
+</div>
+
+<!-- Table -->
+<div class="card">
+  <div class="card-header">
+    <h2>Kết quả (<%= pagination.total %>)</h2>
+  </div>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Headword</th>
+          <th>IPA (US)</th>
+          <th>POS</th>
+          <th>Nghĩa VI</th>
+          <th>CEFR</th>
+          <th>Nguồn</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (entries && entries.length > 0) { %>
+          <% entries.forEach(function(e) { %>
+            <tr>
+              <td>
+                <div>
+                  <div style="font-weight:600"><%= e.headword %></div>
+                  <div style="font-size:12px;color:var(--text-secondary)"><%= e.lemma %></div>
+                </div>
+              </td>
+              <td style="font-family:monospace;font-size:12px;color:var(--text-secondary)">
+                <%= e.ipa_us || '—' %>
+              </td>
+              <td>
+                <div style="display:flex;flex-wrap:wrap;gap:3px">
+                  <% (Array.isArray(e.pos) ? e.pos : []).forEach(p => { %>
+                    <span class="badge badge-primary" style="font-size:10px"><%= p %></span>
+                  <% }) %>
+                </div>
+              </td>
+              <td style="max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px">
+                <%= e.meaning_vi %>
+              </td>
+              <td>
+                <% if (e.cefr_level) { %>
+                  <span class="badge <%= cefrBadge[e.cefr_level] || '' %>"><%= e.cefr_level %></span>
+                <% } else { %>
+                  <span style="color:var(--text-light)">—</span>
+                <% } %>
+              </td>
+              <td>
+                <span class="badge <%= srcBadge[e.source] || '' %>" style="font-size:11px"><%= e.source %></span>
+              </td>
+              <td>
+                <div style="display:flex;gap:4px;flex-wrap:nowrap;align-items:center">
+                  <a href="/dictionary/<%= e.id %>" class="btn btn-sm btn-secondary">Xem</a>
+                  <a href="/dictionary/<%= e.id %>/edit" class="btn btn-sm btn-secondary">Sửa</a>
+                  <button type="button" class="btn btn-sm btn-danger"
+                          onclick="document.getElementById('del-<%= e.id %>').showModal()">Xóa</button>
+                  <dialog id="del-<%= e.id %>"
+                          style="border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;max-width:400px;width:100%;box-shadow:var(--shadow-md)">
+                    <h3 style="margin-bottom:8px;color:var(--danger)">Xóa từ</h3>
+                    <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">
+                      Hành động này không thể hoàn tác. Nhập:<br>
+                      <code style="background:var(--bg);padding:2px 6px;border-radius:4px;font-size:13px">DELETE <%= e.headword %></code>
+                    </p>
+                    <form action="/dictionary/<%= e.id %>/delete" method="POST">
+                      <div class="form-group" style="margin-bottom:16px">
+                        <input type="text" name="confirm_text" autocomplete="off"
+                               placeholder="DELETE <%= e.headword %>" style="width:100%">
+                      </div>
+                      <div style="display:flex;gap:8px;justify-content:flex-end">
+                        <button type="button" class="btn btn-secondary"
+                                onclick="document.getElementById('del-<%= e.id %>').close()">Hủy</button>
+                        <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+                      </div>
+                    </form>
+                  </dialog>
+                </div>
+              </td>
+            </tr>
+          <% }) %>
+        <% } else { %>
+          <tr>
+            <td colspan="7" class="text-center" style="padding:40px;color:var(--text-secondary)">
+              Không có từ nào
+            </td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+  <%- include('../partials/pagination', { pagination }) %>
+</div>

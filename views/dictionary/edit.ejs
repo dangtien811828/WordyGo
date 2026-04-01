@@ -1,0 +1,161 @@
+<%
+  const entryTags = Array.isArray(entry.tags) ? entry.tags.map(t => t.id) : [];
+  const entryPos  = Array.isArray(entry.pos)  ? entry.pos  : [];
+%>
+
+<div class="page-header" style="display:flex;align-items:center;justify-content:space-between">
+  <div>
+    <h1>Sửa từ: <strong><%= entry.headword %></strong></h1>
+    <p><a href="/dictionary/<%= entry.id %>" style="color:var(--text-secondary)">← Xem chi tiết</a></p>
+  </div>
+</div>
+
+<form action="/dictionary/<%= entry.id %>/edit" method="POST">
+  <div style="display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start">
+
+    <!-- Main column -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+
+      <div class="card">
+        <div class="card-header"><h2>Từ gốc</h2></div>
+        <div style="padding:20px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div class="form-group" style="margin:0">
+              <label>Headword <span style="color:var(--danger)">*</span></label>
+              <input type="text" name="headword" value="<%= entry.headword %>" required autocomplete="off">
+            </div>
+            <div class="form-group" style="margin:0">
+              <label>Lemma <span style="color:var(--danger)">*</span></label>
+              <input type="text" name="lemma" value="<%= entry.lemma %>" required autocomplete="off">
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div class="form-group" style="margin:0">
+              <label>IPA (US)</label>
+              <input type="text" name="ipa_us" value="<%= entry.ipa_us || '' %>" autocomplete="off">
+            </div>
+            <div class="form-group" style="margin:0">
+              <label>IPA (UK)</label>
+              <input type="text" name="ipa_uk" value="<%= entry.ipa_uk || '' %>" autocomplete="off">
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div class="form-group" style="margin:0">
+              <label>Audio US URL</label>
+              <input type="text" name="audio_us_url" value="<%= entry.audio_us_url || '' %>" autocomplete="off">
+            </div>
+            <div class="form-group" style="margin:0">
+              <label>Audio UK URL</label>
+              <input type="text" name="audio_uk_url" value="<%= entry.audio_uk_url || '' %>" autocomplete="off">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><h2>Part of Speech (POS)</h2></div>
+        <div style="padding:16px;display:flex;flex-wrap:wrap;gap:10px">
+          <% VALID_POS.forEach(p => { %>
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:14px">
+              <input type="checkbox" name="pos" value="<%= p %>" <%= entryPos.includes(p) ? 'checked' : '' %>>
+              <%= p %>
+            </label>
+          <% }) %>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><h2>Nghĩa</h2></div>
+        <div style="padding:20px;display:flex;flex-direction:column;gap:14px">
+          <div class="form-group" style="margin:0">
+            <label>Nghĩa tiếng Việt <span style="color:var(--danger)">*</span></label>
+            <textarea name="meaning_vi" rows="3" required><%= entry.meaning_vi %></textarea>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Nghĩa tiếng Anh</label>
+            <textarea name="meaning_en" rows="2"><%= entry.meaning_en || '' %></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><h2>Ví dụ</h2></div>
+        <div style="padding:20px;display:flex;flex-direction:column;gap:14px">
+          <div class="form-group" style="margin:0">
+            <label>Câu ví dụ (EN)</label>
+            <textarea name="example_en" rows="2"><%= entry.example_en || '' %></textarea>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Câu ví dụ (VI)</label>
+            <textarea name="example_vi" rows="2"><%= entry.example_vi || '' %></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><h2>Ghi chú nội bộ</h2></div>
+        <div style="padding:16px">
+          <div class="form-group" style="margin:0">
+            <textarea name="admin_note" rows="2"><%= entry.admin_note || '' %></textarea>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Sidebar -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+
+      <div class="card">
+        <div class="card-header"><h2>Phân loại</h2></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:14px">
+          <div class="form-group" style="margin:0">
+            <label>CEFR Level</label>
+            <select name="cefr_level">
+              <option value="">— Chọn —</option>
+              <% VALID_CEFR.forEach(c => { %>
+                <option value="<%= c %>" <%= entry.cefr_level === c ? 'selected' : '' %>><%= c %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Frequency Rank</label>
+            <input type="number" name="frequency_rank" min="1" value="<%= entry.frequency_rank || '' %>">
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Nguồn</label>
+            <select name="source">
+              <% VALID_SOURCES.forEach(s => { %>
+                <option value="<%= s %>" <%= entry.source === s ? 'selected' : '' %>><%= s %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div>
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px">
+              <input type="checkbox" name="published" value="true" <%= entry.published ? 'checked' : '' %>>
+              Published
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><h2>Tags</h2></div>
+        <div style="padding:16px">
+          <select name="tagIds" multiple style="width:100%;height:160px;padding:6px">
+            <% tags.forEach(t => { %>
+              <option value="<%= t.id %>" <%= entryTags.includes(t.id) ? 'selected' : '' %>><%= t.name %></option>
+            <% }) %>
+          </select>
+          <p style="font-size:11px;color:var(--text-secondary);margin-top:6px">Ctrl+Click để chọn nhiều</p>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <button type="submit" class="btn btn-primary" style="width:100%">Lưu thay đổi</button>
+        <a href="/dictionary/<%= entry.id %>" class="btn btn-secondary" style="width:100%;text-align:center">Hủy</a>
+      </div>
+
+    </div>
+  </div>
+</form>

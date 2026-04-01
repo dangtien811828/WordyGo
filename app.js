@@ -44,8 +44,11 @@ app.use(injectAdmin);
 app.use('/auth',      require('./routes/auth'));
 app.use('/dashboard', require('./routes/dashboard'));
 app.use('/approvals', require('./routes/approvals'));
-app.use('/users',     require('./routes/users'));
-app.use('/profile',   require('./routes/profile'));
+app.use('/users',      require('./routes/users'));
+app.use('/profile',    require('./routes/profile'));
+app.use('/dictionary', require('./routes/dictionary'));
+app.use('/lessons',    require('./routes/lessons'));
+app.use('/decks',      require('./routes/decks'));
 
 // Root redirect
 app.get('/', (req, res) => {

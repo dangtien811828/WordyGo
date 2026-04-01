@@ -1,0 +1,192 @@
+<%
+  const cefrBadge = { A1:'badge-success', A2:'badge-success', B1:'badge-warning', B2:'badge-warning', C1:'badge-info', C2:'badge-info' };
+  const tags      = Array.isArray(entry.tags)     ? entry.tags     : [];
+  const synonyms  = Array.isArray(entry.synonyms) ? entry.synonyms : [];
+  const antonyms  = Array.isArray(entry.antonyms) ? entry.antonyms : [];
+  const pos       = Array.isArray(entry.pos)      ? entry.pos      : [];
+%>
+
+<div class="page-header" style="display:flex;align-items:center;justify-content:space-between">
+  <div>
+    <h1><%= entry.headword %></h1>
+    <p><a href="/dictionary" style="color:var(--text-secondary)">← Từ điển</a></p>
+  </div>
+  <div style="display:flex;gap:8px">
+    <a href="/dictionary/<%= entry.id %>/edit" class="btn btn-primary">Sửa</a>
+    <button type="button" class="btn btn-danger"
+            onclick="document.getElementById('dlg-delete').showModal()">Xóa</button>
+  </div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 280px;gap:20px;align-items:start">
+
+  <!-- Main -->
+  <div style="display:flex;flex-direction:column;gap:16px">
+
+    <div class="card">
+      <div class="card-header" style="display:flex;justify-content:space-between;align-items:center">
+        <h2>Thông tin từ</h2>
+        <span class="badge <%= entry.published ? 'badge-success' : 'badge-warning' %>">
+          <%= entry.published ? 'Published' : 'Unpublished' %>
+        </span>
+      </div>
+      <div style="padding:20px">
+        <table style="width:100%;border-collapse:collapse">
+          <tbody>
+            <tr style="border-bottom:1px solid var(--border)">
+              <td style="padding:10px 0;color:var(--text-secondary);width:140px;font-size:13px">Headword</td>
+              <td style="padding:10px 0;font-weight:600;font-size:18px"><%= entry.headword %></td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border)">
+              <td style="padding:10px 0;color:var(--text-secondary);font-size:13px">Lemma</td>
+              <td style="padding:10px 0"><%= entry.lemma %></td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border)">
+              <td style="padding:10px 0;color:var(--text-secondary);font-size:13px">IPA (US / UK)</td>
+              <td style="padding:10px 0;font-family:monospace">
+                <%= entry.ipa_us || '—' %> / <%= entry.ipa_uk || '—' %>
+              </td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border)">
+              <td style="padding:10px 0;color:var(--text-secondary);font-size:13px">POS</td>
+              <td style="padding:10px 0">
+                <div style="display:flex;gap:4px;flex-wrap:wrap">
+                  <% pos.forEach(p => { %>
+                    <span class="badge badge-primary" style="font-size:11px"><%= p %></span>
+                  <% }) %>
+                  <% if (!pos.length) { %><span style="color:var(--text-light)">—</span><% } %>
+                </div>
+              </td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border)">
+              <td style="padding:10px 0;color:var(--text-secondary);font-size:13px">CEFR</td>
+              <td style="padding:10px 0">
+                <% if (entry.cefr_level) { %>
+                  <span class="badge <%= cefrBadge[entry.cefr_level] || '' %>"><%= entry.cefr_level %></span>
+                <% } else { %>
+                  <span style="color:var(--text-light)">—</span>
+                <% } %>
+              </td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border)">
+              <td style="padding:10px 0;color:var(--text-secondary);font-size:13px">Frequency Rank</td>
+              <td style="padding:10px 0"><%= entry.frequency_rank || '—' %></td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border)">
+              <td style="padding:10px 0;color:var(--text-secondary);font-size:13px">Nguồn</td>
+              <td style="padding:10px 0"><%= entry.source %></td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border)">
+              <td style="padding:10px 0;color:var(--text-secondary);font-size:13px">Nghĩa VI</td>
+              <td style="padding:10px 0"><%= entry.meaning_vi %></td>
+            </tr>
+            <% if (entry.meaning_en) { %>
+            <tr style="border-bottom:1px solid var(--border)">
+              <td style="padding:10px 0;color:var(--text-secondary);font-size:13px">Nghĩa EN</td>
+              <td style="padding:10px 0"><%= entry.meaning_en %></td>
+            </tr>
+            <% } %>
+            <% if (entry.example_en) { %>
+            <tr style="border-bottom:1px solid var(--border)">
+              <td style="padding:10px 0;color:var(--text-secondary);font-size:13px">Ví dụ EN</td>
+              <td style="padding:10px 0;font-style:italic"><%= entry.example_en %></td>
+            </tr>
+            <% } %>
+            <% if (entry.example_vi) { %>
+            <tr style="border-bottom:1px solid var(--border)">
+              <td style="padding:10px 0;color:var(--text-secondary);font-size:13px">Ví dụ VI</td>
+              <td style="padding:10px 0;font-style:italic"><%= entry.example_vi %></td>
+            </tr>
+            <% } %>
+            <% if (entry.admin_note) { %>
+            <tr style="border-bottom:1px solid var(--border)">
+              <td style="padding:10px 0;color:var(--text-secondary);font-size:13px">Ghi chú</td>
+              <td style="padding:10px 0;color:var(--text-secondary)"><%= entry.admin_note %></td>
+            </tr>
+            <% } %>
+            <tr>
+              <td style="padding:10px 0;color:var(--text-secondary);font-size:13px">Ngày tạo</td>
+              <td style="padding:10px 0;font-size:13px">
+                <%= new Date(entry.created_at).toLocaleString('vi-VN') %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Sidebar -->
+  <div style="display:flex;flex-direction:column;gap:16px">
+
+    <div class="card">
+      <div class="card-header"><h2>Tags (<%= tags.length %>)</h2></div>
+      <div style="padding:16px;display:flex;flex-wrap:wrap;gap:6px">
+        <% if (tags.length > 0) { %>
+          <% tags.forEach(t => { %>
+            <span class="badge badge-primary"><%= t.name %></span>
+          <% }) %>
+        <% } else { %>
+          <span style="color:var(--text-secondary);font-size:13px">Chưa có tag</span>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><h2>Từ đồng nghĩa (<%= synonyms.length %>)</h2></div>
+      <div style="padding:16px">
+        <% if (synonyms.length > 0) { %>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            <% synonyms.forEach(s => { %>
+              <a href="/dictionary/<%= s.id %>" class="badge badge-success" style="text-decoration:none">
+                <%= s.headword %>
+              </a>
+            <% }) %>
+          </div>
+        <% } else { %>
+          <span style="color:var(--text-secondary);font-size:13px">Chưa có</span>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><h2>Từ trái nghĩa (<%= antonyms.length %>)</h2></div>
+      <div style="padding:16px">
+        <% if (antonyms.length > 0) { %>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            <% antonyms.forEach(a => { %>
+              <a href="/dictionary/<%= a.id %>" class="badge badge-danger" style="text-decoration:none">
+                <%= a.headword %>
+              </a>
+            <% }) %>
+          </div>
+        <% } else { %>
+          <span style="color:var(--text-secondary);font-size:13px">Chưa có</span>
+        <% } %>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Delete dialog -->
+<dialog id="dlg-delete"
+        style="border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;max-width:400px;width:100%;box-shadow:var(--shadow-md)">
+  <h3 style="margin-bottom:8px;color:var(--danger)">Xóa từ "<%= entry.headword %>"</h3>
+  <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">
+    Hành động này không thể hoàn tác. Nhập:<br>
+    <code style="background:var(--bg);padding:2px 6px;border-radius:4px;font-size:13px">DELETE <%= entry.headword %></code>
+  </p>
+  <form action="/dictionary/<%= entry.id %>/delete" method="POST">
+    <div class="form-group" style="margin-bottom:16px">
+      <input type="text" name="confirm_text" autocomplete="off"
+             placeholder="DELETE <%= entry.headword %>" style="width:100%">
+    </div>
+    <div style="display:flex;gap:8px;justify-content:flex-end">
+      <button type="button" class="btn btn-secondary"
+              onclick="document.getElementById('dlg-delete').close()">Hủy</button>
+      <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+    </div>
+  </form>
+</dialog>

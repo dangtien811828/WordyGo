@@ -1,0 +1,141 @@
+<%
+  const levelBadge  = { beginner:'badge-success', intermediate:'badge-warning', advanced:'badge-info' };
+  const statusBadge = { draft:'badge-warning', published:'badge-success', archived:'badge-secondary' };
+%>
+
+<div class="page-header" style="display:flex;align-items:center;justify-content:space-between">
+  <div>
+    <h1>Bài học</h1>
+    <p>Quản lý nội dung bài học</p>
+  </div>
+  <a href="/lessons/create" class="btn btn-primary">+ Tạo bài học</a>
+</div>
+
+<!-- Filter bar -->
+<div class="card" style="padding:16px;margin-bottom:20px">
+  <form method="GET" action="/lessons" style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
+    <div class="form-group" style="margin:0;flex:1;min-width:180px">
+      <label style="font-size:12px">Tìm kiếm</label>
+      <input type="text" name="search" value="<%= filters.search %>" placeholder="Tiêu đề...">
+    </div>
+    <div class="form-group" style="margin:0;min-width:130px">
+      <label style="font-size:12px">Cấp độ</label>
+      <select name="level">
+        <option value="">Tất cả</option>
+        <option value="beginner"     <%= filters.level === 'beginner'     ? 'selected' : '' %>>Beginner</option>
+        <option value="intermediate" <%= filters.level === 'intermediate' ? 'selected' : '' %>>Intermediate</option>
+        <option value="advanced"     <%= filters.level === 'advanced'     ? 'selected' : '' %>>Advanced</option>
+      </select>
+    </div>
+    <div class="form-group" style="margin:0;min-width:120px">
+      <label style="font-size:12px">Trạng thái</label>
+      <select name="status">
+        <option value="">Tất cả</option>
+        <option value="draft"     <%= filters.status === 'draft'     ? 'selected' : '' %>>Draft</option>
+        <option value="published" <%= filters.status === 'published' ? 'selected' : '' %>>Published</option>
+        <option value="archived"  <%= filters.status === 'archived'  ? 'selected' : '' %>>Archived</option>
+      </select>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button type="submit" class="btn btn-primary">Lọc</button>
+      <a href="/lessons" class="btn btn-secondary">Xóa lọc</a>
+    </div>
+  </form>
+</div>
+
+<!-- Table -->
+<div class="card">
+  <div class="card-header">
+    <h2>Kết quả (<%= pagination.total %>)</h2>
+  </div>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Tiêu đề</th>
+          <th>Cấp độ</th>
+          <th>Số từ</th>
+          <th>Trạng thái</th>
+          <th>Người tạo</th>
+          <th>Ngày tạo</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (lessons && lessons.length > 0) { %>
+          <% lessons.forEach(function(l) { %>
+            <tr>
+              <td>
+                <div style="font-weight:500"><%= l.title %></div>
+              </td>
+              <td>
+                <span class="badge <%= levelBadge[l.level] || '' %>"><%= l.level %></span>
+              </td>
+              <td style="text-align:center;font-size:13px"><%= l.entry_count %></td>
+              <td>
+                <span class="badge <%= statusBadge[l.status] || '' %>"><%= l.status %></span>
+              </td>
+              <td style="font-size:13px;color:var(--text-secondary)">
+                <%= l.creator_name || '—' %>
+              </td>
+              <td style="font-size:13px;color:var(--text-secondary)">
+                <%= new Date(l.created_at).toLocaleDateString('vi-VN') %>
+              </td>
+              <td>
+                <div style="display:flex;gap:4px;flex-wrap:nowrap;align-items:center">
+                  <a href="/lessons/<%= l.id %>/edit" class="btn btn-sm btn-secondary">Sửa</a>
+
+                  <!-- Toggle status -->
+                  <form action="/lessons/<%= l.id %>/toggle-status" method="POST" style="margin:0">
+                    <% if (l.status === 'published') { %>
+                      <button class="btn btn-sm btn-secondary">Hạ draft</button>
+                    <% } else { %>
+                      <button class="btn btn-sm btn-secondary">Publish</button>
+                    <% } %>
+                  </form>
+
+                  <!-- Delete -->
+                  <% if (admin.role === 'moderator') { %>
+                    <form action="/lessons/<%= l.id %>/delete" method="POST" style="margin:0">
+                      <button type="submit" class="btn btn-sm btn-danger"
+                              onclick="return confirm('Gửi yêu cầu xóa bài học này?')">Xóa</button>
+                    </form>
+                  <% } else { %>
+                    <button type="button" class="btn btn-sm btn-danger"
+                            onclick="document.getElementById('del-<%= l.id %>').showModal()">Xóa</button>
+                    <dialog id="del-<%= l.id %>"
+                            style="border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;max-width:400px;width:100%;box-shadow:var(--shadow-md)">
+                      <h3 style="margin-bottom:8px;color:var(--danger)">Xóa bài học</h3>
+                      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">
+                        Hành động này không thể hoàn tác. Nhập:<br>
+                        <code style="background:var(--bg);padding:2px 6px;border-radius:4px;font-size:13px">DELETE <%= l.title %></code>
+                      </p>
+                      <form action="/lessons/<%= l.id %>/delete" method="POST">
+                        <div class="form-group" style="margin-bottom:16px">
+                          <input type="text" name="confirm_text" autocomplete="off"
+                                 placeholder="DELETE <%= l.title %>" style="width:100%">
+                        </div>
+                        <div style="display:flex;gap:8px;justify-content:flex-end">
+                          <button type="button" class="btn btn-secondary"
+                                  onclick="document.getElementById('del-<%= l.id %>').close()">Hủy</button>
+                          <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+                        </div>
+                      </form>
+                    </dialog>
+                  <% } %>
+                </div>
+              </td>
+            </tr>
+          <% }) %>
+        <% } else { %>
+          <tr>
+            <td colspan="7" class="text-center" style="padding:40px;color:var(--text-secondary)">
+              Không có bài học nào
+            </td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+  <%- include('../partials/pagination', { pagination }) %>
+</div>

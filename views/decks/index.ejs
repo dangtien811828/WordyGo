@@ -1,0 +1,125 @@
+<%
+  const levelBadge  = { beginner:'badge-success', intermediate:'badge-warning', advanced:'badge-info' };
+  const statusBadge = { draft:'badge-warning', published:'badge-success', archived:'badge-secondary' };
+  const typeBadge   = { premade:'badge-primary', system_generated:'badge-info' };
+%>
+
+<div class="page-header" style="display:flex;align-items:center;justify-content:space-between">
+  <div>
+    <h1>Flashcard Decks</h1>
+    <p>Quản lý bộ flashcard</p>
+  </div>
+  <a href="/decks/create" class="btn btn-primary">+ Tạo Deck</a>
+</div>
+
+<!-- Filter bar -->
+<div class="card" style="padding:16px;margin-bottom:20px">
+  <form method="GET" action="/decks" style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
+    <div class="form-group" style="margin:0;flex:1;min-width:180px">
+      <label style="font-size:12px">Tìm kiếm</label>
+      <input type="text" name="search" value="<%= filters.search %>" placeholder="Tên deck...">
+    </div>
+    <div class="form-group" style="margin:0;min-width:130px">
+      <label style="font-size:12px">Cấp độ</label>
+      <select name="level">
+        <option value="">Tất cả</option>
+        <option value="beginner"     <%= filters.level === 'beginner'     ? 'selected' : '' %>>Beginner</option>
+        <option value="intermediate" <%= filters.level === 'intermediate' ? 'selected' : '' %>>Intermediate</option>
+        <option value="advanced"     <%= filters.level === 'advanced'     ? 'selected' : '' %>>Advanced</option>
+      </select>
+    </div>
+    <div class="form-group" style="margin:0;min-width:120px">
+      <label style="font-size:12px">Trạng thái</label>
+      <select name="status">
+        <option value="">Tất cả</option>
+        <option value="draft"     <%= filters.status === 'draft'     ? 'selected' : '' %>>Draft</option>
+        <option value="published" <%= filters.status === 'published' ? 'selected' : '' %>>Published</option>
+        <option value="archived"  <%= filters.status === 'archived'  ? 'selected' : '' %>>Archived</option>
+      </select>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button type="submit" class="btn btn-primary">Lọc</button>
+      <a href="/decks" class="btn btn-secondary">Xóa lọc</a>
+    </div>
+  </form>
+</div>
+
+<!-- Table -->
+<div class="card">
+  <div class="card-header">
+    <h2>Kết quả (<%= pagination.total %>)</h2>
+  </div>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Tiêu đề</th>
+          <th>Loại</th>
+          <th>Cấp độ</th>
+          <th style="text-align:center">Số cards</th>
+          <th>Trạng thái</th>
+          <th>Người tạo</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (decks && decks.length > 0) { %>
+          <% decks.forEach(function(d) { %>
+            <tr>
+              <td>
+                <div style="font-weight:500"><%= d.title %></div>
+              </td>
+              <td>
+                <span class="badge <%= typeBadge[d.deck_type] || '' %>" style="font-size:11px">
+                  <%= d.deck_type === 'system_generated' ? 'System' : 'Premade' %>
+                </span>
+              </td>
+              <td>
+                <span class="badge <%= levelBadge[d.level] || '' %>"><%= d.level %></span>
+              </td>
+              <td style="text-align:center;font-size:13px"><%= d.card_count %></td>
+              <td>
+                <span class="badge <%= statusBadge[d.status] || '' %>"><%= d.status %></span>
+              </td>
+              <td style="font-size:13px;color:var(--text-secondary)"><%= d.creator_name || '—' %></td>
+              <td>
+                <div style="display:flex;gap:4px;flex-wrap:nowrap;align-items:center">
+                  <a href="/decks/<%= d.id %>" class="btn btn-sm btn-secondary">Xem</a>
+                  <a href="/decks/<%= d.id %>/edit" class="btn btn-sm btn-secondary">Sửa</a>
+                  <button type="button" class="btn btn-sm btn-danger"
+                          onclick="document.getElementById('del-<%= d.id %>').showModal()">Xóa</button>
+                  <dialog id="del-<%= d.id %>"
+                          style="border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;max-width:400px;width:100%;box-shadow:var(--shadow-md)">
+                    <h3 style="margin-bottom:8px;color:var(--danger)">Xóa deck</h3>
+                    <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">
+                      Xóa deck sẽ xóa toàn bộ cards và tiến trình học. Nhập:<br>
+                      <code style="background:var(--bg);padding:2px 6px;border-radius:4px;font-size:13px">DELETE <%= d.title %></code>
+                    </p>
+                    <form action="/decks/<%= d.id %>/delete" method="POST">
+                      <div class="form-group" style="margin-bottom:16px">
+                        <input type="text" name="confirm_text" autocomplete="off"
+                               placeholder="DELETE <%= d.title %>" style="width:100%">
+                      </div>
+                      <div style="display:flex;gap:8px;justify-content:flex-end">
+                        <button type="button" class="btn btn-secondary"
+                                onclick="document.getElementById('del-<%= d.id %>').close()">Hủy</button>
+                        <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+                      </div>
+                    </form>
+                  </dialog>
+                </div>
+              </td>
+            </tr>
+          <% }) %>
+        <% } else { %>
+          <tr>
+            <td colspan="7" class="text-center" style="padding:40px;color:var(--text-secondary)">
+              Không có deck nào
+            </td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+  <%- include('../partials/pagination', { pagination }) %>
+</div>

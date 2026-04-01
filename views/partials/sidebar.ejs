@@ -16,11 +16,15 @@
       <span class="nav-icon">👥</span>
       <span class="nav-label">Người dùng</span>
     </a>
-    <a href="#" class="nav-item <%= typeof active !== 'undefined' && active === 'dictionary' ? 'active' : '' %>">
+    <a href="/dictionary" class="nav-item <%= typeof active !== 'undefined' && active === 'dictionary' ? 'active' : '' %>">
       <span class="nav-icon">📖</span>
-      <span class="nav-label">Từ điển & Bài học</span>
+      <span class="nav-label">Từ điển</span>
     </a>
-    <a href="#" class="nav-item <%= typeof active !== 'undefined' && active === 'flashcards' ? 'active' : '' %>">
+    <a href="/lessons" class="nav-item <%= typeof active !== 'undefined' && active === 'lessons' ? 'active' : '' %>">
+      <span class="nav-icon">📚</span>
+      <span class="nav-label">Bài học</span>
+    </a>
+    <a href="/decks" class="nav-item <%= typeof active !== 'undefined' && active === 'flashcards' ? 'active' : '' %>">
       <span class="nav-icon">🃏</span>
       <span class="nav-label">Flashcard Decks</span>
     </a>

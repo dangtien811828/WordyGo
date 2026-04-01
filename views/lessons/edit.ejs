@@ -1,0 +1,210 @@
+<%
+  const lessonTags    = Array.isArray(lesson.tags)    ? lesson.tags    : [];
+  const lessonEntries = Array.isArray(lesson.entries) ? lesson.entries : [];
+  const lessonTagIds  = lessonTags.map(function(t) { return t.id; });
+%>
+
+<div class="page-header" style="display:flex;align-items:center;justify-content:space-between">
+  <div>
+    <h1>Sửa bài học</h1>
+    <p><a href="/lessons" style="color:var(--text-secondary)">← Bài học</a></p>
+  </div>
+</div>
+
+<% if (isModerator) { %>
+  <div class="alert alert-error" style="background:#FEF3C7;border-color:#F59E0B;color:#92400E;margin-bottom:16px">
+    ⚠️ Thay đổi sẽ được gửi đến Super Admin để duyệt.
+  </div>
+<% } %>
+
+<form action="/lessons/<%= lesson.id %>/edit" method="POST" id="lessonForm">
+  <div style="display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start">
+
+    <!-- Main column -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+
+      <div class="card">
+        <div class="card-header"><h2>Thông tin bài học</h2></div>
+        <div style="padding:20px;display:flex;flex-direction:column;gap:14px">
+          <div class="form-group" style="margin:0">
+            <label>Tiêu đề <span style="color:var(--danger)">*</span></label>
+            <input type="text" name="title" value="<%= lesson.title %>" required>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Mô tả</label>
+            <textarea name="description" rows="3"><%= lesson.description || '' %></textarea>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Nội dung HTML</label>
+            <textarea name="content_html" rows="8"
+                      style="font-family:monospace;font-size:13px"><%= lesson.content_html || '' %></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Entry picker -->
+      <div class="card">
+        <div class="card-header"><h2>Từ vựng trong bài</h2></div>
+        <div style="padding:20px">
+          <div class="form-group" style="margin-bottom:12px">
+            <label>Tìm từ để thêm</label>
+            <input type="text" id="entrySearch" placeholder="Nhập headword..." autocomplete="off">
+          </div>
+          <div id="entryDropdown" style="display:none;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-white);max-height:200px;overflow-y:auto;margin-bottom:12px;box-shadow:var(--shadow-md)"></div>
+          <div id="selectedEntries" style="display:flex;flex-direction:column;gap:6px">
+            <p id="noEntriesMsg" style="color:var(--text-secondary);font-size:13px;display:none">Chưa có từ nào.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Sidebar -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+
+      <div class="card">
+        <div class="card-header"><h2>Cài đặt</h2></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:14px">
+          <div class="form-group" style="margin:0">
+            <label>Cấp độ</label>
+            <select name="level">
+              <% VALID_LEVELS.forEach(function(l) { %>
+                <option value="<%= l %>" <%= lesson.level === l ? 'selected' : '' %>><%= l %></option>
+              <% }); %>
+            </select>
+          </div>
+          <% if (!isModerator) { %>
+          <div class="form-group" style="margin:0">
+            <label>Trạng thái</label>
+            <select name="status">
+              <% VALID_STATUSES.forEach(function(s) { %>
+                <option value="<%= s %>" <%= lesson.status === s ? 'selected' : '' %>><%= s %></option>
+              <% }); %>
+            </select>
+          </div>
+          <% } %>
+          <div class="form-group" style="margin:0">
+            <label>Thumbnail URL</label>
+            <input type="text" name="thumbnail_url" value="<%= lesson.thumbnail_url || '' %>">
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Sort Order</label>
+            <input type="number" name="sort_order" value="<%= lesson.sort_order || 0 %>" min="0">
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Publish At</label>
+            <input type="datetime-local" name="publish_at"
+                   value="<%= lesson.publish_at ? new Date(lesson.publish_at).toISOString().slice(0,16) : '' %>">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><h2>Tags</h2></div>
+        <div style="padding:16px">
+          <select name="tagIds" multiple style="width:100%;height:140px;padding:6px">
+            <% tags.forEach(function(t) { %>
+              <option value="<%= t.id %>" <%= lessonTagIds.includes(t.id) ? 'selected' : '' %>><%= t.name %></option>
+            <% }); %>
+          </select>
+          <p style="font-size:11px;color:var(--text-secondary);margin-top:6px">Ctrl+Click để chọn nhiều</p>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <button type="submit" class="btn btn-primary" style="width:100%">
+          <%= isModerator ? 'Gửi yêu cầu duyệt' : 'Lưu thay đổi' %>
+        </button>
+        <a href="/lessons" class="btn btn-secondary" style="width:100%;text-align:center">Hủy</a>
+      </div>
+
+    </div>
+  </div>
+</form>
+
+<!-- Pre-load existing entries -->
+<script>
+(function() {
+  var searchInput  = document.getElementById('entrySearch');
+  var dropdown     = document.getElementById('entryDropdown');
+  var selectedWrap = document.getElementById('selectedEntries');
+  var noMsg        = document.getElementById('noEntriesMsg');
+  var debounceTimer;
+
+  // Seed with existing lesson entries
+  var selected = {};
+  <% lessonEntries.forEach(function(e) { %>
+    selected['<%= e.id %>'] = { id: '<%= e.id %>', headword: <%- JSON.stringify(e.headword) %>, meaning_vi: <%- JSON.stringify(e.meaning_vi) %> };
+  <% }); %>
+
+  function escHtml(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function renderSelected() {
+    Array.from(selectedWrap.children).forEach(function(c) { if (c.id !== 'noEntriesMsg') c.remove(); });
+    document.querySelectorAll('input[name="entryIds"]').forEach(function(i) { i.remove(); });
+
+    var ids = Object.keys(selected);
+    noMsg.style.display = ids.length ? 'none' : '';
+
+    ids.forEach(function(id) {
+      var entry = selected[id];
+
+      var inp = document.createElement('input');
+      inp.type = 'hidden'; inp.name = 'entryIds'; inp.value = id;
+      document.getElementById('lessonForm').appendChild(inp);
+
+      var pill = document.createElement('div');
+      pill.style = 'display:flex;align-items:center;justify-content:space-between;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:6px 10px;font-size:13px';
+      pill.innerHTML =
+        '<span><strong>' + escHtml(entry.headword) + '</strong> — ' + escHtml(entry.meaning_vi) + '</span>' +
+        '<button type="button" data-id="' + id + '" style="background:none;border:none;cursor:pointer;color:var(--danger);font-size:16px;padding:0 0 0 8px" title="Bỏ chọn">×</button>';
+      pill.querySelector('button').addEventListener('click', function() {
+        delete selected[this.dataset.id]; renderSelected();
+      });
+      selectedWrap.appendChild(pill);
+    });
+  }
+
+  function showDropdown(entries) {
+    dropdown.innerHTML = '';
+    if (!entries.length) {
+      dropdown.innerHTML = '<div style="padding:10px 14px;color:var(--text-secondary);font-size:13px">Không tìm thấy</div>';
+      dropdown.style.display = 'block'; return;
+    }
+    entries.forEach(function(e) {
+      var item = document.createElement('div');
+      item.style = 'padding:8px 14px;cursor:pointer;border-bottom:1px solid var(--border);font-size:13px';
+      item.innerHTML = '<strong>' + escHtml(e.headword) + '</strong> <span style="color:var(--text-secondary)">— ' + escHtml(e.meaning_vi) + '</span>';
+      item.addEventListener('mouseenter', function() { this.style.background = 'var(--bg)'; });
+      item.addEventListener('mouseleave', function() { this.style.background = ''; });
+      item.addEventListener('click', function() {
+        selected[e.id] = e; renderSelected();
+        dropdown.style.display = 'none'; searchInput.value = '';
+      });
+      dropdown.appendChild(item);
+    });
+    dropdown.style.display = 'block';
+  }
+
+  searchInput.addEventListener('input', function() {
+    clearTimeout(debounceTimer);
+    var q = this.value.trim();
+    if (!q) { dropdown.style.display = 'none'; return; }
+    debounceTimer = setTimeout(function() {
+      fetch('/dictionary?search=' + encodeURIComponent(q) + '&format=json')
+        .then(function(r) { return r.json(); })
+        .then(function(data) { showDropdown(data.entries || []); })
+        .catch(function() { dropdown.style.display = 'none'; });
+    }, 300);
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!dropdown.contains(e.target) && e.target !== searchInput) dropdown.style.display = 'none';
+  });
+
+  // Render pre-loaded entries immediately
+  renderSelected();
+})();
+</script>

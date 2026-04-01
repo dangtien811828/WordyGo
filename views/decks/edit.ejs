@@ -1,0 +1,91 @@
+<%
+  const deckTagIds = Array.isArray(deck.tags) ? deck.tags.map(function(t) { return t.id; }) : [];
+%>
+
+<div class="page-header" style="display:flex;align-items:center;justify-content:space-between">
+  <div>
+    <h1>Sửa Deck</h1>
+    <p><a href="/decks/<%= deck.id %>" style="color:var(--text-secondary)">← <%= deck.title %></a></p>
+  </div>
+</div>
+
+<form action="/decks/<%= deck.id %>/edit" method="POST">
+  <div style="display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start">
+
+    <!-- Main -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="card">
+        <div class="card-header"><h2>Thông tin deck</h2></div>
+        <div style="padding:20px;display:flex;flex-direction:column;gap:14px">
+          <div class="form-group" style="margin:0">
+            <label>Tiêu đề <span style="color:var(--danger)">*</span></label>
+            <input type="text" name="title" value="<%= deck.title %>" required>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Mô tả</label>
+            <textarea name="description" rows="3"><%= deck.description || '' %></textarea>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Thumbnail URL</label>
+            <input type="text" name="thumbnail_url" value="<%= deck.thumbnail_url || '' %>">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="card">
+        <div class="card-header"><h2>Cài đặt</h2></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:14px">
+          <div class="form-group" style="margin:0">
+            <label>Cấp độ</label>
+            <select name="level">
+              <% VALID_LEVELS.forEach(function(l) { %>
+                <option value="<%= l %>" <%= deck.level === l ? 'selected' : '' %>><%= l %></option>
+              <% }); %>
+            </select>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Loại deck</label>
+            <select name="deck_type">
+              <% VALID_TYPES.forEach(function(t) { %>
+                <option value="<%= t %>" <%= deck.deck_type === t ? 'selected' : '' %>><%= t %></option>
+              <% }); %>
+            </select>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Trạng thái</label>
+            <select name="status">
+              <% VALID_STATUSES.forEach(function(s) { %>
+                <option value="<%= s %>" <%= deck.status === s ? 'selected' : '' %>><%= s %></option>
+              <% }); %>
+            </select>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Min Cards to Study</label>
+            <input type="number" name="min_cards_to_study" value="<%= deck.min_cards_to_study || 5 %>" min="1">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><h2>Tags</h2></div>
+        <div style="padding:16px">
+          <select name="tagIds" multiple style="width:100%;height:140px;padding:6px">
+            <% tags.forEach(function(t) { %>
+              <option value="<%= t.id %>" <%= deckTagIds.includes(t.id) ? 'selected' : '' %>><%= t.name %></option>
+            <% }); %>
+          </select>
+          <p style="font-size:11px;color:var(--text-secondary);margin-top:6px">Ctrl+Click để chọn nhiều</p>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <button type="submit" class="btn btn-primary" style="width:100%">Lưu thay đổi</button>
+        <a href="/decks/<%= deck.id %>" class="btn btn-secondary" style="width:100%;text-align:center">Hủy</a>
+      </div>
+    </div>
+
+  </div>
+</form>

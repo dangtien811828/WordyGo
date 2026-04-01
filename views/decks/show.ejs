@@ -1,0 +1,264 @@
+<%
+  const levelBadge  = { beginner:'badge-success', intermediate:'badge-warning', advanced:'badge-info' };
+  const statusBadge = { draft:'badge-warning', published:'badge-success', archived:'badge-secondary' };
+  const tags  = Array.isArray(deck.tags)  ? deck.tags  : [];
+  const cards = Array.isArray(deck.cards) ? deck.cards : [];
+%>
+
+<div class="page-header" style="display:flex;align-items:center;justify-content:space-between">
+  <div>
+    <h1><%= deck.title %></h1>
+    <p><a href="/decks" style="color:var(--text-secondary)">← Flashcard Decks</a></p>
+  </div>
+  <div style="display:flex;gap:8px">
+    <a href="/decks/<%= deck.id %>/edit" class="btn btn-secondary">Sửa</a>
+    <button type="button" class="btn btn-danger"
+            onclick="document.getElementById('dlg-delete').showModal()">Xóa</button>
+  </div>
+</div>
+
+<!-- Deck info -->
+<div style="display:grid;grid-template-columns:1fr 280px;gap:20px;align-items:start;margin-bottom:20px">
+  <div class="card">
+    <div class="card-header" style="display:flex;justify-content:space-between;align-items:center">
+      <h2>Thông tin deck</h2>
+      <div style="display:flex;gap:6px">
+        <span class="badge <%= levelBadge[deck.level] || '' %>"><%= deck.level %></span>
+        <span class="badge <%= statusBadge[deck.status] || '' %>"><%= deck.status %></span>
+      </div>
+    </div>
+    <div style="padding:16px">
+      <table style="width:100%;border-collapse:collapse">
+        <tr style="border-bottom:1px solid var(--border)">
+          <td style="padding:8px 0;color:var(--text-secondary);width:160px;font-size:13px">Loại</td>
+          <td style="padding:8px 0"><%= deck.deck_type %></td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border)">
+          <td style="padding:8px 0;color:var(--text-secondary);font-size:13px">Min Cards to Study</td>
+          <td style="padding:8px 0"><%= deck.min_cards_to_study %></td>
+        </tr>
+        <% if (deck.description) { %>
+        <tr style="border-bottom:1px solid var(--border)">
+          <td style="padding:8px 0;color:var(--text-secondary);font-size:13px">Mô tả</td>
+          <td style="padding:8px 0;font-size:14px"><%= deck.description %></td>
+        </tr>
+        <% } %>
+        <tr>
+          <td style="padding:8px 0;color:var(--text-secondary);font-size:13px">Người tạo</td>
+          <td style="padding:8px 0;font-size:13px"><%= deck.creator_name || '—' %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:16px">
+    <div class="card">
+      <div class="card-header"><h2>Tags</h2></div>
+      <div style="padding:16px;display:flex;flex-wrap:wrap;gap:6px">
+        <% if (tags.length > 0) { %>
+          <% tags.forEach(function(t) { %>
+            <span class="badge badge-primary"><%= t.name %></span>
+          <% }); %>
+        <% } else { %>
+          <span style="color:var(--text-secondary);font-size:13px">Chưa có tag</span>
+        <% } %>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">🃏</div>
+      <div>
+        <div class="stat-value"><%= cards.length %></div>
+        <div class="stat-label">Tổng cards</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Cards table -->
+<div class="card" style="margin-bottom:20px">
+  <div class="card-header" style="display:flex;justify-content:space-between;align-items:center">
+    <h2>Cards (<%= cards.length %>)</h2>
+  </div>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Headword</th>
+          <th>IPA (US)</th>
+          <th>Nghĩa VI</th>
+          <th>Ghi chú</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (cards.length > 0) { %>
+          <% cards.forEach(function(c, i) { %>
+            <tr>
+              <td style="color:var(--text-secondary);font-size:13px"><%= i + 1 %></td>
+              <td>
+                <div style="font-weight:600"><%= c.headword %></div>
+                <div style="font-size:12px;color:var(--text-secondary)"><%= c.lemma %></div>
+              </td>
+              <td style="font-family:monospace;font-size:12px;color:var(--text-secondary)">
+                <%= c.ipa_us || '—' %>
+              </td>
+              <td style="font-size:13px;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">
+                <%= c.meaning_vi %>
+              </td>
+              <td style="font-size:12px;color:var(--text-secondary);max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">
+                <% if (c.note_html) { %>
+                  <%- c.note_html.replace(/<[^>]+>/g,'').slice(0,60) %>
+                <% } else { %>
+                  —
+                <% } %>
+              </td>
+              <td>
+                <form action="/decks/<%= deck.id %>/cards/<%= c.entry_id %>/remove" method="POST" style="margin:0">
+                  <button type="submit" class="btn btn-sm btn-danger"
+                          onclick="return confirm('Xóa card này khỏi deck?')">Xóa</button>
+                </form>
+              </td>
+            </tr>
+          <% }); %>
+        <% } else { %>
+          <tr>
+            <td colspan="6" class="text-center" style="padding:40px;color:var(--text-secondary)">
+              Deck chưa có card nào. Thêm từ bên dưới.
+            </td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Add cards section -->
+<div class="card">
+  <div class="card-header"><h2>Thêm từ vào deck</h2></div>
+  <div style="padding:20px">
+    <div class="form-group" style="margin-bottom:12px">
+      <label>Tìm từ trong từ điển</label>
+      <input type="text" id="entrySearch" placeholder="Nhập headword..." autocomplete="off">
+    </div>
+    <div id="entryDropdown"
+         style="display:none;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-white);max-height:220px;overflow-y:auto;margin-bottom:12px;box-shadow:var(--shadow-md)"></div>
+
+    <form action="/decks/<%= deck.id %>/cards/add" method="POST" id="addCardsForm">
+      <div id="selectedEntries" style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px">
+        <p id="noEntriesMsg" style="color:var(--text-secondary);font-size:13px">Chưa chọn từ nào.</p>
+      </div>
+      <button type="submit" class="btn btn-primary" id="addBtn" disabled>+ Thêm vào deck</button>
+    </form>
+  </div>
+</div>
+
+<!-- Delete dialog -->
+<dialog id="dlg-delete"
+        style="border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;max-width:400px;width:100%;box-shadow:var(--shadow-md)">
+  <h3 style="margin-bottom:8px;color:var(--danger)">Xóa deck "<%= deck.title %>"</h3>
+  <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">
+    Xóa deck sẽ xóa toàn bộ cards và tiến trình học của người dùng. Nhập:<br>
+    <code style="background:var(--bg);padding:2px 6px;border-radius:4px;font-size:13px">DELETE <%= deck.title %></code>
+  </p>
+  <form action="/decks/<%= deck.id %>/delete" method="POST">
+    <div class="form-group" style="margin-bottom:16px">
+      <input type="text" name="confirm_text" autocomplete="off"
+             placeholder="DELETE <%= deck.title %>" style="width:100%">
+    </div>
+    <div style="display:flex;gap:8px;justify-content:flex-end">
+      <button type="button" class="btn btn-secondary"
+              onclick="document.getElementById('dlg-delete').close()">Hủy</button>
+      <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+    </div>
+  </form>
+</dialog>
+
+<script>
+(function() {
+  var searchInput  = document.getElementById('entrySearch');
+  var dropdown     = document.getElementById('entryDropdown');
+  var selectedWrap = document.getElementById('selectedEntries');
+  var noMsg        = document.getElementById('noEntriesMsg');
+  var addBtn       = document.getElementById('addBtn');
+  var debounceTimer;
+  var selected     = {};
+
+  // IDs already in the deck (prevent re-adding)
+  var existingEntryIds = new Set([
+    <% cards.forEach(function(c, i) { %>'<%= c.entry_id %>'<%= i < cards.length - 1 ? ',' : '' %><% }); %>
+  ]);
+
+  function escHtml(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function updateAddBtn() {
+    addBtn.disabled = Object.keys(selected).length === 0;
+  }
+
+  function renderSelected() {
+    Array.from(selectedWrap.children).forEach(function(c) { if (c.id !== 'noEntriesMsg') c.remove(); });
+    document.querySelectorAll('input[name="entryIds"]').forEach(function(i) { i.remove(); });
+
+    var ids = Object.keys(selected);
+    noMsg.style.display = ids.length ? 'none' : '';
+
+    ids.forEach(function(id) {
+      var entry = selected[id];
+      var inp = document.createElement('input');
+      inp.type = 'hidden'; inp.name = 'entryIds'; inp.value = id;
+      document.getElementById('addCardsForm').appendChild(inp);
+
+      var pill = document.createElement('div');
+      pill.style = 'display:flex;align-items:center;justify-content:space-between;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:6px 10px;font-size:13px';
+      pill.innerHTML =
+        '<span><strong>' + escHtml(entry.headword) + '</strong> — ' + escHtml(entry.meaning_vi) + '</span>' +
+        '<button type="button" data-id="' + id + '" style="background:none;border:none;cursor:pointer;color:var(--danger);font-size:16px;padding:0 0 0 8px">×</button>';
+      pill.querySelector('button').addEventListener('click', function() {
+        delete selected[this.dataset.id]; renderSelected(); updateAddBtn();
+      });
+      selectedWrap.appendChild(pill);
+    });
+    updateAddBtn();
+  }
+
+  function showDropdown(entries) {
+    dropdown.innerHTML = '';
+    var filtered = entries.filter(function(e) { return !existingEntryIds.has(e.id) && !selected[e.id]; });
+    if (!filtered.length) {
+      dropdown.innerHTML = '<div style="padding:10px 14px;color:var(--text-secondary);font-size:13px">Không tìm thấy từ mới</div>';
+      dropdown.style.display = 'block'; return;
+    }
+    filtered.forEach(function(e) {
+      var item = document.createElement('div');
+      item.style = 'padding:8px 14px;cursor:pointer;border-bottom:1px solid var(--border);font-size:13px';
+      item.innerHTML = '<strong>' + escHtml(e.headword) + '</strong> <span style="color:var(--text-secondary)">— ' + escHtml(e.meaning_vi) + '</span>';
+      item.addEventListener('mouseenter', function() { this.style.background = 'var(--bg)'; });
+      item.addEventListener('mouseleave', function() { this.style.background = ''; });
+      item.addEventListener('click', function() {
+        selected[e.id] = e; renderSelected();
+        dropdown.style.display = 'none'; searchInput.value = '';
+      });
+      dropdown.appendChild(item);
+    });
+    dropdown.style.display = 'block';
+  }
+
+  searchInput.addEventListener('input', function() {
+    clearTimeout(debounceTimer);
+    var q = this.value.trim();
+    if (!q) { dropdown.style.display = 'none'; return; }
+    debounceTimer = setTimeout(function() {
+      fetch('/dictionary?search=' + encodeURIComponent(q) + '&format=json')
+        .then(function(r) { return r.json(); })
+        .then(function(data) { showDropdown(data.entries || []); })
+        .catch(function() { dropdown.style.display = 'none'; });
+    }, 300);
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!dropdown.contains(e.target) && e.target !== searchInput) dropdown.style.display = 'none';
+  });
+})();
+</script>

@@ -25,9 +25,23 @@ const approvalController = {
       const result = await Approval.approve(id, req.session.admin.id, reviewer_note || null);
       if (!result) {
         req.flash('error', 'Yêu cầu không tồn tại hoặc đã được xử lý');
-      } else {
-        req.flash('success', 'Đã phê duyệt yêu cầu');
+        return res.redirect('/approvals');
       }
+
+      // Execute deferred lesson actions
+      if (result.module === 'lessons') {
+        const Lesson = require('../models/Lesson');
+        const { data = {}, entryIds = [], tagIds = [], targetId } = result.payload || {};
+        if (result.action === 'create') {
+          await Lesson.create(data, entryIds, tagIds);
+        } else if (result.action === 'update') {
+          await Lesson.update(targetId, data, entryIds, tagIds);
+        } else if (result.action === 'delete') {
+          await Lesson.delete(targetId);
+        }
+      }
+
+      req.flash('success', 'Đã phê duyệt và thực thi yêu cầu');
       return res.redirect('/approvals');
     } catch (err) {
       console.error('[Approvals] postApprove error:', err);

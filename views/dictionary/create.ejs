@@ -1,0 +1,161 @@
+<div class="page-header" style="display:flex;align-items:center;justify-content:space-between">
+  <div>
+    <h1>Thêm từ mới</h1>
+    <p><a href="/dictionary" style="color:var(--text-secondary)">← Từ điển</a></p>
+  </div>
+</div>
+
+<form action="/dictionary/create" method="POST">
+  <div style="display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start">
+
+    <!-- Main column -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+
+      <!-- Headword + Lemma -->
+      <div class="card">
+        <div class="card-header"><h2>Từ gốc</h2></div>
+        <div style="padding:20px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div class="form-group" style="margin:0">
+              <label>Headword <span style="color:var(--danger)">*</span></label>
+              <input type="text" name="headword" required placeholder="e.g. running" autocomplete="off">
+            </div>
+            <div class="form-group" style="margin:0">
+              <label>Lemma <span style="color:var(--danger)">*</span></label>
+              <input type="text" name="lemma" required placeholder="e.g. run" autocomplete="off">
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div class="form-group" style="margin:0">
+              <label>IPA (US)</label>
+              <input type="text" name="ipa_us" placeholder="/ˈrʌnɪŋ/" autocomplete="off">
+            </div>
+            <div class="form-group" style="margin:0">
+              <label>IPA (UK)</label>
+              <input type="text" name="ipa_uk" placeholder="/ˈrʌnɪŋ/" autocomplete="off">
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div class="form-group" style="margin:0">
+              <label>Audio US URL</label>
+              <input type="text" name="audio_us_url" placeholder="https://..." autocomplete="off">
+            </div>
+            <div class="form-group" style="margin:0">
+              <label>Audio UK URL</label>
+              <input type="text" name="audio_uk_url" placeholder="https://..." autocomplete="off">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- POS -->
+      <div class="card">
+        <div class="card-header"><h2>Part of Speech (POS)</h2></div>
+        <div style="padding:16px;display:flex;flex-wrap:wrap;gap:10px">
+          <% VALID_POS.forEach(p => { %>
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:14px">
+              <input type="checkbox" name="pos" value="<%= p %>">
+              <%= p %>
+            </label>
+          <% }) %>
+        </div>
+      </div>
+
+      <!-- Meanings -->
+      <div class="card">
+        <div class="card-header"><h2>Nghĩa</h2></div>
+        <div style="padding:20px;display:flex;flex-direction:column;gap:14px">
+          <div class="form-group" style="margin:0">
+            <label>Nghĩa tiếng Việt <span style="color:var(--danger)">*</span></label>
+            <textarea name="meaning_vi" rows="3" required placeholder="Nghĩa chính bằng tiếng Việt..."></textarea>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Nghĩa tiếng Anh</label>
+            <textarea name="meaning_en" rows="2" placeholder="Definition in English..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Examples -->
+      <div class="card">
+        <div class="card-header"><h2>Ví dụ</h2></div>
+        <div style="padding:20px;display:flex;flex-direction:column;gap:14px">
+          <div class="form-group" style="margin:0">
+            <label>Câu ví dụ (EN)</label>
+            <textarea name="example_en" rows="2" placeholder="She is running in the park."></textarea>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Câu ví dụ (VI)</label>
+            <textarea name="example_vi" rows="2" placeholder="Cô ấy đang chạy trong công viên."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Admin note -->
+      <div class="card">
+        <div class="card-header"><h2>Ghi chú nội bộ</h2></div>
+        <div style="padding:16px">
+          <div class="form-group" style="margin:0">
+            <textarea name="admin_note" rows="2" placeholder="Ghi chú cho admin..."></textarea>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Sidebar -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+
+      <div class="card">
+        <div class="card-header"><h2>Phân loại</h2></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:14px">
+          <div class="form-group" style="margin:0">
+            <label>CEFR Level</label>
+            <select name="cefr_level">
+              <option value="">— Chọn —</option>
+              <% VALID_CEFR.forEach(c => { %>
+                <option value="<%= c %>"><%= c %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Frequency Rank</label>
+            <input type="number" name="frequency_rank" min="1" placeholder="e.g. 250">
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Nguồn</label>
+            <select name="source">
+              <% VALID_SOURCES.forEach(s => { %>
+                <option value="<%= s %>" <%= s === 'manual' ? 'selected' : '' %>><%= s %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div>
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px">
+              <input type="checkbox" name="published" value="true" checked>
+              Published (hiển thị trên app)
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><h2>Tags</h2></div>
+        <div style="padding:16px">
+          <select name="tagIds" multiple style="width:100%;height:160px;padding:6px">
+            <% tags.forEach(t => { %>
+              <option value="<%= t.id %>"><%= t.name %></option>
+            <% }) %>
+          </select>
+          <p style="font-size:11px;color:var(--text-secondary);margin-top:6px">Ctrl+Click để chọn nhiều</p>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <button type="submit" class="btn btn-primary" style="width:100%">Thêm từ</button>
+        <a href="/dictionary" class="btn btn-secondary" style="width:100%;text-align:center">Hủy</a>
+      </div>
+
+    </div>
+  </div>
+</form>
