@@ -1,0 +1,219 @@
+<div class="page-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+  <div>
+    <h1 style="margin:0"><%= set ? 'Sửa: ' + set.name : 'Tạo Semantic Set' %></h1>
+    <p style="margin:4px 0 0;color:var(--text-secondary)">
+      <a href="/games" style="color:var(--text-secondary)">Mini-games</a> /
+      <a href="/games/semantic-sets" style="color:var(--text-secondary)">Semantic Sets</a> /
+      <%= set ? 'Sửa' : 'Tạo mới' %>
+    </p>
+  </div>
+</div>
+
+<form id="ssForm" action="<%= formAction %>" method="POST">
+  <div style="display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:start">
+
+    <!-- Left -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+
+      <div class="card">
+        <div class="card-header"><h2>Thông tin</h2></div>
+        <div style="padding:20px;display:flex;flex-direction:column;gap:14px">
+          <div class="form-group">
+            <label>Tên <span style="color:var(--danger)">*</span></label>
+            <input type="text" name="name" value="<%= set ? set.name : '' %>" placeholder="VD: Anger Intensity" style="width:100%;box-sizing:border-box" required>
+          </div>
+          <div class="form-group">
+            <label>Scale Description <span style="color:var(--danger)">*</span></label>
+            <textarea name="scale_description" rows="2" placeholder="VD: Sắp xếp từ mức độ nhẹ → nặng nhất" style="width:100%;box-sizing:border-box;resize:vertical"><%= set ? set.scale_description : '' %></textarea>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+            <div class="form-group">
+              <label>Cấp độ</label>
+              <select name="level" style="width:100%;box-sizing:border-box">
+                <option value="beginner"     <%= (set && set.level === 'beginner')     ? 'selected' : '' %>>Beginner</option>
+                <option value="intermediate" <%= (!set || set.level === 'intermediate') ? 'selected' : '' %>>Intermediate</option>
+                <option value="advanced"     <%= (set && set.level === 'advanced')     ? 'selected' : '' %>>Advanced</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Trạng thái</label>
+              <select name="status" style="width:100%;box-sizing:border-box">
+                <option value="draft"     <%= (!set || set.status === 'draft')     ? 'selected' : '' %>>Draft</option>
+                <option value="published" <%= (set && set.status === 'published') ? 'selected' : '' %>>Published</option>
+                <option value="archived"  <%= (set && set.status === 'archived')  ? 'selected' : '' %>>Archived</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Items builder -->
+      <div class="card">
+        <div class="card-header"><h2>Items (thứ tự = đáp án đúng)</h2></div>
+        <div style="padding:20px">
+          <div class="form-group" style="margin-bottom:12px">
+            <label>Tìm từ để thêm</label>
+            <input type="text" id="entrySearch" placeholder="Nhập headword..." autocomplete="off" style="width:100%;box-sizing:border-box">
+          </div>
+          <div id="entryDropdown" style="display:none;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-white);max-height:200px;overflow-y:auto;margin-top:-8px;box-shadow:var(--shadow-md)"></div>
+
+          <div style="font-size:12px;color:var(--text-secondary);margin:12px 0 6px">
+            Thứ tự items = correct_order. Dùng ↑↓ để sắp xếp.
+          </div>
+          <div id="itemsList" style="display:flex;flex-direction:column;gap:8px">
+            <p id="noItemsMsg" style="color:var(--text-secondary);font-size:13px;margin:0">Chưa có item nào.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="card" style="padding:16px">
+        <div style="font-size:12px;color:var(--text-secondary);margin-bottom:6px">Số items</div>
+        <div id="itemCount" style="font-size:28px;font-weight:700">0</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <button type="submit" class="btn btn-primary" style="width:100%"><%= set ? 'Lưu thay đổi' : 'Tạo Semantic Set' %></button>
+        <a href="/games/semantic-sets" class="btn btn-secondary" style="width:100%;text-align:center">Hủy</a>
+      </div>
+    </div>
+  </div>
+</form>
+
+<script>
+(function () {
+  var form        = document.getElementById('ssForm');
+  var searchInput = document.getElementById('entrySearch');
+  var dropdown    = document.getElementById('entryDropdown');
+  var itemsList   = document.getElementById('itemsList');
+  var noItemsMsg  = document.getElementById('noItemsMsg');
+  var countEl     = document.getElementById('itemCount');
+  var items       = []; // [{ entry_id, headword, meaning_vi, hint_vi }]
+  var searchTimer = null;
+
+  function escHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function renderItems() {
+    // Remove all rows and hidden inputs
+    Array.from(itemsList.children).forEach(function (c) {
+      if (c.id !== 'noItemsMsg') c.remove();
+    });
+    form.querySelectorAll('input[name="item_entry_id[]"], input[name="item_hint_vi[]"]').forEach(function (i) { i.remove(); });
+
+    noItemsMsg.style.display = items.length === 0 ? '' : 'none';
+    countEl.textContent = items.length;
+
+    items.forEach(function (item, idx) {
+      var row = document.createElement('div');
+      row.style.cssText = 'display:flex;gap:8px;align-items:center;padding:8px 10px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius)';
+      row.innerHTML =
+        '<span style="font-size:12px;color:var(--text-secondary);min-width:20px;text-align:center">' + (idx + 1) + '</span>' +
+        '<div style="flex:1">' +
+          '<div style="font-size:13px"><strong>' + escHtml(item.headword) + '</strong> — ' + escHtml(item.meaning_vi || '') + '</div>' +
+          '<div style="display:flex;gap:6px;margin-top:4px;align-items:center">' +
+            '<span style="font-size:11px;color:var(--text-secondary)">Hint:</span>' +
+            '<input type="text" data-idx="' + idx + '" class="hint-input" value="' + escHtml(item.hint_vi || '') + '" placeholder="gợi ý..." style="font-size:12px;padding:2px 6px;border:1px solid var(--border);border-radius:4px;flex:1">' +
+          '</div>' +
+        '</div>' +
+        '<div style="display:flex;flex-direction:column;gap:2px">' +
+          (idx > 0 ? '<button type="button" data-idx="' + idx + '" data-dir="up"   style="background:none;border:1px solid var(--border);border-radius:4px;cursor:pointer;width:24px;height:22px;font-size:11px">↑</button>' : '<div style="width:24px;height:22px"></div>') +
+          (idx < items.length - 1 ? '<button type="button" data-idx="' + idx + '" data-dir="down" style="background:none;border:1px solid var(--border);border-radius:4px;cursor:pointer;width:24px;height:22px;font-size:11px">↓</button>' : '<div style="width:24px;height:22px"></div>') +
+        '</div>' +
+        '<button type="button" data-idx="' + idx + '" data-action="remove" style="background:none;border:none;cursor:pointer;color:var(--danger);font-size:16px;line-height:1">×</button>';
+      itemsList.appendChild(row);
+
+      // Hidden inputs for submission
+      var eid = document.createElement('input');
+      eid.type = 'hidden'; eid.name = 'item_entry_id[]'; eid.value = item.entry_id;
+      form.appendChild(eid);
+
+      var hid = document.createElement('input');
+      hid.type = 'hidden'; hid.name = 'item_hint_vi[]'; hid.value = item.hint_vi || '';
+      hid.dataset.hintFor = idx;
+      form.appendChild(hid);
+    });
+
+    // Bind events on newly created elements
+    itemsList.querySelectorAll('button[data-dir]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var i = parseInt(this.dataset.idx);
+        var dir = this.dataset.dir;
+        if (dir === 'up' && i > 0) {
+          var tmp = items[i]; items[i] = items[i - 1]; items[i - 1] = tmp;
+        } else if (dir === 'down' && i < items.length - 1) {
+          var tmp2 = items[i]; items[i] = items[i + 1]; items[i + 1] = tmp2;
+        }
+        renderItems();
+      });
+    });
+    itemsList.querySelectorAll('button[data-action="remove"]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        items.splice(parseInt(this.dataset.idx), 1);
+        renderItems();
+      });
+    });
+    itemsList.querySelectorAll('.hint-input').forEach(function (inp) {
+      inp.addEventListener('input', function () {
+        var i = parseInt(this.dataset.idx);
+        items[i].hint_vi = this.value;
+        // Sync to hidden input
+        var hid = form.querySelector('input[data-hint-for="' + i + '"]');
+        if (hid) hid.value = this.value;
+      });
+    });
+  }
+
+  function showDropdown(entries) {
+    dropdown.innerHTML = '';
+    var existingIds = items.map(function (it) { return it.entry_id; });
+    var filtered = entries.filter(function (e) { return existingIds.indexOf(e.id) === -1; });
+    if (!filtered.length) {
+      dropdown.innerHTML = '<div style="padding:10px 14px;color:var(--text-secondary);font-size:13px">Không tìm thấy</div>';
+    } else {
+      filtered.forEach(function (e) {
+        var item = document.createElement('div');
+        item.style.cssText = 'padding:8px 14px;cursor:pointer;font-size:13px;border-bottom:1px solid var(--border)';
+        item.innerHTML = '<strong>' + escHtml(e.headword) + '</strong> — ' + escHtml(e.meaning_vi || '');
+        item.addEventListener('mouseenter', function () { this.style.background = 'var(--bg)'; });
+        item.addEventListener('mouseleave', function () { this.style.background = ''; });
+        item.addEventListener('click', function () {
+          items.push({ entry_id: e.id, headword: e.headword, meaning_vi: e.meaning_vi, hint_vi: '' });
+          renderItems();
+          searchInput.value = '';
+          dropdown.style.display = 'none';
+        });
+        dropdown.appendChild(item);
+      });
+    }
+    dropdown.style.display = '';
+  }
+
+  searchInput.addEventListener('input', function () {
+    clearTimeout(searchTimer);
+    var q = this.value.trim();
+    if (!q) { dropdown.style.display = 'none'; return; }
+    searchTimer = setTimeout(function () {
+      fetch('/dictionary?search=' + encodeURIComponent(q) + '&format=json')
+        .then(function (r) { return r.json(); })
+        .then(function (data) { showDropdown(data.entries || []); })
+        .catch(function () { dropdown.style.display = 'none'; });
+    }, 300);
+  });
+
+  document.addEventListener('click', function (e) {
+    if (!dropdown.contains(e.target) && e.target !== searchInput) {
+      dropdown.style.display = 'none';
+    }
+  });
+
+  // Pre-populate on edit
+  var existing = <%- JSON.stringify((set && set.items) ? set.items : []) %>;
+  existing.forEach(function (it) {
+    items.push({ entry_id: it.entry_id, headword: it.headword, meaning_vi: it.meaning_vi, hint_vi: it.hint_vi || '' });
+  });
+  renderItems();
+})();
+</script>

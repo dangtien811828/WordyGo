@@ -1,0 +1,156 @@
+<%
+var statusBadge = { active: 'badge-success', inactive: 'badge-secondary' };
+var gameTypes = ['lexisweep', 'anagram', 'ladder'];
+var tabLabels = { lexisweep: 'LexiSweep', anagram: 'Anagram', ladder: 'Ladder' };
+%>
+
+<div class="page-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+  <div>
+    <h1 style="margin:0">Game Levels</h1>
+    <p style="margin:4px 0 0;color:var(--text-secondary)">
+      <a href="/games" style="color:var(--text-secondary)">Mini-games</a> / Levels
+    </p>
+  </div>
+</div>
+
+<!-- Tabs -->
+<div style="display:flex;gap:4px;margin-bottom:16px;border-bottom:2px solid var(--border);padding-bottom:0">
+  <% gameTypes.forEach(function(gt) { %>
+  <button type="button" class="tab-btn"
+          data-tab="<%= gt %>"
+          onclick="switchTab('<%= gt %>')"
+          style="padding:8px 20px;border:none;border-bottom:2px solid transparent;background:none;cursor:pointer;font-size:14px;font-weight:500;color:var(--text-secondary);margin-bottom:-2px;transition:all .15s">
+    <%= tabLabels[gt] %> (<%= levels[gt].length %>)
+  </button>
+  <% }) %>
+</div>
+
+<!-- Tab panels -->
+<% gameTypes.forEach(function(gt) { %>
+<div id="tab-<%= gt %>" class="tab-panel" style="display:none">
+
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-header"><h2 style="margin:0">Levels — <%= tabLabels[gt] %></h2></div>
+
+    <% if (levels[gt].length > 0) { %>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:80px">Level #</th>
+            <th>Config JSON</th>
+            <th style="text-align:center;width:100px">Trạng thái</th>
+            <th style="width:160px">Hành động</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% levels[gt].forEach(function(lv) { %>
+          <tr>
+            <td style="font-weight:600;text-align:center"><%= lv.level_number %></td>
+            <td>
+              <button type="button"
+                      onclick="toggleJson(this)"
+                      style="background:none;border:none;cursor:pointer;font-size:11px;color:var(--primary);padding:0;margin-bottom:4px">
+                Xem / sửa ▾
+              </button>
+              <div class="json-preview" style="display:none">
+                <form method="POST" action="/games/levels/<%= lv.id %>/edit">
+                  <input type="hidden" name="game_type" value="<%= gt %>">
+                  <input type="hidden" name="level_number" value="<%= lv.level_number %>">
+                  <textarea name="config_json" rows="6"
+                            style="width:100%;box-sizing:border-box;font-family:monospace;font-size:12px;resize:vertical"><%= JSON.stringify(lv.config_json, null, 2) %></textarea>
+                  <div style="display:flex;gap:8px;align-items:center;margin-top:6px">
+                    <select name="status" style="font-size:12px">
+                      <option value="active"   <%= lv.status === 'active'   ? 'selected' : '' %>>Active</option>
+                      <option value="inactive" <%= lv.status === 'inactive' ? 'selected' : '' %>>Inactive</option>
+                    </select>
+                    <button type="submit" class="btn btn-sm btn-primary">Lưu</button>
+                  </div>
+                </form>
+              </div>
+            </td>
+            <td style="text-align:center">
+              <span class="badge <%= statusBadge[lv.status] || 'badge-secondary' %>"><%= lv.status %></span>
+            </td>
+            <td>
+              <form method="POST" action="/games/levels/<%= lv.id %>/delete" style="margin:0;display:inline"
+                    onsubmit="return confirm('Xóa level <%= lv.level_number %> của <%= tabLabels[gt] %>?')">
+                <input type="hidden" name="game_type" value="<%= gt %>">
+                <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+              </form>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <% } else { %>
+    <div style="padding:30px;text-align:center;color:var(--text-secondary);font-size:13px">
+      Chưa có level nào cho <%= tabLabels[gt] %>
+    </div>
+    <% } %>
+  </div>
+
+  <!-- Add new level -->
+  <div class="card">
+    <div class="card-header"><h2 style="margin:0">+ Thêm level mới</h2></div>
+    <div style="padding:20px">
+      <form method="POST" action="/games/levels/create">
+        <input type="hidden" name="game_type" value="<%= gt %>">
+        <div style="display:grid;grid-template-columns:120px 1fr 120px;gap:14px;align-items:end">
+          <div class="form-group" style="margin:0">
+            <label>Level #</label>
+            <input type="number" name="level_number" min="1" value="<%= levels[gt].length + 1 %>" style="width:100%;box-sizing:border-box">
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Config JSON</label>
+            <textarea name="config_json" rows="3"
+                      style="width:100%;box-sizing:border-box;font-family:monospace;font-size:12px;resize:vertical"
+                      placeholder='{"grid_size": 5, "time_limit": 60}'>{}</textarea>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Trạng thái</label>
+            <select name="status" style="width:100%;box-sizing:border-box">
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-top:12px">Thêm level</button>
+      </form>
+    </div>
+  </div>
+
+</div>
+<% }) %>
+
+<script>
+var activeTab = '<%= activeTab %>';
+
+function switchTab(gt) {
+  document.querySelectorAll('.tab-panel').forEach(function (p) { p.style.display = 'none'; });
+  document.querySelectorAll('.tab-btn').forEach(function (b) {
+    b.style.color = 'var(--text-secondary)';
+    b.style.borderBottomColor = 'transparent';
+    b.style.fontWeight = '500';
+  });
+  document.getElementById('tab-' + gt).style.display = '';
+  var btn = document.querySelector('[data-tab="' + gt + '"]');
+  if (btn) {
+    btn.style.color = 'var(--primary)';
+    btn.style.borderBottomColor = 'var(--primary)';
+    btn.style.fontWeight = '600';
+  }
+  activeTab = gt;
+}
+
+function toggleJson(btn) {
+  var preview = btn.nextElementSibling;
+  var open = preview.style.display !== 'none';
+  preview.style.display = open ? 'none' : '';
+  btn.textContent = open ? 'Xem / sửa ▾' : 'Thu gọn ▲';
+}
+
+// Init active tab
+switchTab(activeTab);
+</script>

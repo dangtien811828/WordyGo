@@ -1,0 +1,133 @@
+<%
+var flagBadge     = { low: 'badge-warning', medium: 'badge-warning', high: 'badge-danger' };
+var modStatusBadge = { pending: 'badge-warning', reviewed: 'badge-success', dismissed: 'badge-secondary' };
+function fmtDate(d) { return d ? new Date(d).toLocaleDateString('vi-VN', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' }) : '—'; }
+function fmtCost(n) { return n != null ? '$' + Number(n).toFixed(4) : '—'; }
+%>
+
+<div class="page-header" style="margin-bottom:24px">
+  <h1 style="margin:0">Nội dung AI</h1>
+  <p style="margin:4px 0 0;color:var(--text-secondary)">Tổng quan hoạt động AI & kiểm duyệt</p>
+</div>
+
+<!-- Stat cards -->
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px">
+  <div class="card" style="padding:20px">
+    <div style="font-size:12px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.04em">Tổng sessions</div>
+    <div style="font-size:30px;font-weight:700;margin-top:6px"><%= stats.total_sessions.toLocaleString() %></div>
+    <a href="/ai-content/sessions" style="font-size:12px;display:block;margin-top:4px">Xem tất cả →</a>
+  </div>
+  <div class="card" style="padding:20px">
+    <div style="font-size:12px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.04em">Avg latency</div>
+    <div style="font-size:30px;font-weight:700;margin-top:6px">
+      <%= stats.avg_latency_ms ? stats.avg_latency_ms.toLocaleString() + 'ms' : '—' %>
+    </div>
+    <div style="font-size:12px;color:var(--text-secondary);margin-top:4px">Trung bình tất cả sessions</div>
+  </div>
+  <div class="card" style="padding:20px">
+    <div style="font-size:12px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.04em">Chi phí hôm nay</div>
+    <div style="font-size:30px;font-weight:700;margin-top:6px"><%= fmtCost(stats.cost_today) %></div>
+    <div style="font-size:12px;color:var(--text-secondary);margin-top:4px">USD</div>
+  </div>
+  <div class="card" style="padding:20px;border-left:3px solid var(--<%= stats.pending_flags > 0 ? 'danger' : 'border' %>)">
+    <div style="font-size:12px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.04em">Flags chờ duyệt</div>
+    <div style="font-size:30px;font-weight:700;margin-top:6px;color:var(--<%= stats.pending_flags > 0 ? 'danger' : 'text' %>)">
+      <%= stats.pending_flags %>
+    </div>
+    <a href="/ai-content/moderation?status=pending" style="font-size:12px;display:block;margin-top:4px">Xem →</a>
+  </div>
+</div>
+
+<!-- Two mini tables side by side -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+
+  <!-- Recent sessions -->
+  <div class="card">
+    <div class="card-header" style="display:flex;align-items:center;justify-content:space-between">
+      <h2 style="margin:0">Sessions gần nhất</h2>
+      <a href="/ai-content/sessions" style="font-size:13px">Xem tất cả →</a>
+    </div>
+    <% if (recentSessions.length > 0) { %>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>User</th>
+            <th style="text-align:center">Passed</th>
+            <th style="text-align:right">Latency</th>
+            <th>Thời gian</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% recentSessions.forEach(function(s) { %>
+          <tr>
+            <td>
+              <div style="font-size:13px;font-weight:500"><%= s.full_name %></div>
+              <div style="font-size:11px;color:var(--text-secondary)"><%= (s.target_words || []).slice(0,3).join(', ') %></div>
+            </td>
+            <td style="text-align:center">
+              <span style="color:var(--<%= s.all_passed ? 'success' : 'danger' %>);font-size:16px"><%= s.all_passed ? '✓' : '✗' %></span>
+            </td>
+            <td style="text-align:right;font-size:12px;color:var(--text-secondary)"><%= s.latency_ms ? s.latency_ms.toLocaleString() + 'ms' : '—' %></td>
+            <td style="font-size:12px"><%= fmtDate(s.created_at) %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <% } else { %>
+    <div style="padding:30px;text-align:center;color:var(--text-secondary);font-size:13px">Chưa có session nào</div>
+    <% } %>
+  </div>
+
+  <!-- Recent moderation -->
+  <div class="card">
+    <div class="card-header" style="display:flex;align-items:center;justify-content:space-between">
+      <h2 style="margin:0">Moderation gần nhất</h2>
+      <a href="/ai-content/moderation" style="font-size:13px">Xem tất cả →</a>
+    </div>
+    <% if (recentMod.length > 0) { %>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Nội dung</th>
+            <th style="text-align:center">Flag</th>
+            <th style="text-align:center">Status</th>
+            <th>Thời gian</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% recentMod.forEach(function(m) { %>
+          <tr>
+            <td>
+              <div style="font-size:12px;color:var(--text-secondary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:160px" title="<%= m.input_preview %>">
+                <%= m.input_preview %>
+              </div>
+              <div style="font-size:11px;color:var(--text-light)"><%= m.user_name || 'unknown' %></div>
+            </td>
+            <td style="text-align:center">
+              <span class="badge <%= flagBadge[m.severity] || 'badge-secondary' %>"><%= m.flag_type %></span>
+            </td>
+            <td style="text-align:center">
+              <span class="badge <%= modStatusBadge[m.status] || 'badge-secondary' %>"><%= m.status %></span>
+            </td>
+            <td style="font-size:12px"><%= fmtDate(m.created_at) %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <% } else { %>
+    <div style="padding:30px;text-align:center;color:var(--text-secondary);font-size:13px">Chưa có flag nào</div>
+    <% } %>
+  </div>
+
+</div>
+
+<!-- Quick links -->
+<div style="display:flex;gap:10px;margin-top:16px">
+  <a href="/ai-content/prompts" class="btn btn-secondary">📝 Prompt Templates</a>
+  <a href="/ai-content/sessions" class="btn btn-secondary">🧠 Tất cả Sessions</a>
+  <a href="/ai-content/moderation" class="btn btn-secondary">🚩 Tất cả Moderation Logs</a>
+</div>

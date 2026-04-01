@@ -1,0 +1,183 @@
+<div class="page-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+  <div>
+    <h1 style="margin:0"><%= list ? 'Sửa: ' + list.name : 'Tạo Word List' %></h1>
+    <p style="margin:4px 0 0;color:var(--text-secondary)">
+      <a href="/games" style="color:var(--text-secondary)">Mini-games</a> /
+      <a href="/games/word-lists" style="color:var(--text-secondary)">Word Lists</a> /
+      <%= list ? 'Sửa' : 'Tạo mới' %>
+    </p>
+  </div>
+</div>
+
+<form id="wlForm" action="<%= formAction %>" method="POST">
+  <div style="display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:start">
+
+    <!-- Left: main info -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="card">
+        <div class="card-header"><h2>Thông tin</h2></div>
+        <div style="padding:20px;display:flex;flex-direction:column;gap:14px">
+          <div class="form-group">
+            <label>Tên <span style="color:var(--danger)">*</span></label>
+            <input type="text" name="name" value="<%= list ? list.name : '' %>" placeholder="VD: IELTS Academic Vocabulary" style="width:100%;box-sizing:border-box" required>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+            <div class="form-group">
+              <label>Game type <span style="color:var(--danger)">*</span></label>
+              <select name="game_type" style="width:100%;box-sizing:border-box">
+                <option value="lexisweep" <%= (!list || list.game_type === 'lexisweep') ? 'selected' : '' %>>LexiSweep</option>
+                <option value="anagram"   <%= (list && list.game_type === 'anagram')   ? 'selected' : '' %>>Anagram</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Cấp độ</label>
+              <select name="level" style="width:100%;box-sizing:border-box">
+                <option value="beginner"     <%= (!list || list.level === 'beginner')     ? 'selected' : '' %>>Beginner</option>
+                <option value="intermediate" <%= (list && list.level === 'intermediate') ? 'selected' : '' %>>Intermediate</option>
+                <option value="advanced"     <%= (list && list.level === 'advanced')     ? 'selected' : '' %>>Advanced</option>
+              </select>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+            <div class="form-group">
+              <label>Topic</label>
+              <input type="text" name="topic" value="<%= list ? (list.topic || '') : '' %>" placeholder="VD: Animals, Business..." style="width:100%;box-sizing:border-box">
+            </div>
+            <div class="form-group">
+              <label>Trạng thái</label>
+              <select name="status" style="width:100%;box-sizing:border-box">
+                <option value="draft"     <%= (!list || list.status === 'draft')     ? 'selected' : '' %>>Draft</option>
+                <option value="published" <%= (list && list.status === 'published') ? 'selected' : '' %>>Published</option>
+                <option value="archived"  <%= (list && list.status === 'archived')  ? 'selected' : '' %>>Archived</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Entry picker -->
+      <div class="card">
+        <div class="card-header"><h2>Từ vựng trong list</h2></div>
+        <div style="padding:20px">
+          <div class="form-group">
+            <label>Tìm từ để thêm</label>
+            <input type="text" id="entrySearch" placeholder="Nhập headword..." autocomplete="off" style="width:100%;box-sizing:border-box">
+          </div>
+          <div id="entryDropdown" style="display:none;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-white);max-height:200px;overflow-y:auto;margin-top:-8px;box-shadow:var(--shadow-md)"></div>
+          <div id="selectedEntries" style="display:flex;flex-direction:column;gap:6px;margin-top:12px">
+            <p id="noEntriesMsg" style="color:var(--text-secondary);font-size:13px;margin:0">Chưa có từ nào. Tìm và thêm từ phía trên.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: actions -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="card" style="padding:16px">
+        <div style="font-size:12px;color:var(--text-secondary);margin-bottom:10px">Số từ đã chọn</div>
+        <div id="wordCount" style="font-size:28px;font-weight:700">0</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <button type="submit" class="btn btn-primary" style="width:100%"><%= list ? 'Lưu thay đổi' : 'Tạo Word List' %></button>
+        <a href="/games/word-lists" class="btn btn-secondary" style="width:100%;text-align:center">Hủy</a>
+      </div>
+    </div>
+
+  </div>
+</form>
+
+<script>
+(function () {
+  var form = document.getElementById('wlForm');
+  var searchInput = document.getElementById('entrySearch');
+  var dropdown    = document.getElementById('entryDropdown');
+  var selectedWrap = document.getElementById('selectedEntries');
+  var noMsg       = document.getElementById('noEntriesMsg');
+  var countEl     = document.getElementById('wordCount');
+  var selected    = {}; // id → { id, headword, meaning_vi }
+  var searchTimer = null;
+
+  function escHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function renderSelected() {
+    // Remove old pills and hidden inputs
+    Array.from(selectedWrap.children).forEach(function (c) {
+      if (c.id !== 'noEntriesMsg') c.remove();
+    });
+    form.querySelectorAll('input[name="item_entry_id[]"]').forEach(function (i) { i.remove(); });
+
+    var ids = Object.keys(selected);
+    noMsg.style.display = ids.length === 0 ? '' : 'none';
+    countEl.textContent = ids.length;
+
+    ids.forEach(function (id) {
+      var e = selected[id];
+      var pill = document.createElement('div');
+      pill.style.cssText = 'display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius)';
+      pill.innerHTML =
+        '<span style="flex:1;font-size:13px"><strong>' + escHtml(e.headword) + '</strong> — ' + escHtml(e.meaning_vi || '') + '</span>' +
+        '<button type="button" data-id="' + escHtml(id) + '" style="background:none;border:none;cursor:pointer;color:var(--danger);font-size:16px;line-height:1">×</button>';
+      pill.querySelector('button').addEventListener('click', function () {
+        delete selected[this.dataset.id];
+        renderSelected();
+      });
+      selectedWrap.appendChild(pill);
+
+      var inp = document.createElement('input');
+      inp.type = 'hidden'; inp.name = 'item_entry_id[]'; inp.value = id;
+      form.appendChild(inp);
+    });
+  }
+
+  function showDropdown(entries) {
+    dropdown.innerHTML = '';
+    if (!entries.length) {
+      dropdown.innerHTML = '<div style="padding:10px 14px;color:var(--text-secondary);font-size:13px">Không tìm thấy</div>';
+    } else {
+      entries.forEach(function (e) {
+        if (selected[e.id]) return;
+        var item = document.createElement('div');
+        item.style.cssText = 'padding:8px 14px;cursor:pointer;font-size:13px;border-bottom:1px solid var(--border)';
+        item.innerHTML = '<strong>' + escHtml(e.headword) + '</strong> — ' + escHtml(e.meaning_vi || '');
+        item.addEventListener('mouseenter', function () { this.style.background = 'var(--bg)'; });
+        item.addEventListener('mouseleave', function () { this.style.background = ''; });
+        item.addEventListener('click', function () {
+          selected[e.id] = e;
+          renderSelected();
+          searchInput.value = '';
+          dropdown.style.display = 'none';
+        });
+        dropdown.appendChild(item);
+      });
+    }
+    dropdown.style.display = '';
+  }
+
+  searchInput.addEventListener('input', function () {
+    clearTimeout(searchTimer);
+    var q = this.value.trim();
+    if (!q) { dropdown.style.display = 'none'; return; }
+    searchTimer = setTimeout(function () {
+      fetch('/dictionary?search=' + encodeURIComponent(q) + '&format=json')
+        .then(function (r) { return r.json(); })
+        .then(function (data) { showDropdown(data.entries || []); })
+        .catch(function () { dropdown.style.display = 'none'; });
+    }, 300);
+  });
+
+  document.addEventListener('click', function (e) {
+    if (!dropdown.contains(e.target) && e.target !== searchInput) {
+      dropdown.style.display = 'none';
+    }
+  });
+
+  // Pre-populate on edit
+  var existing = <%- JSON.stringify((list && list.items) ? list.items : []) %>;
+  existing.forEach(function (e) {
+    selected[e.entry_id] = { id: e.entry_id, headword: e.headword, meaning_vi: e.meaning_vi };
+  });
+  renderSelected();
+})();
+</script>

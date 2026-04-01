@@ -1,0 +1,96 @@
+<%
+var flagBadge     = { sexual: 'badge-danger', violence: 'badge-danger', hate: 'badge-danger', self_harm: 'badge-danger', other: 'badge-warning' };
+var severityBadge = { low: 'badge-warning', medium: 'badge-warning', high: 'badge-danger' };
+var statusBadge   = { pending: 'badge-warning', reviewed: 'badge-success', dismissed: 'badge-secondary' };
+function fmtDate(d) { return d ? new Date(d).toLocaleDateString('vi-VN', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' }) : '—'; }
+%>
+
+<div class="page-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+  <div>
+    <h1 style="margin:0">Moderation Logs</h1>
+    <p style="margin:4px 0 0;color:var(--text-secondary)">
+      <a href="/ai-content" style="color:var(--text-secondary)">Nội dung AI</a> / Moderation
+    </p>
+  </div>
+</div>
+
+<!-- Filters -->
+<form method="GET" action="/ai-content/moderation" style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin-bottom:16px">
+  <div class="form-group" style="margin:0">
+    <label style="font-size:12px;display:block;margin-bottom:4px">Trạng thái</label>
+    <select name="status">
+      <option value="">Tất cả</option>
+      <option value="pending"   <%= filters.status === 'pending'   ? 'selected' : '' %>>Pending</option>
+      <option value="reviewed"  <%= filters.status === 'reviewed'  ? 'selected' : '' %>>Reviewed</option>
+      <option value="dismissed" <%= filters.status === 'dismissed' ? 'selected' : '' %>>Dismissed</option>
+    </select>
+  </div>
+  <div class="form-group" style="margin:0">
+    <label style="font-size:12px;display:block;margin-bottom:4px">Flag type</label>
+    <select name="flagType">
+      <option value="">Tất cả</option>
+      <option value="sexual"    <%= filters.flagType === 'sexual'    ? 'selected' : '' %>>Sexual</option>
+      <option value="violence"  <%= filters.flagType === 'violence'  ? 'selected' : '' %>>Violence</option>
+      <option value="hate"      <%= filters.flagType === 'hate'      ? 'selected' : '' %>>Hate</option>
+      <option value="self_harm" <%= filters.flagType === 'self_harm' ? 'selected' : '' %>>Self Harm</option>
+      <option value="other"     <%= filters.flagType === 'other'     ? 'selected' : '' %>>Other</option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Lọc</button>
+  <a href="/ai-content/moderation" class="btn btn-secondary">Xóa lọc</a>
+</form>
+
+<div class="card">
+  <div class="card-header">
+    <h2 style="margin:0">Danh sách (<%= pagination.total.toLocaleString() %>)</h2>
+  </div>
+  <% if (logs.length > 0) { %>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Nội dung</th>
+          <th>User</th>
+          <th style="text-align:center">Source</th>
+          <th style="text-align:center">Flag type</th>
+          <th style="text-align:center">Severity</th>
+          <th style="text-align:center">Status</th>
+          <th style="text-align:center">Action taken</th>
+          <th>Thời gian</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% logs.forEach(function(l) { %>
+        <tr>
+          <td style="max-width:200px">
+            <div style="font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="<%= l.input_preview %>">
+              <%= l.input_preview %>
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--text-secondary)"><%= l.user_name || '—' %></td>
+          <td style="text-align:center;font-size:12px"><%= l.source || '—' %></td>
+          <td style="text-align:center">
+            <span class="badge <%= flagBadge[l.flag_type] || 'badge-secondary' %>"><%= l.flag_type %></span>
+          </td>
+          <td style="text-align:center">
+            <span class="badge <%= severityBadge[l.severity] || 'badge-secondary' %>"><%= l.severity %></span>
+          </td>
+          <td style="text-align:center">
+            <span class="badge <%= statusBadge[l.status] || 'badge-secondary' %>"><%= l.status %></span>
+          </td>
+          <td style="text-align:center;font-size:12px"><%= l.action_taken || '—' %></td>
+          <td style="font-size:12px"><%= fmtDate(l.created_at) %></td>
+          <td>
+            <a href="/ai-content/moderation/<%= l.id %>" class="btn btn-sm btn-secondary">Chi tiết</a>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+  <%- include('../partials/pagination', { pagination }) %>
+  <% } else { %>
+  <div style="padding:60px;text-align:center;color:var(--text-secondary)">Chưa có moderation log nào</div>
+  <% } %>
+</div>

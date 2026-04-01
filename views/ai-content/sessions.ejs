@@ -1,0 +1,86 @@
+<%
+function fmtDate(d) { return d ? new Date(d).toLocaleDateString('vi-VN', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' }) : '—'; }
+function fmtCost(n) { return n != null ? '$' + Number(n).toFixed(5) : '—'; }
+%>
+
+<div class="page-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+  <div>
+    <h1 style="margin:0">Retrieval Sessions</h1>
+    <p style="margin:4px 0 0;color:var(--text-secondary)">
+      <a href="/ai-content" style="color:var(--text-secondary)">Nội dung AI</a> / Sessions
+    </p>
+  </div>
+</div>
+
+<!-- Filters -->
+<form method="GET" action="/ai-content/sessions" style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin-bottom:16px">
+  <div class="form-group" style="flex:1;min-width:200px;margin:0">
+    <label style="font-size:12px;display:block;margin-bottom:4px">Tìm user</label>
+    <input type="text" name="userId" value="<%= filters.userId %>" placeholder="Tên hoặc email...">
+  </div>
+  <div class="form-group" style="margin:0">
+    <label style="font-size:12px;display:block;margin-bottom:4px">Kết quả</label>
+    <select name="allPassed">
+      <option value="">Tất cả</option>
+      <option value="true"  <%= filters.allPassed === 'true'  ? 'selected' : '' %>>✓ Passed</option>
+      <option value="false" <%= filters.allPassed === 'false' ? 'selected' : '' %>>✗ Failed</option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Lọc</button>
+  <a href="/ai-content/sessions" class="btn btn-secondary">Xóa lọc</a>
+</form>
+
+<div class="card">
+  <div class="card-header">
+    <h2 style="margin:0">Danh sách (<%= pagination.total.toLocaleString() %>)</h2>
+  </div>
+  <% if (sessions.length > 0) { %>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Target words</th>
+          <th style="text-align:center">Passed</th>
+          <th>Model</th>
+          <th style="text-align:right">Latency</th>
+          <th style="text-align:right">Tokens</th>
+          <th style="text-align:right">Cost</th>
+          <th>Thời gian</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% sessions.forEach(function(s) { %>
+        <tr>
+          <td>
+            <div style="font-weight:500;font-size:13px"><%= s.full_name %></div>
+            <div style="font-size:11px;color:var(--text-secondary)"><%= s.email %></div>
+          </td>
+          <td style="font-size:12px">
+            <% var words = s.target_words || []; %>
+            <%= words.slice(0,3).join(', ') %><% if (words.length > 3) { %><span style="color:var(--text-secondary)"> +<%= words.length - 3 %></span><% } %>
+          </td>
+          <td style="text-align:center;font-size:18px">
+            <span style="color:var(--<%= s.all_passed ? 'success' : 'danger' %>)"><%= s.all_passed ? '✓' : '✗' %></span>
+          </td>
+          <td style="font-size:11px;font-family:monospace;color:var(--text-secondary)"><%= s.model_used || '—' %></td>
+          <td style="text-align:right;font-size:12px"><%= s.latency_ms ? s.latency_ms.toLocaleString() + 'ms' : '—' %></td>
+          <td style="text-align:right;font-size:12px">
+            <%= s.tokens_in ? (s.tokens_in + s.tokens_out).toLocaleString() : '—' %>
+          </td>
+          <td style="text-align:right;font-size:12px"><%= fmtCost(s.cost_usd) %></td>
+          <td style="font-size:12px"><%= fmtDate(s.created_at) %></td>
+          <td>
+            <a href="/ai-content/sessions/<%= s.id %>" class="btn btn-sm btn-secondary">Chi tiết</a>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+  <%- include('../partials/pagination', { pagination }) %>
+  <% } else { %>
+  <div style="padding:60px;text-align:center;color:var(--text-secondary)">Chưa có session nào</div>
+  <% } %>
+</div>

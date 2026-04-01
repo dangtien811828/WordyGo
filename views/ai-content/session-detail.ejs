@@ -1,0 +1,144 @@
+<%
+function fmtDate(d) { return d ? new Date(d).toLocaleString('vi-VN') : '—'; }
+function fmtCost(n) { return n != null ? '$' + Number(n).toFixed(6) : '—'; }
+
+// Simple character-level diff highlight: red = removed, green = added
+// We just show original + fixed side by side with diff coloring per word
+function diffWords(orig, fixed) {
+  if (!orig || !fixed) return { origHtml: orig || '', fixedHtml: fixed || '' };
+  var origWords  = orig.split(' ');
+  var fixedWords = fixed.split(' ');
+  var origHtml   = '';
+  var fixedHtml  = '';
+  var maxLen = Math.max(origWords.length, fixedWords.length);
+  for (var i = 0; i < maxLen; i++) {
+    var ow = origWords[i]  || '';
+    var fw = fixedWords[i] || '';
+    if (ow === fw) {
+      origHtml  += ow + ' ';
+      fixedHtml += fw + ' ';
+    } else {
+      if (ow) origHtml  += '<mark style="background:#fee2e2;color:#991b1b;border-radius:3px;padding:0 2px">' + ow + '</mark> ';
+      if (fw) fixedHtml += '<mark style="background:#dcfce7;color:#166534;border-radius:3px;padding:0 2px">' + fw + '</mark> ';
+    }
+  }
+  return { origHtml: origHtml.trim(), fixedHtml: fixedHtml.trim() };
+}
+%>
+
+<div class="page-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+  <div>
+    <h1 style="margin:0">Chi tiết Session</h1>
+    <p style="margin:4px 0 0;color:var(--text-secondary)">
+      <a href="/ai-content" style="color:var(--text-secondary)">Nội dung AI</a> /
+      <a href="/ai-content/sessions" style="color:var(--text-secondary)">Sessions</a> /
+      Chi tiết
+    </p>
+  </div>
+  <a href="/ai-content/sessions" class="btn btn-secondary">← Quay lại</a>
+</div>
+
+<!-- Meta info -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+  <div class="card" style="padding:16px">
+    <div style="font-size:12px;color:var(--text-secondary);margin-bottom:10px;text-transform:uppercase">Thông tin session</div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px">
+      <tr style="border-bottom:1px solid var(--border)">
+        <td style="padding:6px 0;color:var(--text-secondary);width:130px">User</td>
+        <td><strong><%= session.full_name %></strong> <span style="color:var(--text-secondary);font-size:11px">(<%= session.email %>)</span></td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border)">
+        <td style="padding:6px 0;color:var(--text-secondary)">Thời gian</td>
+        <td><%= fmtDate(session.created_at) %></td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border)">
+        <td style="padding:6px 0;color:var(--text-secondary)">Model</td>
+        <td style="font-family:monospace;font-size:12px"><%= session.model_used || '—' %></td>
+      </tr>
+      <tr>
+        <td style="padding:6px 0;color:var(--text-secondary)">Kết quả</td>
+        <td>
+          <span style="color:var(--<%= session.all_passed ? 'success' : 'danger' %>);font-weight:600">
+            <%= session.all_passed ? '✓ All Passed' : '✗ Some Failed' %>
+          </span>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="card" style="padding:16px">
+    <div style="font-size:12px;color:var(--text-secondary);margin-bottom:10px;text-transform:uppercase">Chi phí & hiệu năng</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div>
+        <div style="font-size:11px;color:var(--text-secondary)">Latency</div>
+        <div style="font-size:20px;font-weight:600"><%= session.latency_ms ? session.latency_ms.toLocaleString() + 'ms' : '—' %></div>
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--text-secondary)">Cost</div>
+        <div style="font-size:20px;font-weight:600"><%= fmtCost(session.cost_usd) %></div>
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--text-secondary)">Tokens in</div>
+        <div style="font-size:18px;font-weight:500"><%= session.tokens_in != null ? session.tokens_in.toLocaleString() : '—' %></div>
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--text-secondary)">Tokens out</div>
+        <div style="font-size:18px;font-weight:500"><%= session.tokens_out != null ? session.tokens_out.toLocaleString() : '—' %></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Target words -->
+<div class="card" style="margin-bottom:16px">
+  <div class="card-header"><h2>Target Words</h2></div>
+  <div style="padding:16px;display:flex;flex-wrap:wrap;gap:8px">
+    <% (session.target_words || []).forEach(function(w) { %>
+    <span style="padding:4px 12px;background:var(--bg);border:1px solid var(--border);border-radius:20px;font-size:13px;font-weight:500"><%= w %></span>
+    <% }) %>
+    <% if (!(session.target_words && session.target_words.length)) { %>
+    <span style="color:var(--text-secondary);font-size:13px">Không có</span>
+    <% } %>
+  </div>
+</div>
+
+<!-- Sentences diff -->
+<% var sentences = session.sentences || []; var fixes = session.fixes || []; %>
+<% if (sentences.length > 0) { %>
+<div class="card" style="margin-bottom:16px">
+  <div class="card-header"><h2>Câu viết & Sửa lỗi</h2></div>
+  <div style="padding:16px;display:flex;flex-direction:column;gap:16px">
+    <% sentences.forEach(function(orig, i) { %>
+    <%
+      var fixed = fixes[i] || '';
+      var diff = diffWords(orig, fixed);
+    %>
+    <div style="border:1px solid var(--border);border-radius:var(--radius);overflow:hidden">
+      <div style="padding:6px 12px;background:var(--bg);font-size:11px;color:var(--text-secondary);border-bottom:1px solid var(--border)">
+        Câu <%= i + 1 %>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr">
+        <div style="padding:12px;border-right:1px solid var(--border)">
+          <div style="font-size:11px;color:var(--text-secondary);margin-bottom:6px">Câu gốc</div>
+          <div style="font-size:13px;line-height:1.6"><%- diff.origHtml || '<span style="color:var(--text-secondary)">—</span>' %></div>
+        </div>
+        <div style="padding:12px">
+          <div style="font-size:11px;color:var(--text-secondary);margin-bottom:6px">Câu đã sửa</div>
+          <div style="font-size:13px;line-height:1.6"><%- diff.fixedHtml || '<span style="color:var(--text-secondary)">—</span>' %></div>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+</div>
+<% } %>
+
+<!-- results_json -->
+<% if (session.results_json) { %>
+<div class="card">
+  <div class="card-header"><h2>Results JSON</h2></div>
+  <div style="padding:16px">
+    <pre style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:14px;font-size:12px;overflow-x:auto;white-space:pre-wrap;word-break:break-word;margin:0"><%= JSON.stringify(session.results_json, null, 2) %></pre>
+  </div>
+</div>
+<% } %>

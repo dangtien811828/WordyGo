@@ -1,0 +1,113 @@
+<div class="page-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+  <div>
+    <h1 style="margin:0">Mini-games</h1>
+    <p style="margin:4px 0 0;color:var(--text-secondary)">Quản lý nội dung game</p>
+  </div>
+  <a href="/games/leaderboard" class="btn btn-secondary">🏆 Leaderboard</a>
+</div>
+
+<!-- Stats row -->
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px">
+  <div class="card" style="padding:16px">
+    <div style="font-size:12px;color:var(--text-secondary);text-transform:uppercase">Word Lists</div>
+    <div style="font-size:26px;font-weight:700;margin-top:4px"><%= stats.word_lists %></div>
+  </div>
+  <div class="card" style="padding:16px">
+    <div style="font-size:12px;color:var(--text-secondary);text-transform:uppercase">Levels</div>
+    <div style="font-size:26px;font-weight:700;margin-top:4px"><%= stats.levels %></div>
+  </div>
+  <div class="card" style="padding:16px">
+    <div style="font-size:12px;color:var(--text-secondary);text-transform:uppercase">Semantic Sets</div>
+    <div style="font-size:26px;font-weight:700;margin-top:4px"><%= stats.semantic_sets %></div>
+  </div>
+  <div class="card" style="padding:16px">
+    <div style="font-size:12px;color:var(--text-secondary);text-transform:uppercase">Game Runs</div>
+    <div style="font-size:26px;font-weight:700;margin-top:4px"><%= stats.game_runs %></div>
+  </div>
+</div>
+
+<!-- Game Cards -->
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+
+  <!-- LexiSweep -->
+  <div class="card" style="display:flex;flex-direction:column">
+    <div style="padding:20px;border-bottom:1px solid var(--border)">
+      <div style="font-size:32px;margin-bottom:8px">🔵</div>
+      <h2 style="margin:0 0 6px">LexiSweep</h2>
+      <p style="margin:0;font-size:13px;color:var(--text-secondary)">
+        Game quét từ vựng — chơi từ word lists. Hỗ trợ nhiều cấp độ.
+      </p>
+    </div>
+    <div style="padding:16px;flex:1">
+      <table style="width:100%;font-size:13px;border-collapse:collapse">
+        <tr>
+          <td style="color:var(--text-secondary);padding:4px 0">Word lists</td>
+          <td style="text-align:right;font-weight:600"><%= wordListCounts.lexisweep %></td>
+        </tr>
+        <tr>
+          <td style="color:var(--text-secondary);padding:4px 0">Levels</td>
+          <td style="text-align:right;font-weight:600"><%= levelCounts.lexisweep %></td>
+        </tr>
+      </table>
+    </div>
+    <div style="padding:12px 16px;border-top:1px solid var(--border);display:flex;gap:8px">
+      <a href="/games/word-lists?gameType=lexisweep" class="btn btn-sm btn-secondary" style="flex:1;text-align:center">Word Lists</a>
+      <a href="/games/levels?tab=lexisweep" class="btn btn-sm btn-secondary" style="flex:1;text-align:center">Levels</a>
+    </div>
+  </div>
+
+  <!-- Anagram -->
+  <div class="card" style="display:flex;flex-direction:column">
+    <div style="padding:20px;border-bottom:1px solid var(--border)">
+      <div style="font-size:32px;margin-bottom:8px">🟠</div>
+      <h2 style="margin:0 0 6px">Anagram</h2>
+      <p style="margin:0;font-size:13px;color:var(--text-secondary)">
+        Xếp chữ cái thành từ — chơi từ word lists.
+      </p>
+    </div>
+    <div style="padding:16px;flex:1">
+      <table style="width:100%;font-size:13px;border-collapse:collapse">
+        <tr>
+          <td style="color:var(--text-secondary);padding:4px 0">Word lists</td>
+          <td style="text-align:right;font-weight:600"><%= wordListCounts.anagram %></td>
+        </tr>
+        <tr>
+          <td style="color:var(--text-secondary);padding:4px 0">Levels</td>
+          <td style="text-align:right;font-weight:600"><%= levelCounts.anagram %></td>
+        </tr>
+      </table>
+    </div>
+    <div style="padding:12px 16px;border-top:1px solid var(--border);display:flex;gap:8px">
+      <a href="/games/word-lists?gameType=anagram" class="btn btn-sm btn-secondary" style="flex:1;text-align:center">Word Lists</a>
+      <a href="/games/levels?tab=anagram" class="btn btn-sm btn-secondary" style="flex:1;text-align:center">Levels</a>
+    </div>
+  </div>
+
+  <!-- Ladder (Semantic Scaling) -->
+  <div class="card" style="display:flex;flex-direction:column">
+    <div style="padding:20px;border-bottom:1px solid var(--border)">
+      <div style="font-size:32px;margin-bottom:8px">🟢</div>
+      <h2 style="margin:0 0 6px">Ladder</h2>
+      <p style="margin:0;font-size:13px;color:var(--text-secondary)">
+        Xếp hạng cảm xúc/cường độ — dùng semantic sets.
+      </p>
+    </div>
+    <div style="padding:16px;flex:1">
+      <table style="width:100%;font-size:13px;border-collapse:collapse">
+        <tr>
+          <td style="color:var(--text-secondary);padding:4px 0">Semantic sets</td>
+          <td style="text-align:right;font-weight:600"><%= stats.semantic_sets %></td>
+        </tr>
+        <tr>
+          <td style="color:var(--text-secondary);padding:4px 0">Levels</td>
+          <td style="text-align:right;font-weight:600"><%= levelCounts.ladder %></td>
+        </tr>
+      </table>
+    </div>
+    <div style="padding:12px 16px;border-top:1px solid var(--border);display:flex;gap:8px">
+      <a href="/games/semantic-sets" class="btn btn-sm btn-secondary" style="flex:1;text-align:center">Semantic Sets</a>
+      <a href="/games/levels?tab=ladder" class="btn btn-sm btn-secondary" style="flex:1;text-align:center">Levels</a>
+    </div>
+  </div>
+
+</div>

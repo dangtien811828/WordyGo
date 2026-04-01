@@ -1,0 +1,92 @@
+<%
+var flagBadge     = { sexual: 'badge-danger', violence: 'badge-danger', hate: 'badge-danger', self_harm: 'badge-danger', other: 'badge-warning' };
+var severityBadge = { low: 'badge-warning', medium: 'badge-warning', high: 'badge-danger' };
+var statusBadge   = { pending: 'badge-warning', reviewed: 'badge-success', dismissed: 'badge-secondary' };
+function fmtDate(d) { return d ? new Date(d).toLocaleString('vi-VN') : '—'; }
+%>
+
+<div class="page-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+  <div>
+    <h1 style="margin:0">Chi tiết Moderation</h1>
+    <p style="margin:4px 0 0;color:var(--text-secondary)">
+      <a href="/ai-content" style="color:var(--text-secondary)">Nội dung AI</a> /
+      <a href="/ai-content/moderation" style="color:var(--text-secondary)">Moderation</a> /
+      Chi tiết
+    </p>
+  </div>
+  <a href="/ai-content/moderation" class="btn btn-secondary">← Quay lại</a>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+  <!-- Flag info -->
+  <div class="card" style="padding:16px">
+    <div style="font-size:12px;color:var(--text-secondary);margin-bottom:10px;text-transform:uppercase">Thông tin flag</div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px">
+      <tr style="border-bottom:1px solid var(--border)">
+        <td style="padding:6px 0;color:var(--text-secondary);width:130px">User</td>
+        <td><%= log.user_name || '—' %> <span style="color:var(--text-secondary);font-size:11px">(<%= log.user_email || '—' %>)</span></td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border)">
+        <td style="padding:6px 0;color:var(--text-secondary)">Source</td>
+        <td><%= log.source || '—' %></td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border)">
+        <td style="padding:6px 0;color:var(--text-secondary)">Flag type</td>
+        <td><span class="badge <%= flagBadge[log.flag_type] || 'badge-secondary' %>"><%= log.flag_type %></span></td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border)">
+        <td style="padding:6px 0;color:var(--text-secondary)">Severity</td>
+        <td><span class="badge <%= severityBadge[log.severity] || 'badge-secondary' %>"><%= log.severity %></span></td>
+      </tr>
+      <tr>
+        <td style="padding:6px 0;color:var(--text-secondary)">Thời gian</td>
+        <td><%= fmtDate(log.created_at) %></td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Review info -->
+  <div class="card" style="padding:16px">
+    <div style="font-size:12px;color:var(--text-secondary);margin-bottom:10px;text-transform:uppercase">Kết quả xử lý</div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px">
+      <tr style="border-bottom:1px solid var(--border)">
+        <td style="padding:6px 0;color:var(--text-secondary);width:130px">Status</td>
+        <td><span class="badge <%= statusBadge[log.status] || 'badge-secondary' %>"><%= log.status %></span></td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border)">
+        <td style="padding:6px 0;color:var(--text-secondary)">Action taken</td>
+        <td><%= log.action_taken || '—' %></td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border)">
+        <td style="padding:6px 0;color:var(--text-secondary)">Reviewer</td>
+        <td><%= log.reviewer_name || '—' %></td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border)">
+        <td style="padding:6px 0;color:var(--text-secondary)">Reviewer note</td>
+        <td style="font-size:12px"><%= log.reviewer_note || '—' %></td>
+      </tr>
+      <tr>
+        <td style="padding:6px 0;color:var(--text-secondary)">Reviewed at</td>
+        <td><%= fmtDate(log.reviewed_at) %></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!-- Input text -->
+<div class="card" style="margin-bottom:16px">
+  <div class="card-header"><h2>Nội dung bị flag</h2></div>
+  <div style="padding:16px">
+    <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:14px;font-size:13px;line-height:1.6;white-space:pre-wrap;word-break:break-word"><%= log.input_text || '(trống)' %></div>
+  </div>
+</div>
+
+<!-- API response -->
+<% if (log.api_response) { %>
+<div class="card">
+  <div class="card-header"><h2>API Response</h2></div>
+  <div style="padding:16px">
+    <pre style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:14px;font-size:12px;overflow-x:auto;white-space:pre-wrap;word-break:break-word;margin:0"><%= JSON.stringify(log.api_response, null, 2) %></pre>
+  </div>
+</div>
+<% } %>

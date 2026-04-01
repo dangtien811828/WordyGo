@@ -1,0 +1,88 @@
+<%
+var typeBadge = { lexisweep: 'badge-primary', anagram: 'badge-warning', ladder: 'badge-success' };
+function fmtDate(d) { return d ? new Date(d).toLocaleDateString('vi-VN') : '—'; }
+function fmtPct(n) { return n != null ? Math.round(n * 100) + '%' : '—'; }
+function fmtTime(s) { return s != null ? s + 's' : '—'; }
+%>
+
+<div class="page-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+  <div>
+    <h1 style="margin:0">🏆 Leaderboard</h1>
+    <p style="margin:4px 0 0;color:var(--text-secondary)">
+      <a href="/games" style="color:var(--text-secondary)">Mini-games</a> / Leaderboard
+    </p>
+  </div>
+  <a href="/games" class="btn btn-secondary">← Quay lại</a>
+</div>
+
+<!-- Filter -->
+<form method="GET" action="/games/leaderboard" style="display:flex;gap:10px;align-items:flex-end;margin-bottom:16px">
+  <div class="form-group" style="margin:0">
+    <label style="font-size:12px;display:block;margin-bottom:4px">Game type</label>
+    <select name="gameType">
+      <option value="">Tất cả</option>
+      <option value="lexisweep" <%= filters.gameType === 'lexisweep' ? 'selected' : '' %>>LexiSweep</option>
+      <option value="anagram"   <%= filters.gameType === 'anagram'   ? 'selected' : '' %>>Anagram</option>
+      <option value="ladder"    <%= filters.gameType === 'ladder'    ? 'selected' : '' %>>Ladder</option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Lọc</button>
+  <a href="/games/leaderboard" class="btn btn-secondary">Xóa lọc</a>
+</form>
+
+<div class="card">
+  <div class="card-header">
+    <h2 style="margin:0">Top scores (<%= pagination.total.toLocaleString() %> lượt chơi)</h2>
+  </div>
+  <% if (runs.length > 0) { %>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:50px;text-align:center">#</th>
+          <th>Người chơi</th>
+          <th style="text-align:center">Game</th>
+          <th style="text-align:center">Word List</th>
+          <th style="text-align:right">Điểm</th>
+          <th style="text-align:right">Accuracy</th>
+          <th style="text-align:right">Thời gian</th>
+          <th>Ngày</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% var offset = (pagination.page - 1) * pagination.limit; %>
+        <% runs.forEach(function(r, i) { %>
+        <tr>
+          <td style="text-align:center;font-weight:600;color:var(--text-secondary)">
+            <% var rank = offset + i + 1; %>
+            <% if (rank === 1) { %> 🥇
+            <% } else if (rank === 2) { %> 🥈
+            <% } else if (rank === 3) { %> 🥉
+            <% } else { %> <%= rank %>
+            <% } %>
+          </td>
+          <td>
+            <div style="font-weight:500"><%= r.full_name %></div>
+            <div style="font-size:12px;color:var(--text-secondary)"><%= r.email %></div>
+          </td>
+          <td style="text-align:center">
+            <span class="badge <%= typeBadge[r.game_type] || 'badge-secondary' %>"><%= r.game_type %></span>
+          </td>
+          <td style="font-size:12px;text-align:center;color:var(--text-secondary)"><%= r.list_name || '—' %></td>
+          <td style="text-align:right;font-weight:700;font-size:15px"><%= (r.score || 0).toLocaleString() %></td>
+          <td style="text-align:right"><%= fmtPct(r.accuracy) %></td>
+          <td style="text-align:right;color:var(--text-secondary)"><%= fmtTime(r.time_sec) %></td>
+          <td style="font-size:12px"><%= fmtDate(r.created_at) %></td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+  <%- include('../partials/pagination', { pagination }) %>
+  <% } else { %>
+  <div style="padding:60px;text-align:center;color:var(--text-secondary)">
+    <div style="font-size:36px;margin-bottom:12px">🏆</div>
+    <p style="margin:0">Chưa có lượt chơi nào được hoàn thành</p>
+  </div>
+  <% } %>
+</div>

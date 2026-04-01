@@ -52,6 +52,8 @@ app.use('/decks',      require('./routes/decks'));
 app.use('/ebooks',         require('./routes/ebooks'));
 app.use('/subscriptions',  require('./routes/subscriptions'));
 app.use('/settings',       require('./routes/settings'));
+app.use('/games',          require('./routes/games'));
+app.use('/ai-content',     require('./routes/ai-content'));
 
 // Root redirect
 app.get('/', (req, res) => {
