@@ -1,0 +1,126 @@
+<%
+  const ebookGenre = Array.isArray(ebook.genre) ? ebook.genre : [];
+%>
+
+<div class="page-header" style="display:flex;align-items:center;justify-content:space-between">
+  <div>
+    <h1>Sửa metadata ebook</h1>
+    <p><a href="/ebooks/<%= ebook.id %>" style="color:var(--text-secondary)">← <%= ebook.title %></a></p>
+  </div>
+</div>
+
+<div class="alert alert-error" style="background:#EFF6FF;border-color:#3B82F6;color:#1E40AF;margin-bottom:16px">
+  ℹ️ Chỉ sửa được metadata. Để thay file ebook, hãy xóa và upload lại.
+</div>
+
+<form action="/ebooks/<%= ebook.id %>/edit" method="POST">
+  <div style="display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start">
+
+    <!-- Main -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+
+      <div class="card">
+        <div class="card-header"><h2>Thông tin sách</h2></div>
+        <div style="padding:20px;display:flex;flex-direction:column;gap:14px">
+          <div class="form-group" style="margin:0">
+            <label>Tiêu đề <span style="color:var(--danger)">*</span></label>
+            <input type="text" name="title" value="<%= ebook.title %>" required>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div class="form-group" style="margin:0">
+              <label>Tác giả</label>
+              <input type="text" name="author" value="<%= ebook.author || '' %>">
+            </div>
+            <div class="form-group" style="margin:0">
+              <label>ISBN</label>
+              <input type="text" name="isbn" value="<%= ebook.isbn || '' %>">
+            </div>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Mô tả</label>
+            <textarea name="description" rows="4"><%= ebook.description || '' %></textarea>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Cover URL</label>
+            <input type="text" name="cover_url" value="<%= ebook.cover_url || '' %>">
+          </div>
+          <% if (ebook.epub_file_url) { %>
+          <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:10px 14px;font-size:13px">
+            <span style="color:var(--text-secondary)">File hiện tại:</span>
+            <a href="<%= ebook.epub_file_url %>" target="_blank" style="color:var(--primary);margin-left:6px">
+              <%= ebook.epub_file_url.split('/').pop() %>
+            </a>
+          </div>
+          <% } %>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><h2>Thể loại (Genre)</h2></div>
+        <div style="padding:16px;display:flex;flex-wrap:wrap;gap:10px">
+          <% VALID_GENRES.forEach(function(g) { %>
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:14px">
+              <input type="checkbox" name="genre" value="<%= g %>" <%= ebookGenre.includes(g) ? 'checked' : '' %>>
+              <%= g %>
+            </label>
+          <% }); %>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Sidebar -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+
+      <div class="card">
+        <div class="card-header"><h2>Cài đặt</h2></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:14px">
+          <div class="form-group" style="margin:0">
+            <label>Cấp độ</label>
+            <select name="level">
+              <% VALID_LEVELS.forEach(function(l) { %>
+                <option value="<%= l %>" <%= ebook.level === l ? 'selected' : '' %>><%= l %></option>
+              <% }); %>
+            </select>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Gói yêu cầu</label>
+            <select name="required_plan">
+              <% VALID_PLANS.forEach(function(p) { %>
+                <option value="<%= p %>" <%= ebook.required_plan === p ? 'selected' : '' %>><%= p %></option>
+              <% }); %>
+            </select>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Trạng thái</label>
+            <select name="status">
+              <% VALID_STATUS.forEach(function(s) { %>
+                <option value="<%= s %>" <%= ebook.status === s ? 'selected' : '' %>><%= s %></option>
+              <% }); %>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><h2>TTS</h2></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:14px">
+          <div class="form-group" style="margin:0">
+            <label>Voice</label>
+            <input type="text" name="tts_voice" value="<%= ebook.tts_voice || '' %>">
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Speed</label>
+            <input type="number" name="tts_speed" value="<%= ebook.tts_speed || 1.0 %>" min="0.5" max="2.0" step="0.1">
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <button type="submit" class="btn btn-primary" style="width:100%">Lưu thay đổi</button>
+        <a href="/ebooks/<%= ebook.id %>" class="btn btn-secondary" style="width:100%;text-align:center">Hủy</a>
+      </div>
+
+    </div>
+  </div>
+</form>

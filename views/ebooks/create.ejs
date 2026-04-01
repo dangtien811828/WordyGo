@@ -1,0 +1,123 @@
+<div class="page-header" style="display:flex;align-items:center;justify-content:space-between">
+  <div>
+    <h1>Upload Ebook</h1>
+    <p><a href="/ebooks" style="color:var(--text-secondary)">← Ebook</a></p>
+  </div>
+</div>
+
+<form action="/ebooks/create" method="POST" enctype="multipart/form-data">
+  <div style="display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start">
+
+    <!-- Main -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+
+      <div class="card">
+        <div class="card-header"><h2>File ebook</h2></div>
+        <div style="padding:20px">
+          <div class="form-group" style="margin:0">
+            <label>File (epub / pdf / txt) <span style="color:var(--danger)">*</span></label>
+            <input type="file" name="ebookFile" accept=".epub,.pdf,.txt"
+                   style="padding:8px;border:2px dashed var(--border);border-radius:var(--radius);width:100%;box-sizing:border-box;cursor:pointer">
+            <p style="font-size:12px;color:var(--text-secondary);margin-top:4px">Tối đa 10 MB</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><h2>Thông tin sách</h2></div>
+        <div style="padding:20px;display:flex;flex-direction:column;gap:14px">
+          <div class="form-group" style="margin:0">
+            <label>Tiêu đề <span style="color:var(--danger)">*</span></label>
+            <input type="text" name="title" required placeholder="Tên sách...">
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div class="form-group" style="margin:0">
+              <label>Tác giả</label>
+              <input type="text" name="author" placeholder="Tên tác giả...">
+            </div>
+            <div class="form-group" style="margin:0">
+              <label>ISBN</label>
+              <input type="text" name="isbn" placeholder="978-...">
+            </div>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Mô tả</label>
+            <textarea name="description" rows="4" placeholder="Tóm tắt nội dung sách..."></textarea>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Cover URL</label>
+            <input type="text" name="cover_url" placeholder="https://...">
+          </div>
+        </div>
+      </div>
+
+      <!-- Genre checkboxes -->
+      <div class="card">
+        <div class="card-header"><h2>Thể loại (Genre)</h2></div>
+        <div style="padding:16px;display:flex;flex-wrap:wrap;gap:10px">
+          <% VALID_GENRES.forEach(function(g) { %>
+            <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:14px">
+              <input type="checkbox" name="genre" value="<%= g %>">
+              <%= g %>
+            </label>
+          <% }); %>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Sidebar -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+
+      <div class="card">
+        <div class="card-header"><h2>Cài đặt</h2></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:14px">
+          <div class="form-group" style="margin:0">
+            <label>Cấp độ</label>
+            <select name="level">
+              <% VALID_LEVELS.forEach(function(l) { %>
+                <option value="<%= l %>"><%= l %></option>
+              <% }); %>
+            </select>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Gói yêu cầu</label>
+            <select name="required_plan">
+              <% VALID_PLANS.forEach(function(p) { %>
+                <option value="<%= p %>"><%= p %></option>
+              <% }); %>
+            </select>
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Trạng thái</label>
+            <select name="status">
+              <option value="draft" selected>Draft</option>
+              <option value="published">Published</option>
+              <option value="archived">Archived</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><h2>TTS (Text-to-Speech)</h2></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:14px">
+          <div class="form-group" style="margin:0">
+            <label>Voice</label>
+            <input type="text" name="tts_voice" placeholder="en-US-Neural2-A">
+          </div>
+          <div class="form-group" style="margin:0">
+            <label>Speed</label>
+            <input type="number" name="tts_speed" value="1.0" min="0.5" max="2.0" step="0.1">
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <button type="submit" class="btn btn-primary" style="width:100%">↑ Upload Ebook</button>
+        <a href="/ebooks" class="btn btn-secondary" style="width:100%;text-align:center">Hủy</a>
+      </div>
+
+    </div>
+  </div>
+</form>

@@ -1,0 +1,73 @@
+<div class="page-header" style="margin-bottom:24px">
+  <h1 style="margin:0">Cài đặt</h1>
+  <p style="margin:4px 0 0;color:var(--text-secondary)">Tuỳ chỉnh giao diện và tài khoản</p>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:16px;max-width:560px">
+
+  <!-- Giao diện -->
+  <div class="card">
+    <div class="card-header"><h2>Giao diện</h2></div>
+    <div style="padding:20px;display:flex;flex-direction:column;gap:16px">
+      <div>
+        <label style="display:block;font-size:13px;font-weight:500;margin-bottom:10px;color:var(--text-secondary)">Theme</label>
+        <div style="display:flex;gap:10px">
+          <button id="themeLight" type="button" class="btn btn-secondary" onclick="setTheme('light')"
+                  style="display:flex;align-items:center;gap:8px;flex:1;justify-content:center">
+            ☀️ Sáng
+          </button>
+          <button id="themeDark" type="button" class="btn btn-secondary" onclick="setTheme('dark')"
+                  style="display:flex;align-items:center;gap:8px;flex:1;justify-content:center">
+            🌙 Tối
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tài khoản -->
+  <div class="card">
+    <div class="card-header"><h2>Tài khoản</h2></div>
+    <div style="padding:20px;display:flex;flex-direction:column;gap:12px">
+      <a href="/profile" class="btn btn-secondary" style="display:flex;align-items:center;gap:8px">
+        👤 Trang cá nhân
+      </a>
+      <a href="/profile#change-password" class="btn btn-secondary" style="display:flex;align-items:center;gap:8px">
+        🔑 Đổi mật khẩu
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  function setTheme(t) {
+    localStorage.setItem('theme', t);
+    document.body.classList.toggle('dark-mode', t === 'dark');
+    updateButtons(t);
+  }
+
+  function updateButtons(t) {
+    var light = document.getElementById('themeLight');
+    var dark  = document.getElementById('themeDark');
+    if (!light || !dark) return;
+    if (t === 'dark') {
+      dark.classList.add('btn-primary');
+      dark.classList.remove('btn-secondary');
+      light.classList.add('btn-secondary');
+      light.classList.remove('btn-primary');
+    } else {
+      light.classList.add('btn-primary');
+      light.classList.remove('btn-secondary');
+      dark.classList.add('btn-secondary');
+      dark.classList.remove('btn-primary');
+    }
+  }
+
+  window.setTheme = setTheme;
+
+  var current = localStorage.getItem('theme') || 'light';
+  updateButtons(current);
+})();
+</script>

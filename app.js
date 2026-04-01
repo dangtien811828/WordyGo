@@ -49,6 +49,9 @@ app.use('/profile',    require('./routes/profile'));
 app.use('/dictionary', require('./routes/dictionary'));
 app.use('/lessons',    require('./routes/lessons'));
 app.use('/decks',      require('./routes/decks'));
+app.use('/ebooks',         require('./routes/ebooks'));
+app.use('/subscriptions',  require('./routes/subscriptions'));
+app.use('/settings',       require('./routes/settings'));
 
 // Root redirect
 app.get('/', (req, res) => {

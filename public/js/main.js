@@ -6,6 +6,13 @@ function toggleSidebar() {
 }
 
 // Khôi phục trạng thái sidebar
+// ── Theme ──
+(function () {
+  if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.add('dark-mode');
+  }
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
   const sidebar = document.getElementById('sidebar');
   if (sidebar && localStorage.getItem('sidebar-collapsed') === 'true') {

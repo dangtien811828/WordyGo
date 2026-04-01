@@ -41,6 +41,12 @@ const approvalController = {
         }
       }
 
+      // Execute deferred ebook delete
+      if (result.module === 'ebooks' && result.action === 'delete') {
+        const Ebook = require('../models/Ebook');
+        await Ebook.delete(result.payload.targetId);
+      }
+
       req.flash('success', 'Đã phê duyệt và thực thi yêu cầu');
       return res.redirect('/approvals');
     } catch (err) {

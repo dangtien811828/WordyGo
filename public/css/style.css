@@ -597,3 +597,24 @@ tbody tr:last-child td { border-bottom: none; }
   .sidebar .admin-info { justify-content: center; }
   .main-content { margin-left: 64px; }
 }
+
+/* ══════════════════════════
+   DARK MODE
+   ══════════════════════════ */
+body.dark-mode {
+  --bg: #0F172A;
+  --bg-white: #1E293B;
+  --text: #E2E8F0;
+  --text-secondary: #94A3B8;
+  --border: #334155;
+  --border-input: #475569;
+  --bg-sidebar: #0F172A;
+  --bg-sidebar-hover: #1E293B;
+}
+body.dark-mode .stat-card,
+body.dark-mode .card { background: var(--bg-white); }
+body.dark-mode table thead th { background: #1E293B; }
+body.dark-mode table tbody tr:hover { background: #334155; }
+body.dark-mode .auth-card { background: #1E293B; }
+body.dark-mode .alert-success { background: #064E3B; color: #6EE7B7; border-color: #065F46; }
+body.dark-mode .alert-error { background: #7F1D1D; color: #FCA5A5; border-color: #991B1B; }

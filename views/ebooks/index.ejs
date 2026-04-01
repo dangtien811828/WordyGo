@@ -1,0 +1,106 @@
+<%
+  const levelBadge  = { beginner:'badge-success', intermediate:'badge-warning', advanced:'badge-info' };
+  const statusBadge = { draft:'badge-warning', published:'badge-success', archived:'badge-secondary' };
+  const planBadge   = { free:'badge-success', premium:'badge-warning', pro:'badge-info' };
+%>
+
+<div class="page-header" style="display:flex;align-items:center;justify-content:space-between">
+  <div>
+    <h1>Ebook</h1>
+    <p>Quản lý thư viện sách điện tử</p>
+  </div>
+  <a href="/ebooks/create" class="btn btn-primary">+ Upload Ebook</a>
+</div>
+
+<!-- Filter bar -->
+<div class="card" style="padding:16px;margin-bottom:20px">
+  <form method="GET" action="/ebooks" style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
+    <div class="form-group" style="margin:0;flex:1;min-width:200px">
+      <label style="font-size:12px">Tìm kiếm</label>
+      <input type="text" name="search" value="<%= filters.search %>" placeholder="Tên sách, tác giả...">
+    </div>
+    <div class="form-group" style="margin:0;min-width:130px">
+      <label style="font-size:12px">Cấp độ</label>
+      <select name="level">
+        <option value="">Tất cả</option>
+        <option value="beginner"     <%= filters.level === 'beginner'     ? 'selected' : '' %>>Beginner</option>
+        <option value="intermediate" <%= filters.level === 'intermediate' ? 'selected' : '' %>>Intermediate</option>
+        <option value="advanced"     <%= filters.level === 'advanced'     ? 'selected' : '' %>>Advanced</option>
+      </select>
+    </div>
+    <div class="form-group" style="margin:0;min-width:120px">
+      <label style="font-size:12px">Trạng thái</label>
+      <select name="status">
+        <option value="">Tất cả</option>
+        <option value="draft"     <%= filters.status === 'draft'     ? 'selected' : '' %>>Draft</option>
+        <option value="published" <%= filters.status === 'published' ? 'selected' : '' %>>Published</option>
+        <option value="archived"  <%= filters.status === 'archived'  ? 'selected' : '' %>>Archived</option>
+      </select>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button type="submit" class="btn btn-primary">Lọc</button>
+      <a href="/ebooks" class="btn btn-secondary">Xóa lọc</a>
+    </div>
+  </form>
+</div>
+
+<!-- Table -->
+<div class="card">
+  <div class="card-header">
+    <h2>Kết quả (<%= pagination.total %>)</h2>
+  </div>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Sách</th>
+          <th>Cấp độ</th>
+          <th style="text-align:center">Chapters</th>
+          <th>Gói</th>
+          <th>Trạng thái</th>
+          <th>Người upload</th>
+          <th>Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (ebooks && ebooks.length > 0) { %>
+          <% ebooks.forEach(function(e) { %>
+            <tr>
+              <td>
+                <div style="display:flex;align-items:center;gap:10px">
+                  <% if (e.cover_url) { %>
+                    <img src="<%= e.cover_url %>" alt="" style="width:36px;height:48px;object-fit:cover;border-radius:4px;flex-shrink:0;border:1px solid var(--border)">
+                  <% } else { %>
+                    <div style="width:36px;height:48px;background:var(--bg);border:1px solid var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px">📕</div>
+                  <% } %>
+                  <div>
+                    <div style="font-weight:500"><%= e.title %></div>
+                    <div style="font-size:12px;color:var(--text-secondary)"><%= e.author || '—' %></div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="badge <%= levelBadge[e.level] || '' %>"><%= e.level %></span></td>
+              <td style="text-align:center;font-size:13px"><%= e.total_chapters || 0 %></td>
+              <td><span class="badge <%= planBadge[e.required_plan] || '' %>" style="font-size:11px"><%= e.required_plan %></span></td>
+              <td><span class="badge <%= statusBadge[e.status] || '' %>"><%= e.status %></span></td>
+              <td style="font-size:12px;color:var(--text-secondary)"><%= e.creator_name || '—' %></td>
+              <td>
+                <div style="display:flex;gap:4px;flex-wrap:nowrap;align-items:center">
+                  <a href="/ebooks/<%= e.id %>" class="btn btn-sm btn-secondary">Xem</a>
+                  <a href="/ebooks/<%= e.id %>/edit" class="btn btn-sm btn-secondary">Sửa</a>
+                </div>
+              </td>
+            </tr>
+          <% }) %>
+        <% } else { %>
+          <tr>
+            <td colspan="7" class="text-center" style="padding:40px;color:var(--text-secondary)">
+              Không có ebook nào
+            </td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+  <%- include('../partials/pagination', { pagination }) %>
+</div>

@@ -1,0 +1,153 @@
+<%
+function fmt(n) {
+  return (n != null && n !== '') ? Number(n).toLocaleString('vi-VN') + '₫' : '—';
+}
+const statusBadge = { active: 'badge-success', inactive: 'badge-secondary' };
+%>
+
+<div class="page-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+  <div>
+    <h1 style="margin:0">Gói đăng ký</h1>
+    <p style="margin:4px 0 0;color:var(--text-secondary)">Quản lý gói và tính năng</p>
+  </div>
+  <div style="display:flex;gap:8px">
+    <a href="/subscriptions/transactions" class="btn btn-secondary">Giao dịch</a>
+    <a href="/subscriptions/create" class="btn btn-primary">+ Tạo gói mới</a>
+  </div>
+</div>
+
+<!-- Stats -->
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px">
+  <div class="card" style="padding:20px">
+    <div style="font-size:12px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.05em">MRR (ước tính)</div>
+    <div style="font-size:28px;font-weight:700;margin-top:6px"><%= fmt(stats.mrr) %></div>
+    <div style="font-size:12px;color:var(--text-secondary);margin-top:2px">Monthly Recurring Revenue</div>
+  </div>
+  <div class="card" style="padding:20px">
+    <div style="font-size:12px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.05em">Đang đăng ký</div>
+    <div style="font-size:28px;font-weight:700;margin-top:6px"><%= stats.totalSubscribers.toLocaleString() %></div>
+    <div style="font-size:12px;color:var(--text-secondary);margin-top:2px">Active subscribers</div>
+  </div>
+  <div class="card" style="padding:20px">
+    <div style="font-size:12px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.05em">Churn rate</div>
+    <div style="font-size:28px;font-weight:700;margin-top:6px"><%= stats.churnRate %>%</div>
+    <div style="font-size:12px;color:var(--text-secondary);margin-top:2px">Huỷ trong 30 ngày gần nhất</div>
+  </div>
+</div>
+
+<!-- Plan Cards -->
+<% if (plans.length > 0) { %>
+<div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:24px">
+  <% plans.forEach(function(p) { %>
+  <div class="card" style="flex:1;min-width:260px;max-width:380px;display:flex;flex-direction:column">
+    <div style="padding:20px;border-bottom:1px solid var(--border)">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <div style="display:flex;align-items:center;gap:10px">
+          <% if (p.icon_color) { %>
+            <div style="width:36px;height:36px;border-radius:50%;background:<%= p.icon_color %>;flex-shrink:0"></div>
+          <% } %>
+          <h2 style="margin:0;font-size:18px"><%= p.name %></h2>
+        </div>
+        <div style="display:flex;gap:6px;align-items:center">
+          <% if (p.is_recommended) { %>
+            <span class="badge badge-warning" style="font-size:10px">Đề xuất</span>
+          <% } %>
+          <span class="badge <%= statusBadge[p.status] || 'badge-secondary' %>"><%= p.status %></span>
+        </div>
+      </div>
+      <% if (p.description) { %>
+        <p style="margin:0;font-size:13px;color:var(--text-secondary)"><%= p.description %></p>
+      <% } %>
+    </div>
+
+    <div style="padding:16px;flex:1">
+      <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <tr>
+          <td style="padding:4px 0;color:var(--text-secondary)">Hàng tháng</td>
+          <td style="text-align:right;font-weight:600"><%= fmt(p.price_monthly) %></td>
+        </tr>
+        <% if (p.price_yearly) { %>
+        <tr>
+          <td style="padding:4px 0;color:var(--text-secondary)">Hàng năm</td>
+          <td style="text-align:right;font-weight:600"><%= fmt(p.price_yearly) %></td>
+        </tr>
+        <% } %>
+        <% if (p.price_weekly) { %>
+        <tr>
+          <td style="padding:4px 0;color:var(--text-secondary)">Hàng tuần</td>
+          <td style="text-align:right;font-weight:600"><%= fmt(p.price_weekly) %></td>
+        </tr>
+        <% } %>
+        <% if (p.trial_days) { %>
+        <tr>
+          <td style="padding:4px 0;color:var(--text-secondary)">Dùng thử</td>
+          <td style="text-align:right"><%= p.trial_days %> ngày</td>
+        </tr>
+        <% } %>
+        <% if (p.promo_price) { %>
+        <tr>
+          <td style="padding:4px 0;color:var(--danger)">Giá KM</td>
+          <td style="text-align:right;color:var(--danger);font-weight:600"><%= fmt(p.promo_price) %></td>
+        </tr>
+        <% } %>
+        <tr style="border-top:1px solid var(--border)">
+          <td style="padding:8px 0 4px;color:var(--text-secondary)">Subscribers</td>
+          <td style="text-align:right;font-weight:600;padding-top:8px">
+            <a href="/subscriptions/<%= p.id %>/subscribers" style="color:var(--primary)"><%= p.active_subscribers %></a>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div style="padding:12px 16px;border-top:1px solid var(--border);display:flex;gap:8px">
+      <a href="/subscriptions/<%= p.id %>/edit" class="btn btn-sm btn-secondary" style="flex:1;text-align:center">Sửa</a>
+      <a href="/subscriptions/<%= p.id %>/subscribers" class="btn btn-sm btn-secondary">Subscribers</a>
+      <form method="POST" action="/subscriptions/<%= p.id %>/delete" style="margin:0"
+            onsubmit="return confirm('Xóa gói \'<%= p.name %>\'? Hành động không thể hoàn tác.')">
+        <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+      </form>
+    </div>
+  </div>
+  <% }) %>
+</div>
+
+<!-- Feature Matrix Table -->
+<% if (allKeys.length > 0) { %>
+<div class="card">
+  <div class="card-header">
+    <h2 style="margin:0">Feature Matrix</h2>
+  </div>
+  <div class="table-wrapper" style="overflow-x:auto">
+    <table>
+      <thead>
+        <tr>
+          <th style="min-width:200px">Tính năng</th>
+          <% plans.forEach(function(p) { %>
+            <th style="text-align:center;min-width:120px"><%= p.name %></th>
+          <% }) %>
+        </tr>
+      </thead>
+      <tbody>
+        <% allKeys.forEach(function(key) { %>
+        <tr>
+          <td style="font-size:13px;font-family:monospace;color:var(--text-secondary)"><%= key %></td>
+          <% plans.forEach(function(p) { %>
+            <td style="text-align:center;font-size:13px">
+              <%= (featureLookup[p.id] && featureLookup[p.id][key] != null) ? featureLookup[p.id][key] : '—' %>
+            </td>
+          <% }) %>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<% } %>
+
+<% } else { %>
+<div class="card" style="padding:60px;text-align:center;color:var(--text-secondary)">
+  <div style="font-size:40px;margin-bottom:12px">💳</div>
+  <p style="margin:0 0 16px">Chưa có gói nào. Hãy tạo gói đầu tiên.</p>
+  <a href="/subscriptions/create" class="btn btn-primary">+ Tạo gói mới</a>
+</div>
+<% } %>

@@ -1,0 +1,158 @@
+<div class="page-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+  <div>
+    <h1 style="margin:0">Tạo gói đăng ký</h1>
+    <p style="margin:4px 0 0;color:var(--text-secondary)">
+      <a href="/subscriptions" style="color:var(--text-secondary)">Gói đăng ký</a> / Tạo mới
+    </p>
+  </div>
+</div>
+
+<form id="planForm" action="/subscriptions/create" method="POST">
+  <div style="display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start">
+
+    <!-- Main column -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+
+      <!-- Basic info -->
+      <div class="card">
+        <div class="card-header"><h2>Thông tin cơ bản</h2></div>
+        <div style="padding:20px;display:flex;flex-direction:column;gap:14px">
+          <div class="form-group">
+            <label>Tên gói <span style="color:var(--danger)">*</span></label>
+            <input type="text" name="name" placeholder="VD: Premium, Pro, Free..." style="width:100%;box-sizing:border-box" required>
+          </div>
+          <div class="form-group">
+            <label>Mô tả</label>
+            <textarea name="description" rows="3" placeholder="Mô tả ngắn về gói..." style="width:100%;box-sizing:border-box;resize:vertical"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Màu icon</label>
+            <div style="display:flex;gap:8px;align-items:center">
+              <input type="color" name="icon_color" value="#6366f1" style="width:48px;height:36px;padding:2px;border:1px solid var(--border);border-radius:var(--radius);cursor:pointer">
+              <span style="font-size:12px;color:var(--text-secondary)">Màu hiển thị trên card</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pricing -->
+      <div class="card">
+        <div class="card-header"><h2>Giá</h2></div>
+        <div style="padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div class="form-group">
+            <label>Giá hàng tháng (₫) <span style="color:var(--danger)">*</span></label>
+            <input type="number" name="price_monthly" min="0" placeholder="VD: 99000" style="width:100%;box-sizing:border-box">
+          </div>
+          <div class="form-group">
+            <label>Giá hàng năm (₫)</label>
+            <input type="number" name="price_yearly" min="0" placeholder="VD: 990000" style="width:100%;box-sizing:border-box">
+          </div>
+          <div class="form-group">
+            <label>Giá hàng tuần (₫)</label>
+            <input type="number" name="price_weekly" min="0" placeholder="VD: 29000" style="width:100%;box-sizing:border-box">
+          </div>
+          <div class="form-group">
+            <label>Số ngày dùng thử</label>
+            <input type="number" name="trial_days" min="0" value="0" style="width:100%;box-sizing:border-box">
+          </div>
+          <div class="form-group">
+            <label>Giá khuyến mãi (₫)</label>
+            <input type="number" name="promo_price" min="0" placeholder="Để trống nếu không có" style="width:100%;box-sizing:border-box">
+          </div>
+          <div></div>
+          <div class="form-group">
+            <label>KM từ ngày</label>
+            <input type="date" name="promo_start" style="width:100%;box-sizing:border-box">
+          </div>
+          <div class="form-group">
+            <label>KM đến ngày</label>
+            <input type="date" name="promo_end" style="width:100%;box-sizing:border-box">
+          </div>
+        </div>
+      </div>
+
+      <!-- Features -->
+      <div class="card">
+        <div class="card-header" style="display:flex;align-items:center;justify-content:space-between">
+          <h2 style="margin:0">Tính năng (Features)</h2>
+          <button type="button" id="addFeatureBtn" class="btn btn-sm btn-secondary">+ Thêm</button>
+        </div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:8px">
+          <div style="display:grid;grid-template-columns:1fr 1fr 32px;gap:8px;font-size:12px;color:var(--text-secondary);padding:0 0 4px">
+            <span>Feature key</span>
+            <span>Value</span>
+            <span></span>
+          </div>
+          <div id="featuresContainer" style="display:flex;flex-direction:column;gap:8px">
+            <!-- Rows injected by JS -->
+          </div>
+          <p id="noFeaturesMsg" style="color:var(--text-secondary);font-size:13px;margin:4px 0 0">
+            Chưa có tính năng nào. Nhấn "+ Thêm" để thêm.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar column -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="card">
+        <div class="card-header"><h2>Cài đặt</h2></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:14px">
+          <div class="form-group">
+            <label>Trạng thái</label>
+            <select name="status" style="width:100%;box-sizing:border-box">
+              <option value="inactive">Inactive</option>
+              <option value="active">Active</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Thứ tự hiển thị</label>
+            <input type="number" name="sort_order" value="0" min="0" style="width:100%;box-sizing:border-box">
+          </div>
+          <div class="form-group">
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:normal">
+              <input type="checkbox" name="is_recommended">
+              Đánh dấu "Đề xuất"
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <button type="submit" class="btn btn-primary" style="width:100%">Tạo gói</button>
+        <a href="/subscriptions" class="btn btn-secondary" style="width:100%;text-align:center">Hủy</a>
+      </div>
+    </div>
+
+  </div>
+</form>
+
+<script>
+(function () {
+  var container = document.getElementById('featuresContainer');
+  var noMsg = document.getElementById('noFeaturesMsg');
+
+  function updateMsg() {
+    noMsg.style.display = container.children.length === 0 ? '' : 'none';
+  }
+
+  function addRow(key, val) {
+    var row = document.createElement('div');
+    row.style.cssText = 'display:grid;grid-template-columns:1fr 1fr 32px;gap:8px;align-items:center';
+    row.innerHTML =
+      '<input type="text" name="feature_key[]" placeholder="flashcard_max_decks" value="' + (key || '') + '" style="width:100%;box-sizing:border-box">' +
+      '<input type="text" name="feature_value[]" placeholder="5" value="' + (val || '') + '" style="width:100%;box-sizing:border-box">' +
+      '<button type="button" style="width:28px;height:28px;background:none;border:1px solid var(--border);border-radius:var(--radius);cursor:pointer;color:var(--danger)" title="Xóa">×</button>';
+    row.querySelector('button').addEventListener('click', function () {
+      row.remove();
+      updateMsg();
+    });
+    container.appendChild(row);
+    updateMsg();
+  }
+
+  document.getElementById('addFeatureBtn').addEventListener('click', function () { addRow('', ''); });
+
+  updateMsg();
+})();
+</script>
