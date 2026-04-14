@@ -156,3 +156,5 @@ const AIContent = {
 };
 
 module.exports = AIContent;
+
+export {};

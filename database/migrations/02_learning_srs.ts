@@ -105,3 +105,5 @@ module.exports = async (client) => {
   `);
   console.log('  [✓] retrieval_sessions (fix: removed model CHECK)');
 };
+
+export {};

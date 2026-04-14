@@ -171,3 +171,5 @@ const Lesson = {
 };
 
 module.exports = Lesson;
+
+export {};

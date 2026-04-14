@@ -216,3 +216,5 @@ module.exports = async (client) => {
   }
   console.log('  [✓] updated_at triggers (4 tables)');
 };
+
+export {};

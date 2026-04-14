@@ -60,3 +60,5 @@ module.exports = async (client) => {
   `);
   console.log('  [✓] user_activity_log (fix: flexible action)');
 };
+
+export {};

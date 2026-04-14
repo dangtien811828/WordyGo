@@ -271,3 +271,5 @@ const dictionaryController = {
 };
 
 module.exports = dictionaryController;
+
+export {};

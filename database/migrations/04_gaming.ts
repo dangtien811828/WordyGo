@@ -94,3 +94,5 @@ module.exports = async (client) => {
   `);
   console.log('  [✓] game_runs');
 };
+
+export {};

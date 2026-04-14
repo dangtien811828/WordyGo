@@ -183,3 +183,5 @@ const Deck = {
 };
 
 module.exports = Deck;
+
+export {};

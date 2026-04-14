@@ -11,3 +11,5 @@ router.post('/:id/approve', approvalController.postApprove);
 router.post('/:id/reject',  approvalController.postReject);
 
 module.exports = router;
+
+export {};

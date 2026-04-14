@@ -72,3 +72,5 @@ const Admin = {
 };
 
 module.exports = Admin;
+
+export {};

@@ -18,3 +18,5 @@ router.post('/:id/delete',        ctrl.postDelete);
 router.post('/:id/toggle-status', ctrl.postToggleStatus);
 
 module.exports = router;
+
+export {};

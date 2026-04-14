@@ -106,3 +106,5 @@ module.exports = async (client) => {
   `);
   console.log('  [✓] word_lookups');
 };
+
+export {};

@@ -34,3 +34,5 @@ router.post('/semantic-sets/:id/delete', ctrl.postSemanticSetsDelete);
 router.get('/leaderboard',             ctrl.getLeaderboard);
 
 module.exports = router;
+
+export {};

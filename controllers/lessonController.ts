@@ -248,3 +248,5 @@ const lessonController = {
 };
 
 module.exports = lessonController;
+
+export {};

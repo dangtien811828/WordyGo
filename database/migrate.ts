@@ -66,3 +66,5 @@ const migrate = async () => {
 };
 
 migrate();
+
+export {};

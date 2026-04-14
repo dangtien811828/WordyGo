@@ -111,3 +111,5 @@ const profileController = {
 };
 
 module.exports = profileController;
+
+export {};

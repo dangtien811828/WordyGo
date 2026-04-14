@@ -65,3 +65,5 @@ module.exports = async (client) => {
   }
   console.log(`  [✓] ${indexes.length} indexes`);
 };
+
+export {};

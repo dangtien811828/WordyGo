@@ -14,3 +14,5 @@ router.get('/moderation/:id',      ctrl.getModerationDetail);
 router.get('/prompts',             ctrl.getPrompts);
 
 module.exports = router;
+
+export {};

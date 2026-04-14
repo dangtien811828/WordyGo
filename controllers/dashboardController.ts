@@ -36,3 +36,5 @@ const dashboardController = {
 };
 
 module.exports = dashboardController;
+
+export {};

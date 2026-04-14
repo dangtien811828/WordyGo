@@ -221,3 +221,5 @@ const ebookController = {
 };
 
 module.exports = ebookController;
+
+export {};

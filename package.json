@@ -2,14 +2,16 @@
   "name": "english-admin-websites",
   "version": "1.0.0",
   "description": "Admin Dashboard for English Learning App",
-  "main": "app.js",
+  "main": "dist/app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
-    "db:migrate": "node database/migrate.js",
-    "db:seed": "node scripts/seed.js",
-    "db:reset": "node database/reset.js",
-    "db:fresh": "node database/reset.js && node scripts/seed.js"
+    "start": "node dist/app.js",
+    "dev": "tsx watch app.ts",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "db:migrate": "tsx database/migrate.ts",
+    "db:seed": "tsx scripts/seed.ts",
+    "db:reset": "tsx database/reset.ts",
+    "db:fresh": "tsx database/reset.ts && tsx scripts/seed.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.80.0",
@@ -26,6 +28,17 @@
     "uuid": "^13.0.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "@types/bcryptjs": "^2.4.6",
+    "@types/connect-flash": "^0.0.40",
+    "@types/ejs": "^3.1.5",
+    "@types/express": "^5.0.6",
+    "@types/express-session": "^1.18.2",
+    "@types/multer": "^2.1.0",
+    "@types/node": "^25.6.0",
+    "@types/pg": "^8.20.0",
+    "@types/uuid": "^10.0.0",
+    "nodemon": "^3.1.9",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.2"
   }
 }

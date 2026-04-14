@@ -199,3 +199,5 @@ const deckController = {
 };
 
 module.exports = deckController;
+
+export {};

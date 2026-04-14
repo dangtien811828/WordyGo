@@ -77,3 +77,5 @@ module.exports = async (client) => {
   `);
   console.log('  [✓] transactions (fix: ON DELETE RESTRICT)');
 };
+
+export {};

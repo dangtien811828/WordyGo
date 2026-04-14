@@ -139,3 +139,5 @@ const Ebook = {
 };
 
 module.exports = Ebook;
+
+export {};

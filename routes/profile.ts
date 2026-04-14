@@ -12,3 +12,5 @@ router.post('/password', profileController.postPassword);
 router.post('/delete',   profileController.postDelete);
 
 module.exports = router;
+
+export {};

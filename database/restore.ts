@@ -131,3 +131,5 @@ function getConflictClause(table, columns) {
 }
 
 restore();
+
+export {};

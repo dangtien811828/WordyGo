@@ -20,3 +20,5 @@ router.post('/:id/edit',   ctrl.postEdit);
 router.post('/:id/delete', ctrl.postDelete);
 
 module.exports = router;
+
+export {};

@@ -19,3 +19,5 @@ router.post('/:id/delete',        ctrl.postDelete);
 router.get('/:id/subscribers',    ctrl.getSubscribers);
 
 module.exports = router;
+
+export {};

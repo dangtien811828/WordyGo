@@ -191,7 +191,7 @@ const Subscription = {
       [id]
     );
     if (rows[0].cnt > 0) {
-      const err = new Error('Không thể xóa gói đang có người đăng ký.');
+      const err: any = new Error('Không thể xóa gói đang có người đăng ký.');
       err.code = 'HAS_ACTIVE_SUBSCRIBERS';
       throw err;
     }
@@ -279,3 +279,5 @@ const Subscription = {
 };
 
 module.exports = Subscription;
+
+export {};

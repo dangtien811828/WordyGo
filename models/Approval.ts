@@ -77,3 +77,5 @@ const Approval = {
 };
 
 module.exports = Approval;
+
+export {};

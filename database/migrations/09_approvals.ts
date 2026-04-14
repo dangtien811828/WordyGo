@@ -18,3 +18,5 @@ module.exports = async (client) => {
   `);
   console.log('  [✓] approval_requests');
 };
+
+export {};

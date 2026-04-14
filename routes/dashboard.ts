@@ -6,3 +6,5 @@ const { requireAuth } = require('../middlewares/auth');
 router.get('/', requireAuth, dashboardController.getDashboard);
 
 module.exports = router;
+
+export {};

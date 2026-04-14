@@ -8,3 +8,5 @@ router.use(requireAuth);
 router.get('/', ctrl.getIndex);
 
 module.exports = router;
+
+export {};

@@ -99,3 +99,5 @@ module.exports = async (client) => {
   `);
   console.log('  [✓] batch_entries');
 };
+
+export {};

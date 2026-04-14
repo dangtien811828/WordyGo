@@ -77,3 +77,5 @@ const approvalController = {
 };
 
 module.exports = approvalController;
+
+export {};

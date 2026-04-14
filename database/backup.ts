@@ -70,7 +70,7 @@ const backup = async () => {
     const latestPath = path.join(backupsDir, 'latest.json');
     fs.writeFileSync(latestPath, JSON.stringify(data, null, 2), 'utf8');
 
-    const totalRows = Object.values(data).reduce((sum, rows) => sum + rows.length, 0);
+    const totalRows = Object.values(data).reduce<number>((sum, rows: any) => sum + rows.length, 0);
 
     console.log(`\n══════════════════════════════════════════`);
     console.log(`✅ Backup hoàn tất! ${totalRows} rows total`);
@@ -88,3 +88,5 @@ const backup = async () => {
 };
 
 backup();
+
+export {};

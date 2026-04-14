@@ -5,3 +5,5 @@ CLAUDE.md
 .DS_Store
 .gitignore
 /public/uploads/
+dist/
+*.tsbuildinfo

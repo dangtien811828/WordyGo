@@ -252,3 +252,5 @@ const DictionaryEntry = {
 };
 
 module.exports = DictionaryEntry;
+
+export {};

@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "moduleResolution": "node10",
+    "ignoreDeprecations": "6.0",
+    "outDir": "./dist",
+    "rootDir": "./",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "strict": false,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "allowJs": true,
+    "checkJs": false,
+    "sourceMap": true,
+    "declaration": false,
+    "types": ["node"],
+    "typeRoots": ["./node_modules/@types", "./types"]
+  },
+  "include": [
+    "app.ts",
+    "config/**/*.ts",
+    "models/**/*.ts",
+    "controllers/**/*.ts",
+    "routes/**/*.ts",
+    "middlewares/**/*.ts",
+    "helpers/**/*.ts",
+    "database/**/*.ts",
+    "types/**/*.ts"
+  ],
+  "exclude": ["node_modules", "dist", "views", "public", "scripts", "database/backups"]
+}

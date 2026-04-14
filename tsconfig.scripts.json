@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "ES2022",
+    "moduleResolution": "Bundler",
+    "outDir": "./dist/scripts",
+    "rootDir": "./scripts"
+  },
+  "include": ["scripts/**/*.ts", "scripts/**/*.mts"],
+  "exclude": ["node_modules", "dist"]
+}

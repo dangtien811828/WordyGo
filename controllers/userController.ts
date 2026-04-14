@@ -207,3 +207,5 @@ const userController = {
 };
 
 module.exports = userController;
+
+export {};

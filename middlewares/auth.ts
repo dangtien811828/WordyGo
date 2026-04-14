@@ -1,10 +1,10 @@
-/**
- * Middleware xác thực & phân quyền
- */
+import type { Request, Response, NextFunction, RequestHandler } from 'express';
+
 const Approval = require('../models/Approval');
 
-// Yêu cầu đăng nhập
-function requireAuth(req, res, next) {
+type AdminRole = 'super_admin' | 'content_editor' | 'moderator';
+
+export function requireAuth(req: Request, res: Response, next: NextFunction) {
   if (req.session && req.session.admin) {
     return next();
   }
@@ -12,14 +12,13 @@ function requireAuth(req, res, next) {
   return res.redirect('/auth/login');
 }
 
-// Yêu cầu role cụ thể
-function requireRole(...roles) {
+export function requireRole(...roles: AdminRole[]): RequestHandler {
   return (req, res, next) => {
     if (!req.session || !req.session.admin) {
       req.flash('error', 'Vui lòng đăng nhập');
       return res.redirect('/auth/login');
     }
-    if (!roles.includes(req.session.admin.role)) {
+    if (!roles.includes(req.session.admin.role as AdminRole)) {
       req.flash('error', 'Bạn không có quyền truy cập trang này');
       return res.redirect('/dashboard');
     }
@@ -27,16 +26,14 @@ function requireRole(...roles) {
   };
 }
 
-// Chặn truy cập trang auth khi đã login
-function redirectIfAuth(req, res, next) {
+export function redirectIfAuth(req: Request, res: Response, next: NextFunction) {
   if (req.session && req.session.admin) {
     return res.redirect('/dashboard');
   }
   return next();
 }
 
-// Inject admin data vào tất cả views
-async function injectAdmin(req, res, next) {
+export async function injectAdmin(req: Request, res: Response, next: NextFunction) {
   try {
     res.locals.admin = req.session ? req.session.admin : null;
     res.locals.success = req.flash('success');
@@ -54,5 +51,3 @@ async function injectAdmin(req, res, next) {
     next(err);
   }
 }
-
-module.exports = { requireAuth, requireRole, redirectIfAuth, injectAdmin };

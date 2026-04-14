@@ -22,3 +22,5 @@ router.post('/:id/cards/add',                ctrl.postAddCards);
 router.post('/:id/cards/:entryId/remove',    ctrl.postRemoveCard);
 
 module.exports = router;
+
+export {};
