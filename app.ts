@@ -7,6 +7,9 @@ import expressLayouts from 'express-ejs-layouts';
 
 import { injectAdmin } from './middlewares/auth';
 
+import cors from 'cors';
+import apiAuthRoutes from './routes/api/auth';
+
 const app = express();
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 
@@ -25,6 +28,9 @@ app.use(express.static(path.join(PROJECT_ROOT, 'public')));
 // ── Body Parser ──
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// CORS — cho phép mobile app gọi API
+app.use(cors());
 
 // ── Session ──
 app.use(
@@ -59,6 +65,9 @@ app.use('/subscriptions', require('./routes/subscriptions'));
 app.use('/settings', require('./routes/settings'));
 app.use('/games', require('./routes/games'));
 app.use('/ai-content', require('./routes/ai-content'));
+
+// API routes cho mobile app
+app.use('/api/v1/auth', apiAuthRoutes);
 
 // Root redirect
 app.get('/', (_req: Request, res: Response) => {

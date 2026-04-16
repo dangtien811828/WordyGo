@@ -1,12 +1,17 @@
 /**
  * Domain 1: Auth & Users (2 tables)
- * Domain 2: Dictionary & Lessons (10 tables — was 8, +2 new)
+ * Domain 2: Dictionary & Lessons (20 tables — was 10, +10 new for Dictionary Pro)
  *
  * Changes from previous version:
  *   dictionary_entries: ipa → ipa_us + ipa_uk, +audio_us/uk_url, +cefr_level, +frequency_rank
  *                       lemma now NOT NULL (fixes NULL unique bug)
  *   NEW: entry_synonyms (junction — self-referencing dictionary_entries)
  *   NEW: entry_antonyms (junction — self-referencing dictionary_entries)
+ *
+ * Dictionary Pro (multi-sense normalized):
+ *   ALTER: dictionary_entries +etymology, +register, +is_countable, +is_transitive
+ *   NEW: entry_senses, sense_examples, word_forms, entry_idioms, phrasal_verbs,
+ *        collocations, sense_synonyms, sense_antonyms, word_families, word_family_members
  */
 module.exports = async (client) => {
   // ══ DOMAIN 1: AUTH ══
@@ -96,6 +101,23 @@ module.exports = async (client) => {
   `);
   console.log('  [✓] dictionary_entries (improved: ipa_us/uk, cefr, frequency)');
 
+  // ── Dictionary Pro: thêm columns mới vào dictionary_entries ──
+  // Dùng try-catch vì ALTER ADD COLUMN lỗi nếu column đã tồn tại
+  const newColumns = [
+    { name: 'etymology',     sql: 'TEXT' },
+    { name: 'register',      sql: "VARCHAR(30) CHECK (register IN ('formal','informal','slang','literary','technical','dated','humorous'))" },
+    { name: 'is_countable',  sql: 'BOOLEAN' },
+    { name: 'is_transitive', sql: 'BOOLEAN' },
+  ];
+  for (const col of newColumns) {
+    try {
+      await client.query(`ALTER TABLE dictionary_entries ADD COLUMN ${col.name} ${col.sql}`);
+    } catch (err) {
+      if (!err.message.includes('already exists')) throw err;
+    }
+  }
+  console.log('  [✓] dictionary_entries (pro: +etymology, +register, +is_countable, +is_transitive)');
+
   await client.query(`
     CREATE TABLE IF NOT EXISTS entry_tags (
       entry_id  UUID NOT NULL REFERENCES dictionary_entries(id) ON DELETE CASCADE,
@@ -124,6 +146,144 @@ module.exports = async (client) => {
     );
   `);
   console.log('  [✓] entry_antonyms (NEW)');
+
+  // ══ DOMAIN 2 — DICTIONARY PRO: Multi-sense Normalized ══
+
+  await client.query(`
+    CREATE TABLE IF NOT EXISTS entry_senses (
+      id              UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+      entry_id        UUID NOT NULL REFERENCES dictionary_entries(id) ON DELETE CASCADE,
+      pos             VARCHAR(30) NOT NULL,
+      sense_order     INT NOT NULL DEFAULT 0,
+      definition_en   TEXT,
+      definition_vi   TEXT,
+      register        VARCHAR(30)
+                      CHECK (register IN ('formal','informal','slang','literary','technical','dated','humorous')),
+      domain          VARCHAR(100),
+      grammar_note    TEXT,
+      usage_note      TEXT,
+      region          VARCHAR(30),
+      created_at      TIMESTAMPTZ DEFAULT NOW(),
+      UNIQUE (entry_id, pos, sense_order)
+    );
+  `);
+  console.log('  [✓] entry_senses');
+
+  await client.query(`
+    CREATE TABLE IF NOT EXISTS sense_examples (
+      id          UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+      sense_id    UUID NOT NULL REFERENCES entry_senses(id) ON DELETE CASCADE,
+      example_en  TEXT NOT NULL,
+      example_vi  TEXT,
+      sort_order  INT DEFAULT 0,
+      source      VARCHAR(50)
+    );
+  `);
+  console.log('  [✓] sense_examples');
+
+  await client.query(`
+    CREATE TABLE IF NOT EXISTS word_forms (
+      id          UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+      entry_id    UUID NOT NULL REFERENCES dictionary_entries(id) ON DELETE CASCADE,
+      form_type   VARCHAR(30) NOT NULL
+                  CHECK (form_type IN (
+                    'base','third_person_singular','past_simple',
+                    'past_participle','present_participle',
+                    'plural','possessive',
+                    'comparative','superlative'
+                  )),
+      form_value  VARCHAR(255) NOT NULL,
+      ipa         VARCHAR(255),
+      audio_url   VARCHAR(500),
+      tags        VARCHAR(50)[] DEFAULT '{}',
+      sort_order  INT DEFAULT 0,
+      UNIQUE (entry_id, form_type, form_value)
+    );
+  `);
+  console.log('  [✓] word_forms');
+
+  await client.query(`
+    CREATE TABLE IF NOT EXISTS entry_idioms (
+      id             UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+      entry_id       UUID NOT NULL REFERENCES dictionary_entries(id) ON DELETE CASCADE,
+      idiom_text     VARCHAR(500) NOT NULL,
+      definition_en  TEXT,
+      definition_vi  TEXT,
+      example_en     TEXT,
+      example_vi     TEXT,
+      register       VARCHAR(30),
+      created_at     TIMESTAMPTZ DEFAULT NOW()
+    );
+  `);
+  console.log('  [✓] entry_idioms');
+
+  await client.query(`
+    CREATE TABLE IF NOT EXISTS phrasal_verbs (
+      id              UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+      entry_id        UUID NOT NULL REFERENCES dictionary_entries(id) ON DELETE CASCADE,
+      phrasal_verb    VARCHAR(255) NOT NULL,
+      particle        VARCHAR(30) NOT NULL,
+      is_separable    BOOLEAN DEFAULT FALSE,
+      definition_en   TEXT,
+      definition_vi   TEXT,
+      example_en      TEXT,
+      example_vi      TEXT,
+      created_at      TIMESTAMPTZ DEFAULT NOW()
+    );
+  `);
+  console.log('  [✓] phrasal_verbs');
+
+  await client.query(`
+    CREATE TABLE IF NOT EXISTS collocations (
+      id              UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+      entry_id        UUID NOT NULL REFERENCES dictionary_entries(id) ON DELETE CASCADE,
+      sense_id        UUID REFERENCES entry_senses(id) ON DELETE SET NULL,
+      collocation     VARCHAR(255) NOT NULL,
+      pattern         VARCHAR(50),
+      example_en      TEXT,
+      example_vi      TEXT,
+      frequency       INT
+    );
+  `);
+  console.log('  [✓] collocations');
+
+  await client.query(`
+    CREATE TABLE IF NOT EXISTS sense_synonyms (
+      sense_id         UUID NOT NULL REFERENCES entry_senses(id) ON DELETE CASCADE,
+      synonym_text     VARCHAR(255) NOT NULL,
+      synonym_entry_id UUID REFERENCES dictionary_entries(id) ON DELETE SET NULL,
+      PRIMARY KEY (sense_id, synonym_text)
+    );
+  `);
+  console.log('  [✓] sense_synonyms');
+
+  await client.query(`
+    CREATE TABLE IF NOT EXISTS sense_antonyms (
+      sense_id         UUID NOT NULL REFERENCES entry_senses(id) ON DELETE CASCADE,
+      antonym_text     VARCHAR(255) NOT NULL,
+      antonym_entry_id UUID REFERENCES dictionary_entries(id) ON DELETE SET NULL,
+      PRIMARY KEY (sense_id, antonym_text)
+    );
+  `);
+  console.log('  [✓] sense_antonyms');
+
+  await client.query(`
+    CREATE TABLE IF NOT EXISTS word_families (
+      id          UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+      family_root VARCHAR(255) NOT NULL,
+      created_at  TIMESTAMPTZ DEFAULT NOW()
+    );
+  `);
+  await client.query(`
+    CREATE TABLE IF NOT EXISTS word_family_members (
+      family_id   UUID NOT NULL REFERENCES word_families(id) ON DELETE CASCADE,
+      entry_id    UUID NOT NULL REFERENCES dictionary_entries(id) ON DELETE CASCADE,
+      relation    VARCHAR(30) NOT NULL
+                  CHECK (relation IN ('root','noun_form','verb_form','adj_form','adv_form','other')),
+      PRIMARY KEY (family_id, entry_id)
+    );
+  `);
+  console.log('  [✓] word_families + word_family_members');
 
   await client.query(`
     CREATE TABLE IF NOT EXISTS entry_edit_history (

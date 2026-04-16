@@ -8,27 +8,28 @@
  * Content = data that's expensive to recreate (dictionary, tags, synonyms, antonyms)
  * App     = data that's cheap to recreate (admins, users, lessons, test data)
  */
-require('dotenv').config();
-const bcrypt = require('bcryptjs');
-const pool = require('../config/db');
+import 'dotenv/config';
+import bcrypt from 'bcryptjs';
+import type { PoolClient } from 'pg';
+import pool from '../config/db';
 
-async function ins(client, sql, params) {
+async function ins(client: PoolClient, sql: string, params?: any[]): Promise<any> {
   const { rows } = await client.query(sql, params || []);
   return rows[0]?.id;
 }
-const hoursAgo  = (h) => new Date(Date.now() - h * 3600000);
-const daysAgo   = (d) => new Date(Date.now() - d * 86400000);
-const daysLater = (d) => new Date(Date.now() + d * 86400000);
+const hoursAgo  = (h: number) => new Date(Date.now() - h * 3600000);
+const daysAgo   = (d: number) => new Date(Date.now() - d * 86400000);
+const daysLater = (d: number) => new Date(Date.now() + d * 86400000);
 
 // ═══════════════════════════════════════════════
 //  CONTENT SEED — Dictionary, Tags, Synonyms
 // ═══════════════════════════════════════════════
-async function seedContent(client, editorId) {
+async function seedContent(client: PoolClient, editorId: string) {
   console.log('\n── Content: Tags & Dictionary ──');
 
   // Tags
   const tagNames = ['IELTS','TOEIC','Business','Daily','Academic','Travel','Technology','Science'];
-  const tagIds = {};
+  const tagIds: Record<string, any> = {};
   for (const name of tagNames) {
     tagIds[name] = await ins(client,
       'INSERT INTO tags (name) VALUES ($1) ON CONFLICT(name) DO UPDATE SET name=EXCLUDED.name RETURNING id', [name]);
@@ -59,8 +60,8 @@ async function seedContent(client, editorId) {
     ['enraged',     'enrage',      '/ɪnˈreɪdʒd/',    '/ɪnˈreɪdʒd/',    ['adjective'],     'noi con thinh no',    'filled with rage',           'The crowd was enraged.',              'Dam dong noi con thinh no.',          'C1', 11000],
   ];
 
-  const entryIds = [];
-  for (const [hw,lm,ipUs,ipUk,pos,vi,en,exEn,exVi,cefr,freq] of E) {
+  const entryIds: any[] = [];
+  for (const [hw,lm,ipUs,ipUk,pos,vi,en,exEn,exVi,cefr,freq] of E as any[]) {
     const id = await ins(client,
       `INSERT INTO dictionary_entries (headword,lemma,ipa_us,ipa_uk,pos,meaning_vi,meaning_en,example_en,example_vi,cefr_level,frequency_rank,source,created_by)
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,'manual',$12)
@@ -71,7 +72,7 @@ async function seedContent(client, editorId) {
   console.log('  [✓] 20 dictionary entries');
 
   // Entry-tag links
-  const etMap = [[0,'IELTS'],[0,'Business'],[1,'Daily'],[2,'IELTS'],[2,'Academic'],
+  const etMap: [number, string][] = [[0,'IELTS'],[0,'Business'],[1,'Daily'],[2,'IELTS'],[2,'Academic'],
     [3,'IELTS'],[3,'Science'],[4,'Academic'],[5,'Daily'],[5,'Business'],
     [6,'Business'],[7,'IELTS'],[8,'Academic'],[8,'Science'],[9,'Technology'],
     [10,'Business'],[11,'IELTS'],[12,'Business'],[13,'Academic'],[14,'Business']];
@@ -93,23 +94,219 @@ async function seedContent(client, editorId) {
   }
   console.log('  [✓] 2 antonym pairs');
 
+  // ═══════════════════════════════════════════════
+  //  DICTIONARY PRO — word_forms, senses, idioms...
+  // ═══════════════════════════════════════════════
+  console.log('\n── Content: Dictionary Pro ──');
+
+  // ── Word Forms (verbs: 0-organize, 1-discover, 2-achieve, 5-communicate, 10-develop, 13-analyze) ──
+  const verbForms = [
+    // [entryIndex, base, 3rd_person, past_simple, past_participle, present_participle]
+    [0,  'organize',    'organizes',    'organized',    'organized',    'organizing'],
+    [1,  'discover',    'discovers',    'discovered',   'discovered',   'discovering'],
+    [2,  'achieve',     'achieves',     'achieved',     'achieved',     'achieving'],
+    [5,  'communicate', 'communicates', 'communicated', 'communicated', 'communicating'],
+    [7,  'challenge',   'challenges',   'challenged',   'challenged',   'challenging'],
+    [8,  'research',    'researches',   'researched',   'researched',   'researching'],
+    [10, 'develop',     'develops',     'developed',    'developed',    'developing'],
+    [13, 'analyze',     'analyzes',     'analyzed',     'analyzed',     'analyzing'],
+    [14, 'collaborate', 'collaborates', 'collaborated', 'collaborated', 'collaborating'],
+  ];
+  let wfCount = 0;
+  for (const [ei, base, s3, ps, pp, pres] of verbForms as any[]) {
+    const forms: [string, string][] = [
+      ['base', base], ['third_person_singular', s3], ['past_simple', ps],
+      ['past_participle', pp], ['present_participle', pres],
+    ];
+    for (const [ft, fv] of forms) {
+      await client.query(
+        'INSERT INTO word_forms (entry_id, form_type, form_value, sort_order) VALUES ($1,$2,$3,$4) ON CONFLICT DO NOTHING',
+        [entryIds[ei], ft, fv, forms.indexOf([ft, fv])]
+      );
+      wfCount++;
+    }
+  }
+
+  // Noun forms: 3-environment, 6-opportunity, 9-technology, 12-strategy
+  for (const [ei, plural] of [[3,'environments'],[6,'opportunities'],[9,'technologies'],[12,'strategies']] as [number,string][]) {
+    await client.query('INSERT INTO word_forms (entry_id, form_type, form_value) VALUES ($1,$2,$3) ON CONFLICT DO NOTHING',
+      [entryIds[ei], 'plural', plural]);
+    wfCount++;
+  }
+
+  // Adjective forms: 4-significant, 11-essential, 17-furious
+  for (const [ei, comp, sup] of [[4,'more significant','most significant'],[11,'more essential','most essential'],[17,'more furious','most furious']] as [number,string,string][]) {
+    await client.query('INSERT INTO word_forms (entry_id, form_type, form_value) VALUES ($1,$2,$3) ON CONFLICT DO NOTHING',
+      [entryIds[ei], 'comparative', comp]);
+    await client.query('INSERT INTO word_forms (entry_id, form_type, form_value) VALUES ($1,$2,$3) ON CONFLICT DO NOTHING',
+      [entryIds[ei], 'superlative', sup]);
+    wfCount += 2;
+  }
+  console.log(`  [✓] ${wfCount} word forms`);
+
+
+  // ── Entry Senses (multi-sense per entry) ──
+  // organize: 2 senses | challenge: 2 senses (noun + verb) | research: 2 senses
+  const sensesData = [
+    // [entryIdx, pos, order, def_en, def_vi, register, domain, grammar_note]
+    [0, 'verb', 0, 'to arrange or put things into a system or order', 'sap xep, to chuc theo he thong', null, null, '[+ object]'],
+    [0, 'verb', 1, 'to plan or arrange an event or activity', 'to chuc (su kien, hoat dong)', null, null, '[+ object]'],
+    [1, 'verb', 0, 'to find something or someone for the first time', 'kham pha, phat hien lan dau', null, null, '[+ object]'],
+    [1, 'verb', 1, 'to learn or find out about something', 'nhan ra, phat hien ra', null, null, '[+ that clause]'],
+    [3, 'noun', 0, 'the natural world around us', 'moi truong tu nhien', null, 'ecology', '[countable, uncountable]'],
+    [3, 'noun', 1, 'the conditions and surroundings in which people live or work', 'moi truong (song, lam viec)', null, null, '[countable]'],
+    [7, 'noun', 0, 'a new or difficult task that tests ability', 'thu thach, thach thuc', null, null, '[countable]'],
+    [7, 'verb', 0, 'to question whether something is true or right', 'thach thuc, phan doi', null, null, '[+ object]'],
+    [8, 'noun', 0, 'a careful study of a subject to discover new facts', 'nghien cuu (khoa hoc)', 'formal', 'academic', '[uncountable]'],
+    [8, 'verb', 0, 'to study a subject carefully to discover new facts', 'nghien cuu', 'formal', 'academic', '[+ object / + into]'],
+    [4, 'adjective', 0, 'large or important enough to have an effect', 'dang ke, co y nghia', null, null, null],
+    [11, 'adjective', 0, 'completely necessary; extremely important', 'thiet yeu, can thiet', null, null, null],
+  ];
+
+  const senseIds: any[] = [];
+  for (const [ei, pos, order, defEn, defVi, reg, dom, gram] of sensesData as any[]) {
+    const sid = await ins(client,
+      `INSERT INTO entry_senses (entry_id, pos, sense_order, definition_en, definition_vi, register, domain, grammar_note)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8) ON CONFLICT (entry_id, pos, sense_order) DO NOTHING RETURNING id`,
+      [entryIds[ei], pos, order, defEn, defVi, reg, dom, gram]);
+    senseIds.push(sid);
+  }
+  console.log(`  [✓] ${senseIds.filter(Boolean).length} entry senses`);
+
+
+  // ── Sense Examples ──
+  const exData = [
+    // [senseIdx, example_en, example_vi]
+    [0, 'Please organize the files by date.',         'Hay sap xep cac tai lieu theo ngay.'],
+    [0, 'She organized her desk before leaving.',     'Co ay sap xep ban lam viec truoc khi di.'],
+    [1, 'Who is organizing the conference this year?', 'Ai to chuc hoi nghi nam nay?'],
+    [2, 'Scientists discovered a new species.',       'Cac nha khoa hoc phat hien loai moi.'],
+    [3, 'She discovered that he had lied.',           'Co ay phat hien ra anh ta da noi doi.'],
+    [4, 'We must protect the environment.',           'Chung ta phai bao ve moi truong.'],
+    [5, 'A good working environment is important.',   'Moi truong lam viec tot rat quan trong.'],
+    [6, 'The exam was a real challenge.',              'Ky thi la thu thach thuc su.'],
+    [7, 'She challenged the decision.',               'Co ay phan doi quyet dinh do.'],
+    [8, 'More research is needed on this topic.',     'Can them nghien cuu ve chu de nay.'],
+    [9, 'They researched the effects of climate change.', 'Ho nghien cuu tac dong cua bien doi khi hau.'],
+    [10, 'There was a significant improvement.',       'Da co su cai thien dang ke.'],
+    [11, 'Water is essential for life.',                'Nuoc thiet yeu cho su song.'],
+  ];
+  for (const [si, exEn, exVi] of exData as [number,string,string][]) {
+    if (senseIds[si]) {
+      await client.query(
+        'INSERT INTO sense_examples (sense_id, example_en, example_vi, sort_order) VALUES ($1,$2,$3,0)',
+        [senseIds[si], exEn, exVi]);
+    }
+  }
+  console.log(`  [✓] ${exData.length} sense examples`);
+
+
+  // ── Phrasal Verbs (for organize, discover, achieve, develop, research) ──
+  const phrasalData = [
+    // [entryIdx, phrasal, particle, separable, def_en, def_vi, ex_en, ex_vi]
+    [0, 'organize around',  'around', false, 'to plan activities based on something', 'to chuc xoay quanh',    'We organized around the deadline.',       'Chung toi to chuc xoay quanh han chot.'],
+    [2, 'achieve through',  'through', false, 'to accomplish by means of',            'dat duoc thong qua',    'Success is achieved through hard work.',  'Thanh cong dat duoc thong qua no luc.'],
+    [10, 'develop into',    'into',   false, 'to gradually become something',         'phat trien thanh',       'The idea developed into a business.',    'Y tuong phat trien thanh doanh nghiep.'],
+    [10, 'develop from',    'from',   false, 'to grow or change from something',      'phat trien tu',          'The app developed from a simple prototype.', 'Ung dung phat trien tu mot ban mau don gian.'],
+    [8,  'research into',   'into',   false, 'to study a particular subject',         'nghien cuu ve',          'She researched into medieval history.',   'Co ay nghien cuu ve lich su trung co.'],
+  ];
+  for (const [ei, pv, part, sep, de, dv, ee, ev] of phrasalData as any[]) {
+    await client.query(
+      `INSERT INTO phrasal_verbs (entry_id, phrasal_verb, particle, is_separable, definition_en, definition_vi, example_en, example_vi)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8)`,
+      [entryIds[ei], pv, part, sep, de, dv, ee, ev]);
+  }
+  console.log(`  [✓] ${phrasalData.length} phrasal verbs`);
+
+
+  // ── Entry Idioms ──
+  const idiomsData = [
+    // [entryIdx, idiom, def_en, def_vi, ex_en, ex_vi]
+    [7,  'rise to the challenge',  'to deal with a difficult situation successfully',     'vuot qua thu thach',      'She rose to the challenge magnificently.',  'Co ay vuot qua thu thach mot cach xuat sac.'],
+    [8,  'do your research',       'to find out facts before making a decision',          'tim hieu ky truoc khi quyet dinh', 'Do your research before buying a car.', 'Tim hieu ky truoc khi mua xe.'],
+    [6,  'a window of opportunity','a short time when conditions are good for doing something', 'co hoi ngan ngui',  'This is a window of opportunity for investors.', 'Day la co hoi ngan ngui cho nha dau tu.'],
+    [3,  'a hostile environment',  'a place or situation that is difficult or dangerous',  'moi truong khac nghiet',   'The desert is a hostile environment.',       'Sa mac la moi truong khac nghiet.'],
+    [2,  'achieve wonders',        'to accomplish amazing things',                         'lam nen dieu ky dieu',     'Teamwork can achieve wonders.',             'Lam viec nhom co the lam nen dieu ky dieu.'],
+    [9,  'cutting-edge technology','the most advanced technology available',                'cong nghe tien tien nhat', 'They use cutting-edge technology.',          'Ho su dung cong nghe tien tien nhat.'],
+  ];
+  for (const [ei, idiom, de, dv, ee, ev] of idiomsData as any[]) {
+    await client.query(
+      `INSERT INTO entry_idioms (entry_id, idiom_text, definition_en, definition_vi, example_en, example_vi)
+       VALUES ($1,$2,$3,$4,$5,$6)`,
+      [entryIds[ei], idiom, de, dv, ee, ev]);
+  }
+  console.log(`  [✓] ${idiomsData.length} idioms`);
+
+
+  // ── Collocations ──
+  const collocData = [
+    // [entryIdx, senseIdx|null, collocation, pattern, ex_en, ex_vi]
+    [0, 0, 'organize a meeting',     'verb+noun', 'Can you organize a meeting for Monday?',    'Ban co the to chuc cuoc hop thu Hai khong?'],
+    [0, 0, 'organize files',         'verb+noun', 'I need to organize my files.',              'Toi can sap xep cac tai lieu.'],
+    [0, 1, 'organize an event',      'verb+noun', 'They organized a charity event.',           'Ho to chuc su kien tu thien.'],
+    [8, null, 'conduct research',    'verb+noun', 'The team conducted extensive research.',     'Nhom da tien hanh nghien cuu rong rai.'],
+    [8, null, 'research paper',      'noun+noun', 'She published a research paper.',            'Co ay xuat ban bai nghien cuu.'],
+    [3, null, 'protect the environment', 'verb+noun', 'We must protect the environment.',       'Chung ta phai bao ve moi truong.'],
+    [3, null, 'working environment', 'adj+noun',  'A positive working environment boosts productivity.', 'Moi truong lam viec tich cuc tang nang suat.'],
+    [4, null, 'significant impact',  'adj+noun',  'The policy had a significant impact.',       'Chinh sach co tac dong dang ke.'],
+    [4, null, 'significant difference', 'adj+noun','There is a significant difference.',        'Co su khac biet dang ke.'],
+    [9, null, 'information technology', 'noun+noun', 'She works in information technology.',    'Co ay lam trong linh vuc cong nghe thong tin.'],
+  ];
+  for (const [ei, si, col, pat, ee, ev] of collocData as any[]) {
+    await client.query(
+      `INSERT INTO collocations (entry_id, sense_id, collocation, pattern, example_en, example_vi)
+       VALUES ($1,$2,$3,$4,$5,$6)`,
+      [entryIds[ei], si !== null ? senseIds[si] : null, col, pat, ee, ev]);
+  }
+  console.log(`  [✓] ${collocData.length} collocations`);
+
+
+  // ── Sense Synonyms & Antonyms (per-sense) ──
+  if (senseIds[0]) { // organize sense 0 (arrange)
+    await client.query('INSERT INTO sense_synonyms (sense_id, synonym_text) VALUES ($1,$2) ON CONFLICT DO NOTHING', [senseIds[0], 'arrange']);
+    await client.query('INSERT INTO sense_synonyms (sense_id, synonym_text) VALUES ($1,$2) ON CONFLICT DO NOTHING', [senseIds[0], 'sort']);
+    await client.query('INSERT INTO sense_synonyms (sense_id, synonym_text) VALUES ($1,$2) ON CONFLICT DO NOTHING', [senseIds[0], 'categorize']);
+    await client.query('INSERT INTO sense_antonyms (sense_id, antonym_text) VALUES ($1,$2) ON CONFLICT DO NOTHING', [senseIds[0], 'disorganize']);
+    await client.query('INSERT INTO sense_antonyms (sense_id, antonym_text) VALUES ($1,$2) ON CONFLICT DO NOTHING', [senseIds[0], 'scatter']);
+  }
+  if (senseIds[10]) { // significant sense 0
+    await client.query('INSERT INTO sense_synonyms (sense_id, synonym_text) VALUES ($1,$2) ON CONFLICT DO NOTHING', [senseIds[10], 'important']);
+    await client.query('INSERT INTO sense_synonyms (sense_id, synonym_text) VALUES ($1,$2) ON CONFLICT DO NOTHING', [senseIds[10], 'considerable']);
+    await client.query('INSERT INTO sense_antonyms (sense_id, antonym_text) VALUES ($1,$2) ON CONFLICT DO NOTHING', [senseIds[10], 'insignificant']);
+    await client.query('INSERT INTO sense_antonyms (sense_id, antonym_text) VALUES ($1,$2) ON CONFLICT DO NOTHING', [senseIds[10], 'minor']);
+  }
+  if (senseIds[11]) { // essential sense 0
+    await client.query('INSERT INTO sense_synonyms (sense_id, synonym_text) VALUES ($1,$2) ON CONFLICT DO NOTHING', [senseIds[11], 'vital']);
+    await client.query('INSERT INTO sense_synonyms (sense_id, synonym_text) VALUES ($1,$2) ON CONFLICT DO NOTHING', [senseIds[11], 'crucial']);
+    await client.query('INSERT INTO sense_antonyms (sense_id, antonym_text) VALUES ($1,$2) ON CONFLICT DO NOTHING', [senseIds[11], 'unnecessary']);
+  }
+  console.log('  [✓] sense synonyms & antonyms');
+
   return { tagIds, entryIds, entriesData: E };
 }
 
 // ═══════════════════════════════════════════════
 //  APP SEED — Everything except dictionary content
 // ═══════════════════════════════════════════════
-async function seedApp(client, hash, adminId, editorId, tagIds, entryIds, entriesData) {
+async function seedApp(
+  client: PoolClient,
+  hash: string,
+  adminId: string,
+  editorId: string,
+  tagIds: Record<string, any> | null,
+  entryIds: any[] | null,
+  entriesData: any[] | null,
+) {
   // ── Users ──
   console.log('\n── App: Users ──');
-  const userIds = [];
+  const userIds: any[] = [];
   for (const [email,name,level,streak,longest,la] of [
     ['an.nguyen@gmail.com','Nguyen Van An','beginner',12,15,hoursAgo(2)],
     ['binh.tran@gmail.com','Tran Minh Binh','intermediate',45,50,hoursAgo(1)],
     ['chi.le@gmail.com','Le Thi Chi','advanced',90,120,hoursAgo(5)],
     ['dung.pham@gmail.com','Pham Van Dung','beginner',3,5,hoursAgo(24)],
     ['em.hoang@gmail.com','Hoang Thi Em','intermediate',22,30,hoursAgo(10)],
-  ]) {
+  ] as any[]) {
     userIds.push(await ins(client,
       'INSERT INTO users (email,password_hash,full_name,level,streak_current,streak_longest,last_active_at) VALUES ($1,$2,$3,$4,$5,$6,$7) ON CONFLICT(email) DO UPDATE SET full_name=EXCLUDED.full_name RETURNING id',
       [email,hash,name,level,streak,longest,la]));
@@ -145,7 +342,7 @@ async function seedApp(client, hash, adminId, editorId, tagIds, entryIds, entrie
     if (tagIds['Daily'])  await client.query('INSERT INTO deck_tags VALUES ($1,$2) ON CONFLICT DO NOTHING',[d2,tagIds['Daily']]);
   }
 
-  const cardIds = [];
+  const cardIds: any[] = [];
   if (entryIds && entryIds.length >= 10) {
     for (let i=0;i<10;i++) { const c=await ins(client,'INSERT INTO cards (deck_id,entry_id,sort_order) VALUES ($1,$2,$3) ON CONFLICT DO NOTHING RETURNING id',[d1,entryIds[i],i]); if(c)cardIds.push(c); }
     for (let i=0;i<8;i++) { const c=await ins(client,'INSERT INTO cards (deck_id,entry_id,sort_order) VALUES ($1,$2,$3) ON CONFLICT DO NOTHING RETURNING id',[d2,entryIds[i],i]); if(c)cardIds.push(c); }
@@ -176,7 +373,7 @@ async function seedApp(client, hash, adminId, editorId, tagIds, entryIds, entrie
     ['The Little Prince','Antoine de Saint-Exupery','Cau chuyen co tich','/uploads/ebooks/little-prince.epub','beginner',['fiction'],5,15200,'free','published',editorId]);
   const b2=await ins(client,'INSERT INTO ebooks (title,author,description,epub_file_url,level,genre,total_chapters,total_words,required_plan,status,created_by) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING id',
     ['Atomic Habits','James Clear','Thoi quen nguyen tu','/uploads/ebooks/atomic-habits.epub','intermediate',['non_fiction','self_help'],8,52000,'premium','published',editorId]);
-  for (const [bid,names] of [[b1,['The Pilot','The Asteroid','The Rose','The Fox','The Journey Home']],[b2,['Fundamentals','How Habits Work','Make It Obvious','Make It Attractive','Make It Easy','Make It Satisfying','Advanced Tactics','Conclusion']]])
+  for (const [bid,names] of [[b1,['The Pilot','The Asteroid','The Rose','The Fox','The Journey Home']],[b2,['Fundamentals','How Habits Work','Make It Obvious','Make It Attractive','Make It Easy','Make It Satisfying','Advanced Tactics','Conclusion']]] as [string,string[]][])
     for (let i=0;i<names.length;i++) await client.query('INSERT INTO chapters (ebook_id,chapter_index,title,word_count) VALUES ($1,$2,$3,$4)',[bid,i+1,names[i],2500+Math.floor(Math.random()*3000)]);
   await client.query('INSERT INTO ebook_glossary (ebook_id,term_en,translation_vi,domain,occurrences) VALUES ($1,$2,$3,$4,$5)',[b1,'asteroid','tieu hanh tinh','astronomy',12]);
   await client.query('INSERT INTO ebook_glossary (ebook_id,term_en,translation_vi,domain,occurrences) VALUES ($1,$2,$3,$4,$5)',[b2,'habit loop','vong lap thoi quen','psychology',28]);
@@ -185,14 +382,14 @@ async function seedApp(client, hash, adminId, editorId, tagIds, entryIds, entrie
 
   // ── Games ──
   console.log('\n── App: Games ──');
-  const levelIds={};
-  for (const [t,n,c] of [['lexisweep',1,{grid_size:6,directions:['horizontal','vertical'],time_limit:120}],['lexisweep',2,{grid_size:8,directions:['horizontal','vertical','diagonal'],time_limit:100}],['lexisweep',3,{grid_size:10,time_limit:90}],['anagram',1,{word_length_min:3,word_length_max:5,time_per_word:45}],['anagram',2,{word_length_min:5,word_length_max:8,time_per_word:30}],['anagram',3,{word_length_min:7,word_length_max:12,time_per_word:20}],['ladder',1,{words_per_set:4,time_limit:120}],['ladder',2,{words_per_set:6,time_limit:90}],['ladder',3,{words_per_set:8,time_limit:60}]])
+  const levelIds: Record<string, any> = {};
+  for (const [t,n,c] of [['lexisweep',1,{grid_size:6,directions:['horizontal','vertical'],time_limit:120}],['lexisweep',2,{grid_size:8,directions:['horizontal','vertical','diagonal'],time_limit:100}],['lexisweep',3,{grid_size:10,time_limit:90}],['anagram',1,{word_length_min:3,word_length_max:5,time_per_word:45}],['anagram',2,{word_length_min:5,word_length_max:8,time_per_word:30}],['anagram',3,{word_length_min:7,word_length_max:12,time_per_word:20}],['ladder',1,{words_per_set:4,time_limit:120}],['ladder',2,{words_per_set:6,time_limit:90}],['ladder',3,{words_per_set:8,time_limit:60}]] as [string,number,any][])
     levelIds[`${t}_${n}`]=await ins(client,'INSERT INTO game_levels (game_type,level_number,config_json) VALUES ($1,$2,$3) ON CONFLICT(game_type,level_number) DO UPDATE SET config_json=EXCLUDED.config_json RETURNING id',[t,n,JSON.stringify(c)]);
   const wl=await ins(client,`INSERT INTO game_word_lists (game_type,name,topic,level,created_by) VALUES ('lexisweep','Business Basics','Business','intermediate',$1) RETURNING id`,[editorId]);
   if (entryIds) for (let i=0;i<Math.min(10,entryIds.length);i++) await client.query('INSERT INTO game_word_list_items VALUES ($1,$2) ON CONFLICT DO NOTHING',[wl,entryIds[i]]);
   const ss=await ins(client,'INSERT INTO semantic_sets (name,scale_description,level,created_by) VALUES ($1,$2,$3,$4) RETURNING id',['Anger Intensity','Tu nhe den manh','advanced',editorId]);
   if (entryIds && entryIds.length>=20)
-    for (const [eid,ord,hint] of [[entryIds[15],1,'hoi buc'],[entryIds[16],2,'buc boi'],[entryIds[17],3,'gian du'],[entryIds[19],4,'thinh no'],[entryIds[18],5,'tuc dien']])
+    for (const [eid,ord,hint] of [[entryIds[15],1,'hoi buc'],[entryIds[16],2,'buc boi'],[entryIds[17],3,'gian du'],[entryIds[19],4,'thinh no'],[entryIds[18],5,'tuc dien']] as [any,number,string][])
       await client.query('INSERT INTO semantic_set_items (set_id,entry_id,correct_order,hint_vi) VALUES ($1,$2,$3,$4) ON CONFLICT DO NOTHING',[ss,eid,ord,hint]);
   await client.query('INSERT INTO game_runs (user_id,game_type,level_id,list_id,score,accuracy,time_sec,completed,details_json) VALUES ($1,$2,$3,$4,3400,0.85,95,true,$5)',[userIds[1],'lexisweep',levelIds['lexisweep_1'],wl,JSON.stringify({words_found:8})]);
   console.log('  [✓] 9 levels + word list + semantic set + game run');
@@ -205,7 +402,7 @@ async function seedApp(client, hash, adminId, editorId, tagIds, entryIds, entrie
   for (const [p,k,v] of [
     [fp,'flashcard_max_decks','2'],[fp,'review_modes','swift_choice'],[fp,'ebook_max','3'],[fp,'ads','true'],[fp,'offline','limited'],
     [pp,'flashcard_max_decks','20'],[pp,'review_modes','swift_choice,cloze_craft,pair_link'],[pp,'ebook_max','50'],[pp,'ads','false'],[pp,'offline','full'],
-    [pro,'flashcard_max_decks','unlimited'],[pro,'review_modes','swift_choice,cloze_craft,pair_link'],[pro,'ebook_max','unlimited'],[pro,'ads','false'],[pro,'offline','full']])
+    [pro,'flashcard_max_decks','unlimited'],[pro,'review_modes','swift_choice,cloze_craft,pair_link'],[pro,'ebook_max','unlimited'],[pro,'ads','false'],[pro,'offline','full']] as [string,string,string][])
     await client.query('INSERT INTO plan_features (plan_id,feature_key,feature_value) VALUES ($1,$2,$3) ON CONFLICT DO NOTHING',[p,k,v]);
   const s1=await ins(client,'INSERT INTO user_subscriptions (user_id,plan_id,billing_cycle,price_paid,status,current_period_start,current_period_end) VALUES ($1,$2,$3,99000,$4,$5,$6) RETURNING id',[userIds[1],pp,'monthly','active',daysAgo(15),daysLater(15)]);
   await client.query('INSERT INTO transactions (user_id,subscription_id,type,amount,payment_method,payment_ref,status) VALUES ($1,$2,$3,99000,$4,$5,$6)',[userIds[1],s1,'new','momo','MOMO_001','completed']);
@@ -215,7 +412,7 @@ async function seedApp(client, hash, adminId, editorId, tagIds, entryIds, entrie
   console.log('\n── App: AI & System ──');
   await client.query('INSERT INTO prompt_templates (name,description,model,system_prompt,expected_schema,version,status,created_by) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)',
     ['Retrieval Grader v1','Cham ngu phap','gpt-4o','You are an English grammar checker.',JSON.stringify({type:'object'}),1,'active',adminId]);
-  for (const [en,vi,dom] of [['machine learning','hoc may','tech'],['database','co so du lieu','tech'],['spaced repetition','lap lai ngat quang','education']])
+  for (const [en,vi,dom] of [['machine learning','hoc may','tech'],['database','co so du lieu','tech'],['spaced repetition','lap lai ngat quang','education']] as [string,string,string][])
     await client.query('INSERT INTO translation_glossary (term_en,translation_vi,domain,created_by) VALUES ($1,$2,$3,$4) ON CONFLICT DO NOTHING',[en,vi,dom,editorId]);
   const batch=await ins(client,'INSERT INTO micro_delta_batches (seq,entries_count,batch_type,status,published_at,created_by) VALUES (1,5,$1,$2,NOW(),$3) RETURNING id',['manual','published',editorId]);
   if (entryIds && entriesData)
@@ -223,7 +420,7 @@ async function seedApp(client, hash, adminId, editorId, tagIds, entryIds, entrie
       await client.query('INSERT INTO batch_entries (batch_id,entry_id,action,entry_snapshot) VALUES ($1,$2,$3,$4) ON CONFLICT DO NOTHING',
         [batch,entryIds[i],'upsert',JSON.stringify({headword:entriesData[i][0],ipa_us:entriesData[i][2]})]);
 
-  for (const [k,v,d] of [['leitner_intervals',[1,2,7,14,30],'Box intervals'],['cards_per_session',20,'Cards/session'],['gpt_active_model','gpt-4o','GPT model'],['tts_default_voice','en-US-Wavenet-D','TTS voice'],['maintenance_mode',{enabled:false},'Maintenance']])
+  for (const [k,v,d] of [['leitner_intervals',[1,2,7,14,30],'Box intervals'],['cards_per_session',20,'Cards/session'],['gpt_active_model','gpt-4o','GPT model'],['tts_default_voice','en-US-Wavenet-D','TTS voice'],['maintenance_mode',{enabled:false},'Maintenance']] as [string,any,string][])
     await client.query('INSERT INTO system_configs (config_key,config_value,description,updated_by) VALUES ($1,$2,$3,$4) ON CONFLICT(config_key) DO UPDATE SET config_value=EXCLUDED.config_value',[k,JSON.stringify(v),d,adminId]);
 
   await client.query('INSERT INTO audit_logs (admin_id,action,module,target_type,target_label,details,ip_address) VALUES ($1,$2,$3,$4,$5,$6,$7)',[adminId,'LOGIN','auth','admin','admin@english-app.com',JSON.stringify({method:'password'}),'127.0.0.1']);
@@ -234,7 +431,7 @@ async function seedApp(client, hash, adminId, editorId, tagIds, entryIds, entrie
     [userIds[1],'review_session',{mode:'swift_choice'},600,hoursAgo(12)],
     [userIds[1],'ebook_read',{book:'The Little Prince'},1800,hoursAgo(24)],
     [userIds[2],'game_play',{game:'lexisweep'},240,hoursAgo(20)],
-    [userIds[4],'lesson_view',{lesson:'Business English'},300,hoursAgo(36)]])
+    [userIds[4],'lesson_view',{lesson:'Business English'},300,hoursAgo(36)]] as [any,string,any,number,Date][])
     await client.query('INSERT INTO user_activity_log (user_id,action,details,duration_sec,created_at) VALUES ($1,$2,$3,$4,$5)',[uid,act,JSON.stringify(det),dur,at]);
   console.log('  [✓] configs + audit + notifications + activity');
 }
@@ -265,7 +462,7 @@ const seed = async () => {
       ['mod@english-app.com',hash,'Tran Thi Moderator','moderator']);
     console.log('  [✓] 3 admins');
 
-    let tagIds = null, entryIds = null, entriesData = null;
+    let tagIds: Record<string, any> | null = null, entryIds: any[] | null = null, entriesData: any[] | null = null;
 
     // Seed content if needed
     if (mode === 'content' || mode === 'all') {
@@ -277,11 +474,12 @@ const seed = async () => {
       // Load existing content IDs for app seed to reference
       const { rows: tags } = await client.query('SELECT id, name FROM tags');
       if (tags.length > 0) {
-        tagIds = {};
-        tags.forEach(t => tagIds[t.name] = t.id);
+        const map: Record<string, any> = {};
+        tags.forEach((t: any) => { map[t.name] = t.id; });
+        tagIds = map;
       }
       const { rows: entries } = await client.query('SELECT id FROM dictionary_entries ORDER BY created_at LIMIT 20');
-      if (entries.length > 0) entryIds = entries.map(e => e.id);
+      if (entries.length > 0) entryIds = entries.map((e: any) => e.id);
     }
 
     // Seed app if needed
@@ -299,7 +497,7 @@ const seed = async () => {
     console.log('  editor@english-app.com → content_editor');
     console.log('  mod@english-app.com    → moderator\n');
 
-  } catch (err) {
+  } catch (err: any) {
     await client.query('ROLLBACK');
     console.error('\n❌ Seed failed:', err.message);
     console.error(err.stack);

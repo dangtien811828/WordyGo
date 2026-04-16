@@ -80,7 +80,7 @@ const TOPIC_NAMES = [
 ];
 
 // Mô tả ngắn cho từng topic (giúp AI phân loại chính xác hơn)
-const TOPIC_DESCRIPTIONS = {
+const TOPIC_DESCRIPTIONS: Record<string, string> = {
   core_language:        'grammar words: articles (a/an/the), pronouns, prepositions, conjunctions, auxiliaries, numbers, basic adverbs like "very/just/also"',
   time_calendar:        'time: days of week, months, years, seasons, morning/afternoon/evening, before/after/during, always/never/sometimes',
   colors_shapes:        'colors (red/blue/green), shapes (circle/square), sizes (big/small/tall), textures (smooth/rough), basic physical descriptors',
@@ -116,15 +116,15 @@ const TOPIC_DESCRIPTIONS = {
 // ══════════════════════════════════════════════════════════════
 //  UTILITY
 // ══════════════════════════════════════════════════════════════
-const sleep = ms => new Promise(r => setTimeout(r, ms));
+const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
 
-function log(msg) {
+function log(msg: string) {
   const now = new Date().toLocaleTimeString('vi-VN');
   console.log(`[${now}] ${msg}`);
 }
 
 // ── Load backup file ─────────────────────────────────────────
-function loadSavedResults() {
+function loadSavedResults(): Record<string, string> {
   if (fs.existsSync(RESULT_FILE)) {
     try {
       return JSON.parse(fs.readFileSync(RESULT_FILE, 'utf-8'));
@@ -135,16 +135,16 @@ function loadSavedResults() {
   return {};
 }
 
-function saveResults(results) {
+function saveResults(results: Record<string, string>) {
   fs.writeFileSync(RESULT_FILE, JSON.stringify(results, null, 2));
 }
 
 // ══════════════════════════════════════════════════════════════
 //  CLAUDE API — PHÂN LOẠI BATCH
 // ══════════════════════════════════════════════════════════════
-async function classifyBatch(words, retryCount = 0) {
+async function classifyBatch(words: any[], retryCount = 0): Promise<Record<string, string>> {
   // Tạo word list với context: word (pos) [cefr]: short definition hint
-  const wordList = words.map(w => {
+  const wordList = words.map((w: any) => {
     const pos  = w.pos?.[0] || 'unknown';
     const cefr = w.cefr_level || '';
     // Chỉ lấy 5 từ đầu của definition làm hint để tiết kiệm tokens
@@ -180,7 +180,7 @@ Return JSON only:`;
       messages:   [{ role: 'user', content: prompt }],
     });
 
-    const rawText = message.content?.[0]?.text?.trim() || '{}';
+    const rawText = (message.content?.[0] as any)?.text?.trim() || '{}';
 
     // Parse an toàn — xử lý cả trường hợp có markdown fence
     let parsed;
@@ -193,8 +193,8 @@ Return JSON only:`;
 
     // Validate: chỉ giữ kết quả có topic hợp lệ
     const validTopics = new Set(TOPIC_NAMES);
-    const validated   = {};
-    for (const [word, topic] of Object.entries(parsed)) {
+    const validated: Record<string, string> = {};
+    for (const [word, topic] of Object.entries(parsed as Record<string, string>)) {
       if (validTopics.has(topic)) {
         validated[word] = topic;
       } else {
@@ -204,7 +204,7 @@ Return JSON only:`;
     }
     return validated;
 
-  } catch (err) {
+  } catch (err: any) {
     if (retryCount < MAX_RETRIES) {
       const delay = (retryCount + 1) * 2000;
       log(`⚠️  Batch lỗi (retry ${retryCount + 1}/${MAX_RETRIES}) sau ${delay}ms: ${err.message}`);
@@ -247,7 +247,7 @@ async function main() {
     `SELECT id, name FROM tags WHERE name = ANY($1)`,
     [TOPIC_NAMES]
   );
-  const tagMap = Object.fromEntries(tags.map(t => [t.name, t.id]));
+  const tagMap: Record<string, string> = Object.fromEntries(tags.map((t: any) => [t.name, t.id]));
 
   const missingTopics = TOPIC_NAMES.filter(t => !tagMap[t]);
   if (missingTopics.length > 0) {
@@ -275,7 +275,7 @@ async function main() {
   log(`📊 Tổng từ trong DB: ${allWords.length}`);
 
   // Lọc ra từ chưa được phân loại (chưa có trong backup)
-  const unclassified = allWords.filter(w => !savedResults[w.headword]);
+  const unclassified = allWords.filter((w: any) => !savedResults[w.headword]);
   log(`🎯 Chưa phân loại: ${unclassified.length} từ`);
   log(`⏭️  Đã phân loại:  ${allWords.length - unclassified.length} từ\n`);
 
@@ -334,13 +334,13 @@ async function main() {
   log('  ✓ Đã xóa entry_tags cũ của 30 topics');
 
   // Build lookup: headword → entry_id
-  const wordIdMap = Object.fromEntries(allWords.map(w => [w.headword, w.id]));
+  const wordIdMap: Record<string, string> = Object.fromEntries(allWords.map((w: any) => [w.headword, w.id]));
 
   let insertCount = 0, skipCount = 0;
 
   // Insert theo batch để nhanh hơn
-  const insertValues = [];
-  for (const [headword, topicName] of Object.entries(savedResults)) {
+  const insertValues: [string, string][] = [];
+  for (const [headword, topicName] of Object.entries(savedResults as Record<string, string>)) {
     const entryId = wordIdMap[headword];
     const tagId   = tagMap[topicName];
     if (!entryId || !tagId) { skipCount++; continue; }
@@ -382,11 +382,11 @@ async function main() {
     ORDER BY word_count DESC
   `, [TOPIC_NAMES]);
 
-  const maxCount = Math.max(...stats.map(s => parseInt(s.word_count)));
+  const maxCount = Math.max(...stats.map((s: any) => parseInt(s.word_count)));
 
   console.log('  Topic                      Count  Distribution');
   console.log('  ' + '─'.repeat(60));
-  for (const s of stats) {
+  for (const s of stats as any[]) {
     const count = parseInt(s.word_count);
     const bar   = '█'.repeat(Math.round((count / maxCount) * 25));
     const empty = '░'.repeat(25 - bar.length);
@@ -395,7 +395,7 @@ async function main() {
     );
   }
 
-  const totalTagged = stats.reduce((sum, s) => sum + parseInt(s.word_count), 0);
+  const totalTagged = stats.reduce((sum: number, s: any) => sum + parseInt(s.word_count), 0);
   const totalWords  = allWords.length;
   console.log(`\n  TỔNG: ${totalTagged}/${totalWords} từ đã được phân loại`);
 
@@ -426,7 +426,7 @@ async function main() {
   await pool.end();
 }
 
-main().catch(err => {
+main().catch((err: any) => {
   console.error('\n❌ Lỗi nghiêm trọng:', err.message);
   console.error(err.stack);
   process.exit(1);

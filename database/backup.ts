@@ -16,11 +16,23 @@ const path = require('path');
 const pool = require('../config/db');
 
 const CONTENT_TABLES = [
+  // ── Core (parent tables trước) ──
   'tags',
   'dictionary_entries',
   'entry_tags',
   'entry_synonyms',
   'entry_antonyms',
+  // ── Dictionary Pro ──
+  'entry_senses',
+  'sense_examples',
+  'word_forms',
+  'entry_idioms',
+  'phrasal_verbs',
+  'collocations',
+  'sense_synonyms',
+  'sense_antonyms',
+  'word_families',
+  'word_family_members',
 ];
 
 const backup = async () => {

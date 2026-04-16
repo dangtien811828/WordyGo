@@ -18,11 +18,23 @@ const { execFileSync } = require('child_process');
 
 // Các bảng nội dung từ điển — được bảo vệ khi selective reset
 const PROTECTED_TABLES = [
+  // ── Legacy content ──
   'tags',
   'dictionary_entries',
   'entry_tags',
   'entry_synonyms',
   'entry_antonyms',
+  // ── Dictionary Pro (multi-sense) ──
+  'entry_senses',
+  'sense_examples',
+  'word_forms',
+  'entry_idioms',
+  'phrasal_verbs',
+  'collocations',
+  'sense_synonyms',
+  'sense_antonyms',
+  'word_families',
+  'word_family_members',
 ];
 
 const reset = async () => {

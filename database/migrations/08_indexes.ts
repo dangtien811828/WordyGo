@@ -2,6 +2,7 @@
  * Indexes — performance-critical queries
  *
  * Updated: added indexes for cefr_level, frequency_rank, entry_synonyms, entry_antonyms
+ *          added indexes for Dictionary Pro tables (senses, forms, idioms, phrasal verbs, collocations)
  * Fixed: review_interval (was interval)
  */
 module.exports = async (client) => {
@@ -22,6 +23,21 @@ module.exports = async (client) => {
     'CREATE INDEX IF NOT EXISTS idx_synonyms_synonym ON entry_synonyms(synonym_id)',
     'CREATE INDEX IF NOT EXISTS idx_antonyms_entry ON entry_antonyms(entry_id)',
     'CREATE INDEX IF NOT EXISTS idx_antonyms_antonym ON entry_antonyms(antonym_id)',
+
+    // Domain 2: Dictionary Pro
+    'CREATE INDEX IF NOT EXISTS idx_senses_entry ON entry_senses(entry_id)',
+    'CREATE INDEX IF NOT EXISTS idx_senses_pos ON entry_senses(entry_id, pos)',
+    'CREATE INDEX IF NOT EXISTS idx_sense_examples_sense ON sense_examples(sense_id)',
+    'CREATE INDEX IF NOT EXISTS idx_word_forms_entry ON word_forms(entry_id)',
+    'CREATE INDEX IF NOT EXISTS idx_word_forms_type ON word_forms(entry_id, form_type)',
+    'CREATE INDEX IF NOT EXISTS idx_idioms_entry ON entry_idioms(entry_id)',
+    'CREATE INDEX IF NOT EXISTS idx_phrasal_entry ON phrasal_verbs(entry_id)',
+    'CREATE INDEX IF NOT EXISTS idx_collocations_entry ON collocations(entry_id)',
+    'CREATE INDEX IF NOT EXISTS idx_collocations_sense ON collocations(sense_id)',
+    'CREATE INDEX IF NOT EXISTS idx_sense_syn ON sense_synonyms(sense_id)',
+    'CREATE INDEX IF NOT EXISTS idx_sense_ant ON sense_antonyms(sense_id)',
+    'CREATE INDEX IF NOT EXISTS idx_family_members_entry ON word_family_members(entry_id)',
+    'CREATE INDEX IF NOT EXISTS idx_family_members_family ON word_family_members(family_id)',
 
     // Domain 3: SRS
     'CREATE INDEX IF NOT EXISTS idx_ucp_user_due ON user_card_progress(user_id, due_at)',

@@ -42,13 +42,25 @@ const restore = async () => {
 
     await client.query('BEGIN');
 
-    // Thứ tự restore: parent tables trước, junction tables sau
+    // Thứ tự restore: parent tables trước, junction/child tables sau
     const restoreOrder = [
+      // ── Legacy core ──
       'tags',
       'dictionary_entries',
       'entry_tags',
       'entry_synonyms',
       'entry_antonyms',
+      // ── Dictionary Pro (entry_senses trước vì sense_examples, collocations, sense_synonyms FK tới nó) ──
+      'word_forms',
+      'entry_idioms',
+      'phrasal_verbs',
+      'word_families',
+      'word_family_members',
+      'entry_senses',
+      'sense_examples',
+      'collocations',
+      'sense_synonyms',
+      'sense_antonyms',
     ];
 
     for (const table of restoreOrder) {
@@ -112,19 +124,43 @@ function getConflictClause(table, columns) {
   switch (table) {
     case 'tags':
       return 'ON CONFLICT (name) DO NOTHING';
-    case 'dictionary_entries':
+    case 'dictionary_entries': {
       // Upsert: nếu headword+lemma trùng → cập nhật toàn bộ fields
       const updateCols = columns
         .filter(c => !['id', 'headword', 'lemma', 'created_at'].includes(c))
         .map(c => `${c} = EXCLUDED.${c}`)
         .join(', ');
       return `ON CONFLICT (headword, lemma) DO UPDATE SET ${updateCols}`;
+    }
     case 'entry_tags':
       return 'ON CONFLICT (entry_id, tag_id) DO NOTHING';
     case 'entry_synonyms':
       return 'ON CONFLICT (entry_id, synonym_id) DO NOTHING';
     case 'entry_antonyms':
       return 'ON CONFLICT (entry_id, antonym_id) DO NOTHING';
+
+    // ── Dictionary Pro tables ──
+    case 'entry_senses':
+      return 'ON CONFLICT (entry_id, pos, sense_order) DO NOTHING';
+    case 'sense_examples':
+      return 'ON CONFLICT (id) DO NOTHING';
+    case 'word_forms':
+      return 'ON CONFLICT (entry_id, form_type, form_value) DO NOTHING';
+    case 'entry_idioms':
+      return 'ON CONFLICT (id) DO NOTHING';
+    case 'phrasal_verbs':
+      return 'ON CONFLICT (id) DO NOTHING';
+    case 'collocations':
+      return 'ON CONFLICT (id) DO NOTHING';
+    case 'sense_synonyms':
+      return 'ON CONFLICT (sense_id, synonym_text) DO NOTHING';
+    case 'sense_antonyms':
+      return 'ON CONFLICT (sense_id, antonym_text) DO NOTHING';
+    case 'word_families':
+      return 'ON CONFLICT (id) DO NOTHING';
+    case 'word_family_members':
+      return 'ON CONFLICT (family_id, entry_id) DO NOTHING';
+
     default:
       return 'ON CONFLICT DO NOTHING';
   }
