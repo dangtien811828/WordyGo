@@ -28,3 +28,4 @@ pool.on('error', (err: Error) => {
 
 
 export default pool;
+module.exports = pool;
