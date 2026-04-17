@@ -11,7 +11,6 @@ import cors from 'cors';
 import apiAuthRoutes from './routes/api/auth';
 
 const app = express();
-const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 
 // Resolve project root — works both in dev (tsx from root) and prod (node dist/app.js from root).
 const PROJECT_ROOT = process.cwd();
@@ -85,6 +84,8 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   res.status(500).send('Đã xảy ra lỗi server. Vui lòng thử lại.');
 });
 
+
+const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 // ── Start ──
 app.listen(PORT, () => {
   console.log(`\n══════════════════════════════════════`);
