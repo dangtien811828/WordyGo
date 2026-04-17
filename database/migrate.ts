@@ -4,8 +4,8 @@
  * 
  * Tạo toàn bộ 44 bảng + indexes cho English Learning App
  */
+import pool from '../config/db';
 require('dotenv').config();
-const pool = require('../config/db');
 
 const migrations = [
   { name: 'Domain 1+2: Auth & Content (22 tables)', file: './migrations/01_auth_content' },

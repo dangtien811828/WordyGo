@@ -1,16 +1,22 @@
 import { Pool } from 'pg';
 import dotenv from 'dotenv';
 
-// Chỉ load .env khi dev local — trên Railway không có file .env
-if (process.env.NODE_ENV !== 'production') {
-  dotenv.config();
-}
+dotenv.config();
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: process.env.NODE_ENV === 'production'
-    ? { rejectUnauthorized: false }
-    : false,
-});
+// Railway cung cấp DATABASE_URL, local dev dùng biến riêng lẻ
+const pool = process.env.DATABASE_URL
+  ? new Pool({
+      connectionString: process.env.DATABASE_URL,
+      ssl: process.env.NODE_ENV === 'production'
+        ? { rejectUnauthorized: false }
+        : false,
+    })
+  : new Pool({
+      host: process.env.DB_HOST || 'localhost',
+      port: parseInt(process.env.DB_PORT || '5432'),
+      database: process.env.DB_NAME || 'english_learning_app',
+      user: process.env.DB_USER || 'postgres',
+      password: process.env.DB_PASSWORD || '',
+    });
 
 export default pool;
