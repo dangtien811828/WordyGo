@@ -1,13 +1,21 @@
 /**
  * Master Migration Runner
  * Chạy: npm run db:migrate
- * 
+ *
  * Tạo toàn bộ 44 bảng + indexes cho English Learning App
  */
-import pool from '../config/db';
-require('dotenv').config();
 
-const migrations = [
+import type { PoolClient } from 'pg';
+import pool from '../config/db';
+
+type MigrationFn = (client: PoolClient) => Promise<void>;
+
+interface MigrationDef {
+  name: string;
+  file: string;
+}
+
+const migrations: MigrationDef[] = [
   { name: 'Domain 1+2: Auth & Content (22 tables)', file: './migrations/01_auth_content' },
   { name: 'Domain 3+4: Learning & Retrieval (6 bảng)', file: './migrations/02_learning_srs' },
   { name: 'Domain 5: Ebook & TTS (6 bảng)',            file: './migrations/03_reading_ebook' },
@@ -19,7 +27,7 @@ const migrations = [
   { name: 'Indexes (performance)',                     file: './migrations/08_indexes' },
 ];
 
-const migrate = async () => {
+export const migrate = async (): Promise<void> => {
   const client = await pool.connect();
 
   try {
@@ -36,7 +44,7 @@ const migrate = async () => {
     // Chạy từng migration
     for (const m of migrations) {
       console.log(`── ${m.name} ──`);
-      const fn = require(m.file);
+      const fn = require(m.file) as MigrationFn;
       await fn(client);
       console.log('');
     }
@@ -44,9 +52,9 @@ const migrate = async () => {
     await client.query('COMMIT');
 
     // Đếm bảng
-    const { rows } = await pool.query(`
-      SELECT COUNT(*)::int as count 
-      FROM information_schema.tables 
+    const { rows } = await pool.query<{ count: number }>(`
+      SELECT COUNT(*)::int as count
+      FROM information_schema.tables
       WHERE table_schema = 'public' AND table_type = 'BASE TABLE'
     `);
 
@@ -56,8 +64,9 @@ const migrate = async () => {
 
   } catch (err) {
     await client.query('ROLLBACK');
-    console.error('\n❌ Migration thất bại:', err.message);
-    console.error(err.stack);
+    const error = err as Error;
+    console.error('\n❌ Migration thất bại:', error.message);
+    console.error(error.stack);
     process.exit(1);
   } finally {
     client.release();
@@ -65,6 +74,7 @@ const migrate = async () => {
   }
 };
 
-migrate();
-
-export {};
+// Auto-run khi gọi trực tiếp (tsx database/migrate.ts)
+if (require.main === module) {
+  migrate();
+}

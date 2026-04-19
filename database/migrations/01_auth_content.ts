@@ -13,7 +13,9 @@
  *   NEW: entry_senses, sense_examples, word_forms, entry_idioms, phrasal_verbs,
  *        collocations, sense_synonyms, sense_antonyms, word_families, word_family_members
  */
-module.exports = async (client) => {
+import type { PoolClient } from 'pg';
+
+const migration = async (client: PoolClient): Promise<void> => {
   // ══ DOMAIN 1: AUTH ══
 
   await client.query(`
@@ -113,7 +115,8 @@ module.exports = async (client) => {
     try {
       await client.query(`ALTER TABLE dictionary_entries ADD COLUMN ${col.name} ${col.sql}`);
     } catch (err) {
-      if (!err.message.includes('already exists')) throw err;
+      const error = err as Error;
+      if (!error.message.includes('already exists')) throw err;
     }
   }
   console.log('  [✓] dictionary_entries (pro: +etymology, +register, +is_countable, +is_transitive)');
@@ -377,4 +380,4 @@ module.exports = async (client) => {
   console.log('  [✓] updated_at triggers (4 tables)');
 };
 
-export {};
+export = migration;

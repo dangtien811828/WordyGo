@@ -1,7 +1,9 @@
 /**
  * Domain 5: Reading — Ebook, TTS, Lookup (6 bảng)
  */
-module.exports = async (client) => {
+import type { PoolClient } from 'pg';
+
+const migration = async (client: PoolClient): Promise<void> => {
 
   await client.query(`
     CREATE TABLE IF NOT EXISTS ebooks (
@@ -107,4 +109,4 @@ module.exports = async (client) => {
   console.log('  [✓] word_lookups');
 };
 
-export {};
+export = migration;

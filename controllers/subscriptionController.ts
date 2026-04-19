@@ -1,11 +1,12 @@
-const Subscription = require('../models/Subscription');
+import type { Request, Response } from 'express';
+import Subscription from '../models/Subscription';
 
 /**
  * Parse feature_key[] and feature_value[] from form body into [{ key, value }].
  */
-function parseFeatures(body) {
-  const keys = [].concat(body['feature_key[]'] || []);
-  const vals = [].concat(body['feature_value[]'] || []);
+function parseFeatures(body: any) {
+  const keys: any[] = ([] as any[]).concat(body['feature_key[]'] || []);
+  const vals: any[] = ([] as any[]).concat(body['feature_value[]'] || []);
   return keys
     .map((k, i) => ({ key: (k || '').trim(), value: (vals[i] || '').trim() }))
     .filter(f => f.key);
@@ -14,7 +15,7 @@ function parseFeatures(body) {
 /**
  * Parse plan data fields from form body.
  */
-function parsePlanData(body) {
+function parsePlanData(body: any) {
   return {
     name:           (body.name || '').trim(),
     description:    (body.description || '').trim() || null,
@@ -32,12 +33,12 @@ function parsePlanData(body) {
   };
 }
 
-module.exports = {
+const subscriptionController = {
   /**
    * GET /subscriptions
    * Shows plan cards + feature matrix + stats.
    */
-  async getIndex(req, res) {
+  async getIndex(req: Request, res: Response) {
     try {
       const [plans, stats] = await Promise.all([
         Subscription.getPlans(),
@@ -45,14 +46,14 @@ module.exports = {
       ]);
 
       // Collect all unique feature keys (preserving insertion order, deduplicated)
-      const allKeysSet = new Set();
+      const allKeysSet = new Set<string>();
       for (const p of plans) {
         for (const f of p.features) allKeysSet.add(f.feature_key);
       }
       const allKeys = [...allKeysSet].sort();
 
       // Build lookup: planId → { feature_key: feature_value }
-      const featureLookup = {};
+      const featureLookup: Record<string, Record<string, any>> = {};
       for (const p of plans) {
         featureLookup[p.id] = {};
         for (const f of p.features) featureLookup[p.id][f.feature_key] = f.feature_value;
@@ -76,7 +77,7 @@ module.exports = {
   /**
    * GET /subscriptions/create
    */
-  getCreate(req, res) {
+  getCreate(req: Request, res: Response) {
     res.render('subscriptions/create', {
       title: 'Tạo gói đăng ký',
       active: 'subscriptions',
@@ -86,7 +87,7 @@ module.exports = {
   /**
    * POST /subscriptions/create
    */
-  async postCreate(req, res) {
+  async postCreate(req: Request, res: Response) {
     try {
       const data = parsePlanData(req.body);
       const features = parseFeatures(req.body);
@@ -109,9 +110,9 @@ module.exports = {
   /**
    * GET /subscriptions/:id/edit
    */
-  async getEdit(req, res) {
+  async getEdit(req: Request, res: Response) {
     try {
-      const plan = await Subscription.getPlanById(req.params.id);
+      const plan = await Subscription.getPlanById(req.params.id as string);
       if (!plan) {
         req.flash('error', 'Gói đăng ký không tồn tại');
         return res.redirect('/subscriptions');
@@ -131,8 +132,8 @@ module.exports = {
   /**
    * POST /subscriptions/:id/edit
    */
-  async postEdit(req, res) {
-    const { id } = req.params;
+  async postEdit(req: Request, res: Response) {
+    const { id } = req.params as { id: string };
     try {
       const data = parsePlanData(req.body);
       const features = parseFeatures(req.body);
@@ -160,15 +161,16 @@ module.exports = {
   /**
    * POST /subscriptions/:id/delete
    */
-  async postDelete(req, res) {
-    const { id } = req.params;
+  async postDelete(req: Request, res: Response) {
+    const { id } = req.params as { id: string };
     try {
       await Subscription.deletePlan(id);
       req.flash('success', 'Đã xóa gói đăng ký');
       return res.redirect('/subscriptions');
     } catch (err) {
-      if (err.code === 'HAS_ACTIVE_SUBSCRIBERS') {
-        req.flash('error', err.message);
+      const error = err as { code?: string; message?: string };
+      if (error.code === 'HAS_ACTIVE_SUBSCRIBERS') {
+        req.flash('error', error.message);
       } else {
         console.error('[Subscriptions] postDelete error:', err);
         req.flash('error', 'Không thể xóa gói. Vui lòng thử lại.');
@@ -180,8 +182,8 @@ module.exports = {
   /**
    * GET /subscriptions/:id/subscribers
    */
-  async getSubscribers(req, res) {
-    const { id } = req.params;
+  async getSubscribers(req: Request, res: Response) {
+    const { id } = req.params as { id: string };
     try {
       const plan = await Subscription.getPlanById(id);
       if (!plan) {
@@ -189,7 +191,7 @@ module.exports = {
         return res.redirect('/subscriptions');
       }
 
-      const { page = 1 } = req.query;
+      const { page = 1 } = req.query as any;
       const result = await Subscription.getSubscribers(id, { page, limit: 20 });
 
       res.render('subscriptions/subscribers', {
@@ -209,9 +211,9 @@ module.exports = {
   /**
    * GET /subscriptions/transactions
    */
-  async getTransactions(req, res) {
+  async getTransactions(req: Request, res: Response) {
     try {
-      const { page = 1 } = req.query;
+      const { page = 1 } = req.query as any;
       const result = await Subscription.getRecentTransactions({ page, limit: 20 });
 
       res.render('subscriptions/transactions', {
@@ -228,4 +230,4 @@ module.exports = {
   },
 };
 
-export {};
+export = subscriptionController;

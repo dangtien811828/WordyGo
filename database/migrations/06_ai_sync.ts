@@ -3,7 +3,9 @@
  *
  * Fix: removed CHECK constraint on prompt_templates.model (allow future models)
  */
-module.exports = async (client) => {
+import type { PoolClient } from 'pg';
+
+const migration = async (client: PoolClient): Promise<void> => {
 
   await client.query(`
     CREATE TABLE IF NOT EXISTS prompt_templates (
@@ -100,4 +102,4 @@ module.exports = async (client) => {
   console.log('  [✓] batch_entries');
 };
 
-export {};
+export = migration;

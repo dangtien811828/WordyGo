@@ -300,7 +300,7 @@ async function main() {
       `, [topic.name]);
       inserted++;
       console.log(`  ✅ [${String(topic.sort_order).padStart(2, '0')}] ${topic.name.padEnd(25)} — ${topic.label_vi} (${topic.cefr_focus})`);
-    } catch (err) {
+    } catch (err: any) {
       if (err.code === '23505') {
         skipped++;
         console.log(`  ⏭️  [${String(topic.sort_order).padStart(2, '0')}] ${topic.name} — đã tồn tại`);

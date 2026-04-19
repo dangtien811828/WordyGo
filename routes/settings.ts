@@ -1,12 +1,11 @@
-const express = require('express');
-const router = express.Router();
-const { requireAuth } = require('../middlewares/auth');
-const ctrl = require('../controllers/settingsController');
+import { Router } from 'express';
+import { requireAuth } from '../middlewares/auth';
+import ctrl from '../controllers/settingsController';
+
+const router = Router();
 
 router.use(requireAuth);
 
 router.get('/', ctrl.getIndex);
 
-module.exports = router;
-
-export {};
+export = router;

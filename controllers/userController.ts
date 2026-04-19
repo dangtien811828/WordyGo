@@ -1,15 +1,16 @@
-const bcrypt = require('bcryptjs');
-const pool = require('../config/db');
-const User = require('../models/User');
+import bcrypt from 'bcryptjs';
+import type { Request, Response } from 'express';
+import pool from '../config/db';
+import User from '../models/User';
 
 const VALID_LEVELS  = ['beginner', 'intermediate', 'advanced'];
 const VALID_STATUSES = ['active', 'inactive', 'banned'];
 
 const userController = {
   // GET /users
-  async getIndex(req, res) {
+  async getIndex(req: Request, res: Response) {
     try {
-      const { search = '', status = '', level = '', page = 1 } = req.query;
+      const { search = '', status = '', level = '', page = 1 } = req.query as any;
       const [result, statusCounts] = await Promise.all([
         User.getAll({ search, status, level, page, limit: 20 }),
         User.countByStatus(),
@@ -30,15 +31,15 @@ const userController = {
   },
 
   // GET /users/create
-  getCreate(req, res) {
+  getCreate(req: Request, res: Response) {
     res.render('users/create', { title: 'Thêm người dùng', active: 'users' });
   },
 
   // POST /users/create
-  async postCreate(req, res) {
+  async postCreate(req: Request, res: Response) {
     try {
       const { full_name, email, password, phone, level } = req.body;
-      const errors = [];
+      const errors: string[] = [];
       if (!full_name || full_name.trim().length < 2) errors.push('Họ tên phải có ít nhất 2 ký tự');
       if (!email || !/^\S+@\S+\.\S+$/.test(email))  errors.push('Email không hợp lệ');
       if (!password || password.length < 6)          errors.push('Mật khẩu phải có ít nhất 6 ký tự');
@@ -74,9 +75,9 @@ const userController = {
   },
 
   // GET /users/:id
-  async getShow(req, res) {
+  async getShow(req: Request, res: Response) {
     try {
-      const user = await User.findById(req.params.id);
+      const user = await User.findById(req.params.id as string);
       if (!user) {
         req.flash('error', 'Không tìm thấy người dùng');
         return res.redirect('/users');
@@ -102,9 +103,9 @@ const userController = {
   },
 
   // GET /users/:id/edit
-  async getEdit(req, res) {
+  async getEdit(req: Request, res: Response) {
     try {
-      const user = await User.findById(req.params.id);
+      const user = await User.findById(req.params.id as string);
       if (!user) {
         req.flash('error', 'Không tìm thấy người dùng');
         return res.redirect('/users');
@@ -118,11 +119,11 @@ const userController = {
   },
 
   // POST /users/:id/edit
-  async postEdit(req, res) {
+  async postEdit(req: Request, res: Response) {
     try {
-      const { id } = req.params;
+      const { id } = req.params as { id: string };
       const { full_name, phone, level, status } = req.body;
-      const errors = [];
+      const errors: string[] = [];
       if (!full_name || full_name.trim().length < 2) errors.push('Họ tên phải có ít nhất 2 ký tự');
       if (!VALID_LEVELS.includes(level))             errors.push('Cấp độ không hợp lệ');
       if (!VALID_STATUSES.includes(status))          errors.push('Trạng thái không hợp lệ');
@@ -148,9 +149,9 @@ const userController = {
   },
 
   // POST /users/:id/toggle-status
-  async postToggleStatus(req, res) {
+  async postToggleStatus(req: Request, res: Response) {
     try {
-      const { id } = req.params;
+      const { id } = req.params as { id: string };
       const { new_status } = req.body;
 
       if (!VALID_STATUSES.includes(new_status)) {
@@ -160,7 +161,7 @@ const userController = {
 
       await User.setStatus(id, new_status);
 
-      const labels = { active: 'Đã kích hoạt', inactive: 'Đã vô hiệu hóa', banned: 'Đã cấm tài khoản' };
+      const labels: Record<string, string> = { active: 'Đã kích hoạt', inactive: 'Đã vô hiệu hóa', banned: 'Đã cấm tài khoản' };
       req.flash('success', labels[new_status]);
       return res.redirect('back');
     } catch (err) {
@@ -171,14 +172,14 @@ const userController = {
   },
 
   // POST /users/:id/delete  (super_admin only — enforced in controller)
-  async postDelete(req, res) {
+  async postDelete(req: Request, res: Response) {
     try {
       if (req.session.admin.role !== 'super_admin') {
         req.flash('error', 'Chỉ Super Admin mới có thể xóa người dùng');
         return res.redirect('/users');
       }
 
-      const { id } = req.params;
+      const { id } = req.params as { id: string };
       const { confirm_text } = req.body;
 
       const user = await User.findById(id);
@@ -206,6 +207,4 @@ const userController = {
   },
 };
 
-module.exports = userController;
-
-export {};
+export = userController;

@@ -1,8 +1,9 @@
-const pool = require('../config/db');
-const Admin = require('../models/Admin');
+import type { Request, Response } from 'express';
+import pool from '../config/db';
+import Admin from '../models/Admin';
 
 const dashboardController = {
-  async getDashboard(req, res) {
+  async getDashboard(req: Request, res: Response) {
     try {
       // Thống kê nhanh
       const [usersCount, adminsCount, entriesCount, lessonsCount] = await Promise.all([
@@ -35,6 +36,4 @@ const dashboardController = {
   },
 };
 
-module.exports = dashboardController;
-
-export {};
+export = dashboardController;

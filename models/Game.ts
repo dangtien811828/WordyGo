@@ -1,12 +1,12 @@
-const pool = require('../config/db');
-const { paginate } = require('../helpers/pagination');
+import pool from '../config/db';
+import { paginate } from '../helpers/pagination';
 
 const Game = {
   // ── Word Lists ────────────────────────────────────────────────────────────
 
-  async getWordLists({ gameType = '', search = '', page = 1, limit = 20 } = {}) {
-    const conditions = [];
-    const params = [];
+  async getWordLists({ gameType = '', search = '', page = 1, limit = 20 }: { gameType?: string; search?: string; page?: number; limit?: number } = {}) {
+    const conditions: string[] = [];
+    const params: any[] = [];
 
     if (gameType) {
       params.push(gameType);
@@ -37,7 +37,7 @@ const Game = {
     return paginate(query, countQuery, params, params, page, limit);
   },
 
-  async getWordListById(id) {
+  async getWordListById(id: string) {
     const { rows } = await pool.query(
       `SELECT gwl.*, a.full_name AS creator_name
          FROM game_word_lists gwl
@@ -60,7 +60,7 @@ const Game = {
     return list;
   },
 
-  async createWordList(data, entryIds = []) {
+  async createWordList(data: any, entryIds: string[] = []) {
     const client = await pool.connect();
     try {
       await client.query('BEGIN');
@@ -86,7 +86,7 @@ const Game = {
     }
   },
 
-  async updateWordList(id, data, entryIds = []) {
+  async updateWordList(id: string, data: any, entryIds: string[] = []) {
     const client = await pool.connect();
     try {
       await client.query('BEGIN');
@@ -113,13 +113,13 @@ const Game = {
     }
   },
 
-  async deleteWordList(id) {
+  async deleteWordList(id: string) {
     await pool.query('DELETE FROM game_word_lists WHERE id=$1', [id]);
   },
 
   // ── Levels ────────────────────────────────────────────────────────────────
 
-  async getLevels(gameType) {
+  async getLevels(gameType: string) {
     const { rows } = await pool.query(
       `SELECT * FROM game_levels WHERE game_type=$1 ORDER BY level_number ASC`,
       [gameType]
@@ -127,7 +127,7 @@ const Game = {
     return rows;
   },
 
-  async createLevel(data) {
+  async createLevel(data: any) {
     const { rows } = await pool.query(
       `INSERT INTO game_levels (game_type, level_number, config_json, status)
        VALUES ($1,$2,$3,$4) RETURNING *`,
@@ -136,7 +136,7 @@ const Game = {
     return rows[0];
   },
 
-  async updateLevel(id, data) {
+  async updateLevel(id: string, data: any) {
     const { rows } = await pool.query(
       `UPDATE game_levels SET level_number=$1, config_json=$2, status=$3 WHERE id=$4 RETURNING *`,
       [data.level_number, data.config_json, data.status || 'active', id]
@@ -144,13 +144,13 @@ const Game = {
     return rows[0] || null;
   },
 
-  async deleteLevel(id) {
+  async deleteLevel(id: string) {
     await pool.query('DELETE FROM game_levels WHERE id=$1', [id]);
   },
 
   // ── Semantic Sets ─────────────────────────────────────────────────────────
 
-  async getSemanticSets({ page = 1, limit = 20 } = {}) {
+  async getSemanticSets({ page = 1, limit = 20 }: { page?: number; limit?: number } = {}) {
     const query = `
       SELECT ss.*,
              a.full_name AS creator_name,
@@ -165,7 +165,7 @@ const Game = {
     return paginate(query, countQuery, [], [], page, limit);
   },
 
-  async getSemanticSetById(id) {
+  async getSemanticSetById(id: string) {
     const { rows } = await pool.query(
       `SELECT ss.*, a.full_name AS creator_name
          FROM semantic_sets ss
@@ -189,7 +189,7 @@ const Game = {
     return set;
   },
 
-  async createSemanticSet(data, items = []) {
+  async createSemanticSet(data: any, items: any[] = []) {
     const client = await pool.connect();
     try {
       await client.query('BEGIN');
@@ -216,7 +216,7 @@ const Game = {
     }
   },
 
-  async updateSemanticSet(id, data, items = []) {
+  async updateSemanticSet(id: string, data: any, items: any[] = []) {
     const client = await pool.connect();
     try {
       await client.query('BEGIN');
@@ -244,15 +244,15 @@ const Game = {
     }
   },
 
-  async deleteSemanticSet(id) {
+  async deleteSemanticSet(id: string) {
     await pool.query('DELETE FROM semantic_sets WHERE id=$1', [id]);
   },
 
   // ── Game Runs (read-only) ─────────────────────────────────────────────────
 
-  async getGameRuns({ gameType = '', page = 1, limit = 50 } = {}) {
-    const conditions = ['gr.completed = TRUE'];
-    const params = [];
+  async getGameRuns({ gameType = '', page = 1, limit = 50 }: { gameType?: string; page?: number; limit?: number } = {}) {
+    const conditions: string[] = ['gr.completed = TRUE'];
+    const params: any[] = [];
 
     if (gameType) {
       params.push(gameType);
@@ -293,6 +293,4 @@ const Game = {
   },
 };
 
-module.exports = Game;
-
-export {};
+export = Game;

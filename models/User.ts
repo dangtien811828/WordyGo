@@ -1,10 +1,10 @@
-const pool = require('../config/db');
-const { paginate } = require('../helpers/pagination');
+import pool from '../config/db';
+import { paginate } from '../helpers/pagination';
 
 const User = {
-  async getAll({ search = '', status = '', level = '', page = 1, limit = 20 } = {}) {
-    const conditions = [];
-    const params = [];
+  async getAll({ search = '', status = '', level = '', page = 1, limit = 20 }: { search?: string; status?: string; level?: string; page?: number; limit?: number } = {}) {
+    const conditions: string[] = [];
+    const params: any[] = [];
 
     if (search) {
       params.push(`%${search}%`);
@@ -36,7 +36,7 @@ const User = {
     return paginate(query, countQuery, params, params, page, limit);
   },
 
-  async findById(id) {
+  async findById(id: string) {
     const { rows } = await pool.query(
       `SELECT id, email, full_name, phone, avatar_url, level, status,
               streak_current, streak_longest, last_active_at, last_login_at, created_at, updated_at
@@ -46,7 +46,7 @@ const User = {
     return rows[0] || null;
   },
 
-  async findByEmail(email) {
+  async findByEmail(email: string) {
     const { rows } = await pool.query(
       'SELECT id FROM users WHERE email = $1',
       [email]
@@ -54,7 +54,7 @@ const User = {
     return rows[0] || null;
   },
 
-  async create({ email, passwordHash, fullName, phone = null, level = 'beginner' }) {
+  async create({ email, passwordHash, fullName, phone = null, level = 'beginner' }: { email: string; passwordHash: string; fullName: string; phone?: string | null; level?: string }) {
     const { rows } = await pool.query(
       `INSERT INTO users (email, password_hash, full_name, phone, level)
        VALUES ($1, $2, $3, $4, $5)
@@ -64,21 +64,21 @@ const User = {
     return rows[0];
   },
 
-  async update(id, { fullName, phone, level, status }) {
+  async update(id: string, { fullName, phone, level, status }: { fullName: string; phone?: string | null; level: string; status: string }) {
     await pool.query(
       'UPDATE users SET full_name = $1, phone = $2, level = $3, status = $4 WHERE id = $5',
       [fullName, phone || null, level, status, id]
     );
   },
 
-  async setStatus(id, status) {
+  async setStatus(id: string, status: string) {
     await pool.query(
       'UPDATE users SET status = $1 WHERE id = $2',
       [status, id]
     );
   },
 
-  async delete(id) {
+  async delete(id: string) {
     await pool.query('DELETE FROM users WHERE id = $1', [id]);
   },
 
@@ -86,8 +86,8 @@ const User = {
     const { rows } = await pool.query(
       'SELECT status, COUNT(*)::int AS count FROM users GROUP BY status'
     );
-    const result = { active: 0, inactive: 0, banned: 0 };
-    rows.forEach(r => { result[r.status] = r.count; });
+    const result: Record<string, number> = { active: 0, inactive: 0, banned: 0 };
+    rows.forEach((r: any) => { result[r.status] = r.count; });
     return result;
   },
 
@@ -97,6 +97,4 @@ const User = {
   },
 };
 
-module.exports = User;
-
-export {};
+export = User;

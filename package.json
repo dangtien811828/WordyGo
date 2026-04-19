@@ -10,8 +10,11 @@
     "typecheck": "tsc --noEmit",
     "db:migrate": "tsx database/migrate.ts",
     "db:seed": "tsx scripts/seed.ts",
+    "db:seed-topics": "tsx scripts/seed-topics.mts",
     "db:reset": "tsx database/reset.ts",
-    "db:fresh": "tsx database/reset.ts && tsx scripts/seed.ts"
+    "db:fresh": "tsx database/reset.ts && tsx scripts/seed.ts",
+    "db:backup": "tsx database/backup.ts",
+    "db:restore": "tsx database/restore.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.80.0",

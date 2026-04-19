@@ -1,7 +1,9 @@
 /**
  * Domain 6: Gaming — Mini-games Config & Results (6 bảng)
  */
-module.exports = async (client) => {
+import type { PoolClient } from 'pg';
+
+const migration = async (client: PoolClient): Promise<void> => {
 
   await client.query(`
     CREATE TABLE IF NOT EXISTS game_word_lists (
@@ -95,4 +97,4 @@ module.exports = async (client) => {
   console.log('  [✓] game_runs');
 };
 
-export {};
+export = migration;

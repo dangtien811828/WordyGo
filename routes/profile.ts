@@ -1,8 +1,9 @@
-const express = require('express');
-const router = express.Router();
-const profileController = require('../controllers/profileController');
-const { requireAuth } = require('../middlewares/auth');
-const { uploadImage } = require('../middlewares/upload');
+import { Router } from 'express';
+import profileController from '../controllers/profileController';
+import { requireAuth } from '../middlewares/auth';
+import { uploadImage } from '../middlewares/upload';
+
+const router = Router();
 
 router.use(requireAuth);
 
@@ -11,6 +12,4 @@ router.post('/update',   uploadImage.single('image'), profileController.postUpda
 router.post('/password', profileController.postPassword);
 router.post('/delete',   profileController.postDelete);
 
-module.exports = router;
-
-export {};
+export = router;

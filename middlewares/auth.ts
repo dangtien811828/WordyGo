@@ -1,10 +1,9 @@
 import type { Request, Response, NextFunction, RequestHandler } from 'express';
-
-const Approval = require('../models/Approval');
+import Approval from '../models/Approval';
 
 type AdminRole = 'super_admin' | 'content_editor' | 'moderator';
 
-export function requireAuth(req: Request, res: Response, next: NextFunction) {
+export function requireAuth(req: Request, res: Response, next: NextFunction): void {
   if (req.session && req.session.admin) {
     return next();
   }
@@ -26,14 +25,14 @@ export function requireRole(...roles: AdminRole[]): RequestHandler {
   };
 }
 
-export function redirectIfAuth(req: Request, res: Response, next: NextFunction) {
+export function redirectIfAuth(req: Request, res: Response, next: NextFunction): void {
   if (req.session && req.session.admin) {
     return res.redirect('/dashboard');
   }
   return next();
 }
 
-export async function injectAdmin(req: Request, res: Response, next: NextFunction) {
+export async function injectAdmin(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     res.locals.admin = req.session ? req.session.admin : null;
     res.locals.success = req.flash('success');

@@ -1,10 +1,10 @@
-const pool = require('../config/db');
-const { paginate } = require('../helpers/pagination');
+import pool from '../config/db';
+import { paginate } from '../helpers/pagination';
 
 const Lesson = {
-  async getAll({ search = '', level = '', status = '', page = 1, limit = 20 } = {}) {
-    const conditions = [];
-    const params = [];
+  async getAll({ search = '', level = '', status = '', page = 1, limit = 20 }: { search?: string; level?: string; status?: string; page?: number; limit?: number } = {}) {
+    const conditions: string[] = [];
+    const params: any[] = [];
 
     if (search) {
       params.push(`%${search}%`);
@@ -36,7 +36,7 @@ const Lesson = {
     return paginate(query, countQuery, params, params, page, limit);
   },
 
-  async findById(id) {
+  async findById(id: string) {
     const { rows } = await pool.query(`
       SELECT l.*,
              a.full_name AS creator_name,
@@ -66,7 +66,7 @@ const Lesson = {
     return rows[0] || null;
   },
 
-  async create(data, entryIds = [], tagIds = []) {
+  async create(data: any, entryIds: string[] = [], tagIds: string[] = []) {
     const client = await pool.connect();
     try {
       await client.query('BEGIN');
@@ -112,7 +112,7 @@ const Lesson = {
     }
   },
 
-  async update(id, data, entryIds = [], tagIds = []) {
+  async update(id: string, data: any, entryIds: string[] = [], tagIds: string[] = []) {
     const client = await pool.connect();
     try {
       await client.query('BEGIN');
@@ -165,11 +165,9 @@ const Lesson = {
     }
   },
 
-  async delete(id) {
+  async delete(id: string) {
     await pool.query('DELETE FROM lessons WHERE id = $1', [id]);
   },
 };
 
-module.exports = Lesson;
-
-export {};
+export = Lesson;

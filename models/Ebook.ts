@@ -1,10 +1,10 @@
-const pool = require('../config/db');
-const { paginate } = require('../helpers/pagination');
+import pool from '../config/db';
+import { paginate } from '../helpers/pagination';
 
 const Ebook = {
-  async getAll({ search = '', level = '', status = '', page = 1, limit = 20 } = {}) {
-    const conditions = [];
-    const params = [];
+  async getAll({ search = '', level = '', status = '', page = 1, limit = 20 }: { search?: string; level?: string; status?: string; page?: number; limit?: number } = {}) {
+    const conditions: string[] = [];
+    const params: any[] = [];
 
     if (search) {
       params.push(`%${search}%`);
@@ -37,7 +37,7 @@ const Ebook = {
     return paginate(query, countQuery, params, params, page, limit);
   },
 
-  async findById(id) {
+  async findById(id: string) {
     const { rows } = await pool.query(`
       SELECT e.*, a.full_name AS creator_name
       FROM ebooks e
@@ -58,7 +58,7 @@ const Ebook = {
     return { ...rows[0], chapters };
   },
 
-  async create(data, adminId) {
+  async create(data: any, adminId: string) {
     const { rows } = await pool.query(`
       INSERT INTO ebooks
         (title, author, isbn, description, cover_url, epub_file_url,
@@ -87,7 +87,7 @@ const Ebook = {
     return rows[0];
   },
 
-  async update(id, data) {
+  async update(id: string, data: any) {
     await pool.query(`
       UPDATE ebooks SET
         title          = $1,
@@ -120,12 +120,12 @@ const Ebook = {
     );
   },
 
-  async delete(id) {
+  async delete(id: string) {
     // CASCADE deletes chapters, tts_cache, ebook_glossary, user_reading_progress
     await pool.query('DELETE FROM ebooks WHERE id = $1', [id]);
   },
 
-  async getByCreator(adminId, { page = 1, limit = 20 } = {}) {
+  async getByCreator(adminId: string, { page = 1, limit = 20 }: { page?: number; limit?: number } = {}) {
     const query = `
       SELECT e.id, e.title, e.author, e.level, e.status, e.required_plan,
              e.total_chapters, e.created_at
@@ -138,6 +138,4 @@ const Ebook = {
   },
 };
 
-module.exports = Ebook;
-
-export {};
+export = Ebook;

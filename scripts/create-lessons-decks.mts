@@ -1,32 +1,68 @@
-// scripts/create-lessons-decks.mjs
-import pg  from 'pg';
+// scripts/create-lessons-decks.mts
+import 'dotenv/config';
+import pg from 'pg';
 import { v4 as uuidv4 } from 'uuid';
 
-const DB_CONFIG = { 
+// ══════════════════════════════════════════════════════════════
+//  TYPES
+// ══════════════════════════════════════════════════════════════
+type CefrLevel = 'A1' | 'A2' | 'B1' | 'B2' | 'C1' | 'C2';
+type AppLevel = 'beginner' | 'intermediate' | 'advanced';
+
+interface TopicEntryRow {
+  tag_id: string;
+  topic: string;
+  cefr_level: CefrLevel;
+  entry_id: string;
+  headword: string;
+}
+
+interface EntryLite {
+  id: string;
+  word: string;
+}
+
+interface TopicGroup {
+  tag_id: string;
+  topic: string;
+  cefr_level: CefrLevel;
+  entries: EntryLite[];
+}
+
+// ══════════════════════════════════════════════════════════════
+//  CẤU HÌNH
+// ══════════════════════════════════════════════════════════════
+const DB_CONFIG = {
   host:     process.env.DB_HOST     || 'localhost',
   port:     parseInt(process.env.DB_PORT || '5432'),
-  database: process.env.DB_NAME || 'english_learning_app',
-  user:     process.env.DB_USER || 'postgres',
-  password: process.env.DB_PASSWORD || 'postgres'
+  database: process.env.DB_NAME     || 'english_learning_app',
+  user:     process.env.DB_USER     || 'postgres',
+  password: process.env.DB_PASSWORD || 'postgres',
 };
 
 // ID của admin mặc định (lấy từ DB)
 const DEFAULT_ADMIN_ID = '55c6f046-b411-4b64-bed4-eff8c8e04ce0';
 
-const CEFR_TO_LEVEL = {
-  'A1': 'beginner', 'A2': 'beginner',
-  'B1': 'intermediate', 'B2': 'intermediate',
-  'C1': 'advanced', 'C2': 'advanced',
+const CEFR_TO_LEVEL: Record<CefrLevel, AppLevel> = {
+  A1: 'beginner',
+  A2: 'beginner',
+  B1: 'intermediate',
+  B2: 'intermediate',
+  C1: 'advanced',
+  C2: 'advanced',
 };
 
 const WORDS_PER_LESSON = 20; // tối đa 20 từ/lesson
 
-async function main() {
+// ══════════════════════════════════════════════════════════════
+//  MAIN
+// ══════════════════════════════════════════════════════════════
+async function main(): Promise<void> {
   const pool   = new pg.Pool(DB_CONFIG);
   const client = await pool.connect();
 
   // Lấy tất cả topics có từ
-  const { rows: topicGroups } = await client.query(`
+  const { rows: topicGroups } = await client.query<TopicEntryRow>(`
     SELECT
       t.id   AS tag_id,
       t.name AS topic,
@@ -34,26 +70,34 @@ async function main() {
       de.id  AS entry_id,
       de.headword
     FROM tags t
-    JOIN entry_tags et  ON t.id = et.tag_id
-    JOIN dictionary_entries de ON et.entry_id = de.id
+    JOIN entry_tags et           ON t.id = et.tag_id
+    JOIN dictionary_entries de   ON et.entry_id = de.id
     WHERE de.published = true
       AND de.cefr_level IS NOT NULL
     ORDER BY t.name, de.cefr_level, de.frequency_rank
   `);
 
   // Gom nhóm: topic → cefr → [words]
-  const groups = {};
+  const groups: Record<string, TopicGroup> = {};
   for (const row of topicGroups) {
     const key = `${row.topic}__${row.cefr_level}`;
-    if (!groups[key]) groups[key] = { ...row, entries: [] };
+    if (!groups[key]) {
+      groups[key] = {
+        tag_id:     row.tag_id,
+        topic:      row.topic,
+        cefr_level: row.cefr_level,
+        entries:    [],
+      };
+    }
     groups[key].entries.push({ id: row.entry_id, word: row.headword });
   }
 
-  let lessonCount = 0, deckCount = 0;
+  let lessonCount = 0;
+  let deckCount   = 0;
 
-  for (const [key, group] of Object.entries(groups)) {
-    const entries   = group.entries;
-    const level     = CEFR_TO_LEVEL[group.cefr_level] || 'beginner';
+  for (const group of Object.values(groups)) {
+    const entries    = group.entries;
+    const level      = CEFR_TO_LEVEL[group.cefr_level] || 'beginner';
     const topicLabel = group.topic.replace(/_/g, ' ');
 
     // Chia nhỏ nếu quá 20 từ
@@ -120,4 +164,7 @@ async function main() {
   await pool.end();
 }
 
-main().catch(console.error);
+main().catch((err: unknown) => {
+  console.error('\n❌ Lỗi nghiêm trọng:', err);
+  process.exit(1);
+});

@@ -1,14 +1,15 @@
-const bcrypt = require('bcryptjs');
-const Admin = require('../models/Admin');
+import bcrypt from 'bcryptjs';
+import type { Request, Response } from 'express';
+import Admin from '../models/Admin';
 
 const authController = {
   // ── GET /auth/login ──
-  getLogin(req, res) {
+  getLogin(req: Request, res: Response) {
     res.render('auth/login', { title: 'Đăng nhập' });
   },
 
   // ── POST /auth/login ──
-  async postLogin(req, res) {
+  async postLogin(req: Request, res: Response) {
     try {
       const { email, password } = req.body;
 
@@ -50,17 +51,17 @@ const authController = {
   },
 
   // ── GET /auth/register ──
-  getRegister(req, res) {
+  getRegister(req: Request, res: Response) {
     res.render('auth/register', { title: 'Tạo tài khoản Admin' });
   },
 
   // ── POST /auth/register ──
-  async postRegister(req, res) {
+  async postRegister(req: Request, res: Response) {
     try {
       const { full_name, email, password, password_confirm, role } = req.body;
 
       // Validate
-      const errors = [];
+      const errors: string[] = [];
       if (!full_name || full_name.trim().length < 2) {
         errors.push('Họ tên phải có ít nhất 2 ký tự');
       }
@@ -112,7 +113,7 @@ const authController = {
   },
 
   // ── POST /auth/logout ──
-  postLogout(req, res) {
+  postLogout(req: Request, res: Response) {
     req.session.destroy((err) => {
       if (err) console.error('[Auth] Logout error:', err);
       res.redirect('/auth/login');
@@ -120,6 +121,4 @@ const authController = {
   },
 };
 
-module.exports = authController;
-
-export {};
+export = authController;

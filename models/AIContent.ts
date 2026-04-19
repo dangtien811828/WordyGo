@@ -1,12 +1,12 @@
-const pool = require('../config/db');
-const { paginate } = require('../helpers/pagination');
+import pool from '../config/db';
+import { paginate } from '../helpers/pagination';
 
 const AIContent = {
   // ── Retrieval Sessions ────────────────────────────────────────────────────
 
-  async getRetrievalSessions({ page = 1, limit = 20, userId = '', allPassed = '' } = {}) {
-    const conditions = [];
-    const params = [];
+  async getRetrievalSessions({ page = 1, limit = 20, userId = '', allPassed = '' }: { page?: number; limit?: number; userId?: string; allPassed?: string } = {}) {
+    const conditions: string[] = [];
+    const params: any[] = [];
 
     if (userId) {
       params.push(`%${userId}%`);
@@ -40,7 +40,7 @@ const AIContent = {
     return paginate(query, countQuery, params, params, page, limit);
   },
 
-  async getRetrievalSessionById(id) {
+  async getRetrievalSessionById(id: string) {
     const { rows } = await pool.query(
       `SELECT rs.*, u.full_name, u.email
          FROM retrieval_sessions rs
@@ -53,9 +53,9 @@ const AIContent = {
 
   // ── Moderation Logs ───────────────────────────────────────────────────────
 
-  async getModerationLogs({ page = 1, limit = 20, status = '', flagType = '' } = {}) {
-    const conditions = [];
-    const params = [];
+  async getModerationLogs({ page = 1, limit = 20, status = '', flagType = '' }: { page?: number; limit?: number; status?: string; flagType?: string } = {}) {
+    const conditions: string[] = [];
+    const params: any[] = [];
 
     if (status) {
       params.push(status);
@@ -85,7 +85,7 @@ const AIContent = {
     return paginate(query, countQuery, params, params, page, limit);
   },
 
-  async getModerationLogById(id) {
+  async getModerationLogById(id: string) {
     const { rows } = await pool.query(
       `SELECT ml.*,
               u.full_name AS user_name, u.email AS user_email,
@@ -125,7 +125,7 @@ const AIContent = {
 
   // ── Recent rows (for index page) ──────────────────────────────────────────
 
-  async getRecentSessions(limit = 5) {
+  async getRecentSessions(limit: number = 5) {
     const { rows } = await pool.query(
       `SELECT rs.id, rs.target_words, rs.all_passed, rs.model_used,
               rs.latency_ms, rs.cost_usd, rs.created_at,
@@ -139,7 +139,7 @@ const AIContent = {
     return rows;
   },
 
-  async getRecentModerationLogs(limit = 5) {
+  async getRecentModerationLogs(limit: number = 5) {
     const { rows } = await pool.query(
       `SELECT ml.id, ml.source, ml.flag_type, ml.severity, ml.status,
               ml.created_at,
@@ -155,6 +155,4 @@ const AIContent = {
   },
 };
 
-module.exports = AIContent;
-
-export {};
+export = AIContent;

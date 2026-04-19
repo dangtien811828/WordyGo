@@ -10,12 +10,11 @@
  *   - entry_synonyms
  *   - entry_antonyms
  */
-require('dotenv').config();
-const fs = require('fs');
-const path = require('path');
-const pool = require('../config/db');
+import fs from 'fs';
+import path from 'path';
+import pool from '../config/db';
 
-const CONTENT_TABLES = [
+const CONTENT_TABLES: string[] = [
   // ── Core (parent tables trước) ──
   'tags',
   'dictionary_entries',
@@ -35,7 +34,9 @@ const CONTENT_TABLES = [
   'word_family_members',
 ];
 
-const backup = async () => {
+type BackupData = Record<string, any[]>;
+
+const backup = async (): Promise<void> => {
   const client = await pool.connect();
 
   try {
@@ -43,11 +44,11 @@ const backup = async () => {
     console.log('║   Backup Dictionary Content              ║');
     console.log('╚══════════════════════════════════════════╝\n');
 
-    const data = {};
+    const data: BackupData = {};
 
     for (const table of CONTENT_TABLES) {
       // Kiểm tra bảng tồn tại
-      const exists = await client.query(`
+      const exists = await client.query<{ exists: boolean }>(`
         SELECT EXISTS (
           SELECT 1 FROM information_schema.tables
           WHERE table_schema = 'public' AND table_name = $1
@@ -82,7 +83,7 @@ const backup = async () => {
     const latestPath = path.join(backupsDir, 'latest.json');
     fs.writeFileSync(latestPath, JSON.stringify(data, null, 2), 'utf8');
 
-    const totalRows = Object.values(data).reduce<number>((sum, rows: any) => sum + rows.length, 0);
+    const totalRows = Object.values(data).reduce<number>((sum, rows) => sum + rows.length, 0);
 
     console.log(`\n══════════════════════════════════════════`);
     console.log(`✅ Backup hoàn tất! ${totalRows} rows total`);
@@ -91,7 +92,8 @@ const backup = async () => {
     console.log(`══════════════════════════════════════════`);
 
   } catch (err) {
-    console.error('❌ Backup thất bại:', err.message);
+    const error = err as Error;
+    console.error('❌ Backup thất bại:', error.message);
     process.exit(1);
   } finally {
     client.release();
@@ -100,5 +102,3 @@ const backup = async () => {
 };
 
 backup();
-
-export {};

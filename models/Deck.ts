@@ -1,10 +1,10 @@
-const pool = require('../config/db');
-const { paginate } = require('../helpers/pagination');
+import pool from '../config/db';
+import { paginate } from '../helpers/pagination';
 
 const Deck = {
-  async getAll({ search = '', level = '', status = '', page = 1, limit = 20 } = {}) {
-    const conditions = [];
-    const params = [];
+  async getAll({ search = '', level = '', status = '', page = 1, limit = 20 }: { search?: string; level?: string; status?: string; page?: number; limit?: number } = {}) {
+    const conditions: string[] = [];
+    const params: any[] = [];
 
     if (search) {
       params.push(`%${search}%`);
@@ -36,7 +36,7 @@ const Deck = {
     return paginate(query, countQuery, params, params, page, limit);
   },
 
-  async findById(id) {
+  async findById(id: string) {
     const { rows } = await pool.query(`
       SELECT d.*,
              a.full_name AS creator_name,
@@ -68,7 +68,7 @@ const Deck = {
     return { ...rows[0], cards };
   },
 
-  async create(data, tagIds = []) {
+  async create(data: any, tagIds: string[] = []) {
     const client = await pool.connect();
     try {
       await client.query('BEGIN');
@@ -105,7 +105,7 @@ const Deck = {
     }
   },
 
-  async update(id, data, tagIds = []) {
+  async update(id: string, data: any, tagIds: string[] = []) {
     const client = await pool.connect();
     try {
       await client.query('BEGIN');
@@ -147,12 +147,12 @@ const Deck = {
     }
   },
 
-  async delete(id) {
+  async delete(id: string) {
     // CASCADE on cards, and user_card_progress cascades from cards
     await pool.query('DELETE FROM decks WHERE id = $1', [id]);
   },
 
-  async addCards(deckId, entryIds = []) {
+  async addCards(deckId: string, entryIds: string[] = []) {
     let added = 0;
     let skipped = 0;
     for (const entryId of entryIds) {
@@ -174,7 +174,7 @@ const Deck = {
     return { added, skipped };
   },
 
-  async removeCard(deckId, entryId) {
+  async removeCard(deckId: string, entryId: string) {
     await pool.query(
       'DELETE FROM cards WHERE deck_id = $1 AND entry_id = $2',
       [deckId, entryId]
@@ -182,6 +182,4 @@ const Deck = {
   },
 };
 
-module.exports = Deck;
-
-export {};
+export = Deck;

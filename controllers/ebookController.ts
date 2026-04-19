@@ -1,6 +1,7 @@
-const { uploadEbook } = require('../middlewares/upload');
-const Ebook = require('../models/Ebook');
-const Approval = require('../models/Approval');
+import type { Request, Response } from 'express';
+import { uploadEbook } from '../middlewares/upload';
+import Ebook from '../models/Ebook';
+import Approval from '../models/Approval';
 
 const VALID_LEVELS = ['beginner', 'intermediate', 'advanced'];
 const VALID_PLANS  = ['free', 'premium', 'pro'];
@@ -8,13 +9,13 @@ const VALID_STATUS = ['draft', 'published', 'archived'];
 const VALID_GENRES = ['fiction', 'non-fiction', 'science', 'history', 'business', 'technology', 'language', 'children', 'biography', 'travel'];
 
 // Permission helpers
-function canEdit(admin, ebook) {
+function canEdit(admin: any, ebook: any) {
   if (admin.role === 'super_admin' || admin.role === 'moderator') return true;
   if (admin.role === 'content_editor') return ebook.created_by === admin.id;
   return false;
 }
 
-function canDelete(admin, ebook) {
+function canDelete(admin: any, ebook: any) {
   if (admin.role === 'super_admin') return true;
   if (admin.role === 'content_editor') return ebook.created_by === admin.id;
   return false; // moderator goes through approval
@@ -22,9 +23,9 @@ function canDelete(admin, ebook) {
 
 const ebookController = {
   // GET /ebooks
-  async getIndex(req, res) {
+  async getIndex(req: Request, res: Response) {
     try {
-      const { search = '', level = '', status = '', page = 1 } = req.query;
+      const { search = '', level = '', status = '', page = 1 } = req.query as any;
       const result = await Ebook.getAll({ search, level, status, page, limit: 20 });
       res.render('ebooks/index', {
         title: 'Ebook',
@@ -41,7 +42,7 @@ const ebookController = {
   },
 
   // GET /ebooks/create
-  getCreate(req, res) {
+  getCreate(req: Request, res: Response) {
     res.render('ebooks/create', {
       title: 'Upload Ebook',
       active: 'ebooks',
@@ -53,8 +54,8 @@ const ebookController = {
   },
 
   // POST /ebooks/create
-  postCreate(req, res) {
-    uploadEbook.single('ebookFile')(req, res, async (err) => {
+  postCreate(req: Request, res: Response) {
+    uploadEbook.single('ebookFile')(req, res, async (err: any) => {
       if (err) {
         req.flash('error', err.message || 'Lỗi upload file');
         return res.redirect('/ebooks/create');
@@ -87,9 +88,9 @@ const ebookController = {
   },
 
   // GET /ebooks/:id
-  async getShow(req, res) {
+  async getShow(req: Request, res: Response) {
     try {
-      const ebook = await Ebook.findById(req.params.id);
+      const ebook = await Ebook.findById(req.params.id as string);
       if (!ebook) {
         req.flash('error', 'Không tìm thấy ebook');
         return res.redirect('/ebooks');
@@ -111,9 +112,9 @@ const ebookController = {
   },
 
   // GET /ebooks/:id/edit
-  async getEdit(req, res) {
+  async getEdit(req: Request, res: Response) {
     try {
-      const ebook = await Ebook.findById(req.params.id);
+      const ebook = await Ebook.findById(req.params.id as string);
       if (!ebook) {
         req.flash('error', 'Không tìm thấy ebook');
         return res.redirect('/ebooks');
@@ -139,9 +140,9 @@ const ebookController = {
   },
 
   // POST /ebooks/:id/edit
-  async postEdit(req, res) {
+  async postEdit(req: Request, res: Response) {
     try {
-      const { id } = req.params;
+      const { id } = req.params as { id: string };
       const ebook = await Ebook.findById(id);
       if (!ebook) {
         req.flash('error', 'Không tìm thấy ebook');
@@ -173,9 +174,9 @@ const ebookController = {
   },
 
   // POST /ebooks/:id/delete
-  async postDelete(req, res) {
+  async postDelete(req: Request, res: Response) {
     try {
-      const { id } = req.params;
+      const { id } = req.params as { id: string };
       const ebook = await Ebook.findById(id);
       if (!ebook) {
         req.flash('error', 'Không tìm thấy ebook');
@@ -220,6 +221,4 @@ const ebookController = {
   },
 };
 
-module.exports = ebookController;
-
-export {};
+export = ebookController;

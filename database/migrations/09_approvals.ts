@@ -1,4 +1,6 @@
-module.exports = async (client) => {
+import type { PoolClient } from 'pg';
+
+const migration = async (client: PoolClient): Promise<void> => {
   await client.query(`
     CREATE TABLE IF NOT EXISTS approval_requests (
       id            UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -19,4 +21,4 @@ module.exports = async (client) => {
   console.log('  [✓] approval_requests');
 };
 
-export {};
+export = migration;

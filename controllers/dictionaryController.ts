@@ -1,11 +1,12 @@
-const multer = require('multer');
-const DictionaryEntry = require('../models/DictionaryEntry');
+import multer from 'multer';
+import type { Request, Response } from 'express';
+import DictionaryEntry from '../models/DictionaryEntry';
 
 // Multer for JSON import (memory storage — no disk write)
 const uploadJson = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 5 * 1024 * 1024 },
-  fileFilter(req, file, cb) {
+  fileFilter(req: Request, file: Express.Multer.File, cb: any) {
     if (file.originalname.toLowerCase().endsWith('.json')) {
       cb(null, true);
     } else {
@@ -20,9 +21,9 @@ const VALID_SOURCES = ['stardict', 'wiktionary', 'manual', 'user'];
 
 const dictionaryController = {
   // GET /dictionary
-  async getIndex(req, res) {
+  async getIndex(req: Request, res: Response) {
     try {
-      const { search = '', pos = '', cefrLevel = '', source = '', published = '', page = 1 } = req.query;
+      const { search = '', pos = '', cefrLevel = '', source = '', published = '', page = 1 } = req.query as any;
 
       // AJAX endpoint for lesson entry picker
       if (req.query.format === 'json') {
@@ -54,7 +55,7 @@ const dictionaryController = {
   },
 
   // GET /dictionary/create
-  async getCreate(req, res) {
+  async getCreate(req: Request, res: Response) {
     try {
       const tags = await DictionaryEntry.getAllTags();
       res.render('dictionary/create', {
@@ -73,10 +74,10 @@ const dictionaryController = {
   },
 
   // POST /dictionary/create
-  async postCreate(req, res) {
+  async postCreate(req: Request, res: Response) {
     try {
       const { headword, lemma, meaning_vi } = req.body;
-      const errors = [];
+      const errors: string[] = [];
 
       if (!headword || !headword.trim()) errors.push('Headword không được để trống');
       if (!lemma || !lemma.trim()) errors.push('Lemma không được để trống');
@@ -110,7 +111,7 @@ const dictionaryController = {
   },
 
   // GET /dictionary/import
-  getImport(req, res) {
+  getImport(req: Request, res: Response) {
     res.render('dictionary/import', {
       title: 'Import JSON',
       active: 'dictionary',
@@ -119,8 +120,8 @@ const dictionaryController = {
   },
 
   // POST /dictionary/import
-  postImport(req, res) {
-    uploadJson(req, res, async (err) => {
+  postImport(req: Request, res: Response) {
+    uploadJson(req, res, async (err: any) => {
       if (err) {
         req.flash('error', err.message || 'Lỗi upload file');
         return res.redirect('/dictionary/import');
@@ -130,7 +131,7 @@ const dictionaryController = {
         return res.redirect('/dictionary/import');
       }
       try {
-        let jsonArray;
+        let jsonArray: any;
         try {
           jsonArray = JSON.parse(req.file.buffer.toString('utf8'));
         } catch {
@@ -157,9 +158,9 @@ const dictionaryController = {
   },
 
   // GET /dictionary/:id
-  async getShow(req, res) {
+  async getShow(req: Request, res: Response) {
     try {
-      const entry = await DictionaryEntry.findById(req.params.id);
+      const entry = await DictionaryEntry.findById(req.params.id as string);
       if (!entry) {
         req.flash('error', 'Không tìm thấy từ này');
         return res.redirect('/dictionary');
@@ -177,10 +178,10 @@ const dictionaryController = {
   },
 
   // GET /dictionary/:id/edit
-  async getEdit(req, res) {
+  async getEdit(req: Request, res: Response) {
     try {
       const [entry, tags] = await Promise.all([
-        DictionaryEntry.findById(req.params.id),
+        DictionaryEntry.findById(req.params.id as string),
         DictionaryEntry.getAllTags(),
       ]);
       if (!entry) {
@@ -204,11 +205,11 @@ const dictionaryController = {
   },
 
   // POST /dictionary/:id/edit
-  async postEdit(req, res) {
+  async postEdit(req: Request, res: Response) {
     try {
-      const { id } = req.params;
+      const { id } = req.params as { id: string };
       const { headword, lemma, meaning_vi } = req.body;
-      const errors = [];
+      const errors: string[] = [];
 
       if (!headword || !headword.trim()) errors.push('Headword không được để trống');
       if (!lemma || !lemma.trim()) errors.push('Lemma không được để trống');
@@ -243,9 +244,9 @@ const dictionaryController = {
   },
 
   // POST /dictionary/:id/delete
-  async postDelete(req, res) {
+  async postDelete(req: Request, res: Response) {
     try {
-      const { id } = req.params;
+      const { id } = req.params as { id: string };
       const { confirm_text } = req.body;
 
       const entry = await DictionaryEntry.findById(id);
@@ -270,6 +271,4 @@ const dictionaryController = {
   },
 };
 
-module.exports = dictionaryController;
-
-export {};
+export = dictionaryController;

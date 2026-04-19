@@ -2,8 +2,8 @@
  * Smart Reset Database
  *
  * Chạy:
- *   npm run db:reset          → Reset CẤU TRÚC (giữ nguyên dictionary content)
- *   npm run db:reset:all      → Reset TOÀN BỘ (xóa sạch mọi thứ)
+ *   npm run db:reset             → Reset CẤU TRÚC (giữ nguyên dictionary content)
+ *   tsx database/reset.ts -- --all → Reset TOÀN BỘ (xóa sạch mọi thứ)
  *
  * Cách hoạt động:
  *   1. Xác định mode (selective vs all)
@@ -11,13 +11,12 @@
  *   3. Chạy migrate (CREATE IF NOT EXISTS → an toàn cho bảng đã tồn tại)
  *   4. Nếu all: chạy migrate trên DB trống
  */
-require('dotenv').config();
-const { Pool } = require('pg');
-const path = require('path');
-const { execFileSync } = require('child_process');
+import type { PoolClient } from 'pg';
+import pool from '../config/db';
+import { migrate } from './migrate';
 
 // Các bảng nội dung từ điển — được bảo vệ khi selective reset
-const PROTECTED_TABLES = [
+const PROTECTED_TABLES: string[] = [
   // ── Legacy content ──
   'tags',
   'dictionary_entries',
@@ -37,17 +36,9 @@ const PROTECTED_TABLES = [
   'word_family_members',
 ];
 
-const reset = async () => {
+const reset = async (): Promise<void> => {
   const isFullReset = process.argv.includes('--all');
-  const pool = new Pool({
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    database: process.env.DB_NAME,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-  });
-
-  let client;
+  let client: PoolClient | null = null;
 
   try {
     client = await pool.connect();
@@ -76,18 +67,18 @@ const reset = async () => {
 
       console.log('  Bảng được bảo vệ:');
       for (const t of PROTECTED_TABLES) {
-        const { rows } = await client.query(`
+        const { rows } = await client.query<{ exists: boolean }>(`
           SELECT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema='public' AND table_name=$1)
         `, [t]);
         const count = rows[0].exists
-          ? (await client.query(`SELECT COUNT(*)::int as c FROM ${t}`)).rows[0].c
+          ? (await client.query<{ c: number }>(`SELECT COUNT(*)::int as c FROM ${t}`)).rows[0].c
           : 0;
         console.log(`    ✓ ${t} (${count} rows → giữ nguyên)`);
       }
       console.log('');
 
       // Lấy danh sách tất cả tables, loại trừ protected
-      const { rows: allTables } = await client.query(`
+      const { rows: allTables } = await client.query<{ tablename: string }>(`
         SELECT tablename FROM pg_tables
         WHERE schemaname = 'public'
         AND tablename != ALL($1)
@@ -104,23 +95,23 @@ const reset = async () => {
       }
     }
 
-    // Giải phóng pool trước khi chạy migrate
+    // Giải phóng client trước khi gọi migrate (migrate sẽ tự connect lại + end pool)
     client.release();
     client = null;
-    await pool.end();
 
     // Chạy migrate (CREATE IF NOT EXISTS → an toàn cho bảng đã tồn tại)
     console.log('── Chạy Migration ──\n');
-    execFileSync(process.execPath, [path.join(__dirname, 'migrate.js')], { stdio: 'inherit' });
+    await migrate();
 
   } catch (err) {
-    console.error('❌ Reset thất bại:', err.message);
-    if (client) try { client.release(); } catch (_) {}
-    try { await pool.end(); } catch (_) {}
+    const error = err as Error;
+    console.error('❌ Reset thất bại:', error.message);
+    if (client) {
+      try { client.release(); } catch { /* ignore */ }
+    }
+    try { await pool.end(); } catch { /* ignore */ }
     process.exit(1);
   }
 };
 
 reset();
-
-export {};

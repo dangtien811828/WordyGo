@@ -1,11 +1,12 @@
-const Lesson = require('../models/Lesson');
-const DictionaryEntry = require('../models/DictionaryEntry');
-const Approval = require('../models/Approval');
+import type { Request, Response } from 'express';
+import Lesson from '../models/Lesson';
+import DictionaryEntry from '../models/DictionaryEntry';
+import Approval from '../models/Approval';
 
 const VALID_LEVELS  = ['beginner', 'intermediate', 'advanced'];
 const VALID_STATUSES = ['draft', 'published', 'archived'];
 
-function parseBody(body, adminId) {
+function parseBody(body: any, adminId: string) {
   const entryIds = Array.isArray(body.entryIds)
     ? body.entryIds.filter(Boolean)
     : body.entryIds ? [body.entryIds] : [];
@@ -28,9 +29,9 @@ function parseBody(body, adminId) {
 
 const lessonController = {
   // GET /lessons
-  async getIndex(req, res) {
+  async getIndex(req: Request, res: Response) {
     try {
-      const { search = '', level = '', status = '', page = 1 } = req.query;
+      const { search = '', level = '', status = '', page = 1 } = req.query as any;
       const result = await Lesson.getAll({ search, level, status, page, limit: 20 });
       res.render('lessons/index', {
         title: 'Bài học',
@@ -47,7 +48,7 @@ const lessonController = {
   },
 
   // GET /lessons/create
-  async getCreate(req, res) {
+  async getCreate(req: Request, res: Response) {
     try {
       const tags = await DictionaryEntry.getAllTags();
       res.render('lessons/create', {
@@ -65,7 +66,7 @@ const lessonController = {
   },
 
   // POST /lessons/create
-  async postCreate(req, res) {
+  async postCreate(req: Request, res: Response) {
     try {
       const { data, entryIds, tagIds } = parseBody(req.body, req.session.admin.id);
 
@@ -98,10 +99,10 @@ const lessonController = {
   },
 
   // GET /lessons/:id/edit
-  async getEdit(req, res) {
+  async getEdit(req: Request, res: Response) {
     try {
       const [lesson, tags] = await Promise.all([
-        Lesson.findById(req.params.id),
+        Lesson.findById(req.params.id as string),
         DictionaryEntry.getAllTags(),
       ]);
       if (!lesson) {
@@ -125,9 +126,9 @@ const lessonController = {
   },
 
   // POST /lessons/:id/edit
-  async postEdit(req, res) {
+  async postEdit(req: Request, res: Response) {
     try {
-      const { id } = req.params;
+      const { id } = req.params as { id: string };
       const { data, entryIds, tagIds } = parseBody(req.body, req.session.admin.id);
 
       if (!data.title) {
@@ -165,9 +166,9 @@ const lessonController = {
   },
 
   // POST /lessons/:id/delete
-  async postDelete(req, res) {
+  async postDelete(req: Request, res: Response) {
     try {
-      const { id } = req.params;
+      const { id } = req.params as { id: string };
       const lesson = await Lesson.findById(id);
       if (!lesson) {
         req.flash('error', 'Không tìm thấy bài học');
@@ -204,9 +205,9 @@ const lessonController = {
   },
 
   // POST /lessons/:id/toggle-status
-  async postToggleStatus(req, res) {
+  async postToggleStatus(req: Request, res: Response) {
     try {
-      const { id } = req.params;
+      const { id } = req.params as { id: string };
       const lesson = await Lesson.findById(id);
       if (!lesson) {
         req.flash('error', 'Không tìm thấy bài học');
@@ -224,8 +225,8 @@ const lessonController = {
           targetId: id,
           payload: {
             data: { ...lesson, status: newStatus },
-            entryIds: (lesson.entries || []).map(e => e.id),
-            tagIds:   (lesson.tags   || []).map(t => t.id),
+            entryIds: (lesson.entries || []).map((e: any) => e.id),
+            tagIds:   (lesson.tags   || []).map((t: any) => t.id),
             targetId: id,
           },
         });
@@ -234,8 +235,8 @@ const lessonController = {
       }
 
       // Admin: preserve existing entries & tags from findById result
-      const entryIds = (lesson.entries || []).map(e => e.id);
-      const tagIds   = (lesson.tags   || []).map(t => t.id);
+      const entryIds = (lesson.entries || []).map((e: any) => e.id);
+      const tagIds   = (lesson.tags   || []).map((t: any) => t.id);
       await Lesson.update(id, { ...lesson, status: newStatus }, entryIds, tagIds);
       req.flash('success', `Đã chuyển sang trạng thái ${newStatus}`);
       return res.redirect('/lessons');
@@ -247,6 +248,4 @@ const lessonController = {
   },
 };
 
-module.exports = lessonController;
-
-export {};
+export = lessonController;

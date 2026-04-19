@@ -1,5 +1,5 @@
-const pool = require('../config/db');
-const { paginate } = require('../helpers/pagination');
+import pool from '../config/db';
+import { paginate } from '../helpers/pagination';
 
 const Subscription = {
   /**
@@ -21,22 +21,22 @@ const Subscription = {
        FROM plan_features
        WHERE plan_id = ANY($1::uuid[])
        ORDER BY feature_key ASC`,
-      [plans.map(p => p.id)]
+      [plans.map((p: any) => p.id)]
     );
 
-    const featureMap = {};
+    const featureMap: Record<string, any[]> = {};
     for (const f of features) {
       if (!featureMap[f.plan_id]) featureMap[f.plan_id] = [];
       featureMap[f.plan_id].push({ feature_key: f.feature_key, feature_value: f.feature_value });
     }
 
-    return plans.map(p => ({ ...p, features: featureMap[p.id] || [] }));
+    return plans.map((p: any) => ({ ...p, features: featureMap[p.id] || [] }));
   },
 
   /**
    * Get a single plan by id with features. Returns null if not found.
    */
-  async getPlanById(id) {
+  async getPlanById(id: string) {
     const { rows } = await pool.query(
       `SELECT sp.*,
               (SELECT COUNT(*)::int FROM user_subscriptions us
@@ -61,7 +61,7 @@ const Subscription = {
    * @param {object} data  - Plan fields
    * @param {Array}  features - [{ key, value }]
    */
-  async createPlan(data, features = []) {
+  async createPlan(data: any, features: any[] = []) {
     const client = await pool.connect();
     try {
       await client.query('BEGIN');
@@ -118,7 +118,7 @@ const Subscription = {
    * @param {object} data
    * @param {Array}  features - [{ key, value }]
    */
-  async updatePlan(id, data, features = []) {
+  async updatePlan(id: string, data: any, features: any[] = []) {
     const client = await pool.connect();
     try {
       await client.query('BEGIN');
@@ -185,7 +185,7 @@ const Subscription = {
   /**
    * Delete a plan. Throws if there are active subscribers.
    */
-  async deletePlan(id) {
+  async deletePlan(id: string) {
     const { rows } = await pool.query(
       `SELECT COUNT(*)::int AS cnt FROM user_subscriptions WHERE plan_id = $1 AND status = 'active'`,
       [id]
@@ -201,7 +201,7 @@ const Subscription = {
   /**
    * Get paginated subscribers for a plan, newest first.
    */
-  async getSubscribers(planId, { page = 1, limit = 20 } = {}) {
+  async getSubscribers(planId: string, { page = 1, limit = 20 }: { page?: number; limit?: number } = {}) {
     const query = `
       SELECT us.id, us.billing_cycle, us.price_paid, us.status,
              us.trial_end, us.current_period_start, us.current_period_end, us.cancelled_at,
@@ -224,7 +224,7 @@ const Subscription = {
   /**
    * Get all recent transactions (all plans), paginated, newest first.
    */
-  async getRecentTransactions({ page = 1, limit = 20 } = {}) {
+  async getRecentTransactions({ page = 1, limit = 20 }: { page?: number; limit?: number } = {}) {
     const query = `
       SELECT t.id, t.type, t.amount, t.payment_method, t.payment_ref, t.status,
              t.created_at,
@@ -278,6 +278,4 @@ const Subscription = {
   },
 };
 
-module.exports = Subscription;
-
-export {};
+export = Subscription;

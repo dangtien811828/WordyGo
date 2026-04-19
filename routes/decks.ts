@@ -1,7 +1,8 @@
-const express = require('express');
-const router = express.Router();
-const ctrl = require('../controllers/deckController');
-const { requireAuth, requireRole } = require('../middlewares/auth');
+import { Router } from 'express';
+import ctrl from '../controllers/deckController';
+import { requireAuth, requireRole } from '../middlewares/auth';
+
+const router = Router();
 
 router.use(requireAuth);
 router.use(requireRole('super_admin', 'moderator'));
@@ -21,6 +22,4 @@ router.post('/:id/delete',      ctrl.postDelete);
 router.post('/:id/cards/add',                ctrl.postAddCards);
 router.post('/:id/cards/:entryId/remove',    ctrl.postRemoveCard);
 
-module.exports = router;
-
-export {};
+export = router;

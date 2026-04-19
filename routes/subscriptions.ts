@@ -1,7 +1,8 @@
-const express = require('express');
-const router = express.Router();
-const { requireAuth, requireRole } = require('../middlewares/auth');
-const ctrl = require('../controllers/subscriptionController');
+import { Router } from 'express';
+import { requireAuth, requireRole } from '../middlewares/auth';
+import ctrl from '../controllers/subscriptionController';
+
+const router = Router();
 
 router.use(requireAuth);
 router.use(requireRole('super_admin'));
@@ -18,6 +19,4 @@ router.post('/:id/edit',          ctrl.postEdit);
 router.post('/:id/delete',        ctrl.postDelete);
 router.get('/:id/subscribers',    ctrl.getSubscribers);
 
-module.exports = router;
-
-export {};
+export = router;

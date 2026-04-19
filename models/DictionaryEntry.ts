@@ -1,10 +1,10 @@
-const pool = require('../config/db');
-const { paginate } = require('../helpers/pagination');
+import pool from '../config/db';
+import { paginate } from '../helpers/pagination';
 
 const DictionaryEntry = {
-  async getAll({ search = '', pos = '', cefrLevel = '', source = '', published = '', page = 1, limit = 20 } = {}) {
-    const conditions = [];
-    const params = [];
+  async getAll({ search = '', pos = '', cefrLevel = '', source = '', published = '', page = 1, limit = 20 }: { search?: string; pos?: string; cefrLevel?: string; source?: string; published?: string; page?: number; limit?: number } = {}) {
+    const conditions: string[] = [];
+    const params: any[] = [];
 
     if (search) {
       params.push(`%${search}%`);
@@ -42,7 +42,7 @@ const DictionaryEntry = {
     return paginate(query, countQuery, params, params, page, limit);
   },
 
-  async findById(id) {
+  async findById(id: string) {
     const { rows } = await pool.query(`
       SELECT de.*,
              COALESCE(
@@ -71,7 +71,7 @@ const DictionaryEntry = {
     return rows[0] || null;
   },
 
-  async findByHeadwordLemma(headword, lemma) {
+  async findByHeadwordLemma(headword: string, lemma: string) {
     const { rows } = await pool.query(
       'SELECT id FROM dictionary_entries WHERE headword = $1 AND lemma = $2',
       [headword, lemma]
@@ -79,7 +79,7 @@ const DictionaryEntry = {
     return rows[0] || null;
   },
 
-  async create(data, tagIds = []) {
+  async create(data: any, tagIds: string[] = []) {
     const client = await pool.connect();
     try {
       await client.query('BEGIN');
@@ -127,7 +127,7 @@ const DictionaryEntry = {
     }
   },
 
-  async update(id, data, tagIds = []) {
+  async update(id: string, data: any, tagIds: string[] = []) {
     const client = await pool.connect();
     try {
       await client.query('BEGIN');
@@ -187,14 +187,14 @@ const DictionaryEntry = {
     }
   },
 
-  async delete(id) {
+  async delete(id: string) {
     await pool.query('DELETE FROM dictionary_entries WHERE id = $1', [id]);
   },
 
-  async importFromJson(jsonArray, adminId) {
+  async importFromJson(jsonArray: any[], adminId: string) {
     let inserted = 0;
     let skipped = 0;
-    const errors = [];
+    const errors: string[] = [];
 
     for (const item of jsonArray) {
       if (!item.headword || !item.lemma || !item.meaning_vi) {
@@ -227,7 +227,8 @@ const DictionaryEntry = {
         if (rowCount > 0) inserted++;
         else skipped++;
       } catch (err) {
-        errors.push(`${item.headword}/${item.lemma}: ${err.message}`);
+        const error = err as Error;
+        errors.push(`${item.headword}/${item.lemma}: ${error.message}`);
       }
     }
     return { inserted, skipped, errors };
@@ -251,6 +252,4 @@ const DictionaryEntry = {
   },
 };
 
-module.exports = DictionaryEntry;
-
-export {};
+export = DictionaryEntry;

@@ -1,5 +1,6 @@
-const Game = require('../models/Game');
-const Approval = require('../models/Approval');
+import type { Request, Response } from 'express';
+import Game from '../models/Game';
+import Approval from '../models/Approval';
 
 const VALID_LEVELS  = ['beginner', 'intermediate', 'advanced'];
 const VALID_STATUSES = ['draft', 'published', 'archived'];
@@ -8,14 +9,14 @@ const VALID_LEVEL_STATUSES = ['active', 'inactive'];
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
-function parseEntryIds(body) {
-  const ids = [].concat(body['item_entry_id[]'] || []);
+function parseEntryIds(body: any) {
+  const ids: any[] = ([] as any[]).concat(body['item_entry_id[]'] || []);
   return ids.filter(Boolean);
 }
 
-function parseItems(body) {
-  const entryIds = [].concat(body['item_entry_id[]'] || []);
-  const hints    = [].concat(body['item_hint_vi[]']  || []);
+function parseItems(body: any) {
+  const entryIds: any[] = ([] as any[]).concat(body['item_entry_id[]'] || []);
+  const hints: any[]    = ([] as any[]).concat(body['item_hint_vi[]']  || []);
   return entryIds
     .map((id, i) => ({
       entry_id:      id,
@@ -25,7 +26,7 @@ function parseItems(body) {
     .filter(it => it.entry_id);
 }
 
-function parseWordListData(body, adminId) {
+function parseWordListData(body: any, adminId: string) {
   return {
     game_type:  VALID_GAME_TYPES.includes(body.game_type) ? body.game_type : 'lexisweep',
     name:       (body.name || '').trim(),
@@ -36,7 +37,7 @@ function parseWordListData(body, adminId) {
   };
 }
 
-function parseSemanticSetData(body, adminId) {
+function parseSemanticSetData(body: any, adminId: string) {
   return {
     name:              (body.name || '').trim(),
     scale_description: (body.scale_description || '').trim(),
@@ -46,16 +47,16 @@ function parseSemanticSetData(body, adminId) {
   };
 }
 
-function tryParseJson(str) {
+function tryParseJson(str: string) {
   try { return { ok: true, value: JSON.parse(str) }; }
   catch (e) { return { ok: false }; }
 }
 
 // ── Controllers ───────────────────────────────────────────────────────────────
 
-module.exports = {
+const gameController = {
   // GET /games
-  async getIndex(req, res) {
+  async getIndex(req: Request, res: Response) {
     try {
       const [lexisweepLists, anagramLists, lexisweepLevels, anagramLevels, ladderLevels, stats] =
         await Promise.all([
@@ -88,9 +89,9 @@ module.exports = {
   },
 
   // GET /games/word-lists
-  async getWordLists(req, res) {
+  async getWordLists(req: Request, res: Response) {
     try {
-      const { gameType = '', search = '', page = 1 } = req.query;
+      const { gameType = '', search = '', page = 1 } = req.query as any;
       const result = await Game.getWordLists({ gameType, search, page, limit: 20 });
       res.render('games/word-lists', {
         title: 'Word Lists',
@@ -107,7 +108,7 @@ module.exports = {
   },
 
   // GET /games/word-lists/create
-  getWordListsCreate(req, res) {
+  getWordListsCreate(req: Request, res: Response) {
     res.render('games/word-lists-form', {
       title: 'Tạo Word List',
       active: 'games',
@@ -117,9 +118,9 @@ module.exports = {
   },
 
   // GET /games/word-lists/:id/edit
-  async getWordListsEdit(req, res) {
+  async getWordListsEdit(req: Request, res: Response) {
     try {
-      const list = await Game.getWordListById(req.params.id);
+      const list = await Game.getWordListById(req.params.id as string);
       if (!list) {
         req.flash('error', 'Word list không tồn tại');
         return res.redirect('/games/word-lists');
@@ -138,7 +139,7 @@ module.exports = {
   },
 
   // POST /games/word-lists/create
-  async postWordListsCreate(req, res) {
+  async postWordListsCreate(req: Request, res: Response) {
     try {
       const data = parseWordListData(req.body, req.session.admin.id);
       const entryIds = parseEntryIds(req.body);
@@ -171,8 +172,8 @@ module.exports = {
   },
 
   // POST /games/word-lists/:id/edit
-  async postWordListsEdit(req, res) {
-    const { id } = req.params;
+  async postWordListsEdit(req: Request, res: Response) {
+    const { id } = req.params as { id: string };
     try {
       const data = parseWordListData(req.body, req.session.admin.id);
       const entryIds = parseEntryIds(req.body);
@@ -209,8 +210,8 @@ module.exports = {
   },
 
   // POST /games/word-lists/:id/delete
-  async postWordListsDelete(req, res) {
-    const { id } = req.params;
+  async postWordListsDelete(req: Request, res: Response) {
+    const { id } = req.params as { id: string };
     try {
       if (req.session.admin.role === 'moderator') {
         const list = await Game.getWordListById(id);
@@ -237,7 +238,7 @@ module.exports = {
   },
 
   // GET /games/levels
-  async getLevels(req, res) {
+  async getLevels(req: Request, res: Response) {
     try {
       const [lexisweep, anagram, ladder] = await Promise.all([
         Game.getLevels('lexisweep'),
@@ -259,7 +260,7 @@ module.exports = {
   },
 
   // POST /games/levels/create
-  async postLevelsCreate(req, res) {
+  async postLevelsCreate(req: Request, res: Response) {
     const gameType = req.body.game_type || 'lexisweep';
     try {
       const configStr = (req.body.config_json || '{}').trim();
@@ -293,7 +294,8 @@ module.exports = {
       req.flash('success', `Đã tạo level ${data.level_number} cho ${gameType}`);
       return res.redirect(`/games/levels?tab=${gameType}`);
     } catch (err) {
-      if (err.code === '23505') {
+      const error = err as { code?: string };
+      if (error.code === '23505') {
         req.flash('error', 'Level number đã tồn tại cho game type này');
       } else {
         console.error('[Games] postLevelsCreate error:', err);
@@ -304,8 +306,8 @@ module.exports = {
   },
 
   // POST /games/levels/:id/edit
-  async postLevelsEdit(req, res) {
-    const { id } = req.params;
+  async postLevelsEdit(req: Request, res: Response) {
+    const { id } = req.params as { id: string };
     const gameType = req.body.game_type || 'lexisweep';
     try {
       const configStr = (req.body.config_json || '{}').trim();
@@ -345,8 +347,8 @@ module.exports = {
   },
 
   // POST /games/levels/:id/delete
-  async postLevelsDelete(req, res) {
-    const { id } = req.params;
+  async postLevelsDelete(req: Request, res: Response) {
+    const { id } = req.params as { id: string };
     const gameType = req.body.game_type || 'lexisweep';
     try {
       if (req.session.admin.role === 'moderator') {
@@ -373,9 +375,9 @@ module.exports = {
   },
 
   // GET /games/semantic-sets
-  async getSemanticSets(req, res) {
+  async getSemanticSets(req: Request, res: Response) {
     try {
-      const { page = 1 } = req.query;
+      const { page = 1 } = req.query as any;
       const result = await Game.getSemanticSets({ page, limit: 20 });
       res.render('games/semantic-sets', {
         title: 'Semantic Sets',
@@ -391,7 +393,7 @@ module.exports = {
   },
 
   // GET /games/semantic-sets/create
-  getSemanticSetsCreate(req, res) {
+  getSemanticSetsCreate(req: Request, res: Response) {
     res.render('games/semantic-sets-form', {
       title: 'Tạo Semantic Set',
       active: 'games',
@@ -401,9 +403,9 @@ module.exports = {
   },
 
   // GET /games/semantic-sets/:id/edit
-  async getSemanticSetsEdit(req, res) {
+  async getSemanticSetsEdit(req: Request, res: Response) {
     try {
-      const set = await Game.getSemanticSetById(req.params.id);
+      const set = await Game.getSemanticSetById(req.params.id as string);
       if (!set) {
         req.flash('error', 'Semantic set không tồn tại');
         return res.redirect('/games/semantic-sets');
@@ -422,7 +424,7 @@ module.exports = {
   },
 
   // POST /games/semantic-sets/create
-  async postSemanticSetsCreate(req, res) {
+  async postSemanticSetsCreate(req: Request, res: Response) {
     try {
       const data  = parseSemanticSetData(req.body, req.session.admin.id);
       const items = parseItems(req.body);
@@ -459,8 +461,8 @@ module.exports = {
   },
 
   // POST /games/semantic-sets/:id/edit
-  async postSemanticSetsEdit(req, res) {
-    const { id } = req.params;
+  async postSemanticSetsEdit(req: Request, res: Response) {
+    const { id } = req.params as { id: string };
     try {
       const data  = parseSemanticSetData(req.body, req.session.admin.id);
       const items = parseItems(req.body);
@@ -497,8 +499,8 @@ module.exports = {
   },
 
   // POST /games/semantic-sets/:id/delete
-  async postSemanticSetsDelete(req, res) {
-    const { id } = req.params;
+  async postSemanticSetsDelete(req: Request, res: Response) {
+    const { id } = req.params as { id: string };
     try {
       if (req.session.admin.role === 'moderator') {
         const set = await Game.getSemanticSetById(id);
@@ -525,9 +527,9 @@ module.exports = {
   },
 
   // GET /games/leaderboard
-  async getLeaderboard(req, res) {
+  async getLeaderboard(req: Request, res: Response) {
     try {
-      const { gameType = '', page = 1 } = req.query;
+      const { gameType = '', page = 1 } = req.query as any;
       const result = await Game.getGameRuns({ gameType, page, limit: 50 });
       res.render('games/leaderboard', {
         title: 'Leaderboard',
@@ -544,4 +546,4 @@ module.exports = {
   },
 };
 
-export {};
+export = gameController;

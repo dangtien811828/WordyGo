@@ -3,7 +3,9 @@
  *
  * Fix: user_activity_log.action — removed CHECK constraint (allow new activity types)
  */
-module.exports = async (client) => {
+import type { PoolClient } from 'pg';
+
+const migration = async (client: PoolClient): Promise<void> => {
 
   await client.query(`
     CREATE TABLE IF NOT EXISTS system_configs (
@@ -61,4 +63,4 @@ module.exports = async (client) => {
   console.log('  [✓] user_activity_log (fix: flexible action)');
 };
 
-export {};
+export = migration;

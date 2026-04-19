@@ -1,11 +1,12 @@
-const Deck = require('../models/Deck');
-const DictionaryEntry = require('../models/DictionaryEntry');
+import type { Request, Response } from 'express';
+import Deck from '../models/Deck';
+import DictionaryEntry from '../models/DictionaryEntry';
 
 const VALID_LEVELS   = ['beginner', 'intermediate', 'advanced'];
 const VALID_STATUSES = ['draft', 'published', 'archived'];
 const VALID_TYPES    = ['premade', 'system_generated'];
 
-function parseTagIds(body) {
+function parseTagIds(body: any) {
   return Array.isArray(body.tagIds)
     ? body.tagIds.filter(Boolean)
     : body.tagIds ? [body.tagIds] : [];
@@ -13,9 +14,9 @@ function parseTagIds(body) {
 
 const deckController = {
   // GET /decks
-  async getIndex(req, res) {
+  async getIndex(req: Request, res: Response) {
     try {
-      const { search = '', level = '', status = '', page = 1 } = req.query;
+      const { search = '', level = '', status = '', page = 1 } = req.query as any;
       const result = await Deck.getAll({ search, level, status, page, limit: 20 });
       res.render('decks/index', {
         title: 'Flashcard Decks',
@@ -32,7 +33,7 @@ const deckController = {
   },
 
   // GET /decks/create
-  async getCreate(req, res) {
+  async getCreate(req: Request, res: Response) {
     try {
       const tags = await DictionaryEntry.getAllTags();
       res.render('decks/create', {
@@ -51,7 +52,7 @@ const deckController = {
   },
 
   // POST /decks/create
-  async postCreate(req, res) {
+  async postCreate(req: Request, res: Response) {
     try {
       const { title } = req.body;
       if (!title || !title.trim()) {
@@ -70,9 +71,9 @@ const deckController = {
   },
 
   // GET /decks/:id
-  async getShow(req, res) {
+  async getShow(req: Request, res: Response) {
     try {
-      const deck = await Deck.findById(req.params.id);
+      const deck = await Deck.findById(req.params.id as string);
       if (!deck) {
         req.flash('error', 'Không tìm thấy deck');
         return res.redirect('/decks');
@@ -90,10 +91,10 @@ const deckController = {
   },
 
   // GET /decks/:id/edit
-  async getEdit(req, res) {
+  async getEdit(req: Request, res: Response) {
     try {
       const [deck, tags] = await Promise.all([
-        Deck.findById(req.params.id),
+        Deck.findById(req.params.id as string),
         DictionaryEntry.getAllTags(),
       ]);
       if (!deck) {
@@ -117,9 +118,9 @@ const deckController = {
   },
 
   // POST /decks/:id/edit
-  async postEdit(req, res) {
+  async postEdit(req: Request, res: Response) {
     try {
-      const { id } = req.params;
+      const { id } = req.params as { id: string };
       const { title } = req.body;
       if (!title || !title.trim()) {
         req.flash('error', 'Tiêu đề không được để trống');
@@ -137,9 +138,9 @@ const deckController = {
   },
 
   // POST /decks/:id/delete
-  async postDelete(req, res) {
+  async postDelete(req: Request, res: Response) {
     try {
-      const { id } = req.params;
+      const { id } = req.params as { id: string };
       const { confirm_text } = req.body;
       const deck = await Deck.findById(id);
       if (!deck) {
@@ -161,9 +162,9 @@ const deckController = {
   },
 
   // POST /decks/:id/cards/add
-  async postAddCards(req, res) {
+  async postAddCards(req: Request, res: Response) {
     try {
-      const { id } = req.params;
+      const { id } = req.params as { id: string };
       const entryIds = Array.isArray(req.body.entryIds)
         ? req.body.entryIds.filter(Boolean)
         : req.body.entryIds ? [req.body.entryIds] : [];
@@ -184,9 +185,9 @@ const deckController = {
   },
 
   // POST /decks/:id/cards/:entryId/remove
-  async postRemoveCard(req, res) {
+  async postRemoveCard(req: Request, res: Response) {
     try {
-      const { id, entryId } = req.params;
+      const { id, entryId } = req.params as { id: string; entryId: string };
       await Deck.removeCard(id, entryId);
       req.flash('success', 'Đã xóa card khỏi deck');
       return res.redirect(`/decks/${id}`);
@@ -198,6 +199,4 @@ const deckController = {
   },
 };
 
-module.exports = deckController;
-
-export {};
+export = deckController;

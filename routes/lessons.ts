@@ -1,7 +1,8 @@
-const express = require('express');
-const router = express.Router();
-const ctrl = require('../controllers/lessonController');
-const { requireAuth, requireRole } = require('../middlewares/auth');
+import { Router } from 'express';
+import ctrl from '../controllers/lessonController';
+import { requireAuth, requireRole } from '../middlewares/auth';
+
+const router = Router();
 
 router.use(requireAuth);
 router.use(requireRole('super_admin', 'moderator'));
@@ -17,6 +18,4 @@ router.post('/:id/edit',          ctrl.postEdit);
 router.post('/:id/delete',        ctrl.postDelete);
 router.post('/:id/toggle-status', ctrl.postToggleStatus);
 
-module.exports = router;
-
-export {};
+export = router;

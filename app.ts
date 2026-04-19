@@ -10,6 +10,20 @@ import { injectAdmin } from './middlewares/auth';
 import cors from 'cors';
 import apiAuthRoutes from './routes/api/auth';
 
+import authRoutes from './routes/auth';
+import dashboardRoutes from './routes/dashboard';
+import approvalsRoutes from './routes/approvals';
+import usersRoutes from './routes/users';
+import profileRoutes from './routes/profile';
+import dictionaryRoutes from './routes/dictionary';
+import lessonsRoutes from './routes/lessons';
+import decksRoutes from './routes/decks';
+import ebooksRoutes from './routes/ebooks';
+import subscriptionsRoutes from './routes/subscriptions';
+import settingsRoutes from './routes/settings';
+import gamesRoutes from './routes/games';
+import aiContentRoutes from './routes/ai-content';
+
 const app = express();
 
 // Resolve project root — works both in dev (tsx from root) and prod (node dist/app.js from root).
@@ -51,19 +65,19 @@ app.use(flash());
 app.use(injectAdmin);
 
 // ── Routes ──
-app.use('/auth', require('./routes/auth'));
-app.use('/dashboard', require('./routes/dashboard'));
-app.use('/approvals', require('./routes/approvals'));
-app.use('/users', require('./routes/users'));
-app.use('/profile', require('./routes/profile'));
-app.use('/dictionary', require('./routes/dictionary'));
-app.use('/lessons', require('./routes/lessons'));
-app.use('/decks', require('./routes/decks'));
-app.use('/ebooks', require('./routes/ebooks'));
-app.use('/subscriptions', require('./routes/subscriptions'));
-app.use('/settings', require('./routes/settings'));
-app.use('/games', require('./routes/games'));
-app.use('/ai-content', require('./routes/ai-content'));
+app.use('/auth', authRoutes);
+app.use('/dashboard', dashboardRoutes);
+app.use('/approvals', approvalsRoutes);
+app.use('/users', usersRoutes);
+app.use('/profile', profileRoutes);
+app.use('/dictionary', dictionaryRoutes);
+app.use('/lessons', lessonsRoutes);
+app.use('/decks', decksRoutes);
+app.use('/ebooks', ebooksRoutes);
+app.use('/subscriptions', subscriptionsRoutes);
+app.use('/settings', settingsRoutes);
+app.use('/games', gamesRoutes);
+app.use('/ai-content', aiContentRoutes);
 
 // API routes cho mobile app
 app.use('/api/v1/auth', apiAuthRoutes);

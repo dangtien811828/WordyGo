@@ -4,7 +4,9 @@
  * Fix: transactions.subscription_id ON DELETE RESTRICT (not CASCADE)
  *      — financial records must never be cascade-deleted
  */
-module.exports = async (client) => {
+import type { PoolClient } from 'pg';
+
+const migration = async (client: PoolClient): Promise<void> => {
 
   await client.query(`
     CREATE TABLE IF NOT EXISTS subscription_plans (
@@ -78,4 +80,4 @@ module.exports = async (client) => {
   console.log('  [✓] transactions (fix: ON DELETE RESTRICT)');
 };
 
-export {};
+export = migration;

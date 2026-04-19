@@ -1,8 +1,11 @@
-const Approval = require('../models/Approval');
+import type { Request, Response } from 'express';
+import Approval from '../models/Approval';
+import Lesson from '../models/Lesson';
+import Ebook from '../models/Ebook';
 
 const approvalController = {
   // GET /approvals
-  async getIndex(req, res) {
+  async getIndex(req: Request, res: Response) {
     try {
       const requests = await Approval.findPending();
       res.render('approvals/index', {
@@ -18,9 +21,9 @@ const approvalController = {
   },
 
   // POST /approvals/:id/approve
-  async postApprove(req, res) {
+  async postApprove(req: Request, res: Response) {
     try {
-      const { id } = req.params;
+      const { id } = req.params as { id: string };
       const { reviewer_note } = req.body;
       const result = await Approval.approve(id, req.session.admin.id, reviewer_note || null);
       if (!result) {
@@ -30,7 +33,6 @@ const approvalController = {
 
       // Execute deferred lesson actions
       if (result.module === 'lessons') {
-        const Lesson = require('../models/Lesson');
         const { data = {}, entryIds = [], tagIds = [], targetId } = result.payload || {};
         if (result.action === 'create') {
           await Lesson.create(data, entryIds, tagIds);
@@ -43,7 +45,6 @@ const approvalController = {
 
       // Execute deferred ebook delete
       if (result.module === 'ebooks' && result.action === 'delete') {
-        const Ebook = require('../models/Ebook');
         await Ebook.delete(result.payload.targetId);
       }
 
@@ -57,9 +58,9 @@ const approvalController = {
   },
 
   // POST /approvals/:id/reject
-  async postReject(req, res) {
+  async postReject(req: Request, res: Response) {
     try {
-      const { id } = req.params;
+      const { id } = req.params as { id: string };
       const { reviewer_note } = req.body;
       const result = await Approval.reject(id, req.session.admin.id, reviewer_note || null);
       if (!result) {
@@ -76,6 +77,4 @@ const approvalController = {
   },
 };
 
-module.exports = approvalController;
-
-export {};
+export = approvalController;

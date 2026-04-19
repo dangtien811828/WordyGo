@@ -1,7 +1,8 @@
-const express = require('express');
-const router = express.Router();
-const ctrl = require('../controllers/ebookController');
-const { requireAuth } = require('../middlewares/auth');
+import { Router } from 'express';
+import ctrl from '../controllers/ebookController';
+import { requireAuth } from '../middlewares/auth';
+
+const router = Router();
 
 // All authenticated roles can access ebooks
 router.use(requireAuth);
@@ -17,6 +18,4 @@ router.get('/:id/edit',  ctrl.getEdit);
 router.post('/:id/edit', ctrl.postEdit);
 router.post('/:id/delete', ctrl.postDelete);
 
-module.exports = router;
-
-export {};
+export = router;

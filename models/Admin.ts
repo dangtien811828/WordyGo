@@ -1,7 +1,7 @@
-const pool = require('../config/db');
+import pool from '../config/db';
 
 const Admin = {
-  async findByEmail(email) {
+  async findByEmail(email: string) {
     const { rows } = await pool.query(
       'SELECT * FROM admin_accounts WHERE email = $1',
       [email]
@@ -9,7 +9,7 @@ const Admin = {
     return rows[0] || null;
   },
 
-  async findById(id) {
+  async findById(id: string) {
     const { rows } = await pool.query(
       'SELECT id, email, full_name, avatar_url, role, status, last_login_at, created_at FROM admin_accounts WHERE id = $1',
       [id]
@@ -17,7 +17,7 @@ const Admin = {
     return rows[0] || null;
   },
 
-  async create({ email, passwordHash, fullName, role = 'content_editor' }) {
+  async create({ email, passwordHash, fullName, role = 'content_editor' }: { email: string; passwordHash: string; fullName: string; role?: string }) {
     const { rows } = await pool.query(
       `INSERT INTO admin_accounts (email, password_hash, full_name, role)
        VALUES ($1, $2, $3, $4)
@@ -27,7 +27,7 @@ const Admin = {
     return rows[0];
   },
 
-  async updateLastLogin(id) {
+  async updateLastLogin(id: string) {
     await pool.query(
       'UPDATE admin_accounts SET last_login_at = NOW() WHERE id = $1',
       [id]
@@ -49,21 +49,21 @@ const Admin = {
     return rows;
   },
 
-  async updateProfile(id, { fullName, avatarUrl }) {
+  async updateProfile(id: string, { fullName, avatarUrl }: { fullName: string; avatarUrl: string | null }) {
     await pool.query(
       'UPDATE admin_accounts SET full_name = $1, avatar_url = $2 WHERE id = $3',
       [fullName, avatarUrl, id]
     );
   },
 
-  async updatePassword(id, newPasswordHash) {
+  async updatePassword(id: string, newPasswordHash: string) {
     await pool.query(
       'UPDATE admin_accounts SET password_hash = $1 WHERE id = $2',
       [newPasswordHash, id]
     );
   },
 
-  async deleteAccount(id) {
+  async deleteAccount(id: string) {
     await pool.query(
       "UPDATE admin_accounts SET status = 'disabled' WHERE id = $1",
       [id]
@@ -71,6 +71,4 @@ const Admin = {
   },
 };
 
-module.exports = Admin;
-
-export {};
+export = Admin;

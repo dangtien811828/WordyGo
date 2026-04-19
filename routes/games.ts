@@ -1,7 +1,8 @@
-const express = require('express');
-const router = express.Router();
-const { requireAuth, requireRole } = require('../middlewares/auth');
-const ctrl = require('../controllers/gameController');
+import { Router } from 'express';
+import { requireAuth, requireRole } from '../middlewares/auth';
+import ctrl from '../controllers/gameController';
+
+const router = Router();
 
 router.use(requireAuth);
 router.use(requireRole('super_admin', 'moderator'));
@@ -33,6 +34,4 @@ router.post('/semantic-sets/:id/delete', ctrl.postSemanticSetsDelete);
 // Leaderboard
 router.get('/leaderboard',             ctrl.getLeaderboard);
 
-module.exports = router;
-
-export {};
+export = router;

@@ -5,8 +5,10 @@
  *          added indexes for Dictionary Pro tables (senses, forms, idioms, phrasal verbs, collocations)
  * Fixed: review_interval (was interval)
  */
-module.exports = async (client) => {
-  const indexes = [
+import type { PoolClient } from 'pg';
+
+const migration = async (client: PoolClient): Promise<void> => {
+  const indexes: string[] = [
     // Domain 2: Dictionary (EXPANDED)
     'CREATE INDEX IF NOT EXISTS idx_dict_headword ON dictionary_entries(headword)',
     'CREATE INDEX IF NOT EXISTS idx_dict_lemma ON dictionary_entries(lemma)',
@@ -82,4 +84,4 @@ module.exports = async (client) => {
   console.log(`  [✓] ${indexes.length} indexes`);
 };
 
-export {};
+export = migration;

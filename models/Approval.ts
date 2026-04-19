@@ -1,7 +1,7 @@
-const pool = require('../config/db');
+import pool from '../config/db';
 
 const Approval = {
-  async create({ requesterId, action, module, targetType = null, targetId = null, payload }) {
+  async create({ requesterId, action, module, targetType = null, targetId = null, payload }: { requesterId: string; action: string; module: string; targetType?: string | null; targetId?: string | null; payload: any }) {
     const { rows } = await pool.query(
       `INSERT INTO approval_requests
          (requester_id, action, module, target_type, target_id, payload)
@@ -12,8 +12,8 @@ const Approval = {
     return rows[0];
   },
 
-  async findPending(module = null) {
-    const params = [];
+  async findPending(module: string | null = null) {
+    const params: any[] = [];
     let where = `WHERE ar.status = 'pending'`;
     if (module) {
       params.push(module);
@@ -32,7 +32,7 @@ const Approval = {
     return rows;
   },
 
-  async findById(id) {
+  async findById(id: string) {
     const { rows } = await pool.query(
       `SELECT ar.*,
               a.full_name  AS requester_name,
@@ -46,7 +46,7 @@ const Approval = {
     return rows[0] || null;
   },
 
-  async approve(id, reviewerId, reviewerNote = null) {
+  async approve(id: string, reviewerId: string, reviewerNote: string | null = null) {
     const { rows } = await pool.query(
       `UPDATE approval_requests
        SET status = 'approved', reviewer_id = $2, reviewer_note = $3, reviewed_at = NOW()
@@ -57,7 +57,7 @@ const Approval = {
     return rows[0] || null;
   },
 
-  async reject(id, reviewerId, reviewerNote = null) {
+  async reject(id: string, reviewerId: string, reviewerNote: string | null = null) {
     const { rows } = await pool.query(
       `UPDATE approval_requests
        SET status = 'rejected', reviewer_id = $2, reviewer_note = $3, reviewed_at = NOW()
@@ -76,6 +76,4 @@ const Approval = {
   },
 };
 
-module.exports = Approval;
-
-export {};
+export = Approval;

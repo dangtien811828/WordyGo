@@ -4,7 +4,9 @@
  *
  * Fix: renamed 'interval' → 'review_interval' (interval is a PostgreSQL reserved word)
  */
-module.exports = async (client) => {
+import type { PoolClient } from 'pg';
+
+const migration = async (client: PoolClient): Promise<void> => {
   // ══ DOMAIN 3: FLASHCARDS & SRS ══
 
   await client.query(`
@@ -106,4 +108,4 @@ module.exports = async (client) => {
   console.log('  [✓] retrieval_sessions (fix: removed model CHECK)');
 };
 
-export {};
+export = migration;

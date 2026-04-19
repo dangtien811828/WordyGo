@@ -1,9 +1,10 @@
-const bcrypt = require('bcryptjs');
-const Admin = require('../models/Admin');
+import bcrypt from 'bcryptjs';
+import type { Request, Response } from 'express';
+import Admin from '../models/Admin';
 
 const profileController = {
   // GET /profile
-  async getProfile(req, res) {
+  async getProfile(req: Request, res: Response) {
     try {
       const admin = await Admin.findById(req.session.admin.id);
       if (!admin) {
@@ -23,7 +24,7 @@ const profileController = {
   },
 
   // POST /profile/update
-  async postUpdate(req, res) {
+  async postUpdate(req: Request, res: Response) {
     try {
       const { full_name } = req.body;
       const adminId = req.session.admin.id;
@@ -52,7 +53,7 @@ const profileController = {
   },
 
   // POST /profile/password
-  async postPassword(req, res) {
+  async postPassword(req: Request, res: Response) {
     try {
       const { old_password, new_password, confirm_password } = req.body;
       const adminId = req.session.admin.id;
@@ -86,7 +87,7 @@ const profileController = {
   },
 
   // POST /profile/delete
-  async postDelete(req, res) {
+  async postDelete(req: Request, res: Response) {
     try {
       const { confirm_text } = req.body;
       const expected = `DELETE ${req.session.admin.email}`;
@@ -110,6 +111,4 @@ const profileController = {
   },
 };
 
-module.exports = profileController;
-
-export {};
+export = profileController;

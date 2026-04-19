@@ -1,8 +1,9 @@
-const AIContent = require('../models/AIContent');
+import type { Request, Response } from 'express';
+import AIContent from '../models/AIContent';
 
-module.exports = {
+const aiContentController = {
   // GET /ai-content
-  async getIndex(req, res) {
+  async getIndex(req: Request, res: Response) {
     try {
       const [stats, recentSessions, recentMod] = await Promise.all([
         AIContent.getStats(),
@@ -24,9 +25,9 @@ module.exports = {
   },
 
   // GET /ai-content/sessions
-  async getSessions(req, res) {
+  async getSessions(req: Request, res: Response) {
     try {
-      const { userId = '', allPassed = '', page = 1 } = req.query;
+      const { userId = '', allPassed = '', page = 1 } = req.query as any;
       const result = await AIContent.getRetrievalSessions({ userId, allPassed, page, limit: 20 });
       res.render('ai-content/sessions', {
         title: 'Retrieval Sessions',
@@ -43,9 +44,9 @@ module.exports = {
   },
 
   // GET /ai-content/sessions/:id
-  async getSessionDetail(req, res) {
+  async getSessionDetail(req: Request, res: Response) {
     try {
-      const session = await AIContent.getRetrievalSessionById(req.params.id);
+      const session = await AIContent.getRetrievalSessionById(req.params.id as string);
       if (!session) {
         req.flash('error', 'Session không tồn tại');
         return res.redirect('/ai-content/sessions');
@@ -63,9 +64,9 @@ module.exports = {
   },
 
   // GET /ai-content/moderation
-  async getModeration(req, res) {
+  async getModeration(req: Request, res: Response) {
     try {
-      const { status = '', flagType = '', page = 1 } = req.query;
+      const { status = '', flagType = '', page = 1 } = req.query as any;
       const result = await AIContent.getModerationLogs({ status, flagType, page, limit: 20 });
       res.render('ai-content/moderation', {
         title: 'Moderation Logs',
@@ -82,9 +83,9 @@ module.exports = {
   },
 
   // GET /ai-content/moderation/:id
-  async getModerationDetail(req, res) {
+  async getModerationDetail(req: Request, res: Response) {
     try {
-      const log = await AIContent.getModerationLogById(req.params.id);
+      const log = await AIContent.getModerationLogById(req.params.id as string);
       if (!log) {
         req.flash('error', 'Moderation log không tồn tại');
         return res.redirect('/ai-content/moderation');
@@ -102,7 +103,7 @@ module.exports = {
   },
 
   // GET /ai-content/prompts
-  async getPrompts(req, res) {
+  async getPrompts(req: Request, res: Response) {
     try {
       const templates = await AIContent.getPromptTemplates();
       res.render('ai-content/prompts', {
@@ -118,4 +119,4 @@ module.exports = {
   },
 };
 
-export {};
+export = aiContentController;
