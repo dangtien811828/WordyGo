@@ -28,6 +28,7 @@
     "routes/**/*.ts",
     "middlewares/**/*.ts",
     "helpers/**/*.ts",
+    "utils/**/*.ts",
     "database/**/*.ts",
     "types/**/*.ts",
     "scripts/seed.ts"

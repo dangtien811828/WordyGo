@@ -6,6 +6,8 @@ import path from 'path';
 import expressLayouts from 'express-ejs-layouts';
 
 import { injectAdmin } from './middlewares/auth';
+import { errorHandler } from './middlewares/errorHandler';
+import { apiError } from './utils/apiResponse';
 
 import cors from 'cors';
 import apiAuthRoutes from './routes/api/auth';
@@ -26,6 +28,9 @@ import aiContentRoutes from './routes/ai-content';
 
 const app = express();
 
+// Trust Railway's reverse proxy so req.ip reflects the real client (rate limiter depends on this).
+app.set('trust proxy', 1);
+
 // Resolve project root — works both in dev (tsx from root) and prod (node dist/app.js from root).
 const PROJECT_ROOT = process.cwd();
 
@@ -40,10 +45,23 @@ app.use(express.static(path.join(PROJECT_ROOT, 'public')));
 
 // ── Body Parser ──
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(express.json({ limit: '1mb' }));
 
 // CORS — cho phép mobile app gọi API
 app.use(cors());
+
+// ── API request logger (dev only) ──
+if (process.env.NODE_ENV !== 'production') {
+  app.use('/api', (req: Request, res: Response, next: NextFunction) => {
+    const start = Date.now();
+    res.on('finish', () => {
+      console.log(
+        `${req.method} ${req.originalUrl} — ${res.statusCode} — ${Date.now() - start}ms`
+      );
+    });
+    next();
+  });
+}
 
 // ── Session ──
 app.use(
@@ -82,21 +100,23 @@ app.use('/ai-content', aiContentRoutes);
 // API routes cho mobile app
 app.use('/api/v1/auth', apiAuthRoutes);
 
+// API 404 — mọi path /api/* không match route trả JSON
+app.use('/api', (_req: Request, res: Response) => {
+  apiError(res, 404, 'NOT_FOUND', 'Endpoint not found');
+});
+
 // Root redirect
 app.get('/', (_req: Request, res: Response) => {
   res.redirect('/dashboard');
 });
 
-// 404
+// 404 (web)
 app.use((_req: Request, res: Response) => {
   res.status(404).render('404', { title: '404' });
 });
 
-// Error handler
-app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
-  console.error('[Server] Error:', err);
-  res.status(500).send('Đã xảy ra lỗi server. Vui lòng thử lại.');
-});
+// Global error handler (API JSON shape; web routes don't currently throw here)
+app.use(errorHandler);
 
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;

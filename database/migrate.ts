@@ -24,6 +24,7 @@ const migrations: MigrationDef[] = [
   { name: 'Domain 8: AI & Sync (6 bảng)',              file: './migrations/06_ai_sync' },
   { name: 'Domain 9: System (4 bảng)',                 file: './migrations/07_system' },
   { name: 'Domain 10: Approvals (1 bảng)',             file: './migrations/09_approvals' },
+  { name: 'Domain 11: Refresh Tokens (1 bảng)',        file: './migrations/10_refresh_tokens' },
   { name: 'Indexes (performance)',                     file: './migrations/08_indexes' },
 ];
 

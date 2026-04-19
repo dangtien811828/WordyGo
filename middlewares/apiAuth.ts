@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import pool from '../config/db';
+import { apiError } from '../utils/apiResponse';
 
-// Mở rộng Request để có thêm field user
 export interface ApiRequest extends Request {
   user?: {
     id: string;
@@ -29,7 +29,7 @@ export const requireApiAuth = async (
   try {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      res.status(401).json({ error: 'Không có token xác thực' });
+      apiError(res, 401, 'UNAUTHORIZED', 'Không có token xác thực');
       return;
     }
 
@@ -44,12 +44,12 @@ export const requireApiAuth = async (
     );
 
     if (rows.length === 0) {
-      res.status(401).json({ error: 'User không tồn tại' });
+      apiError(res, 401, 'UNAUTHORIZED', 'User không tồn tại');
       return;
     }
 
     if (rows[0].status === 'banned') {
-      res.status(403).json({ error: 'Tài khoản đã bị khóa' });
+      apiError(res, 403, 'ACCOUNT_BANNED', 'Tài khoản đã bị khóa');
       return;
     }
 
@@ -57,9 +57,9 @@ export const requireApiAuth = async (
     next();
   } catch (err: any) {
     if (err.name === 'TokenExpiredError') {
-      res.status(401).json({ error: 'Token đã hết hạn' });
+      apiError(res, 401, 'TOKEN_EXPIRED', 'Token đã hết hạn');
       return;
     }
-    res.status(401).json({ error: 'Token không hợp lệ' });
+    apiError(res, 401, 'INVALID_TOKEN', 'Token không hợp lệ');
   }
 };
