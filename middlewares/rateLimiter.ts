@@ -18,6 +18,9 @@ const handler = (
   );
 };
 
+// Bỏ qua rate limit trong test env — localhost share IP làm mọi test đếm chung counter.
+const skipInTests = () => process.env.NODE_ENV === 'test';
+
 export const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   limit: 5,
@@ -25,6 +28,7 @@ export const loginLimiter = rateLimit({
   legacyHeaders: false,
   message: 'Quá nhiều lần thử đăng nhập, vui lòng thử lại sau 15 phút',
   handler,
+  skip: skipInTests,
 });
 
 export const registerLimiter = rateLimit({
@@ -34,6 +38,7 @@ export const registerLimiter = rateLimit({
   legacyHeaders: false,
   message: 'Quá nhiều lần đăng ký, vui lòng thử lại sau 1 giờ',
   handler,
+  skip: skipInTests,
 });
 
 export const refreshLimiter = rateLimit({
@@ -43,4 +48,5 @@ export const refreshLimiter = rateLimit({
   legacyHeaders: false,
   message: 'Quá nhiều lần refresh token, vui lòng thử lại sau 1 giờ',
   handler,
+  skip: skipInTests,
 });

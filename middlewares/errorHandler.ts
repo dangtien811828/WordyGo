@@ -23,6 +23,14 @@ export const errorHandler = (
     apiError(res, 400, 'FK_VIOLATION', 'Related resource not found');
     return;
   }
+  if (err?.name === 'MulterError') {
+    if (err.code === 'LIMIT_FILE_SIZE') {
+      apiError(res, 413, 'FILE_TOO_LARGE', 'Dung lượng file vượt quá giới hạn');
+      return;
+    }
+    apiError(res, 400, 'UPLOAD_ERROR', err.message || 'Upload thất bại');
+    return;
+  }
   if (err?.statusCode) {
     apiError(res, err.statusCode, err.code || 'ERROR', err.message || 'Error');
     return;

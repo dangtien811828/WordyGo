@@ -29,7 +29,7 @@ export const requireApiAuth = async (
   try {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      apiError(res, 401, 'UNAUTHORIZED', 'Không có token xác thực');
+      apiError(res, 401, 'NO_TOKEN', 'Không có token xác thực');
       return;
     }
 
@@ -44,7 +44,7 @@ export const requireApiAuth = async (
     );
 
     if (rows.length === 0) {
-      apiError(res, 401, 'UNAUTHORIZED', 'User không tồn tại');
+      apiError(res, 401, 'INVALID_TOKEN', 'User không tồn tại');
       return;
     }
 

@@ -7,8 +7,41 @@ import fs        from 'fs';
 import path      from 'path';
 import { fileURLToPath } from 'url';
 import pg        from 'pg';
+import type { PoolClient } from 'pg';
 import Anthropic from '@anthropic-ai/sdk';
 import { v4 as uuidv4 } from 'uuid';
+
+// ══════════════════════════════════════════════════════════════
+//  TYPES
+// ══════════════════════════════════════════════════════════════
+interface ParsedEntry {
+  headword: string;
+  lemma: string;
+  pos: string[];
+  cefr_level: string | null;
+  ipa_uk: string | null;
+  ipa_us: string | null;
+  audio_uk_url: string | null;
+  audio_us_url: string | null;
+  meaning_en: string | null;
+  example_en: string | null;
+}
+
+interface TranslationCacheEntry {
+  meaning_vi: string | null;
+  example_vi: string | null;
+}
+
+type TranslationCache = Record<string, TranslationCacheEntry>;
+
+interface TranslateBatchItem {
+  id?: string;
+  headword: string;
+  pos?: string[];
+  cefr_level?: string | null;
+  meaning_en?: string | null;
+  example_en?: string | null;
+}
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -49,14 +82,14 @@ const anthropic = new Anthropic({
 //  UTILITY
 // ══════════════════════════════════════════════════════════════
 
-const sleep = ms => new Promise(r => setTimeout(r, ms));
+const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
 
-function log(msg) {
+function log(msg: string) {
   const time = new Date().toLocaleTimeString('vi-VN');
   console.log(`[${time}] ${msg}`);
 }
 
-function loadTranslationCache() {
+function loadTranslationCache(): TranslationCache {
   try {
     if (fs.existsSync(TRANSLATION_CACHE_FILE)) {
       return JSON.parse(fs.readFileSync(TRANSLATION_CACHE_FILE, 'utf-8'));
@@ -65,7 +98,7 @@ function loadTranslationCache() {
   return {};
 }
 
-function saveTranslationCache(cache) {
+function saveTranslationCache(cache: TranslationCache) {
   fs.writeFileSync(TRANSLATION_CACHE_FILE, JSON.stringify(cache, null, 2));
 }
 
@@ -73,7 +106,7 @@ function saveTranslationCache(cache) {
 //  PARSE: Oxford JSON → DB fields
 // ══════════════════════════════════════════════════════════════
 
-function parseEntry(item) {
+function parseEntry(item: any): ParsedEntry | null {
   const headword = item.word?.trim().toLowerCase();
   if (!headword) return null;
 
@@ -140,10 +173,10 @@ NGUYÊN TẮC DỊCH:
 
 OUTPUT: Chỉ trả về JSON thuần túy, không có markdown, không có giải thích.`;
 
-async function translateBatch(items, retryCount = 0) {
+async function translateBatch(items: TranslateBatchItem[], retryCount = 0): Promise<Record<number, TranslationCacheEntry>> {
   // items = [{idx, headword, pos, cefr, meaning_en, example_en}, ...]
 
-  const inputJson = items.map((item, i) => ({
+  const inputJson = items.map((item: TranslateBatchItem, i: number) => ({
     idx:        i,
     word:       item.headword,
     pos:        item.pos?.[0] || '',
@@ -177,7 +210,7 @@ Trả về JSON array thuần túy:`;
       messages:   [{ role: 'user', content: userPrompt }],
     });
 
-    const rawText = message.content?.[0]?.text?.trim() || '[]';
+    const rawText = (message.content?.[0] as any)?.text?.trim() || '[]';
 
     // Parse an toàn
     let parsed;
@@ -194,7 +227,7 @@ Trả về JSON array thuần túy:`;
     }
 
     // Map kết quả theo idx
-    const resultMap = {};
+    const resultMap: Record<number, TranslationCacheEntry> = {};
     if (Array.isArray(parsed)) {
       for (const r of parsed) {
         if (typeof r.idx === 'number') {
@@ -209,12 +242,13 @@ Trả về JSON array thuần túy:`;
     return resultMap;
 
   } catch (err) {
+    const error = err as Error;
     if (retryCount < 3) {
       const delay = (retryCount + 1) * 1500;
       await sleep(delay);
       return translateBatch(items, retryCount + 1);
     }
-    log(`⚠️  Batch dịch thất bại (${items[0]?.headword}...): ${err.message}`);
+    log(`⚠️  Batch dịch thất bại (${items[0]?.headword}...): ${error.message}`);
     return {};
   }
 }
@@ -223,7 +257,7 @@ Trả về JSON array thuần túy:`;
 //  PHASE 1: IMPORT TỪ VỰNG (KHÔNG DỊCH)
 // ══════════════════════════════════════════════════════════════
 
-async function phase1_import(client) {
+async function phase1_import(client: PoolClient): Promise<ParsedEntry[]> {
   log('📖 Phase 1: Đọc oxford_5000.json...');
 
   if (!fs.existsSync(OXFORD_JSON)) {
@@ -246,14 +280,15 @@ async function phase1_import(client) {
     );
     log('  ✓ Tạm bỏ NOT NULL trên meaning_vi');
   } catch (err) {
+    const e = err as Error;
     // Có thể đã bỏ rồi — bỏ qua
-    if (!err.message.includes('does not exist')) {
-      log(`  ⚠️  ${err.message}`);
+    if (!e.message.includes('does not exist')) {
+      log(`  ⚠️  ${e.message}`);
     }
   }
 
   let success = 0, skip = 0, error = 0;
-  const allEntries = [];
+  const allEntries: ParsedEntry[] = [];
 
   for (const rawItem of rawEntries) {
     const item = parseEntry(rawItem);
@@ -307,8 +342,9 @@ async function phase1_import(client) {
       ]);
       success++;
     } catch (err) {
-      if (err.code !== '23505') {
-        log(`  ❌ Lỗi "${item.headword}": ${err.message}`);
+      const e = err as { code?: string; message?: string };
+      if (e.code !== '23505') {
+        log(`  ❌ Lỗi "${item.headword}": ${e.message}`);
         error++;
       } else {
         skip++;
@@ -335,7 +371,7 @@ async function phase1_import(client) {
 //  PHASE 2: DỊCH TIẾNG VIỆT BẰNG CLAUDE HAIKU
 // ══════════════════════════════════════════════════════════════
 
-async function phase2_translate(client) {
+async function phase2_translate(client: PoolClient): Promise<void> {
   log('🌐 Phase 2: Dịch tiếng Việt bằng Claude Haiku...');
 
   if (!process.env.ANTHROPIC_API_KEY) {
@@ -374,7 +410,7 @@ async function phase2_translate(client) {
   }
 
   // Lọc ra những từ chưa có trong cache
-  const needTranslate = toTranslate.filter(w => !cache[w.headword]);
+  const needTranslate = toTranslate.filter((w: TranslateBatchItem) => !cache[w.headword]);
   log(`  → Tổng cần dịch: ${toTranslate.length} | Chưa cache: ${needTranslate.length}`);
 
   // Ước tính chi phí
@@ -449,7 +485,7 @@ async function phase2_translate(client) {
   console.log(`\r  💾 Updated: ${dbUpdated} từ trong DB              \n`);
 
   // Báo còn bao nhiêu pending
-  const pendingCount = Object.values(cache).filter(v => v.meaning_vi === '[pending]').length;
+  const pendingCount = Object.values(cache).filter((v: TranslationCacheEntry) => v.meaning_vi === '[pending]').length;
   if (pendingCount > 0) {
     log(`  ⚠️  Còn ${pendingCount} từ dịch thất bại → chạy lại script để retry`);
   } else {
@@ -461,7 +497,7 @@ async function phase2_translate(client) {
 //  PHASE 3: KHÔI PHỤC NOT NULL + THỐNG KÊ
 // ══════════════════════════════════════════════════════════════
 
-async function phase3_finalize(client) {
+async function phase3_finalize(client: PoolClient): Promise<void> {
   log('📊 Phase 3: Kiểm tra và thống kê...\n');
 
   const { rows: stats } = await client.query(`
@@ -560,8 +596,9 @@ async function main() {
     await phase3_finalize(client);
 
   } catch (err) {
-    console.error('\n❌ Lỗi nghiêm trọng:', err.message);
-    console.error(err.stack);
+    const e = err as Error;
+    console.error('\n❌ Lỗi nghiêm trọng:', e.message);
+    console.error(e.stack);
   } finally {
     client.release();
     await pool.end();

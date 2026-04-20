@@ -33,5 +33,5 @@
     "types/**/*.ts",
     "scripts/seed.ts"
   ],
-  "exclude": ["node_modules", "dist", "views", "public", "scripts", "database/backups"]
+  "exclude": ["node_modules", "dist", "views", "public", "scripts", "database/backups", "tests"]
 }

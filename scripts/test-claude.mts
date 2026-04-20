@@ -17,7 +17,7 @@ async function test() {
   });
 
   console.log('✅ Kết nối thành công!');
-  console.log('📝 Response:', message.content[0].text);
+  //console.log('📝 Response:', message.content[0].text);
   console.log('📊 Tokens dùng:', message.usage);
 }
 

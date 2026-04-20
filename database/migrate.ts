@@ -32,25 +32,31 @@ export const migrate = async (): Promise<void> => {
   const client = await pool.connect();
 
   try {
-    await client.query('BEGIN');
-
     console.log('╔══════════════════════════════════════════╗');
     console.log('║   English Learning App — DB Migration    ║');
     console.log('╚══════════════════════════════════════════╝\n');
 
-    // Extension
+    // Extension — auto-commit (ngoài transaction).
     await client.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
     console.log('[✓] Extension uuid-ossp\n');
 
-    // Chạy từng migration
+    // Mỗi migration file chạy trong transaction RIÊNG.
+    // File N fail → rollback chỉ file N; file 1..N-1 đã commit vẫn giữ nguyên.
     for (const m of migrations) {
       console.log(`── ${m.name} ──`);
       const fn = require(m.file) as MigrationFn;
-      await fn(client);
+
+      await client.query('BEGIN');
+      try {
+        await fn(client);
+        await client.query('COMMIT');
+      } catch (err) {
+        await client.query('ROLLBACK');
+        console.error(`\n❌ Failed in: ${m.name}`);
+        throw err;
+      }
       console.log('');
     }
-
-    await client.query('COMMIT');
 
     // Đếm bảng
     const { rows } = await pool.query<{ count: number }>(`
@@ -64,7 +70,6 @@ export const migrate = async (): Promise<void> => {
     console.log('══════════════════════════════════════════');
 
   } catch (err) {
-    await client.query('ROLLBACK');
     const error = err as Error;
     console.error('\n❌ Migration thất bại:', error.message);
     console.error(error.stack);

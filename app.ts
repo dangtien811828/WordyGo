@@ -10,7 +10,9 @@ import { errorHandler } from './middlewares/errorHandler';
 import { apiError } from './utils/apiResponse';
 
 import cors from 'cors';
+import { requireApiAuth } from './middlewares/apiAuth';
 import apiAuthRoutes from './routes/api/auth';
+import apiProfileRoutes from './routes/api/profile';
 
 import authRoutes from './routes/auth';
 import dashboardRoutes from './routes/dashboard';
@@ -99,6 +101,7 @@ app.use('/ai-content', aiContentRoutes);
 
 // API routes cho mobile app
 app.use('/api/v1/auth', apiAuthRoutes);
+app.use('/api/v1/profile', requireApiAuth, apiProfileRoutes);
 
 // API 404 — mọi path /api/* không match route trả JSON
 app.use('/api', (_req: Request, res: Response) => {
@@ -119,11 +122,15 @@ app.use((_req: Request, res: Response) => {
 app.use(errorHandler);
 
 
-const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
-// ── Start ──
-app.listen(PORT, () => {
-  console.log(`\n══════════════════════════════════════`);
-  console.log(`  English Admin Dashboard`);
-  console.log(`  http://localhost:${PORT}`);
-  console.log(`══════════════════════════════════════\n`);
-});
+// ── Start ── (chỉ listen khi chạy trực tiếp; import trong tests không khởi server)
+if (require.main === module) {
+  const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
+  app.listen(PORT, () => {
+    console.log(`\n══════════════════════════════════════`);
+    console.log(`  English Admin Dashboard`);
+    console.log(`  http://localhost:${PORT}`);
+    console.log(`══════════════════════════════════════\n`);
+  });
+}
+
+export default app;

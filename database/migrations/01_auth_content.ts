@@ -104,7 +104,8 @@ const migration = async (client: PoolClient): Promise<void> => {
   console.log('  [✓] dictionary_entries (improved: ipa_us/uk, cefr, frequency)');
 
   // ── Dictionary Pro: thêm columns mới vào dictionary_entries ──
-  // Dùng try-catch vì ALTER ADD COLUMN lỗi nếu column đã tồn tại
+  // ADD COLUMN IF NOT EXISTS là idempotent native (Postgres 9.6+) —
+  // try/catch ở JS layer KHÔNG rescue được transaction đã abort.
   const newColumns = [
     { name: 'etymology',     sql: 'TEXT' },
     { name: 'register',      sql: "VARCHAR(30) CHECK (register IN ('formal','informal','slang','literary','technical','dated','humorous'))" },
@@ -112,12 +113,9 @@ const migration = async (client: PoolClient): Promise<void> => {
     { name: 'is_transitive', sql: 'BOOLEAN' },
   ];
   for (const col of newColumns) {
-    try {
-      await client.query(`ALTER TABLE dictionary_entries ADD COLUMN ${col.name} ${col.sql}`);
-    } catch (err) {
-      const error = err as Error;
-      if (!error.message.includes('already exists')) throw err;
-    }
+    await client.query(
+      `ALTER TABLE dictionary_entries ADD COLUMN IF NOT EXISTS ${col.name} ${col.sql}`
+    );
   }
   console.log('  [✓] dictionary_entries (pro: +etymology, +register, +is_countable, +is_transitive)');
 
