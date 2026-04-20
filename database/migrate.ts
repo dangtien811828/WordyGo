@@ -25,7 +25,9 @@ const migrations: MigrationDef[] = [
   { name: 'Domain 9: System (4 bảng)',                 file: './migrations/07_system' },
   { name: 'Domain 10: Approvals (1 bảng)',             file: './migrations/09_approvals' },
   { name: 'Domain 11: Refresh Tokens (1 bảng)',        file: './migrations/10_refresh_tokens' },
+  { name: 'Domain 12: User Saved Words (1 bảng)',      file: './migrations/11_user_saved_words' },
   { name: 'Indexes (performance)',                     file: './migrations/08_indexes' },
+  { name: 'Dictionary GIN + recency (2 indexes)',      file: './migrations/12_dictionary_indexes' },
 ];
 
 export const migrate = async (): Promise<void> => {

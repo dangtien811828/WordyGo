@@ -13,6 +13,7 @@ import cors from 'cors';
 import { requireApiAuth } from './middlewares/apiAuth';
 import apiAuthRoutes from './routes/api/auth';
 import apiProfileRoutes from './routes/api/profile';
+import apiDictionaryRoutes from './routes/api/dictionary';
 
 import authRoutes from './routes/auth';
 import dashboardRoutes from './routes/dashboard';
@@ -102,6 +103,7 @@ app.use('/ai-content', aiContentRoutes);
 // API routes cho mobile app
 app.use('/api/v1/auth', apiAuthRoutes);
 app.use('/api/v1/profile', requireApiAuth, apiProfileRoutes);
+app.use('/api/v1/dictionary', apiDictionaryRoutes);
 
 // API 404 — mọi path /api/* không match route trả JSON
 app.use('/api', (_req: Request, res: Response) => {

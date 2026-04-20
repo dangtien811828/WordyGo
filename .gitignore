@@ -7,3 +7,4 @@ CLAUDE.md
 /public/uploads/
 dist/
 *.tsbuildinfo
+/docs
