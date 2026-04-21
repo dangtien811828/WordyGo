@@ -8,9 +8,9 @@ const EMAIL_PREFIX = `phase4d-${TS}-`;
 let tokenA = '';
 let tokenB = '';
 let userAId = '';
-let userBId = '';
 let testEntryId = '';
 let testDeckId = '';
+let testDeckBId = '';
 
 beforeAll(async () => {
   // Register user A
@@ -31,14 +31,13 @@ beforeAll(async () => {
   if (regB.status !== 201) throw new Error(`Setup B: ${JSON.stringify(regB.body)}`);
   tokenB = regB.body.data.accessToken;
 
-  // Fetch user IDs
+  // Fetch user A's ID
   const { rows: uRows } = await pool.query(
     `SELECT id, email FROM users WHERE email LIKE $1`,
     [`${EMAIL_PREFIX}%`]
   );
   for (const r of uRows) {
     if (r.email.endsWith('a@example.com')) userAId = r.id;
-    if (r.email.endsWith('b@example.com')) userBId = r.id;
   }
 
   // Insert a test dictionary entry
@@ -48,6 +47,14 @@ beforeAll(async () => {
     [`phase4d-entry-${TS}`, ['noun']]
   );
   testEntryId = eRows[0].id;
+
+  // Pre-create user B's deck for cross-user tests
+  const deckB = await request(app)
+    .post('/api/v1/decks')
+    .set('Authorization', `Bearer ${tokenB}`)
+    .send({ title: 'Deck B Private' });
+  if (deckB.status !== 201) throw new Error(`Setup deckB: ${JSON.stringify(deckB.body)}`);
+  testDeckBId = deckB.body.data.id;
 });
 
 afterAll(async () => {
@@ -61,7 +68,7 @@ afterAll(async () => {
 
 // ════════════════════════════════════════════════════════════════
 describe('POST /api/v1/decks — create user deck', () => {
-  it('creates a user_created deck successfully', async () => {
+  it('creates a user_created deck with user_id matching JWT', async () => {
     const res = await request(app)
       .post('/api/v1/decks')
       .set('Authorization', `Bearer ${tokenA}`)
@@ -70,6 +77,7 @@ describe('POST /api/v1/decks — create user deck', () => {
     expect(res.status).toBe(201);
     expect(res.body.data.deck_type).toBe('user_created');
     expect(res.body.data.title).toBe('My Test Deck');
+    expect(res.body.data.user_id).toBe(userAId);
     testDeckId = res.body.data.id;
   });
 
@@ -99,6 +107,15 @@ describe('GET /api/v1/decks — list decks', () => {
     expect(deck).toHaveProperty('due_cards');
     expect(deck).toHaveProperty('mastered_cards');
   });
+
+  it("does NOT include another user's user_created deck", async () => {
+    const res = await request(app)
+      .get('/api/v1/decks')
+      .set('Authorization', `Bearer ${tokenA}`);
+    expect(res.status).toBe(200);
+    const ids = res.body.data.items.map((d: any) => d.id);
+    expect(ids).not.toContain(testDeckBId);
+  });
 });
 
 // ════════════════════════════════════════════════════════════════
@@ -116,6 +133,14 @@ describe('GET /api/v1/decks/:id — get deck details', () => {
   it('404 for non-existent deck', async () => {
     const res = await request(app)
       .get('/api/v1/decks/00000000-0000-0000-0000-000000000000')
+      .set('Authorization', `Bearer ${tokenA}`);
+    expect(res.status).toBe(404);
+    expect(res.body.error.code).toBe('DECK_NOT_FOUND');
+  });
+
+  it("404 when accessing another user's user_created deck", async () => {
+    const res = await request(app)
+      .get(`/api/v1/decks/${testDeckBId}`)
       .set('Authorization', `Bearer ${tokenA}`);
     expect(res.status).toBe(404);
     expect(res.body.error.code).toBe('DECK_NOT_FOUND');
@@ -145,6 +170,14 @@ describe('PATCH /api/v1/decks/:id — update deck', () => {
 
 // ════════════════════════════════════════════════════════════════
 describe('DELETE /api/v1/decks/:id — delete deck', () => {
+  it("non-owner gets 403 DECK_ACCESS_DENIED on another user's deck", async () => {
+    const res = await request(app)
+      .delete(`/api/v1/decks/${testDeckBId}`)
+      .set('Authorization', `Bearer ${tokenA}`);
+    expect(res.status).toBe(403);
+    expect(res.body.error.code).toBe('DECK_ACCESS_DENIED');
+  });
+
   it('owner can delete; subsequent GET returns 404', async () => {
     const del = await request(app)
       .delete(`/api/v1/decks/${testDeckId}`)

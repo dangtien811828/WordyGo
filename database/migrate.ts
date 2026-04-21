@@ -29,6 +29,7 @@ const migrations: MigrationDef[] = [
   { name: 'Indexes (performance)',                     file: './migrations/08_indexes' },
   { name: 'Dictionary GIN + recency (2 indexes)',      file: './migrations/12_dictionary_indexes' },
   { name: 'Phase 4: User decks + study indexes',       file: './migrations/13_decks_user_study' },
+  { name: 'Phase 4 fix: decks.user_id safety (idempotent)', file: './migrations/14_decks_user_id' },
 ];
 
 export const migrate = async (): Promise<void> => {

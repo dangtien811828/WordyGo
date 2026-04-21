@@ -1,7 +1,7 @@
 import { Router, Response } from 'express';
 import { z } from 'zod';
 import pool from '../../config/db';
-import { requireApiAuth, ApiRequest } from '../../middlewares/apiAuth';
+import { ApiRequest } from '../../middlewares/apiAuth';
 import { asyncHandler } from '../../utils/asyncHandler';
 import { apiSuccess, apiError } from '../../utils/apiResponse';
 import { parsePagination } from '../../utils/pagination';
@@ -46,7 +46,7 @@ router.get(
     const [listResult, countResult, summaryResult] = await Promise.all([
       pool.query(
         `SELECT d.id, d.title, d.description, d.level, d.deck_type, d.status,
-           d.thumbnail_url, d.created_at,
+           d.thumbnail_url, d.created_at, d.user_id,
            (SELECT COUNT(*)::int FROM cards c WHERE c.deck_id = d.id) AS total_cards,
            (SELECT COUNT(*)::int FROM cards c
             JOIN user_card_progress ucp ON ucp.card_id = c.id AND ucp.user_id = $1
@@ -140,7 +140,7 @@ router.get(
 //  POST /api/v1/decks
 // ─────────────────────────────────────────────────────────────────────────────
 const createDeckSchema = z.object({
-  title: z.string().min(3, 'Tiêu đề phải có ít nhất 3 ký tự').max(500),
+  title: z.string().min(3, { message: 'Tiêu đề phải có ít nhất 3 ký tự' }).max(500),
   description: z.string().max(2000).optional(),
   level: z.enum(VALID_LEVELS).optional().default('beginner'),
   tag_ids: z.array(z.string().uuid()).optional(),
@@ -160,7 +160,7 @@ router.post(
       const { rows } = await client.query(
         `INSERT INTO decks (title, description, level, deck_type, user_id, status, created_by)
          VALUES ($1, $2, $3, 'user_created', $4, 'published', NULL)
-         RETURNING id, title, description, level, deck_type, status, created_at`,
+         RETURNING id, title, description, level, deck_type, status, user_id, created_at`,
         [title, description ?? null, level, userId]
       );
       const deck = rows[0];
