@@ -232,11 +232,20 @@ router.post(
         [card.entry_id]
       ),
       pool.query(
-        `SELECT se.example_en
-         FROM sense_examples se
-         JOIN entry_senses es ON es.id = se.sense_id
-         WHERE es.entry_id = $1 AND se.example_en IS NOT NULL
-         ORDER BY es.sense_order ASC, se.sort_order ASC`,
+        `SELECT example_en FROM (
+           SELECT se.example_en, 0 AS priority, es.sense_order, se.sort_order
+           FROM sense_examples se
+           JOIN entry_senses es ON es.id = se.sense_id
+           WHERE es.entry_id = $1 AND se.example_en IS NOT NULL
+
+           UNION ALL
+
+           SELECT TRIM(unnest) AS example_en, 1 AS priority, 0 AS sense_order, ordinality::int AS sort_order
+           FROM dictionary_entries de,
+                LATERAL unnest(string_to_array(de.example_en, E'\\n')) WITH ORDINALITY AS unnest
+           WHERE de.id = $1 AND de.example_en IS NOT NULL AND TRIM(unnest) != ''
+         ) AS combined
+         ORDER BY priority ASC, sense_order ASC, sort_order ASC`,
         [card.entry_id]
       ),
     ]);
