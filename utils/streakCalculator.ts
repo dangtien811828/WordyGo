@@ -12,8 +12,10 @@ export interface StreakResult {
  * trong user_activity_log. Current = số ngày liên tiếp tính ngược từ HÔM NAY.
  */
 export async function calculateStreak(userId: string): Promise<StreakResult> {
-  const { rows } = await pool.query<{ d: Date }>(
-    `SELECT DISTINCT DATE(created_at AT TIME ZONE 'UTC') AS d
+  // Cast to text so pg returns a plain 'YYYY-MM-DD' string regardless of client timezone.
+  // Parsing a DATE object via getTime() can give wrong midnight depending on local TZ.
+  const { rows } = await pool.query<{ d: string }>(
+    `SELECT DISTINCT TO_CHAR(created_at AT TIME ZONE 'UTC', 'YYYY-MM-DD') AS d
      FROM user_activity_log
      WHERE user_id = $1
      ORDER BY d DESC`,
@@ -22,10 +24,7 @@ export async function calculateStreak(userId: string): Promise<StreakResult> {
   if (rows.length === 0) return { current: 0, longest: 0 };
 
   const dates = rows
-    .map((r) => {
-      const d = r.d instanceof Date ? r.d : new Date(String(r.d));
-      return Math.floor(d.getTime() / DAY_MS) * DAY_MS;
-    })
+    .map((r) => Math.floor(new Date(r.d + 'T00:00:00Z').getTime() / DAY_MS) * DAY_MS)
     .sort((a, b) => b - a); // DESC
 
   const todayUtc = Math.floor(Date.now() / DAY_MS) * DAY_MS;

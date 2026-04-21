@@ -222,6 +222,10 @@ Authorization: Bearer {{accessToken}}
 @entryId = replace-with-real-uuid
 @tagId = replace-with-real-uuid
 
+### Phase 4 variables — paste sau khi tạo deck/card
+@deckId = 4781134f-2398-495a-97f6-aae2437c95d0
+@cardId = 188bbb0e-0b00-43ea-a80f-1eb263dc5501
+
 ### [13.a] GET /dictionary/search — prefix search happy path
 ### Expected: 200 + items[] + meta. Response có header Cache-Control: public, max-age=3600
 GET {{baseUrl}}/dictionary/search?q=org&limit=20
@@ -330,6 +334,168 @@ Authorization: Bearer {{accessToken}}
 ### Expected: 200. Chỉ rows có source='ebook'.
 GET {{baseUrl}}/dictionary/lookup-history?source=ebook&page=1&limit=50
 Authorization: Bearer {{accessToken}}
+
+### ═══════════════════════════════════════════════════════════════
+### PHASE 4 — FLASHCARD & DECKS (SRS)
+### ═══════════════════════════════════════════════════════════════
+
+### [23] GET /decks — list all decks with stats
+### Expected: 200 + data.summary + data.items[] + data.meta
+GET {{baseUrl}}/decks?page=1&limit=20
+Authorization: Bearer {{accessToken}}
+
+### [24] GET /decks/:id — deck detail + card_preview (max 20 cards)
+### Expected: 200 + data.card_preview[] (array, có thể null nếu deck rỗng → ?? [])
+### → Copy id từ response [23] vào @deckId
+GET {{baseUrl}}/decks/{{deckId}}
+Authorization: Bearer {{accessToken}}
+
+### [25.a] POST /decks — tạo user deck
+### Expected: 201 + data.deck_type = "user_created"
+### → Copy data.id vào @deckId
+POST {{baseUrl}}/decks
+Authorization: Bearer {{accessToken}}
+Content-Type: {{contentType}}
+
+{
+  "title": "Smoke Test Deck",
+  "description": "Deck tạo từ smoke test",
+  "level": "intermediate"
+}
+
+### [25.b] POST /decks — VALIDATION_ERROR (title quá ngắn)
+### Expected: 400 + error.code = "VALIDATION_ERROR"
+POST {{baseUrl}}/decks
+Authorization: Bearer {{accessToken}}
+Content-Type: {{contentType}}
+
+{
+  "title": "AB"
+}
+
+### [26.a] PATCH /decks/:id — update title
+### Expected: 200 + data.title updated + data.updated_at
+PATCH {{baseUrl}}/decks/{{deckId}}
+Authorization: Bearer {{accessToken}}
+Content-Type: {{contentType}}
+
+{
+  "title": "Smoke Test Deck (Updated)"
+}
+
+### [26.b] PATCH /decks/:id — DECK_ACCESS_DENIED (deck của user khác / premade)
+### Expected: 403 + error.code = "DECK_ACCESS_DENIED"
+### Thay bằng id của premade deck
+PATCH {{baseUrl}}/decks/00000000-0000-0000-0000-000000000000
+Authorization: Bearer {{accessToken}}
+Content-Type: {{contentType}}
+
+{
+  "title": "Hack attempt"
+}
+
+### [27] DELETE /decks/:id — xóa deck (cascade cards + UCP + reviews)
+### Expected: 200 + data = null + message = "Deck đã xóa"
+### ⚠ Chạy cuối cùng — sẽ xóa deck test
+# DELETE {{baseUrl}}/decks/{{deckId}}
+# Authorization: Bearer {{accessToken}}
+
+### [28] GET /decks/:deckId/cards — list cards trong deck + SRS state
+### Expected: 200 + data.items[] + data.total
+GET {{baseUrl}}/decks/{{deckId}}/cards
+Authorization: Bearer {{accessToken}}
+
+### [29.a] POST /decks/:deckId/cards — thêm 1 card
+### Expected: 201 + data.srs.due_at = null (new card)
+### → Copy data.id vào @cardId
+POST {{baseUrl}}/decks/{{deckId}}/cards
+Authorization: Bearer {{accessToken}}
+Content-Type: {{contentType}}
+
+{
+  "entry_id": "{{entryId}}"
+}
+
+### [29.b] POST /decks/:deckId/cards — CARD_ALREADY_EXISTS (thêm lại cùng entry)
+### Expected: 409 + error.code = "CARD_ALREADY_EXISTS"
+POST {{baseUrl}}/decks/{{deckId}}/cards
+Authorization: Bearer {{accessToken}}
+Content-Type: {{contentType}}
+
+{
+  "entry_id": "{{entryId}}"
+}
+
+### [30] POST /decks/:deckId/cards/batch — thêm nhiều cards
+### Expected: 201 + data.added + data.skipped + data.entry_ids_added
+POST {{baseUrl}}/decks/{{deckId}}/cards/batch
+Authorization: Bearer {{accessToken}}
+Content-Type: {{contentType}}
+
+{
+  "entry_ids": ["{{entryId}}"]
+}
+
+### [31] DELETE /decks/:deckId/cards/:cardId — xóa 1 card
+### Expected: 200 + data = null + message = "Card đã xóa"
+DELETE {{baseUrl}}/decks/{{deckId}}/cards/{{cardId}}
+Authorization: Bearer {{accessToken}}
+
+### [32] GET /study/queue — lấy queue ôn tập (due first, then new)
+### Expected: 200 + data.cards[] + data.total_due + data.cards_per_session
+### Note: cards[].is_new=true cho card chưa review; due cards sorted due_at ASC
+GET {{baseUrl}}/study/queue
+Authorization: Bearer {{accessToken}}
+
+### [33.a] POST /study/review — rating=3 (Good)
+### Expected: 200 + data.leitner_box=2, data.correct=true, data.due_at > now+1day
+POST {{baseUrl}}/study/review
+Authorization: Bearer {{accessToken}}
+Content-Type: {{contentType}}
+
+{
+  "card_id": "{{cardId}}",
+  "rating": 3,
+  "mode": "flashcard",
+  "time_ms": 4200
+}
+
+### [33.b] POST /study/review — rating=1 (Again — reset)
+### Expected: 200 + data.leitner_box=1, data.correct=false, data.lapses=1, data.due_at ≈ now+1min
+POST {{baseUrl}}/study/review
+Authorization: Bearer {{accessToken}}
+Content-Type: {{contentType}}
+
+{
+  "card_id": "{{cardId}}",
+  "rating": 1,
+  "mode": "swift_choice",
+  "time_ms": 1500
+}
+
+### [33.c] POST /study/review — VALIDATION_ERROR (invalid mode)
+### Expected: 400 + error.code = "VALIDATION_ERROR"
+POST {{baseUrl}}/study/review
+Authorization: Bearer {{accessToken}}
+Content-Type: {{contentType}}
+
+{
+  "card_id": "{{cardId}}",
+  "rating": 3,
+  "mode": "invalid_mode"
+}
+
+### [34] POST /study/session-complete — kết thúc session
+### Expected: 200 + data.xp_earned = correct_count × 10 + streak_current + streak_longest
+POST {{baseUrl}}/study/session-complete
+Authorization: Bearer {{accessToken}}
+Content-Type: {{contentType}}
+
+{
+  "reviews_count": 10,
+  "correct_count": 7,
+  "deck_id": "{{deckId}}"
+}
 
 ### ═══════════════════════════════════════════════════════════════
 ### EDGE CASES

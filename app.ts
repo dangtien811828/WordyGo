@@ -14,6 +14,9 @@ import { requireApiAuth } from './middlewares/apiAuth';
 import apiAuthRoutes from './routes/api/auth';
 import apiProfileRoutes from './routes/api/profile';
 import apiDictionaryRoutes from './routes/api/dictionary';
+import apiDecksRoutes from './routes/api/decks';
+import apiCardsRoutes from './routes/api/cards';
+import apiStudyRoutes from './routes/api/study';
 
 import authRoutes from './routes/auth';
 import dashboardRoutes from './routes/dashboard';
@@ -104,6 +107,9 @@ app.use('/ai-content', aiContentRoutes);
 app.use('/api/v1/auth', apiAuthRoutes);
 app.use('/api/v1/profile', requireApiAuth, apiProfileRoutes);
 app.use('/api/v1/dictionary', apiDictionaryRoutes);
+app.use('/api/v1/decks', requireApiAuth, apiDecksRoutes);
+app.use('/api/v1', requireApiAuth, apiCardsRoutes);
+app.use('/api/v1', requireApiAuth, apiStudyRoutes);
 
 // API 404 — mọi path /api/* không match route trả JSON
 app.use('/api', (_req: Request, res: Response) => {

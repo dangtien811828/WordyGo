@@ -1,0 +1,159 @@
+import request from 'supertest';
+import app from '../app';
+import pool from '../config/db';
+
+const TS = Date.now();
+const EMAIL_PREFIX = `phase4d-${TS}-`;
+
+let tokenA = '';
+let tokenB = '';
+let userAId = '';
+let userBId = '';
+let testEntryId = '';
+let testDeckId = '';
+
+beforeAll(async () => {
+  // Register user A
+  const regA = await request(app).post('/api/v1/auth/register').send({
+    email: `${EMAIL_PREFIX}a@example.com`,
+    password: 'password123',
+    full_name: 'Deck Tester A',
+  });
+  if (regA.status !== 201) throw new Error(`Setup A: ${JSON.stringify(regA.body)}`);
+  tokenA = regA.body.data.accessToken;
+
+  // Register user B
+  const regB = await request(app).post('/api/v1/auth/register').send({
+    email: `${EMAIL_PREFIX}b@example.com`,
+    password: 'password123',
+    full_name: 'Deck Tester B',
+  });
+  if (regB.status !== 201) throw new Error(`Setup B: ${JSON.stringify(regB.body)}`);
+  tokenB = regB.body.data.accessToken;
+
+  // Fetch user IDs
+  const { rows: uRows } = await pool.query(
+    `SELECT id, email FROM users WHERE email LIKE $1`,
+    [`${EMAIL_PREFIX}%`]
+  );
+  for (const r of uRows) {
+    if (r.email.endsWith('a@example.com')) userAId = r.id;
+    if (r.email.endsWith('b@example.com')) userBId = r.id;
+  }
+
+  // Insert a test dictionary entry
+  const { rows: eRows } = await pool.query(
+    `INSERT INTO dictionary_entries (headword, lemma, pos, meaning_vi, published, source)
+     VALUES ($1, $1, $2, 'Nghĩa test', TRUE, 'manual') RETURNING id`,
+    [`phase4d-entry-${TS}`, ['noun']]
+  );
+  testEntryId = eRows[0].id;
+});
+
+afterAll(async () => {
+  await pool.query(`DELETE FROM users WHERE email LIKE $1`, [`${EMAIL_PREFIX}%`]);
+  await pool.query(
+    `DELETE FROM dictionary_entries WHERE headword = $1`,
+    [`phase4d-entry-${TS}`]
+  );
+  await pool.end();
+});
+
+// ════════════════════════════════════════════════════════════════
+describe('POST /api/v1/decks — create user deck', () => {
+  it('creates a user_created deck successfully', async () => {
+    const res = await request(app)
+      .post('/api/v1/decks')
+      .set('Authorization', `Bearer ${tokenA}`)
+      .send({ title: 'My Test Deck', level: 'beginner' });
+
+    expect(res.status).toBe(201);
+    expect(res.body.data.deck_type).toBe('user_created');
+    expect(res.body.data.title).toBe('My Test Deck');
+    testDeckId = res.body.data.id;
+  });
+
+  it('rejects title shorter than 3 chars', async () => {
+    const res = await request(app)
+      .post('/api/v1/decks')
+      .set('Authorization', `Bearer ${tokenA}`)
+      .send({ title: 'AB' });
+    expect(res.status).toBe(400);
+    expect(res.body.error.code).toBe('VALIDATION_ERROR');
+  });
+});
+
+// ════════════════════════════════════════════════════════════════
+describe('GET /api/v1/decks — list decks', () => {
+  it('returns deck list with summary stats shape', async () => {
+    const res = await request(app)
+      .get('/api/v1/decks')
+      .set('Authorization', `Bearer ${tokenA}`);
+    expect(res.status).toBe(200);
+    expect(res.body.data.summary).toHaveProperty('total_decks');
+    expect(res.body.data.summary).toHaveProperty('total_due_cards');
+    expect(Array.isArray(res.body.data.items)).toBe(true);
+    const deck = res.body.data.items.find((d: any) => d.id === testDeckId);
+    expect(deck).toBeDefined();
+    expect(deck).toHaveProperty('total_cards');
+    expect(deck).toHaveProperty('due_cards');
+    expect(deck).toHaveProperty('mastered_cards');
+  });
+});
+
+// ════════════════════════════════════════════════════════════════
+describe('GET /api/v1/decks/:id — get deck details', () => {
+  it('returns full deck data with card_preview array', async () => {
+    const res = await request(app)
+      .get(`/api/v1/decks/${testDeckId}`)
+      .set('Authorization', `Bearer ${tokenA}`);
+    expect(res.status).toBe(200);
+    expect(res.body.data.id).toBe(testDeckId);
+    expect(res.body.data).toHaveProperty('total_cards');
+    expect(res.body.data).toHaveProperty('card_preview');
+  });
+
+  it('404 for non-existent deck', async () => {
+    const res = await request(app)
+      .get('/api/v1/decks/00000000-0000-0000-0000-000000000000')
+      .set('Authorization', `Bearer ${tokenA}`);
+    expect(res.status).toBe(404);
+    expect(res.body.error.code).toBe('DECK_NOT_FOUND');
+  });
+});
+
+// ════════════════════════════════════════════════════════════════
+describe('PATCH /api/v1/decks/:id — update deck', () => {
+  it('owner can update title', async () => {
+    const res = await request(app)
+      .patch(`/api/v1/decks/${testDeckId}`)
+      .set('Authorization', `Bearer ${tokenA}`)
+      .send({ title: 'Updated Title' });
+    expect(res.status).toBe(200);
+    expect(res.body.data.title).toBe('Updated Title');
+  });
+
+  it('non-owner gets 403 DECK_ACCESS_DENIED', async () => {
+    const res = await request(app)
+      .patch(`/api/v1/decks/${testDeckId}`)
+      .set('Authorization', `Bearer ${tokenB}`)
+      .send({ title: 'Stolen Title' });
+    expect(res.status).toBe(403);
+    expect(res.body.error.code).toBe('DECK_ACCESS_DENIED');
+  });
+});
+
+// ════════════════════════════════════════════════════════════════
+describe('DELETE /api/v1/decks/:id — delete deck', () => {
+  it('owner can delete; subsequent GET returns 404', async () => {
+    const del = await request(app)
+      .delete(`/api/v1/decks/${testDeckId}`)
+      .set('Authorization', `Bearer ${tokenA}`);
+    expect(del.status).toBe(200);
+
+    const get = await request(app)
+      .get(`/api/v1/decks/${testDeckId}`)
+      .set('Authorization', `Bearer ${tokenA}`);
+    expect(get.status).toBe(404);
+  });
+});

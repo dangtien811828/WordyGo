@@ -28,6 +28,7 @@ const migrations: MigrationDef[] = [
   { name: 'Domain 12: User Saved Words (1 bảng)',      file: './migrations/11_user_saved_words' },
   { name: 'Indexes (performance)',                     file: './migrations/08_indexes' },
   { name: 'Dictionary GIN + recency (2 indexes)',      file: './migrations/12_dictionary_indexes' },
+  { name: 'Phase 4: User decks + study indexes',       file: './migrations/13_decks_user_study' },
 ];
 
 export const migrate = async (): Promise<void> => {
