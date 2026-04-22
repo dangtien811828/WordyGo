@@ -490,28 +490,35 @@ const subscriptionController = {
 
 // ── account_info builder ──────────────────────────────────────────────────────
 
+// When two form sections share a field name (e.g. "account_name" in both bank
+// and ewallet), multer/urlencoded yields an array. Take the first truthy value.
+function str(v: any): string {
+  if (Array.isArray(v)) v = v.find((x: any) => x !== '' && x != null) ?? v[0];
+  return v != null ? String(v).trim() : '';
+}
+
 function buildAccountInfo(body: any): object | null {
-  const type = body.method_type;
+  const type = Array.isArray(body.method_type) ? body.method_type[0] : body.method_type;
   if (type === 'bank') {
     const info: any = {};
-    if (body.account_number) info.account_number = body.account_number.trim();
-    if (body.account_name)   info.account_name   = body.account_name.trim();
-    if (body.bank_name)      info.bank_name       = body.bank_name.trim();
-    if (body.swift_code)     info.swift_code      = body.swift_code.trim();
-    if (body.branch)         info.branch          = body.branch.trim();
+    if (str(body.account_number)) info.account_number = str(body.account_number);
+    if (str(body.account_name))   info.account_name   = str(body.account_name);
+    if (str(body.bank_name))      info.bank_name       = str(body.bank_name);
+    if (str(body.swift_code))     info.swift_code      = str(body.swift_code);
+    if (str(body.branch))         info.branch          = str(body.branch);
     return Object.keys(info).length ? info : null;
   }
   if (type === 'ewallet') {
     const info: any = {};
-    if (body.phone_number) info.phone_number = body.phone_number.trim();
-    if (body.account_name) info.account_name = body.account_name.trim();
-    if (body.qr_image_url) info.qr_image_url = body.qr_image_url.trim();
+    if (str(body.phone_number)) info.phone_number = str(body.phone_number);
+    if (str(body.account_name)) info.account_name = str(body.account_name);
+    if (str(body.qr_image_url)) info.qr_image_url = str(body.qr_image_url);
     return Object.keys(info).length ? info : null;
   }
   if (type === 'card') {
     const info: any = {};
-    if (body.merchant_id)    info.merchant_id    = body.merchant_id.trim();
-    if (body.integration_key) info.integration_key = body.integration_key.trim();
+    if (str(body.merchant_id))     info.merchant_id     = str(body.merchant_id);
+    if (str(body.integration_key)) info.integration_key = str(body.integration_key);
     return Object.keys(info).length ? info : null;
   }
   return null;
