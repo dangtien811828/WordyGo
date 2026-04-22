@@ -81,3 +81,25 @@ export const uploadAvatar = multer({
   fileFilter: avatarFilter,
   limits: { fileSize: 5 * 1024 * 1024 },
 });
+
+// ══ Payment method logo uploads (admin panel) ══
+const paymentLogoDir = path.join(process.cwd(), 'public', 'uploads', 'payment-methods');
+if (!fs.existsSync(paymentLogoDir)) {
+  fs.mkdirSync(paymentLogoDir, { recursive: true });
+}
+
+const paymentLogoStorage = multer.diskStorage({
+  destination(_req, _file, cb) {
+    cb(null, paymentLogoDir);
+  },
+  filename(_req, file, cb) {
+    const safe = file.originalname.replace(/\s+/g, '_');
+    cb(null, `${Date.now()}-${safe}`);
+  },
+});
+
+export const uploadPaymentLogo = multer({
+  storage: paymentLogoStorage,
+  fileFilter: imageFilter,
+  limits: { fileSize: 2 * 1024 * 1024 },
+});

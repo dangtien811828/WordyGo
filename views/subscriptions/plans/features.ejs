@@ -1,0 +1,145 @@
+<%
+const SUGGESTED_KEYS = [
+  'flashcard_max_decks',
+  'review_modes',
+  'ebook_max',
+  'tts_daily',
+  'translation_daily',
+  'retrieval_practice_daily',
+  'ads',
+  'offline',
+];
+%>
+
+<div style="margin-bottom:24px">
+  <div style="font-size:13px;color:#718096;margin-bottom:4px">
+    <a href="/subscriptions" style="color:#718096">Subscriptions</a> /
+    <a href="/subscriptions/plans" style="color:#718096">Plans</a> /
+    <a href="/subscriptions/plans/<%= plan.id %>/edit" style="color:#718096"><%= plan.name %></a> /
+    Features
+  </div>
+  <h1 style="margin:0;font-size:22px;font-weight:700">Features — <%= plan.name %></h1>
+</div>
+
+<div style="display:grid;grid-template-columns:2fr 1fr;gap:20px;align-items:start">
+
+  <!-- Editor -->
+  <div class="card" style="padding:20px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <h2 style="margin:0;font-size:15px;font-weight:600">Feature list</h2>
+      <button type="button" onclick="addRow()" class="btn btn-sm btn-secondary">+ Add row</button>
+    </div>
+
+    <form method="POST" action="/subscriptions/plans/<%= plan.id %>/features" id="features-form">
+      <table style="width:100%;border-collapse:collapse" id="features-table">
+        <thead>
+          <tr>
+            <th style="text-align:left;padding:8px;font-size:12px;font-weight:600;color:#718096;background:#f7fafc;border-bottom:2px solid #e2e8f0">Feature key</th>
+            <th style="text-align:left;padding:8px;font-size:12px;font-weight:600;color:#718096;background:#f7fafc;border-bottom:2px solid #e2e8f0">Value</th>
+            <th style="width:40px;background:#f7fafc;border-bottom:2px solid #e2e8f0"></th>
+          </tr>
+        </thead>
+        <tbody id="features-body">
+          <% if (plan.features && plan.features.length > 0) { %>
+            <% plan.features.forEach(function(f) { %>
+            <tr class="feature-row">
+              <td style="padding:6px 8px">
+                <input type="text" name="feature_key[]" value="<%= f.feature_key %>"
+                       placeholder="feature_key" required
+                       style="font-family:monospace;font-size:13px;width:100%">
+              </td>
+              <td style="padding:6px 8px">
+                <input type="text" name="feature_value[]" value="<%= f.feature_value %>"
+                       placeholder="value"
+                       style="font-size:13px;width:100%">
+              </td>
+              <td style="padding:6px 8px;text-align:center">
+                <button type="button" onclick="removeRow(this)"
+                        style="background:none;border:none;cursor:pointer;color:#e53e3e;font-size:16px;line-height:1" title="Remove">×</button>
+              </td>
+            </tr>
+            <% }) %>
+          <% } else { %>
+            <tr id="empty-placeholder">
+              <td colspan="3" style="padding:24px;text-align:center;color:#a0aec0;font-size:13px">
+                Chưa có feature nào. Nhấn "+ Add row" để thêm.
+              </td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+
+      <div style="margin-top:16px;display:flex;gap:8px">
+        <button type="submit" class="btn btn-primary">💾 Lưu features</button>
+        <a href="/subscriptions/plans/<%= plan.id %>/edit" class="btn btn-secondary">← Quay lại gói</a>
+      </div>
+    </form>
+  </div>
+
+  <!-- Suggested keys -->
+  <div class="card" style="padding:20px">
+    <h2 style="margin:0 0 12px;font-size:15px;font-weight:600">Keys gợi ý</h2>
+    <p style="margin:0 0 12px;font-size:13px;color:#718096">Click để thêm nhanh vào danh sách</p>
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <% SUGGESTED_KEYS.forEach(function(k) { %>
+        <button type="button" onclick="addRowWithKey('<%= k %>')"
+                style="text-align:left;background:#f7fafc;border:1px solid #e2e8f0;border-radius:6px;padding:8px 10px;cursor:pointer;font-family:monospace;font-size:12px;color:#4a5568">
+          <%= k %>
+        </button>
+      <% }) %>
+    </div>
+    <hr style="margin:16px 0;border:none;border-top:1px solid #e2e8f0">
+    <div style="font-size:12px;color:#a0aec0">
+      <div style="margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.5px">Value examples</div>
+      <div><code>unlimited</code> — không giới hạn</div>
+      <div><code>true / false</code> — bật/tắt</div>
+      <div><code>50</code> — số lượng</div>
+      <div><code>all / basic</code> — tier</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function removeRow(btn) {
+  btn.closest('tr').remove();
+  const body = document.getElementById('features-body');
+  if (body.querySelectorAll('.feature-row').length === 0) {
+    body.innerHTML = '<tr id="empty-placeholder"><td colspan="3" style="padding:24px;text-align:center;color:#a0aec0;font-size:13px">Chưa có feature nào.</td></tr>';
+  }
+}
+
+function addRow(key, value) {
+  const placeholder = document.getElementById('empty-placeholder');
+  if (placeholder) placeholder.remove();
+  const body = document.getElementById('features-body');
+  const tr = document.createElement('tr');
+  tr.className = 'feature-row';
+  tr.innerHTML = `
+    <td style="padding:6px 8px">
+      <input type="text" name="feature_key[]" value="${key || ''}" placeholder="feature_key" required
+             style="font-family:monospace;font-size:13px;width:100%">
+    </td>
+    <td style="padding:6px 8px">
+      <input type="text" name="feature_value[]" value="${value || ''}" placeholder="value"
+             style="font-size:13px;width:100%">
+    </td>
+    <td style="padding:6px 8px;text-align:center">
+      <button type="button" onclick="removeRow(this)"
+              style="background:none;border:none;cursor:pointer;color:#e53e3e;font-size:16px;line-height:1" title="Remove">×</button>
+    </td>`;
+  body.appendChild(tr);
+  tr.querySelector('input').focus();
+}
+
+function addRowWithKey(key) {
+  // Check if key already exists
+  const existing = [...document.querySelectorAll('[name="feature_key[]"]')]
+    .find(el => el.value === key);
+  if (existing) {
+    existing.focus();
+    return;
+  }
+  addRow(key, '');
+}
+</script>

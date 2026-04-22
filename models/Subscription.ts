@@ -1,5 +1,6 @@
 import pool from '../config/db';
 import { paginate } from '../helpers/pagination';
+import type { PoolClient } from 'pg';
 
 const Subscription = {
   /**
@@ -57,12 +58,13 @@ const Subscription = {
   },
 
   /**
-   * Create a new plan with features.
-   * @param {object} data  - Plan fields
-   * @param {Array}  features - [{ key, value }]
+   * Create a new plan with features and optional payment method links.
+   * @param {object} data       - Plan fields
+   * @param {Array}  features   - [{ key, value }]
+   * @param {Array}  methodIds  - payment_method UUIDs to link
    */
-  async createPlan(data: any, features: any[] = []) {
-    const client = await pool.connect();
+  async createPlan(data: any, features: any[] = [], methodIds: string[] = []) {
+    const client: PoolClient = await pool.connect();
     try {
       await client.query('BEGIN');
 
@@ -102,6 +104,15 @@ const Subscription = {
         );
       }
 
+      for (const mid of methodIds) {
+        if (!mid) continue;
+        await client.query(
+          `INSERT INTO plan_payment_methods (plan_id, payment_method_id)
+           VALUES ($1, $2) ON CONFLICT DO NOTHING`,
+          [plan.id, mid]
+        );
+      }
+
       await client.query('COMMIT');
       return plan;
     } catch (err) {
@@ -113,31 +124,32 @@ const Subscription = {
   },
 
   /**
-   * Update a plan and replace its features entirely.
+   * Update a plan and replace its features and payment method links entirely.
    * @param {string} id
    * @param {object} data
-   * @param {Array}  features - [{ key, value }]
+   * @param {Array}  features   - [{ key, value }]
+   * @param {Array}  methodIds  - payment_method UUIDs to link
    */
-  async updatePlan(id: string, data: any, features: any[] = []) {
-    const client = await pool.connect();
+  async updatePlan(id: string, data: any, features: any[] = [], methodIds: string[] = []) {
+    const client: PoolClient = await pool.connect();
     try {
       await client.query('BEGIN');
 
       const { rows } = await client.query(
         `UPDATE subscription_plans SET
-           name          = $1,
-           description   = $2,
-           icon_color    = $3,
-           price_monthly = $4,
-           price_yearly  = $5,
-           price_weekly  = $6,
-           trial_days    = $7,
-           promo_price   = $8,
-           promo_start   = $9,
-           promo_end     = $10,
+           name           = $1,
+           description    = $2,
+           icon_color     = $3,
+           price_monthly  = $4,
+           price_yearly   = $5,
+           price_weekly   = $6,
+           trial_days     = $7,
+           promo_price    = $8,
+           promo_start    = $9,
+           promo_end      = $10,
            is_recommended = $11,
-           status        = $12,
-           sort_order    = $13
+           status         = $12,
+           sort_order     = $13
          WHERE id = $14
          RETURNING *`,
         [
@@ -169,6 +181,17 @@ const Subscription = {
         await client.query(
           `INSERT INTO plan_features (plan_id, feature_key, feature_value) VALUES ($1,$2,$3)`,
           [id, f.key.trim(), f.value || '']
+        );
+      }
+
+      // Replace payment method links
+      await client.query('DELETE FROM plan_payment_methods WHERE plan_id = $1', [id]);
+      for (const mid of methodIds) {
+        if (!mid) continue;
+        await client.query(
+          `INSERT INTO plan_payment_methods (plan_id, payment_method_id)
+           VALUES ($1, $2) ON CONFLICT DO NOTHING`,
+          [id, mid]
         );
       }
 
@@ -242,7 +265,7 @@ const Subscription = {
 
   /**
    * Compute high-level stats.
-   * Returns { mrr, totalSubscribers, churnRate }
+   * Returns { mrr, totalSubscribers, churnRate, pendingTransactions }
    */
   async getStats() {
     const { rows: subRows } = await pool.query(`
@@ -264,7 +287,6 @@ const Subscription = {
     );
     const totalSubscribers = totalRows[0].cnt;
 
-    // Churn: cancelled in last 30 days / active subscribers
     const { rows: churnRows } = await pool.query(
       `SELECT COUNT(*)::int AS cnt FROM user_subscriptions
         WHERE status = 'cancelled' AND cancelled_at >= NOW() - INTERVAL '30 days'`
@@ -274,7 +296,216 @@ const Subscription = {
       ? Math.round((cancelledLast30 / (totalSubscribers + cancelledLast30)) * 100)
       : 0;
 
-    return { mrr, totalSubscribers, churnRate };
+    const { rows: pendingRows } = await pool.query(
+      `SELECT COUNT(*)::int AS cnt FROM transactions WHERE status = 'pending'`
+    );
+    const pendingTransactions = pendingRows[0].cnt;
+
+    return { mrr, totalSubscribers, churnRate, pendingTransactions };
+  },
+
+  async getPendingTransactionsCount(): Promise<number> {
+    const { rows } = await pool.query(
+      `SELECT COUNT(*)::int AS cnt FROM transactions WHERE status = 'pending'`
+    );
+    return rows[0].cnt;
+  },
+
+  /**
+   * Get transactions with optional filters, paginated.
+   */
+  async getTransactionsFiltered({
+    status = '',
+    payment_method = '',
+    date_from = '',
+    date_to = '',
+    page = 1,
+    limit = 20,
+  }: {
+    status?: string;
+    payment_method?: string;
+    date_from?: string;
+    date_to?: string;
+    page?: number;
+    limit?: number;
+  } = {}) {
+    const conditions: string[] = [];
+    const params: any[] = [];
+
+    if (status) {
+      params.push(status);
+      conditions.push(`t.status = $${params.length}`);
+    }
+    if (payment_method) {
+      params.push(payment_method);
+      conditions.push(`t.payment_method = $${params.length}`);
+    }
+    if (date_from) {
+      params.push(date_from);
+      conditions.push(`t.created_at >= $${params.length}`);
+    }
+    if (date_to) {
+      params.push(date_to);
+      conditions.push(`t.created_at <= ($${params.length}::date + INTERVAL '1 day')`);
+    }
+
+    const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
+
+    const query = `
+      SELECT t.id, t.type, t.amount, t.payment_method, t.payment_ref,
+             t.status, t.admin_note, t.created_at,
+             u.full_name, u.email,
+             sp.name AS plan_name,
+             us.billing_cycle
+        FROM transactions t
+        JOIN users u ON u.id = t.user_id
+        LEFT JOIN user_subscriptions us ON us.id = t.subscription_id
+        LEFT JOIN subscription_plans sp ON sp.id = us.plan_id
+       ${where}
+       ORDER BY t.created_at DESC
+       LIMIT $${params.length + 1} OFFSET $${params.length + 2}`;
+
+    const countQuery = `
+      SELECT COUNT(*)::int AS count
+        FROM transactions t
+        LEFT JOIN users u ON u.id = t.user_id
+       ${where}`;
+
+    return paginate(query, countQuery, params, params, page, limit);
+  },
+
+  /**
+   * Get a single transaction with subscription and user info.
+   */
+  async getTransactionById(id: string) {
+    const { rows } = await pool.query(
+      `SELECT t.*, u.full_name, u.email,
+              us.billing_cycle, us.plan_id,
+              sp.name AS plan_name
+         FROM transactions t
+         JOIN users u ON u.id = t.user_id
+         LEFT JOIN user_subscriptions us ON us.id = t.subscription_id
+         LEFT JOIN subscription_plans sp ON sp.id = us.plan_id
+        WHERE t.id = $1`,
+      [id]
+    );
+    return rows[0] || null;
+  },
+
+  /**
+   * Approve a pending transaction: mark completed, activate subscription.
+   */
+  async approveTransaction(id: string) {
+    const client: PoolClient = await pool.connect();
+    try {
+      await client.query('BEGIN');
+
+      const { rows: txRows } = await client.query(
+        `SELECT t.*, us.billing_cycle
+           FROM transactions t
+           LEFT JOIN user_subscriptions us ON us.id = t.subscription_id
+          WHERE t.id = $1`,
+        [id]
+      );
+      if (!txRows[0]) throw Object.assign(new Error('Transaction not found'), { code: 'NOT_FOUND' });
+
+      const tx = txRows[0];
+
+      await client.query(
+        `UPDATE transactions SET status = 'completed' WHERE id = $1`,
+        [id]
+      );
+
+      // Calculate period end based on billing_cycle
+      const intervalMap: Record<string, string> = {
+        monthly: '1 month',
+        yearly:  '1 year',
+        weekly:  '7 days',
+      };
+      const interval = intervalMap[tx.billing_cycle] || '1 month';
+
+      await client.query(
+        `UPDATE user_subscriptions
+            SET status               = 'active',
+                current_period_start = NOW(),
+                current_period_end   = NOW() + INTERVAL '${interval}',
+                updated_at           = NOW()
+          WHERE id = $1`,
+        [tx.subscription_id]
+      );
+
+      await client.query('COMMIT');
+      return tx;
+    } catch (err) {
+      await client.query('ROLLBACK');
+      throw err;
+    } finally {
+      client.release();
+    }
+  },
+
+  /**
+   * Reject a pending transaction: mark failed with reason, cancel subscription.
+   */
+  async rejectTransaction(id: string, reason: string) {
+    const client: PoolClient = await pool.connect();
+    try {
+      await client.query('BEGIN');
+
+      const { rows: txRows } = await client.query(
+        `SELECT * FROM transactions WHERE id = $1`,
+        [id]
+      );
+      if (!txRows[0]) throw Object.assign(new Error('Transaction not found'), { code: 'NOT_FOUND' });
+
+      const tx = txRows[0];
+
+      await client.query(
+        `UPDATE transactions SET status = 'failed', admin_note = $1 WHERE id = $2`,
+        [reason || null, id]
+      );
+
+      await client.query(
+        `UPDATE user_subscriptions
+            SET status       = 'cancelled',
+                cancelled_at = NOW(),
+                updated_at   = NOW()
+          WHERE id = $1`,
+        [tx.subscription_id]
+      );
+
+      await client.query('COMMIT');
+      return tx;
+    } catch (err) {
+      await client.query('ROLLBACK');
+      throw err;
+    } finally {
+      client.release();
+    }
+  },
+
+  /**
+   * Save features for a plan (used by the standalone features editor).
+   */
+  async savePlanFeatures(planId: string, features: Array<{ key: string; value: string }>) {
+    const client: PoolClient = await pool.connect();
+    try {
+      await client.query('BEGIN');
+      await client.query('DELETE FROM plan_features WHERE plan_id = $1', [planId]);
+      for (const f of features) {
+        if (!f.key || !f.key.trim()) continue;
+        await client.query(
+          `INSERT INTO plan_features (plan_id, feature_key, feature_value) VALUES ($1,$2,$3)`,
+          [planId, f.key.trim(), f.value || '']
+        );
+      }
+      await client.query('COMMIT');
+    } catch (err) {
+      await client.query('ROLLBACK');
+      throw err;
+    } finally {
+      client.release();
+    }
   },
 };
 

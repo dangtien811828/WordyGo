@@ -36,10 +36,36 @@
       <span class="nav-icon">🎮</span>
       <span class="nav-label">Mini-games</span>
     </a>
+    <% if (admin && admin.role === 'super_admin') { %>
     <a href="/subscriptions" class="nav-item <%= typeof active !== 'undefined' && active === 'subscriptions' ? 'active' : '' %>">
       <span class="nav-icon">💳</span>
-      <span class="nav-label">Gói đăng ký</span>
+      <span class="nav-label">
+        Subscriptions
+        <% if (typeof pendingTransactions !== 'undefined' && pendingTransactions > 0) { %>
+          <span class="badge badge-danger" style="margin-left:6px"><%= pendingTransactions %></span>
+        <% } %>
+      </span>
     </a>
+    <% if (typeof active !== 'undefined' && active === 'subscriptions') { %>
+      <a href="/subscriptions/plans" class="nav-item" style="padding-left:40px;font-size:13px">
+        <span class="nav-icon" style="font-size:13px">📦</span>
+        <span class="nav-label">Plans</span>
+      </a>
+      <a href="/subscriptions/payment-methods" class="nav-item" style="padding-left:40px;font-size:13px">
+        <span class="nav-icon" style="font-size:13px">💰</span>
+        <span class="nav-label">Payment Methods</span>
+      </a>
+      <a href="/subscriptions/transactions" class="nav-item" style="padding-left:40px;font-size:13px">
+        <span class="nav-icon" style="font-size:13px">📋</span>
+        <span class="nav-label">
+          Transactions
+          <% if (typeof pendingTransactions !== 'undefined' && pendingTransactions > 0) { %>
+            <span class="badge badge-danger" style="margin-left:4px"><%= pendingTransactions %></span>
+          <% } %>
+        </span>
+      </a>
+    <% } %>
+    <% } %>
     <a href="/ai-content" class="nav-item <%= typeof active !== 'undefined' && active === 'ai' ? 'active' : '' %>">
       <span class="nav-icon">🤖</span>
       <span class="nav-label">Nội dung AI</span>

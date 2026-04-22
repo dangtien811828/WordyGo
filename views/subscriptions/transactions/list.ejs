@@ -1,0 +1,166 @@
+<%
+function fmt(n) {
+  return n != null ? Number(n).toLocaleString('vi-VN') + '₫' : '—';
+}
+function fmtDate(ts) {
+  if (!ts) return '—';
+  const d = new Date(ts);
+  return d.toLocaleDateString('vi-VN') + ' ' + d.toLocaleTimeString('vi-VN', { hour:'2-digit', minute:'2-digit' });
+}
+const statusBadge = {
+  pending:   'badge-warning',
+  completed: 'badge-success',
+  failed:    'badge-danger',
+  refunded:  'badge-info',
+};
+%>
+
+<div class="page-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+  <div>
+    <div style="font-size:13px;color:#718096;margin-bottom:4px"><a href="/subscriptions" style="color:#718096">Subscriptions</a> / Transactions</div>
+    <h1 style="margin:0;font-size:22px;font-weight:700">Transactions</h1>
+  </div>
+</div>
+
+<!-- Filters -->
+<div class="card" style="padding:16px;margin-bottom:16px">
+  <form method="GET" action="/subscriptions/transactions" style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
+    <div class="form-group" style="margin:0;flex:1;min-width:120px">
+      <label style="font-size:12px">Status</label>
+      <select name="status">
+        <option value="">Tất cả</option>
+        <% ['pending','completed','failed','refunded'].forEach(function(s) { %>
+          <option value="<%= s %>" <%= filters.status === s ? 'selected' : '' %>><%= s %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div class="form-group" style="margin:0;flex:1;min-width:140px">
+      <label style="font-size:12px">Phương thức</label>
+      <select name="payment_method">
+        <option value="">Tất cả</option>
+        <% paymentMethods.forEach(function(m) { %>
+          <option value="<%= m.code %>" <%= filters.payment_method === m.code ? 'selected' : '' %>><%= m.display_name %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div class="form-group" style="margin:0;flex:1;min-width:120px">
+      <label style="font-size:12px">Từ ngày</label>
+      <input type="date" name="date_from" value="<%= filters.date_from %>">
+    </div>
+    <div class="form-group" style="margin:0;flex:1;min-width:120px">
+      <label style="font-size:12px">Đến ngày</label>
+      <input type="date" name="date_to" value="<%= filters.date_to %>">
+    </div>
+    <div style="display:flex;gap:6px">
+      <button type="submit" class="btn btn-primary" style="white-space:nowrap">Lọc</button>
+      <a href="/subscriptions/transactions" class="btn btn-secondary">Reset</a>
+    </div>
+  </form>
+</div>
+
+<!-- Table -->
+<div class="card">
+  <div class="card-header" style="display:flex;align-items:center;justify-content:space-between">
+    <h2 style="margin:0;font-size:15px">Giao dịch (<%= pagination.total %>)</h2>
+  </div>
+  <div class="table-wrapper" style="overflow-x:auto">
+    <table>
+      <thead>
+        <tr>
+          <th>Người dùng</th>
+          <th>Gói</th>
+          <th>Số tiền</th>
+          <th>Phương thức</th>
+          <th>Loại</th>
+          <th>Status</th>
+          <th>Ngày tạo</th>
+          <th style="text-align:center">Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (transactions.length === 0) { %>
+          <tr>
+            <td colspan="8" style="text-align:center;padding:40px;color:#a0aec0">Không có giao dịch nào</td>
+          </tr>
+        <% } %>
+        <% transactions.forEach(function(t) { %>
+        <tr>
+          <td>
+            <div style="font-weight:500;font-size:14px"><%= t.full_name %></div>
+            <div style="font-size:12px;color:#718096"><%= t.email %></div>
+          </td>
+          <td>
+            <div style="font-size:13px"><%= t.plan_name || '—' %></div>
+            <% if (t.billing_cycle) { %>
+              <div style="font-size:11px;color:#718096"><%= t.billing_cycle %></div>
+            <% } %>
+          </td>
+          <td style="font-weight:600;white-space:nowrap"><%= fmt(t.amount) %></td>
+          <td style="font-size:13px"><%= t.payment_method || '—' %></td>
+          <td>
+            <span class="badge badge-secondary" style="font-size:11px"><%= t.type %></span>
+          </td>
+          <td>
+            <span class="badge <%= statusBadge[t.status] || 'badge-secondary' %>"><%= t.status %></span>
+            <% if (t.admin_note) { %>
+              <div style="font-size:11px;color:#718096;margin-top:3px;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="<%= t.admin_note %>"><%= t.admin_note %></div>
+            <% } %>
+          </td>
+          <td style="font-size:12px;color:#718096;white-space:nowrap"><%= fmtDate(t.created_at) %></td>
+          <td style="text-align:center;white-space:nowrap">
+            <% if (t.status === 'pending') { %>
+              <form method="POST" action="/subscriptions/transactions/<%= t.id %>/approve" style="display:inline;margin:0"
+                    onsubmit="return confirm('Duyệt giao dịch này?')">
+                <button type="submit" class="btn btn-sm" style="background:#38a169;color:#fff;border:none;cursor:pointer">✓ Duyệt</button>
+              </form>
+              <button type="button" class="btn btn-sm btn-danger"
+                      onclick="openRejectModal('<%= t.id %>', '<%= t.full_name %>')">
+                ✕ Từ chối
+              </button>
+            <% } else { %>
+              <span style="color:#a0aec0;font-size:12px"><%= t.status %></span>
+            <% } %>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+  <%- include('../../partials/pagination', { pagination }) %>
+</div>
+
+<!-- Reject Modal -->
+<div id="reject-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center">
+  <div style="background:#fff;border-radius:12px;padding:28px;width:460px;max-width:90vw;box-shadow:0 20px 60px rgba(0,0,0,.2)">
+    <h3 style="margin:0 0 8px;font-size:17px">Từ chối giao dịch</h3>
+    <p style="margin:0 0 16px;font-size:13px;color:#718096">User: <strong id="reject-user-name"></strong></p>
+    <form method="POST" id="reject-form" action="">
+      <div class="form-group">
+        <label style="font-size:14px">Lý do từ chối</label>
+        <textarea name="reason" rows="3" placeholder="Lý do từ chối..."
+                  style="width:100%;resize:vertical"></textarea>
+      </div>
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px">
+        <button type="button" onclick="closeRejectModal()" class="btn btn-secondary">Huỷ</button>
+        <button type="submit" class="btn btn-danger">Xác nhận từ chối</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+function openRejectModal(txId, userName) {
+  document.getElementById('reject-user-name').textContent = userName;
+  document.getElementById('reject-form').action = '/subscriptions/transactions/' + txId + '/reject';
+  const modal = document.getElementById('reject-modal');
+  modal.style.display = 'flex';
+}
+function closeRejectModal() {
+  document.getElementById('reject-modal').style.display = 'none';
+}
+// Close on backdrop click
+document.getElementById('reject-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeRejectModal();
+});
+</script>

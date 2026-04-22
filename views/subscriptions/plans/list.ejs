@@ -1,0 +1,98 @@
+<%
+function fmt(n) {
+  return (n != null && n !== '') ? Number(n).toLocaleString('vi-VN') + '₫' : '—';
+}
+const statusBadge = { active: 'badge-success', inactive: 'badge-secondary' };
+%>
+
+<div class="page-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+  <div>
+    <div style="font-size:13px;color:#718096;margin-bottom:4px"><a href="/subscriptions" style="color:#718096">Subscriptions</a> / Plans</div>
+    <h1 style="margin:0;font-size:22px;font-weight:700">Subscription Plans</h1>
+  </div>
+  <a href="/subscriptions/plans/new" class="btn btn-primary">+ Tạo gói mới</a>
+</div>
+
+<% if (plans.length > 0) { %>
+<div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:24px">
+  <% plans.forEach(function(p) { %>
+  <div class="card" style="flex:1;min-width:280px;max-width:380px;display:flex;flex-direction:column">
+    <div style="padding:20px;border-bottom:1px solid #e2e8f0">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <div style="display:flex;align-items:center;gap:10px">
+          <% if (p.icon_color) { %>
+            <div style="width:36px;height:36px;border-radius:50%;background:<%= p.icon_color %>;flex-shrink:0"></div>
+          <% } %>
+          <div>
+            <div style="font-size:17px;font-weight:700"><%= p.name %></div>
+            <div style="font-size:12px;color:#718096">#<%= p.sort_order %></div>
+          </div>
+        </div>
+        <div style="display:flex;gap:6px;align-items:center">
+          <% if (p.is_recommended) { %>
+            <span class="badge badge-warning" style="font-size:10px">⭐ Đề xuất</span>
+          <% } %>
+          <span class="badge <%= statusBadge[p.status] || 'badge-secondary' %>"><%= p.status %></span>
+        </div>
+      </div>
+      <% if (p.description) { %>
+        <p style="margin:0;font-size:13px;color:#718096"><%= p.description %></p>
+      <% } %>
+    </div>
+
+    <div style="padding:16px;flex:1">
+      <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <tr>
+          <td style="padding:3px 0;color:#718096">Hàng tháng</td>
+          <td style="text-align:right;font-weight:600"><%= fmt(p.price_monthly) %></td>
+        </tr>
+        <% if (p.price_yearly) { %>
+        <tr>
+          <td style="padding:3px 0;color:#718096">Hàng năm</td>
+          <td style="text-align:right;font-weight:600"><%= fmt(p.price_yearly) %></td>
+        </tr>
+        <% } %>
+        <% if (p.price_weekly) { %>
+        <tr>
+          <td style="padding:3px 0;color:#718096">Hàng tuần</td>
+          <td style="text-align:right;font-weight:600"><%= fmt(p.price_weekly) %></td>
+        </tr>
+        <% } %>
+        <% if (p.trial_days) { %>
+        <tr>
+          <td style="padding:3px 0;color:#718096">Dùng thử</td>
+          <td style="text-align:right"><%= p.trial_days %> ngày</td>
+        </tr>
+        <% } %>
+        <tr style="border-top:1px solid #e2e8f0">
+          <td style="padding:8px 0 3px;color:#718096">Subscribers</td>
+          <td style="text-align:right;font-weight:600;padding-top:8px">
+            <a href="/subscriptions/plans/<%= p.id %>/subscribers" style="color:#4299e1"><%= p.active_subscribers %></a>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:3px 0;color:#718096">Features</td>
+          <td style="text-align:right"><%= p.features ? p.features.length : 0 %></td>
+        </tr>
+      </table>
+    </div>
+
+    <div style="padding:12px 16px;border-top:1px solid #e2e8f0;display:flex;gap:6px;flex-wrap:wrap">
+      <a href="/subscriptions/plans/<%= p.id %>/edit" class="btn btn-sm btn-secondary">Sửa</a>
+      <a href="/subscriptions/plans/<%= p.id %>/features" class="btn btn-sm btn-secondary">Features</a>
+      <a href="/subscriptions/plans/<%= p.id %>/subscribers" class="btn btn-sm btn-secondary">Subscribers</a>
+      <form method="POST" action="/subscriptions/plans/<%= p.id %>/delete" style="margin:0"
+            onsubmit="return confirm('Xóa gói \'' + '<%= p.name %>' + '\'? Không thể hoàn tác.')">
+        <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+      </form>
+    </div>
+  </div>
+  <% }) %>
+</div>
+<% } else { %>
+<div class="card" style="padding:60px;text-align:center;color:#718096">
+  <div style="font-size:40px;margin-bottom:12px">📦</div>
+  <p style="margin:0 0 16px">Chưa có gói nào. Hãy tạo gói đầu tiên.</p>
+  <a href="/subscriptions/plans/new" class="btn btn-primary">+ Tạo gói mới</a>
+</div>
+<% } %>

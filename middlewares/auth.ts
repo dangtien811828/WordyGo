@@ -1,5 +1,6 @@
 import type { Request, Response, NextFunction, RequestHandler } from 'express';
 import Approval from '../models/Approval';
+import Subscription from '../models/Subscription';
 
 type AdminRole = 'super_admin' | 'content_editor' | 'moderator';
 
@@ -39,9 +40,13 @@ export async function injectAdmin(req: Request, res: Response, next: NextFunctio
     res.locals.error = req.flash('error');
     res.locals.currentQuery = req.query;
     res.locals.pendingApprovals = 0;
+    res.locals.pendingTransactions = 0;
 
     if (res.locals.admin && res.locals.admin.role === 'super_admin') {
-      res.locals.pendingApprovals = await Approval.countPending();
+      [res.locals.pendingApprovals, res.locals.pendingTransactions] = await Promise.all([
+        Approval.countPending(),
+        Subscription.getPendingTransactionsCount(),
+      ]);
     }
 
     next();

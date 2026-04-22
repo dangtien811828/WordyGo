@@ -1,0 +1,184 @@
+<%
+const isEdit = plan != null;
+const action = isEdit ? `/subscriptions/plans/${plan.id}/update` : '/subscriptions/plans';
+const v = plan || {};
+function val(field, def) {
+  if (v[field] != null && v[field] !== '') return v[field];
+  return def !== undefined ? def : '';
+}
+function checked(field) {
+  return v[field] ? 'checked' : '';
+}
+function fmtDate(ts) {
+  if (!ts) return '';
+  return new Date(ts).toISOString().slice(0,10);
+}
+%>
+
+<div style="margin-bottom:24px">
+  <div style="font-size:13px;color:#718096;margin-bottom:4px">
+    <a href="/subscriptions" style="color:#718096">Subscriptions</a> /
+    <a href="/subscriptions/plans" style="color:#718096">Plans</a> /
+    <%= isEdit ? 'Sửa' : 'Tạo mới' %>
+  </div>
+  <h1 style="margin:0;font-size:22px;font-weight:700"><%= isEdit ? 'Sửa gói: ' + plan.name : 'Tạo gói mới' %></h1>
+</div>
+
+<form method="POST" action="<%= action %>">
+  <div style="display:grid;grid-template-columns:2fr 1fr;gap:20px;align-items:start">
+
+    <!-- Left column -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+
+      <!-- Basic info -->
+      <div class="card" style="padding:20px">
+        <h2 style="margin:0 0 16px;font-size:15px;font-weight:600;border-bottom:1px solid #e2e8f0;padding-bottom:10px">Thông tin cơ bản</h2>
+        <div class="form-group">
+          <label>Tên gói <span style="color:#e53e3e">*</span></label>
+          <input type="text" name="name" value="<%= val('name') %>" placeholder="VD: Premium" required>
+        </div>
+        <div class="form-group">
+          <label>Mô tả</label>
+          <textarea name="description" rows="3" placeholder="Mô tả ngắn về gói..."><%= val('description') %></textarea>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="form-group">
+            <label>Icon color</label>
+            <div style="display:flex;gap:8px;align-items:center">
+              <input type="color" name="icon_color" value="<%= val('icon_color','#4A90D9') %>"
+                     style="width:44px;height:36px;padding:2px;cursor:pointer;border-radius:6px">
+              <input type="text" name="icon_color_text" value="<%= val('icon_color','#4A90D9') %>"
+                     placeholder="#4A90D9" style="flex:1;font-family:monospace"
+                     oninput="document.querySelector('[name=icon_color]').value=this.value">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Sort order</label>
+            <input type="number" name="sort_order" value="<%= val('sort_order', 0) %>" min="0">
+          </div>
+        </div>
+      </div>
+
+      <!-- Pricing -->
+      <div class="card" style="padding:20px">
+        <h2 style="margin:0 0 16px;font-size:15px;font-weight:600;border-bottom:1px solid #e2e8f0;padding-bottom:10px">Giá</h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+          <div class="form-group">
+            <label>Hàng tháng (₫) <span style="color:#e53e3e">*</span></label>
+            <input type="number" name="price_monthly" value="<%= val('price_monthly', 0) %>" min="0" required>
+          </div>
+          <div class="form-group">
+            <label>Hàng năm (₫)</label>
+            <input type="number" name="price_yearly" value="<%= val('price_yearly') %>" min="0">
+          </div>
+          <div class="form-group">
+            <label>Hàng tuần (₫)</label>
+            <input type="number" name="price_weekly" value="<%= val('price_weekly') %>" min="0">
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:4px">
+          <div class="form-group">
+            <label>Dùng thử (ngày)</label>
+            <input type="number" name="trial_days" value="<%= val('trial_days', 0) %>" min="0">
+          </div>
+          <div class="form-group">
+            <label>Giá khuyến mãi (₫)</label>
+            <input type="number" name="promo_price" value="<%= val('promo_price') %>" min="0">
+          </div>
+          <div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px">
+          <div class="form-group">
+            <label>KM từ ngày</label>
+            <input type="date" name="promo_start" value="<%= fmtDate(v.promo_start) %>">
+          </div>
+          <div class="form-group">
+            <label>KM đến ngày</label>
+            <input type="date" name="promo_end" value="<%= fmtDate(v.promo_end) %>">
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment methods -->
+      <div class="card" style="padding:20px">
+        <h2 style="margin:0 0 4px;font-size:15px;font-weight:600">Phương thức thanh toán</h2>
+        <p style="margin:0 0 14px;font-size:13px;color:#718096">Chọn các phương thức thanh toán được chấp nhận cho gói này</p>
+        <% if (allMethods.length > 0) { %>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">
+            <% allMethods.forEach(function(m) { %>
+              <label style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;cursor:pointer;background:<%= planMethodIds.includes(m.id) ? '#ebf8ff' : '#fff' %>">
+                <input type="checkbox" name="payment_method_ids[]" value="<%= m.id %>"
+                       <%= planMethodIds.includes(m.id) ? 'checked' : '' %>
+                       onchange="this.closest('label').style.background=this.checked?'#ebf8ff':'#fff'">
+                <% if (m.logo_url) { %>
+                  <img src="<%= m.logo_url %>" alt="" style="width:24px;height:24px;object-fit:contain">
+                <% } %>
+                <div>
+                  <div style="font-size:13px;font-weight:500"><%= m.display_name %></div>
+                  <div style="font-size:11px;color:#718096"><%= m.method_type %><%= m.fee_percent > 0 ? ' · ' + m.fee_percent + '%' : '' %></div>
+                </div>
+                <% if (!m.is_active) { %>
+                  <span class="badge badge-secondary" style="font-size:10px;margin-left:auto">inactive</span>
+                <% } %>
+              </label>
+            <% }) %>
+          </div>
+        <% } else { %>
+          <p style="color:#718096;font-size:13px;margin:0">Chưa có payment method nào. <a href="/subscriptions/payment-methods/new">Tạo mới →</a></p>
+        <% } %>
+      </div>
+
+    </div>
+
+    <!-- Right column -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+
+      <!-- Status & flags -->
+      <div class="card" style="padding:20px">
+        <h2 style="margin:0 0 16px;font-size:15px;font-weight:600;border-bottom:1px solid #e2e8f0;padding-bottom:10px">Trạng thái</h2>
+        <div class="form-group">
+          <label>Status</label>
+          <select name="status">
+            <option value="active" <%= val('status','active') === 'active' ? 'selected' : '' %>>Active</option>
+            <option value="inactive" <%= val('status','active') === 'inactive' ? 'selected' : '' %>>Inactive</option>
+          </select>
+        </div>
+        <div style="margin-top:8px">
+          <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
+            <input type="checkbox" name="is_recommended" <%= checked('is_recommended') %>>
+            <span style="font-size:14px">⭐ Đây là gói được đề xuất</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="card" style="padding:16px">
+        <button type="submit" class="btn btn-primary" style="width:100%;margin-bottom:8px">
+          <%= isEdit ? '💾 Lưu thay đổi' : '✅ Tạo gói' %>
+        </button>
+        <a href="/subscriptions/plans" class="btn btn-secondary" style="width:100%;display:block;text-align:center">Huỷ</a>
+        <% if (isEdit) { %>
+          <hr style="margin:12px 0;border:none;border-top:1px solid #e2e8f0">
+          <a href="/subscriptions/plans/<%= plan.id %>/features" class="btn btn-secondary" style="width:100%;display:block;text-align:center">
+            🔧 Quản lý Features →
+          </a>
+        <% } %>
+      </div>
+
+    </div>
+  </div>
+</form>
+
+<script>
+// Sync color picker ↔ text input
+const picker = document.querySelector('[name=icon_color]');
+const textInput = document.querySelector('[name=icon_color_text]');
+if (picker && textInput) {
+  picker.addEventListener('input', () => { textInput.value = picker.value; });
+  textInput.addEventListener('input', () => {
+    if (/^#[0-9a-fA-F]{6}$/.test(textInput.value)) {
+      picker.value = textInput.value;
+    }
+  });
+}
+</script>

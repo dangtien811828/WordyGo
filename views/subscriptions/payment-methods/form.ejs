@@ -1,0 +1,215 @@
+<%
+const isEdit = method != null;
+const action = isEdit ? `/subscriptions/payment-methods/${method.id}/update` : '/subscriptions/payment-methods';
+const v = method || {};
+function val(field, def) {
+  if (v[field] != null && v[field] !== '') return v[field];
+  return def !== undefined ? def : '';
+}
+const ai = (v.account_info && typeof v.account_info === 'object') ? v.account_info : {};
+%>
+
+<div style="margin-bottom:24px">
+  <div style="font-size:13px;color:#718096;margin-bottom:4px">
+    <a href="/subscriptions" style="color:#718096">Subscriptions</a> /
+    <a href="/subscriptions/payment-methods" style="color:#718096">Payment Methods</a> /
+    <%= isEdit ? 'Sửa' : 'Thêm mới' %>
+  </div>
+  <h1 style="margin:0;font-size:22px;font-weight:700"><%= isEdit ? 'Sửa: ' + method.display_name : 'Thêm phương thức thanh toán' %></h1>
+</div>
+
+<form method="POST" action="<%= action %>" enctype="multipart/form-data">
+  <div style="display:grid;grid-template-columns:2fr 1fr;gap:20px;align-items:start">
+
+    <!-- Left column -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+
+      <!-- Basic info -->
+      <div class="card" style="padding:20px">
+        <h2 style="margin:0 0 16px;font-size:15px;font-weight:600;border-bottom:1px solid #e2e8f0;padding-bottom:10px">Thông tin cơ bản</h2>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="form-group">
+            <label>Code <span style="color:#e53e3e">*</span></label>
+            <input type="text" name="code" value="<%= val('code') %>"
+                   placeholder="VD: momo" pattern="[a-z_]+"
+                   title="Chỉ dùng chữ thường a-z và dấu _"
+                   <%= isEdit ? 'readonly style="background:#f7fafc;cursor:not-allowed"' : 'required' %>>
+            <% if (!isEdit) { %>
+              <small style="color:#718096;font-size:12px">Chỉ dùng chữ thường và dấu _ (VD: bank_transfer)</small>
+            <% } %>
+          </div>
+          <div class="form-group">
+            <label>Tên hiển thị <span style="color:#e53e3e">*</span></label>
+            <input type="text" name="display_name" value="<%= val('display_name') %>" placeholder="VD: Ví Momo" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Mô tả</label>
+          <textarea name="description" rows="2" placeholder="Mô tả ngắn..."><%= val('description') %></textarea>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="form-group">
+            <label>Loại <span style="color:#e53e3e">*</span></label>
+            <select name="method_type" id="method-type-select" required onchange="showAccountFields(this.value)">
+              <option value="">-- Chọn loại --</option>
+              <% ['ewallet','bank','card','international'].forEach(function(t) { %>
+                <option value="<%= t %>" <%= val('method_type') === t ? 'selected' : '' %>><%= t %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Phí giao dịch (%)</label>
+            <input type="number" name="fee_percent" value="<%= val('fee_percent', 0) %>" min="0" max="100" step="0.01">
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="form-group">
+            <label>Logo (upload file)</label>
+            <input type="file" name="logo" accept="image/*">
+            <% if (v.logo_url) { %>
+              <div style="margin-top:8px;display:flex;align-items:center;gap:8px">
+                <img src="<%= v.logo_url %>" alt="logo" style="width:40px;height:40px;object-fit:contain;border:1px solid #e2e8f0;border-radius:6px;padding:3px">
+                <span style="font-size:12px;color:#718096">Hiện tại</span>
+              </div>
+            <% } %>
+          </div>
+          <div class="form-group">
+            <label>Hoặc nhập logo URL</label>
+            <input type="url" name="logo_url_manual" value="" placeholder="https://...">
+            <small style="color:#718096;font-size:12px">Upload sẽ được ưu tiên hơn URL</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Sort order</label>
+          <input type="number" name="sort_order" value="<%= val('sort_order', 0) %>" min="0">
+        </div>
+      </div>
+
+      <!-- Account info (dynamic by type) -->
+      <div class="card" style="padding:20px" id="account-info-card">
+        <h2 style="margin:0 0 16px;font-size:15px;font-weight:600;border-bottom:1px solid #e2e8f0;padding-bottom:10px">Thông tin tài khoản</h2>
+
+        <!-- Bank fields -->
+        <div id="fields-bank" style="display:none">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div class="form-group">
+              <label>Số tài khoản</label>
+              <input type="text" name="account_number" value="<%= ai.account_number || '' %>">
+            </div>
+            <div class="form-group">
+              <label>Tên tài khoản</label>
+              <input type="text" name="account_name" value="<%= ai.account_name || '' %>">
+            </div>
+            <div class="form-group">
+              <label>Tên ngân hàng</label>
+              <input type="text" name="bank_name" value="<%= ai.bank_name || '' %>">
+            </div>
+            <div class="form-group">
+              <label>SWIFT code</label>
+              <input type="text" name="swift_code" value="<%= ai.swift_code || '' %>" style="font-family:monospace">
+            </div>
+            <div class="form-group" style="grid-column:1/-1">
+              <label>Chi nhánh</label>
+              <input type="text" name="branch" value="<%= ai.branch || '' %>">
+            </div>
+          </div>
+        </div>
+
+        <!-- E-wallet fields -->
+        <div id="fields-ewallet" style="display:none">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div class="form-group">
+              <label>Số điện thoại</label>
+              <input type="tel" name="phone_number" value="<%= ai.phone_number || '' %>">
+            </div>
+            <div class="form-group">
+              <label>Tên tài khoản</label>
+              <input type="text" name="account_name" value="<%= ai.account_name || '' %>">
+            </div>
+            <div class="form-group" style="grid-column:1/-1">
+              <label>QR Image URL</label>
+              <input type="url" name="qr_image_url" value="<%= ai.qr_image_url || '' %>" placeholder="https://...">
+            </div>
+          </div>
+        </div>
+
+        <!-- Card fields -->
+        <div id="fields-card" style="display:none">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div class="form-group">
+              <label>Merchant ID</label>
+              <input type="text" name="merchant_id" value="<%= ai.merchant_id || '' %>" style="font-family:monospace">
+            </div>
+            <div class="form-group">
+              <label>Integration Key</label>
+              <input type="text" name="integration_key" value="<%= ai.integration_key || '' %>" style="font-family:monospace">
+            </div>
+          </div>
+        </div>
+
+        <!-- International / empty -->
+        <div id="fields-international" style="display:none">
+          <p style="color:#718096;font-size:13px;margin:0">Không cần thông tin tài khoản cho loại International.</p>
+        </div>
+
+        <div id="fields-empty">
+          <p style="color:#a0aec0;font-size:13px;margin:0">Chọn loại phương thức thanh toán để xem các trường cần điền.</p>
+        </div>
+      </div>
+
+      <!-- Instructions -->
+      <div class="card" style="padding:20px">
+        <h2 style="margin:0 0 16px;font-size:15px;font-weight:600;border-bottom:1px solid #e2e8f0;padding-bottom:10px">Hướng dẫn thanh toán</h2>
+        <div class="form-group">
+          <label>Tiếng Việt</label>
+          <textarea name="instructions_vi" rows="4" placeholder="Hướng dẫn thanh toán bằng tiếng Việt..."><%= val('instructions_vi') %></textarea>
+        </div>
+        <div class="form-group">
+          <label>English</label>
+          <textarea name="instructions_en" rows="4" placeholder="Payment instructions in English..."><%= val('instructions_en') %></textarea>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right column -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="card" style="padding:20px">
+        <h2 style="margin:0 0 16px;font-size:15px;font-weight:600;border-bottom:1px solid #e2e8f0;padding-bottom:10px">Trạng thái</h2>
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
+          <input type="checkbox" name="is_active" value="on" <%= val('is_active', true) ? 'checked' : '' %>>
+          <span style="font-size:14px">Kích hoạt (active)</span>
+        </label>
+      </div>
+
+      <div class="card" style="padding:16px">
+        <button type="submit" class="btn btn-primary" style="width:100%;margin-bottom:8px">
+          <%= isEdit ? '💾 Lưu thay đổi' : '✅ Thêm mới' %>
+        </button>
+        <a href="/subscriptions/payment-methods" class="btn btn-secondary" style="width:100%;display:block;text-align:center">Huỷ</a>
+      </div>
+    </div>
+
+  </div>
+</form>
+
+<script>
+function showAccountFields(type) {
+  const sections = ['bank','ewallet','card','international','empty'];
+  sections.forEach(function(s) {
+    const el = document.getElementById('fields-' + s);
+    if (el) el.style.display = 'none';
+  });
+  const target = type || 'empty';
+  const show = document.getElementById('fields-' + target);
+  if (show) show.style.display = '';
+}
+
+// Init on page load
+showAccountFields('<%= val('method_type') %>');
+</script>
