@@ -219,7 +219,7 @@ router.get(
       LEFT JOIN user_reading_progress urp ON urp.ebook_id = e.id AND urp.user_id = $1
       LEFT JOIN user_ebook_favorites  f   ON f.ebook_id  = e.id AND f.user_id  = $1
       WHERE ${itemsConditions.join(' AND ')}
-      ORDER BY e.sort_order ASC NULLS LAST, e.created_at DESC
+      ORDER BY e.created_at DESC
       LIMIT ${limitPh} OFFSET ${offsetPh}`;
 
     // ── Count query ───────────────────────────────────────────────────────────
