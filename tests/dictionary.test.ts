@@ -43,7 +43,7 @@ beforeAll(async () => {
   if (reg.status !== 201) {
     throw new Error(`Setup failed: register returned ${reg.status} ${JSON.stringify(reg.body)}`);
   }
-  accessToken = reg.body.data.accessToken;
+  accessToken = reg.body.data.access_token;
 
   // Insert 3 test entries
   appleId = await insertEntry(`${HEADWORD_PREFIX}apple`, { pos: ['noun'], cefr: 'A1', frequency: 1000 });

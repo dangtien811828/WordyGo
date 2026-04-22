@@ -30,6 +30,9 @@ const migrations: MigrationDef[] = [
   { name: 'Dictionary GIN + recency (2 indexes)',      file: './migrations/12_dictionary_indexes' },
   { name: 'Phase 4: User decks + study indexes',       file: './migrations/13_decks_user_study' },
   { name: 'Phase 4 fix: decks.user_id safety (idempotent)', file: './migrations/14_decks_user_id' },
+  { name: 'Phase 6 rewrite: leitner_cards + leitner_reviews', file: './migrations/15_leitner_rewrite' },
+  { name: 'Phase 6: practice_sessions + practice_answers',   file: './migrations/16_practice_sessions' },
+  { name: 'Phase 6: clean user_card_progress (drop SRS)',    file: './migrations/17_clean_user_card_progress' },
 ];
 
 export const migrate = async (): Promise<void> => {

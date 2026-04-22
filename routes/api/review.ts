@@ -345,13 +345,14 @@ const pairLinkSchema = z.object({
   count: z.number().int().min(1).max(10).default(5),
 });
 
-// Priority: due cards → box 1-2 not-yet-due → anything else (new cards, higher boxes)
+// Priority: due leitner cards → box 1-2 not-yet-due → new (no leitner record) → else
 const PAIR_ORDER = `
   CASE
-    WHEN ucp.due_at IS NOT NULL AND ucp.due_at <= NOW() THEN 0
-    WHEN ucp.leitner_box IN (1, 2) THEN 1
-    ELSE 2
-  END, ucp.due_at ASC NULLS LAST, RANDOM()
+    WHEN lc.id IS NOT NULL AND lc.due_at <= NOW() THEN 0
+    WHEN lc.id IS NOT NULL AND lc.box_number IN (1, 2) THEN 1
+    WHEN lc.id IS NULL THEN 2
+    ELSE 3
+  END, lc.due_at ASC NULLS LAST, RANDOM()
 `;
 
 router.post(
@@ -379,6 +380,7 @@ router.post(
          FROM cards c
          JOIN dictionary_entries de ON de.id = c.entry_id
          LEFT JOIN user_card_progress ucp ON ucp.card_id = c.id AND ucp.user_id = $2
+         LEFT JOIN leitner_cards lc ON lc.entry_id = c.entry_id AND lc.user_id = $2
          WHERE c.deck_id = $1
          ORDER BY ${PAIR_ORDER}
          LIMIT $3`,
@@ -392,6 +394,7 @@ router.post(
          JOIN dictionary_entries de ON de.id = c.entry_id
          JOIN decks d ON d.id = c.deck_id
          LEFT JOIN user_card_progress ucp ON ucp.card_id = c.id AND ucp.user_id = $1
+         LEFT JOIN leitner_cards lc ON lc.entry_id = c.entry_id AND lc.user_id = $1
          WHERE (
            (d.deck_type IN ('premade','system_generated') AND d.status = 'published')
            OR d.user_id = $1

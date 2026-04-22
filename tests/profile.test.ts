@@ -33,10 +33,10 @@ describe('GET /api/v1/profile/me', () => {
   });
 
   it('authenticated → user data với computed fields', async () => {
-    const { accessToken, email } = await registerUser();
+    const { access_token, email } = await registerUser();
     const res = await request(app)
       .get('/api/v1/profile/me')
-      .set('Authorization', `Bearer ${accessToken}`);
+      .set('Authorization', `Bearer ${access_token}`);
 
     expect(res.status).toBe(200);
     expect(res.body.success).toBe(true);
@@ -50,10 +50,10 @@ describe('GET /api/v1/profile/me', () => {
 // ════════════════════════════════════════════════════════════════
 describe('PATCH /api/v1/profile/me', () => {
   it('valid data → 200 + updated profile', async () => {
-    const { accessToken } = await registerUser();
+    const { access_token } = await registerUser();
     const res = await request(app)
       .patch('/api/v1/profile/me')
-      .set('Authorization', `Bearer ${accessToken}`)
+      .set('Authorization', `Bearer ${access_token}`)
       .send({ full_name: 'Updated Name', level: 'intermediate' });
 
     expect(res.status).toBe(200);
@@ -62,10 +62,10 @@ describe('PATCH /api/v1/profile/me', () => {
   });
 
   it('invalid level → 400 VALIDATION_ERROR', async () => {
-    const { accessToken } = await registerUser();
+    const { access_token } = await registerUser();
     const res = await request(app)
       .patch('/api/v1/profile/me')
-      .set('Authorization', `Bearer ${accessToken}`)
+      .set('Authorization', `Bearer ${access_token}`)
       .send({ level: 'wizard' });
 
     expect(res.status).toBe(400);
@@ -76,10 +76,10 @@ describe('PATCH /api/v1/profile/me', () => {
 // ════════════════════════════════════════════════════════════════
 describe('POST /api/v1/profile/change-password', () => {
   it('wrong current password → 401 INVALID_CURRENT_PASSWORD', async () => {
-    const { accessToken } = await registerUser();
+    const { access_token } = await registerUser();
     const res = await request(app)
       .post('/api/v1/profile/change-password')
-      .set('Authorization', `Bearer ${accessToken}`)
+      .set('Authorization', `Bearer ${access_token}`)
       .send({ currentPassword: 'wrongpass', newPassword: 'newsecret' });
 
     expect(res.status).toBe(401);
@@ -87,10 +87,10 @@ describe('POST /api/v1/profile/change-password', () => {
   });
 
   it('correct current → 200, login với newPassword thành công', async () => {
-    const { accessToken, email } = await registerUser();
+    const { access_token, email } = await registerUser();
     const changeRes = await request(app)
       .post('/api/v1/profile/change-password')
-      .set('Authorization', `Bearer ${accessToken}`)
+      .set('Authorization', `Bearer ${access_token}`)
       .send({ currentPassword: 'password123', newPassword: 'newsecret' });
     expect(changeRes.status).toBe(200);
 
@@ -101,16 +101,16 @@ describe('POST /api/v1/profile/change-password', () => {
   });
 
   it('change-password revokes tất cả refresh tokens cũ', async () => {
-    const { accessToken, refreshToken } = await registerUser();
+    const { access_token, refresh_token } = await registerUser();
     const changeRes = await request(app)
       .post('/api/v1/profile/change-password')
-      .set('Authorization', `Bearer ${accessToken}`)
+      .set('Authorization', `Bearer ${access_token}`)
       .send({ currentPassword: 'password123', newPassword: 'newsecret' });
     expect(changeRes.status).toBe(200);
 
     const refreshRes = await request(app)
       .post('/api/v1/auth/refresh')
-      .send({ refreshToken });
+      .send({ refresh_token });
     expect(refreshRes.status).toBe(401);
     expect(refreshRes.body.error.code).toBe('INVALID_REFRESH_TOKEN');
   });
@@ -119,11 +119,11 @@ describe('POST /api/v1/profile/change-password', () => {
 // ════════════════════════════════════════════════════════════════
 describe('POST /api/v1/profile/avatar', () => {
   it('file > 5MB → 413 FILE_TOO_LARGE', async () => {
-    const { accessToken } = await registerUser();
+    const { access_token } = await registerUser();
     const bigBuffer = Buffer.alloc(6 * 1024 * 1024, 0);
     const res = await request(app)
       .post('/api/v1/profile/avatar')
-      .set('Authorization', `Bearer ${accessToken}`)
+      .set('Authorization', `Bearer ${access_token}`)
       .attach('avatar', bigBuffer, { filename: 'big.png', contentType: 'image/png' });
 
     expect(res.status).toBe(413);
@@ -131,11 +131,11 @@ describe('POST /api/v1/profile/avatar', () => {
   });
 
   it('file không phải ảnh (txt) → 400 INVALID_FILE_TYPE', async () => {
-    const { accessToken } = await registerUser();
+    const { access_token } = await registerUser();
     const txtBuffer = Buffer.from('hello world');
     const res = await request(app)
       .post('/api/v1/profile/avatar')
-      .set('Authorization', `Bearer ${accessToken}`)
+      .set('Authorization', `Bearer ${access_token}`)
       .attach('avatar', txtBuffer, { filename: 'hello.txt', contentType: 'text/plain' });
 
     expect(res.status).toBe(400);

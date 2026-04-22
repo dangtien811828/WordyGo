@@ -49,11 +49,11 @@ router.get(
            d.thumbnail_url, d.created_at, d.user_id,
            (SELECT COUNT(*)::int FROM cards c WHERE c.deck_id = d.id) AS total_cards,
            (SELECT COUNT(*)::int FROM cards c
-            JOIN user_card_progress ucp ON ucp.card_id = c.id AND ucp.user_id = $1
-            WHERE c.deck_id = d.id AND ucp.due_at <= NOW()) AS due_cards,
+            JOIN leitner_cards lc ON lc.entry_id = c.entry_id AND lc.user_id = $1
+            WHERE c.deck_id = d.id AND lc.due_at <= NOW()) AS due_cards,
            (SELECT COUNT(*)::int FROM cards c
-            JOIN user_card_progress ucp ON ucp.card_id = c.id AND ucp.user_id = $1
-            WHERE c.deck_id = d.id AND ucp.leitner_box = 5) AS mastered_cards,
+            JOIN leitner_cards lc ON lc.entry_id = c.entry_id AND lc.user_id = $1
+            WHERE c.deck_id = d.id AND lc.box_number = 5) AS mastered_cards,
            (SELECT COUNT(*)::int FROM cards c
             JOIN user_card_progress ucp ON ucp.card_id = c.id AND ucp.user_id = $1
             WHERE c.deck_id = d.id) AS started_cards
@@ -74,9 +74,9 @@ router.get(
         `SELECT
            COUNT(DISTINCT c.deck_id)::int AS decks_with_due,
            COUNT(*)::int AS total_due_cards
-         FROM user_card_progress ucp
-         JOIN cards c ON c.id = ucp.card_id
-         WHERE ucp.user_id = $1 AND ucp.due_at <= NOW()`,
+         FROM leitner_cards lc
+         JOIN cards c ON c.entry_id = lc.entry_id
+         WHERE lc.user_id = $1 AND lc.due_at <= NOW()`,
         [userId]
       ),
     ]);
@@ -110,11 +110,11 @@ router.get(
          d.thumbnail_url, d.min_cards_to_study, d.created_at,
          (SELECT COUNT(*)::int FROM cards c WHERE c.deck_id = d.id) AS total_cards,
          (SELECT COUNT(*)::int FROM cards c
-          JOIN user_card_progress ucp ON ucp.card_id = c.id AND ucp.user_id = $2
-          WHERE c.deck_id = d.id AND ucp.due_at <= NOW()) AS due_cards,
+          JOIN leitner_cards lc ON lc.entry_id = c.entry_id AND lc.user_id = $2
+          WHERE c.deck_id = d.id AND lc.due_at <= NOW()) AS due_cards,
          (SELECT COUNT(*)::int FROM cards c
-          JOIN user_card_progress ucp ON ucp.card_id = c.id AND ucp.user_id = $2
-          WHERE c.deck_id = d.id AND ucp.leitner_box = 5) AS mastered_cards,
+          JOIN leitner_cards lc ON lc.entry_id = c.entry_id AND lc.user_id = $2
+          WHERE c.deck_id = d.id AND lc.box_number = 5) AS mastered_cards,
          (SELECT json_agg(json_build_object(
             'card_id', c.id, 'entry_id', c.entry_id,
             'headword', de.headword, 'meaning_vi', de.meaning_vi, 'pos', de.pos

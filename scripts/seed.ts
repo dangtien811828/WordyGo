@@ -420,7 +420,16 @@ async function seedApp(
       await client.query('INSERT INTO batch_entries (batch_id,entry_id,action,entry_snapshot) VALUES ($1,$2,$3,$4) ON CONFLICT DO NOTHING',
         [batch,entryIds[i],'upsert',JSON.stringify({headword:entriesData[i][0],ipa_us:entriesData[i][2]})]);
 
-  for (const [k,v,d] of [['leitner_intervals',[1,2,7,14,30],'Box intervals'],['cards_per_session',20,'Cards/session'],['gpt_active_model','gpt-4o','GPT model'],['tts_default_voice','en-US-Wavenet-D','TTS voice'],['maintenance_mode',{enabled:false},'Maintenance']] as [string,any,string][])
+  // Leitner intervals: DO NOTHING so production overrides are preserved
+  await client.query(
+    'INSERT INTO system_configs (config_key,config_value,description,updated_by) VALUES ($1,$2,$3,$4) ON CONFLICT(config_key) DO NOTHING',
+    ['leitner_intervals', JSON.stringify([1,2,4,7,14]), 'Days between reviews per box (Box 1→5)', adminId]
+  );
+  await client.query(
+    'INSERT INTO system_configs (config_key,config_value,description,updated_by) VALUES ($1,$2,$3,$4) ON CONFLICT(config_key) DO NOTHING',
+    ['leitner_intervals_days', JSON.stringify([1,2,4,7,14]), 'Interval days for Box 1..5', adminId]
+  );
+  for (const [k,v,d] of [['cards_per_session',20,'Cards/session'],['gpt_active_model','gpt-4o','GPT model'],['tts_default_voice','en-US-Wavenet-D','TTS voice'],['maintenance_mode',{enabled:false},'Maintenance']] as [string,any,string][])
     await client.query('INSERT INTO system_configs (config_key,config_value,description,updated_by) VALUES ($1,$2,$3,$4) ON CONFLICT(config_key) DO UPDATE SET config_value=EXCLUDED.config_value',[k,JSON.stringify(v),d,adminId]);
 
   await client.query('INSERT INTO audit_logs (admin_id,action,module,target_type,target_label,details,ip_address) VALUES ($1,$2,$3,$4,$5,$6,$7)',[adminId,'LOGIN','auth','admin','admin@english-app.com',JSON.stringify({method:'password'}),'127.0.0.1']);

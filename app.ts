@@ -16,8 +16,9 @@ import apiProfileRoutes from './routes/api/profile';
 import apiDictionaryRoutes from './routes/api/dictionary';
 import apiDecksRoutes from './routes/api/decks';
 import apiCardsRoutes from './routes/api/cards';
-import apiStudyRoutes from './routes/api/study';
 import apiReviewRoutes from './routes/api/review';
+import apiLeitnerRoutes from './routes/api/leitner';
+import apiPracticeRoutes from './routes/api/practice';
 
 import authRoutes from './routes/auth';
 import dashboardRoutes from './routes/dashboard';
@@ -114,9 +115,12 @@ app.use('/api/v1/dictionary', apiDictionaryRoutes);
 //Phase 4: decks & Flashcards
 app.use('/api/v1/decks', requireApiAuth, apiDecksRoutes);
 app.use('/api/v1', requireApiAuth, apiCardsRoutes);
-app.use('/api/v1', requireApiAuth, apiStudyRoutes);
 //Phase 5: review
 app.use('/api/v1/review', requireApiAuth, apiReviewRoutes);
+//Phase 6: leitner
+app.use('/api/v1/leitner', requireApiAuth, apiLeitnerRoutes);
+//Phase 6: practice (replaces /study/* and /review/* for mobile)
+app.use('/api/v1/practice', requireApiAuth, apiPracticeRoutes);
 
 // API 404 — mọi path /api/* không match route trả JSON
 app.use('/api', (_req: Request, res: Response) => {

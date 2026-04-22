@@ -25,7 +25,7 @@ beforeAll(async () => {
     full_name: 'Review Tester A',
   });
   if (regA.status !== 201) throw new Error(`Setup regA: ${JSON.stringify(regA.body)}`);
-  tokenA = regA.body.data.accessToken;
+  tokenA = regA.body.data.access_token;
 
   const regB = await request(app).post('/api/v1/auth/register').send({
     email: `${EMAIL_PREFIX}b@example.com`,
@@ -33,7 +33,7 @@ beforeAll(async () => {
     full_name: 'Review Tester B',
   });
   if (regB.status !== 201) throw new Error(`Setup regB: ${JSON.stringify(regB.body)}`);
-  tokenB = regB.body.data.accessToken;
+  tokenB = regB.body.data.access_token;
 
   // ── Insert dictionary entries ─────────────────────────────────────────────
   // Verb entry: has meaning_vi, cefr_level=B1, pos=['verb']

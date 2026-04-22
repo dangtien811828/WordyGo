@@ -56,8 +56,8 @@ const issueTokens = async (
   );
 
   return {
-    accessToken: generateAccessToken(user.id, user.email),
-    refreshToken: generateRefreshToken(user.id, tokenId),
+    access_token: generateAccessToken(user.id, user.email),
+    refresh_token: generateRefreshToken(user.id, tokenId),
   };
 };
 
@@ -76,11 +76,11 @@ const loginSchema = z.object({
 });
 
 const refreshSchema = z.object({
-  refreshToken: z.string().min(1),
+  refresh_token: z.string().min(1),
 });
 
 const logoutSchema = z.object({
-  refreshToken: z.string().optional(),
+  refresh_token: z.string().optional(),
 });
 
 // ══════════════════════════════════════
@@ -174,11 +174,11 @@ router.post(
   refreshLimiter,
   validateBody(refreshSchema),
   asyncHandler(async (req: Request, res: Response) => {
-    const { refreshToken } = req.body;
+    const { refresh_token } = req.body;
 
     let decoded: { userId: string; tokenId: string };
     try {
-      decoded = jwt.verify(refreshToken, getSecret()) as { userId: string; tokenId: string };
+      decoded = jwt.verify(refresh_token, getSecret()) as { userId: string; tokenId: string };
     } catch {
       return apiError(res, 401, 'INVALID_REFRESH_TOKEN', 'Refresh token không hợp lệ');
     }
@@ -258,11 +258,11 @@ router.post(
   requireApiAuth,
   validateBody(logoutSchema),
   asyncHandler(async (req: ApiRequest, res: Response) => {
-    const { refreshToken } = req.body;
+    const { refresh_token } = req.body;
 
-    if (refreshToken) {
+    if (refresh_token) {
       try {
-        const decoded = jwt.verify(refreshToken, getSecret()) as {
+        const decoded = jwt.verify(refresh_token, getSecret()) as {
           userId: string;
           tokenId: string;
         };
@@ -284,7 +284,7 @@ router.post(
       [req.user!.id]
     );
 
-    apiSuccess(res, null, 'Đã đăng xuất');
+    res.status(204).send();
   })
 );
 
@@ -295,7 +295,7 @@ router.post(
   '/logout-all',
   requireApiAuth,
   asyncHandler(async (req: ApiRequest, res: Response) => {
-    const { rowCount } = await pool.query(
+    await pool.query(
       `UPDATE user_refresh_tokens SET revoked = true
        WHERE user_id = $1 AND revoked = false`,
       [req.user!.id]
@@ -306,11 +306,7 @@ router.post(
       [req.user!.id]
     );
 
-    apiSuccess(
-      res,
-      { revokedCount: rowCount ?? 0 },
-      'Đã đăng xuất khỏi tất cả thiết bị'
-    );
+    res.status(204).send();
   })
 );
 

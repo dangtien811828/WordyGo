@@ -19,7 +19,7 @@ beforeAll(async () => {
     full_name: 'Card Tester',
   });
   if (reg.status !== 201) throw new Error(`Setup: ${JSON.stringify(reg.body)}`);
-  accessToken = reg.body.data.accessToken;
+  accessToken = reg.body.data.access_token;
 
   // Insert test dictionary entries
   const { rows: e1 } = await pool.query(
@@ -66,7 +66,8 @@ describe('POST /api/v1/decks/:deckId/cards — add single card', () => {
     expect(res.status).toBe(201);
     expect(res.body.data.entry_id).toBe(testEntryId);
     expect(res.body.data.srs).not.toBeNull();
-    expect(res.body.data.srs.leitner_box).toBe(1);
+    expect(res.body.data.srs.times_seen).toBe(0);
+    expect(res.body.data.srs.leitner_box_number).toBeNull();
     testCardId = res.body.data.id;
   });
 

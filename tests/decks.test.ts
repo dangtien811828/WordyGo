@@ -20,7 +20,7 @@ beforeAll(async () => {
     full_name: 'Deck Tester A',
   });
   if (regA.status !== 201) throw new Error(`Setup A: ${JSON.stringify(regA.body)}`);
-  tokenA = regA.body.data.accessToken;
+  tokenA = regA.body.data.access_token;
 
   // Register user B
   const regB = await request(app).post('/api/v1/auth/register').send({
@@ -29,7 +29,7 @@ beforeAll(async () => {
     full_name: 'Deck Tester B',
   });
   if (regB.status !== 201) throw new Error(`Setup B: ${JSON.stringify(regB.body)}`);
-  tokenB = regB.body.data.accessToken;
+  tokenB = regB.body.data.access_token;
 
   // Fetch user A's ID
   const { rows: uRows } = await pool.query(

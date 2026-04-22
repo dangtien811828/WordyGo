@@ -53,8 +53,8 @@ const getDeckForWrite = async (deckId: string, userId: string, res: Response) =>
 };
 
 const UPSERT_UCP_SQL = `
-  INSERT INTO user_card_progress (user_id, card_id, leitner_box, ease, review_interval)
-  VALUES ($1, $2, 1, 2.5, 0)
+  INSERT INTO user_card_progress (user_id, card_id)
+  VALUES ($1, $2)
   ON CONFLICT (user_id, card_id) DO NOTHING
 `;
 
@@ -75,12 +75,13 @@ router.get(
       `SELECT c.id AS card_id, c.entry_id, c.note_html, c.sort_order,
          de.headword, de.ipa_us, de.pos,
          LEFT(SPLIT_PART(de.meaning_vi, E'\\n', 1), 200) AS meaning_preview,
-         ucp.leitner_box, ucp.ease, ucp.review_interval, ucp.due_at,
-         ucp.lapses, ucp.last_review,
+         ucp.times_seen, ucp.times_correct, ucp.first_seen_at, ucp.last_review,
+         lc.box_number AS leitner_box_number, lc.due_at AS leitner_due_at,
          CASE WHEN ucp.card_id IS NULL THEN TRUE ELSE FALSE END AS is_new
        FROM cards c
        JOIN dictionary_entries de ON de.id = c.entry_id
        LEFT JOIN user_card_progress ucp ON ucp.card_id = c.id AND ucp.user_id = $2
+       LEFT JOIN leitner_cards lc ON lc.entry_id = c.entry_id AND lc.user_id = $2
        WHERE c.deck_id = $1
        ORDER BY c.sort_order ASC`,
       [deckId, userId]
@@ -137,9 +138,12 @@ router.post(
     await pool.query(UPSERT_UCP_SQL, [userId, card.id]);
 
     const { rows: ucpRows } = await pool.query(
-      `SELECT leitner_box, ease, review_interval, due_at, lapses
-       FROM user_card_progress WHERE user_id = $1 AND card_id = $2`,
-      [userId, card.id]
+      `SELECT ucp.times_seen, ucp.times_correct, ucp.first_seen_at,
+         lc.box_number AS leitner_box_number, lc.due_at AS leitner_due_at
+       FROM user_card_progress ucp
+       LEFT JOIN leitner_cards lc ON lc.entry_id = $3 AND lc.user_id = $1
+       WHERE ucp.user_id = $1 AND ucp.card_id = $2`,
+      [userId, card.id, entry_id]
     );
 
     return res.status(201).json({
@@ -212,10 +216,10 @@ router.post(
         const ucpPlaceholders = inserted.map((row: any) => {
           ucpValues.push(userId, row.id);
           const n = ucpValues.length;
-          return `($${n - 1}, $${n}, 1, 2.5, 0)`;
+          return `($${n - 1}, $${n})`;
         });
         await client.query(
-          `INSERT INTO user_card_progress (user_id, card_id, leitner_box, ease, review_interval)
+          `INSERT INTO user_card_progress (user_id, card_id)
            VALUES ${ucpPlaceholders.join(', ')}
            ON CONFLICT (user_id, card_id) DO NOTHING`,
           ucpValues
