@@ -19,6 +19,7 @@ import apiCardsRoutes from './routes/api/cards';
 import apiReviewRoutes from './routes/api/review';
 import apiLeitnerRoutes from './routes/api/leitner';
 import apiPracticeRoutes from './routes/api/practice';
+import apiSubscriptionsRoutes from './routes/api/subscriptions';
 
 import authRoutes from './routes/auth';
 import dashboardRoutes from './routes/dashboard';
@@ -114,13 +115,16 @@ app.use('/api/v1/profile', requireApiAuth, apiProfileRoutes);
 app.use('/api/v1/dictionary', apiDictionaryRoutes);
 //Phase 4: decks & Flashcards
 app.use('/api/v1/decks', requireApiAuth, apiDecksRoutes);
-app.use('/api/v1', requireApiAuth, apiCardsRoutes);
 //Phase 5: review
 app.use('/api/v1/review', requireApiAuth, apiReviewRoutes);
 //Phase 6: leitner
 app.use('/api/v1/leitner', requireApiAuth, apiLeitnerRoutes);
 //Phase 6: practice (replaces /study/* and /review/* for mobile)
 app.use('/api/v1/practice', requireApiAuth, apiPracticeRoutes);
+//Phase 7: subscriptions (plans public, others auth) — must be before broad /api/v1 catch-all
+app.use('/api/v1/subscriptions', apiSubscriptionsRoutes);
+// Cards routes use broad /api/v1 prefix — must come after all specific /api/v1/* mounts
+app.use('/api/v1', requireApiAuth, apiCardsRoutes);
 
 // API 404 — mọi path /api/* không match route trả JSON
 app.use('/api', (_req: Request, res: Response) => {

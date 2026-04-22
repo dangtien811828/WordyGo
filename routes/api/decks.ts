@@ -6,6 +6,7 @@ import { asyncHandler } from '../../utils/asyncHandler';
 import { apiSuccess, apiError } from '../../utils/apiResponse';
 import { parsePagination } from '../../utils/pagination';
 import { validateBody } from '../../middlewares/validateBody';
+import { requireFeature } from '../../middlewares/requireFeature';
 
 const router = Router();
 
@@ -152,6 +153,7 @@ const createDeckSchema = z.object({
 router.post(
   '/',
   validateBody(createDeckSchema),
+  requireFeature('flashcard_max_decks'),
   asyncHandler(async (req: ApiRequest, res: Response) => {
     const userId = req.user!.id;
     const { title, description, level, tag_ids } = req.body;
