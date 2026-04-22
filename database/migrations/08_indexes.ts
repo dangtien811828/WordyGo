@@ -42,7 +42,7 @@ const migration = async (client: PoolClient): Promise<void> => {
     'CREATE INDEX IF NOT EXISTS idx_family_members_family ON word_family_members(family_id)',
 
     // Domain 3: SRS
-    'CREATE INDEX IF NOT EXISTS idx_ucp_user_due ON user_card_progress(user_id, due_at)',
+    // idx_ucp_user_due is handled separately below (due_at dropped in Phase 6 migration 17)
     'CREATE INDEX IF NOT EXISTS idx_ucp_card ON user_card_progress(card_id)',
     'CREATE INDEX IF NOT EXISTS idx_reviews_user_time ON reviews(user_id, created_at)',
     'CREATE INDEX IF NOT EXISTS idx_reviews_card_time ON reviews(card_id, created_at)',
@@ -81,7 +81,25 @@ const migration = async (client: PoolClient): Promise<void> => {
   for (const sql of indexes) {
     await client.query(sql);
   }
-  console.log(`  [✓] ${indexes.length} indexes`);
+
+  // idx_ucp_user_due: only create if due_at column still exists.
+  // Phase 6 (migration 17) drops this column; on fresh Railway deploys
+  // migration 08 runs before 17, so due_at exists and the index is created.
+  // On DBs already at Phase 6 schema, this block skips safely.
+  await client.query(`
+    DO $$
+    BEGIN
+      IF EXISTS (
+        SELECT 1 FROM information_schema.columns
+        WHERE table_name = 'user_card_progress' AND column_name = 'due_at'
+      ) THEN
+        CREATE INDEX IF NOT EXISTS idx_ucp_user_due
+          ON user_card_progress(user_id, due_at);
+      END IF;
+    END $$
+  `);
+
+  console.log(`  [✓] ${indexes.length} indexes (+ conditional idx_ucp_user_due)`);
 };
 
 export = migration;
