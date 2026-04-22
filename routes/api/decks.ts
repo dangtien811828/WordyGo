@@ -76,7 +76,10 @@ router.get(
            COUNT(*)::int AS total_due_cards
          FROM leitner_cards lc
          JOIN cards c ON c.entry_id = lc.entry_id
-         WHERE lc.user_id = $1 AND lc.due_at <= NOW()`,
+         JOIN decks d ON d.id = c.deck_id
+         WHERE lc.user_id = $1
+           AND lc.due_at <= NOW()
+           AND (d.status = 'published' OR d.user_id = $1)`,
         [userId]
       ),
     ]);

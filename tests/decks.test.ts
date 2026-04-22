@@ -169,6 +169,53 @@ describe('PATCH /api/v1/decks/:id — update deck', () => {
 });
 
 // ════════════════════════════════════════════════════════════════
+describe('GET /api/v1/decks — Phase 6 regression (leitner_cards schema)', () => {
+  it('returns 200 with due_cards and mastered_cards fields (leitner-backed)', async () => {
+    const res = await request(app)
+      .get('/api/v1/decks?page=1&limit=50')
+      .set('Authorization', `Bearer ${tokenA}`);
+
+    expect(res.status).toBe(200);
+    expect(res.body.success).toBe(true);
+    expect(res.body.data.items).toBeInstanceOf(Array);
+
+    expect(res.body.data.summary).toHaveProperty('total_due_cards');
+    expect(typeof res.body.data.summary.total_due_cards).toBe('number');
+
+    if (res.body.data.items.length > 0) {
+      const deck = res.body.data.items[0];
+      expect(deck).toHaveProperty('total_cards');
+      expect(deck).toHaveProperty('due_cards');
+      expect(deck).toHaveProperty('mastered_cards');
+      expect(deck).toHaveProperty('started_cards');
+      expect(typeof deck.total_cards).toBe('number');
+      expect(typeof deck.due_cards).toBe('number');
+      expect(typeof deck.mastered_cards).toBe('number');
+    }
+  });
+
+  it('GET /api/v1/decks/:id — due_cards and mastered_cards fields present', async () => {
+    // Create a fresh deck for this test (testDeckId may be deleted by previous describe block)
+    const deckRes = await request(app)
+      .post('/api/v1/decks')
+      .set('Authorization', `Bearer ${tokenA}`)
+      .send({ title: 'Phase6 Regression Deck', level: 'beginner' });
+    expect(deckRes.status).toBe(201);
+    const freshDeckId = deckRes.body.data.id;
+
+    const res = await request(app)
+      .get(`/api/v1/decks/${freshDeckId}`)
+      .set('Authorization', `Bearer ${tokenA}`);
+
+    expect(res.status).toBe(200);
+    expect(res.body.data).toHaveProperty('due_cards');
+    expect(res.body.data).toHaveProperty('mastered_cards');
+    expect(typeof res.body.data.due_cards).toBe('number');
+    expect(typeof res.body.data.mastered_cards).toBe('number');
+  });
+});
+
+// ════════════════════════════════════════════════════════════════
 describe('DELETE /api/v1/decks/:id — delete deck', () => {
   it("non-owner gets 403 DECK_ACCESS_DENIED on another user's deck", async () => {
     const res = await request(app)
