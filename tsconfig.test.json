@@ -9,6 +9,7 @@
     "middlewares/**/*.ts",
     "routes/**/*.ts",
     "utils/**/*.ts",
+    "services/**/*.ts",
     "helpers/**/*.ts",
     "models/**/*.ts",
     "controllers/**/*.ts",

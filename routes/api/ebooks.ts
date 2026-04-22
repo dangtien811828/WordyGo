@@ -170,56 +170,122 @@ router.get(
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  GET /api/v1/ebooks — list published ebooks
+//  query: filter=reading|finished|favorites, genre, level, page, limit
 // ─────────────────────────────────────────────────────────────────────────────
 router.get(
   '/',
   asyncHandler(async (req: ApiRequest, res: Response) => {
     const userId = req.user!.id;
     const { page, limit, offset } = parsePagination(req);
+    const filter = req.query.filter ? String(req.query.filter) : null;
+    const genre  = req.query.genre  ? String(req.query.genre)  : null;
+    const level  = req.query.level  ? String(req.query.level)  : null;
 
-    const genre = req.query.genre ? String(req.query.genre) : null;
-    const level = req.query.level ? String(req.query.level) : null;
+    // ── Generic column filters (no userId dependency in WHERE) ────────────────
+    // Each entry: condition template with $IDX replaced per-query, and value.
+    const colFilters: Array<{ tpl: string; value: unknown }> = [];
+    if (genre) colFilters.push({ tpl: `$IDX = ANY(e.genre)`, value: genre });
+    if (level) colFilters.push({ tpl: `e.level = $IDX`,      value: level });
 
-    const params: unknown[] = [userId];
-    const conditions: string[] = ["e.status = 'published'"];
+    // ── Items query ───────────────────────────────────────────────────────────
+    // $1 = userId (LEFT JOIN conditions), filter params start at $2.
+    const itemsParams: unknown[] = [userId];
+    const itemsConditions: string[] = ["e.status = 'published'"];
 
-    if (genre) {
-      params.push(genre);
-      conditions.push(`$${params.length} = ANY(e.genre)`);
+    for (const f of colFilters) {
+      itemsParams.push(f.value);
+      itemsConditions.push(f.tpl.replace('$IDX', `$${itemsParams.length}`));
     }
-    if (level) {
-      params.push(level);
-      conditions.push(`e.level = $${params.length}`);
+
+    if (filter === 'favorites') {
+      itemsConditions.push('f.user_id IS NOT NULL');
+    } else if (filter === 'reading') {
+      itemsConditions.push('urp.user_id IS NOT NULL AND urp.progress > 0 AND urp.progress < 1');
+    } else if (filter === 'finished') {
+      itemsConditions.push('urp.progress >= 1');
     }
 
-    const where = conditions.join(' AND ');
-    params.push(limit, offset);
-    const limitIdx = params.length - 1;
-    const offsetIdx = params.length;
+    itemsParams.push(limit, offset);
+    const limitPh  = `$${itemsParams.length - 1}`;
+    const offsetPh = `$${itemsParams.length}`;
+
+    const itemsQuery = `
+      SELECT e.id, e.title, e.author, e.cover_url, e.level, e.required_plan,
+             e.total_chapters, e.total_words,
+             COALESCE(urp.progress, 0) AS progress,
+             urp.current_paragraph_index,
+             (f.user_id IS NOT NULL)   AS is_favorite
+      FROM ebooks e
+      LEFT JOIN user_reading_progress urp ON urp.ebook_id = e.id AND urp.user_id = $1
+      LEFT JOIN user_ebook_favorites  f   ON f.ebook_id  = e.id AND f.user_id  = $1
+      WHERE ${itemsConditions.join(' AND ')}
+      ORDER BY e.sort_order ASC NULLS LAST, e.created_at DESC
+      LIMIT ${limitPh} OFFSET ${offsetPh}`;
+
+    // ── Count query ───────────────────────────────────────────────────────────
+    // For no-filter case: no userId needed → pass only colFilter params.
+    // For user-filter cases: userId = $1, colFilter params shifted to $2, $3…
+    const baseWhere = `e.status = 'published'`;
+
+    // col filter conditions without userId ($1, $2, … for count-only context)
+    const countOnlyParams: unknown[] = [];
+    const countOnlyConditions = colFilters.map((f) => {
+      countOnlyParams.push(f.value);
+      return f.tpl.replace('$IDX', `$${countOnlyParams.length}`);
+    });
+
+    // col filter conditions shifted by +1 (when userId occupies $1)
+    const countShiftedConditions = colFilters.map((f, i) =>
+      f.tpl.replace('$IDX', `$${i + 2}`)
+    );
+
+    let countQuery: string;
+    let countParams: unknown[];
+
+    if (filter === 'favorites') {
+      countQuery = `
+        SELECT COUNT(*)::int AS total
+        FROM user_ebook_favorites fav
+        JOIN ebooks e ON e.id = fav.ebook_id
+        WHERE fav.user_id = $1
+          AND ${[baseWhere, ...countShiftedConditions].join(' AND ')}`;
+      countParams = [userId, ...countOnlyParams];
+    } else if (filter === 'reading') {
+      countQuery = `
+        SELECT COUNT(*)::int AS total
+        FROM user_reading_progress urp
+        JOIN ebooks e ON e.id = urp.ebook_id
+        WHERE urp.user_id = $1
+          AND urp.progress > 0 AND urp.progress < 1
+          AND ${[baseWhere, ...countShiftedConditions].join(' AND ')}`;
+      countParams = [userId, ...countOnlyParams];
+    } else if (filter === 'finished') {
+      countQuery = `
+        SELECT COUNT(*)::int AS total
+        FROM user_reading_progress urp
+        JOIN ebooks e ON e.id = urp.ebook_id
+        WHERE urp.user_id = $1
+          AND urp.progress >= 1
+          AND ${[baseWhere, ...countShiftedConditions].join(' AND ')}`;
+      countParams = [userId, ...countOnlyParams];
+    } else {
+      countQuery = `
+        SELECT COUNT(*)::int AS total
+        FROM ebooks e
+        WHERE ${[baseWhere, ...countOnlyConditions].join(' AND ')}`;
+      countParams = countOnlyParams; // may be empty [] — that's fine
+    }
+
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('[DEBUG ebooks list] itemsQuery:', itemsQuery.trim());
+      console.log('[DEBUG ebooks list] itemsParams:', itemsParams);
+      console.log('[DEBUG ebooks list] countQuery:', countQuery.trim());
+      console.log('[DEBUG ebooks list] countParams:', countParams);
+    }
 
     const [dataRows, countRows] = await Promise.all([
-      pool.query(
-        `SELECT e.id, e.title, e.author, e.cover_url, e.level, e.required_plan,
-                e.total_chapters, e.total_words,
-                COALESCE(urp.progress, 0)                            AS progress,
-                urp.current_paragraph_index,
-                (f.user_id IS NOT NULL)                              AS is_favorite
-         FROM ebooks e
-         LEFT JOIN user_reading_progress urp
-               ON urp.ebook_id = e.id AND urp.user_id = $1
-         LEFT JOIN user_ebook_favorites f
-               ON f.ebook_id = e.id AND f.user_id = $1
-         WHERE ${where}
-         ORDER BY e.sort_order ASC NULLS LAST, e.created_at DESC
-         LIMIT $${limitIdx} OFFSET $${offsetIdx}`,
-        params
-      ),
-      pool.query(
-        `SELECT COUNT(*)::int AS total
-         FROM ebooks e
-         WHERE ${where}`,
-        params.slice(0, params.length - 2)
-      ),
+      pool.query(itemsQuery, itemsParams),
+      pool.query(countQuery, countParams),
     ]);
 
     return apiSuccess(res, {
@@ -233,6 +299,7 @@ router.get(
         total_chapters: r.total_chapters,
         total_words: r.total_words,
         progress: r.progress,
+        current_paragraph_index: r.current_paragraph_index ?? null,
         is_favorite: r.is_favorite,
       })),
       total: countRows.rows[0]?.total ?? 0,
