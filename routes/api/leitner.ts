@@ -106,16 +106,25 @@ router.get(
     const [{ rows: items }, { rows: countRows }] = await Promise.all([
       pool.query(
         `SELECT
-           lc.id            AS leitner_card_id,
+           lc.id,
            lc.entry_id,
-           de.headword,
-           de.ipa_us,
-           de.audio_us_url,
-           ${VI_PREVIEW}    AS meaning_preview,
            lc.box_number,
            lc.due_at,
+           lc.last_reviewed_at,
            lc.correct_streak,
-           lc.total_reviews
+           lc.total_reviews,
+           lc.source,
+           lc.added_from_mode,
+           lc.created_at,
+           de.headword,
+           de.lemma,
+           de.ipa_us,
+           de.ipa_uk,
+           de.audio_us_url,
+           de.audio_uk_url,
+           de.pos,
+           de.cefr_level,
+           ${VI_PREVIEW}  AS meaning_preview
          FROM leitner_cards lc
          JOIN dictionary_entries de ON de.id = lc.entry_id
          WHERE lc.user_id = $1 AND lc.due_at <= NOW()
@@ -133,16 +142,28 @@ router.get(
 
     return apiSuccess(res, {
       items: items.map((row: any) => ({
-        leitner_card_id: row.leitner_card_id,
+        id: row.id,
         entry_id: row.entry_id,
-        headword: row.headword,
-        ipa_us: row.ipa_us || null,
-        audio_us_url: row.audio_us_url || null,
-        meaning_preview: row.meaning_preview || null,
         box_number: row.box_number,
         due_at: row.due_at,
-        correct_streak: row.correct_streak,
-        total_reviews: row.total_reviews,
+        last_reviewed_at: row.last_reviewed_at ?? null,
+        correct_streak: row.correct_streak ?? 0,
+        total_reviews: row.total_reviews ?? 0,
+        source: row.source ?? null,
+        added_from_mode: row.added_from_mode ?? null,
+        created_at: row.created_at,
+        entry: {
+          id: row.entry_id,
+          headword: row.headword,
+          lemma: row.lemma ?? null,
+          ipa_us: row.ipa_us ?? null,
+          ipa_uk: row.ipa_uk ?? null,
+          audio_us_url: row.audio_us_url ?? null,
+          audio_uk_url: row.audio_uk_url ?? null,
+          pos: row.pos ?? [],
+          meaning_preview: row.meaning_preview ?? null,
+          cefr_level: row.cefr_level ?? null,
+        },
       })),
       meta: {
         total_due: countRows[0]?.total_due ?? 0,
@@ -174,15 +195,25 @@ router.get(
     const [{ rows: items }, { rows: countRows }] = await Promise.all([
       pool.query(
         `SELECT
-           lc.id            AS leitner_card_id,
+           lc.id,
            lc.entry_id,
-           de.headword,
-           de.ipa_us,
-           ${VI_PREVIEW}    AS meaning_preview,
-           lc.due_at        AS next_due,
+           lc.box_number,
+           lc.due_at,
            lc.last_reviewed_at,
            lc.correct_streak,
-           lc.total_reviews
+           lc.total_reviews,
+           lc.source,
+           lc.added_from_mode,
+           lc.created_at,
+           de.headword,
+           de.lemma,
+           de.ipa_us,
+           de.ipa_uk,
+           de.audio_us_url,
+           de.audio_uk_url,
+           de.pos,
+           de.cefr_level,
+           ${VI_PREVIEW}  AS meaning_preview
          FROM leitner_cards lc
          JOIN dictionary_entries de ON de.id = lc.entry_id
          WHERE lc.user_id = $1 AND lc.box_number = $2
@@ -201,25 +232,33 @@ router.get(
 
     return apiSuccess(res, {
       box_number: boxNumber,
-      interval_days: intervals[boxNumber - 1],
-      total_cards: total,
       items: items.map((row: any) => ({
-        leitner_card_id: row.leitner_card_id,
+        id: row.id,
         entry_id: row.entry_id,
-        headword: row.headword,
-        ipa_us: row.ipa_us || null,
-        meaning_preview: row.meaning_preview || null,
-        next_due: row.next_due,
-        last_reviewed_at: row.last_reviewed_at,
-        correct_streak: row.correct_streak,
-        total_reviews: row.total_reviews,
+        box_number: row.box_number,
+        due_at: row.due_at,
+        last_reviewed_at: row.last_reviewed_at ?? null,
+        correct_streak: row.correct_streak ?? 0,
+        total_reviews: row.total_reviews ?? 0,
+        source: row.source ?? null,
+        added_from_mode: row.added_from_mode ?? null,
+        created_at: row.created_at,
+        entry: {
+          id: row.entry_id,
+          headword: row.headword,
+          lemma: row.lemma ?? null,
+          ipa_us: row.ipa_us ?? null,
+          ipa_uk: row.ipa_uk ?? null,
+          audio_us_url: row.audio_us_url ?? null,
+          audio_uk_url: row.audio_uk_url ?? null,
+          pos: row.pos ?? [],
+          meaning_preview: row.meaning_preview ?? null,
+          cefr_level: row.cefr_level ?? null,
+        },
       })),
-      meta: {
-        page: safePage,
-        limit: safeLimit,
-        total,
-        total_pages: Math.ceil(total / safeLimit),
-      },
+      total,
+      page: safePage,
+      limit: safeLimit,
     });
   })
 );

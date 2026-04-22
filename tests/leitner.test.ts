@@ -183,10 +183,18 @@ describe('GET /api/v1/leitner/due', () => {
 
     // Shape check
     const first = items[0];
-    expect(first).toHaveProperty('leitner_card_id');
-    expect(first).toHaveProperty('headword');
+    expect(first).toHaveProperty('id');
     expect(first).toHaveProperty('box_number');
     expect(first).toHaveProperty('due_at');
+    expect(first).toHaveProperty('entry');
+    expect(first.entry).toHaveProperty('headword');
+    expect(first.entry).toHaveProperty('ipa_us');
+    expect(first.entry).toHaveProperty('pos');
+    expect(first.entry).toHaveProperty('meaning_preview');
+    // Nullable fields must be present (not missing/undefined)
+    expect('last_reviewed_at' in first).toBe(true);
+    expect('added_from_mode' in first).toBe(true);
+    expect('ipa_uk' in first.entry).toBe(true);
 
     // Order: due_at ASC
     for (let i = 1; i < items.length; i++) {
@@ -198,16 +206,43 @@ describe('GET /api/v1/leitner/due', () => {
 
 // ════════════════════════════════════════════════════════════════
 describe('GET /api/v1/leitner/box/:box_number', () => {
-  it('box/1 returns all 5 cards with pagination meta', async () => {
+  it('box/1 returns all 5 cards with full entry shape', async () => {
     const res = await request(app)
       .get('/api/v1/leitner/box/1')
       .set('Authorization', `Bearer ${access_token}`);
 
     expect(res.status).toBe(200);
     expect(res.body.data.box_number).toBe(1);
-    expect(res.body.data.total_cards).toBe(5);
+    expect(res.body.data.total).toBe(5);
     expect(res.body.data.items).toHaveLength(5);
-    expect(res.body.data.meta.total).toBe(5);
+    expect(typeof res.body.data.page).toBe('number');
+    expect(typeof res.body.data.limit).toBe('number');
+
+    // Each card: 11 top-level fields + nested entry with 9 fields
+    const card = res.body.data.items[0];
+    expect(card).toHaveProperty('id');
+    expect(card).toHaveProperty('entry_id');
+    expect(card).toHaveProperty('box_number');
+    expect(card).toHaveProperty('due_at');
+    expect('last_reviewed_at' in card).toBe(true);   // null OK, must not be missing
+    expect('added_from_mode' in card).toBe(true);
+    expect(card).toHaveProperty('correct_streak');
+    expect(card).toHaveProperty('total_reviews');
+    expect(card).toHaveProperty('source');
+    expect(card).toHaveProperty('created_at');
+    expect(card).toHaveProperty('entry');
+
+    const entry = card.entry;
+    expect(entry).toHaveProperty('id');
+    expect(entry).toHaveProperty('headword');
+    expect('lemma' in entry).toBe(true);
+    expect('ipa_us' in entry).toBe(true);
+    expect('ipa_uk' in entry).toBe(true);
+    expect('audio_us_url' in entry).toBe(true);
+    expect('audio_uk_url' in entry).toBe(true);
+    expect(Array.isArray(entry.pos)).toBe(true);
+    expect('meaning_preview' in entry).toBe(true);
+    expect('cefr_level' in entry).toBe(true);
   });
 
   it('box/6 → 400 INVALID_BOX_NUMBER', async () => {
