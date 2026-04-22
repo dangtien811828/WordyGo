@@ -320,21 +320,30 @@ router.get(
 
     const [ebookRows, chaptersRows, progressRows, favoriteRows] = await Promise.all([
       pool.query(
-        `SELECT id, title, author, isbn, description, cover_url, epub_file_url,
-                level, genre, total_chapters, total_words, required_plan,
+        `SELECT id, title, author, isbn, description, cover_url,
+                level, genre, required_plan,
+                COALESCE(total_chapters, 0) AS total_chapters,
+                COALESCE(total_words, 0)    AS total_words,
                 tts_voice, tts_speed, status, created_at
          FROM ebooks WHERE id = $1 AND status = 'published'`,
         [ebookId]
       ),
       pool.query(
-        `SELECT id, chapter_index, title, word_count, has_tts
+        `SELECT id, chapter_index, title,
+                COALESCE(word_count, 0) AS word_count,
+                has_tts
          FROM chapters WHERE ebook_id = $1 ORDER BY chapter_index ASC`,
         [ebookId]
       ),
       pool.query(
-        `SELECT progress, current_paragraph_index, total_time_sec, last_read_at
-         FROM user_reading_progress WHERE ebook_id = $1 AND user_id = $2`,
-        [ebookId, userId]
+        `SELECT COALESCE(progress, 0)         AS progress,
+                current_paragraph_index,
+                COALESCE(total_time_sec, 0)   AS total_time_sec,
+                COALESCE(words_looked_up, 0)  AS words_looked_up,
+                started_at,
+                last_read_at
+         FROM user_reading_progress WHERE user_id = $1 AND ebook_id = $2`,
+        [userId, ebookId]
       ),
       pool.query(
         `SELECT 1 FROM user_ebook_favorites WHERE ebook_id = $1 AND user_id = $2`,
@@ -353,14 +362,26 @@ router.get(
 
     const chapters = chaptersRows.rows.map((c: any) => ({
       id: c.id,
-      chapter_index: c.chapter_index,
+      index: c.chapter_index,       // mobile expects 'index', not 'chapter_index'
       title: c.title,
-      word_count: c.word_count,
-      has_tts: c.has_tts,
+      word_count: c.word_count as number,
+      duration_ms: null,            // TTS not implemented yet (Phase 12)
     }));
 
-    const progress = progressRows.rows[0] ?? null;
+    const prog = progressRows.rows[0] ?? null;
     const is_favorite = favoriteRows.rows.length > 0;
+
+    // Always return reading_progress as object (never null) so mobile can safely
+    // access numeric fields without null-check on the object itself.
+    const reading_progress = {
+      current_paragraph_index: prog?.current_paragraph_index ?? null,
+      progress:        prog ? (prog.progress as number)       : 0,
+      total_time_sec:  prog ? (prog.total_time_sec as number) : 0,
+      words_looked_up: prog ? (prog.words_looked_up as number): 0,
+      started_at:      prog?.started_at   ?? null,
+      last_read_at:    prog?.last_read_at ?? null,
+      finished_at:     null,   // column not in schema yet (Phase 12)
+    };
 
     const payload: Record<string, unknown> = {
       id: ebook.id,
@@ -371,28 +392,21 @@ router.get(
       cover_url: ebook.cover_url ?? null,
       level: ebook.level,
       genre: ebook.genre ?? [],
-      total_chapters: ebook.total_chapters,
-      total_words: ebook.total_words,
       required_plan: ebook.required_plan,
+      total_chapters: ebook.total_chapters as number,
+      total_words: ebook.total_words as number,
       tts_voice: ebook.tts_voice ?? null,
-      tts_speed: ebook.tts_speed,
+      tts_speed: ebook.tts_speed ?? 1.0,
       created_at: ebook.created_at,
       chapters,
-      progress: progress
-        ? {
-            progress: progress.progress,
-            current_paragraph_index: progress.current_paragraph_index ?? 0,
-            total_time_sec: progress.total_time_sec,
-            last_read_at: progress.last_read_at,
-          }
-        : null,
+      reading_progress,
       is_favorite,
     };
 
     if (locked) {
       payload.locked = true;
       payload.locked_reason = 'UPGRADE_REQUIRED';
-      const firstChapter = chapters.find((c: any) => c.chapter_index === 0);
+      const firstChapter = chapters.find((c: any) => c.index === 0);
       payload.preview_chapter_ids = firstChapter ? [firstChapter.id] : [];
     }
 

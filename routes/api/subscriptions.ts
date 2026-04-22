@@ -228,13 +228,13 @@ router.post(
     }
     const pm = pmRows[0];
 
-    // Pricing
+    // Pricing — all numeric fields default to 0, never null
     const priceField: Record<string, string> = {
       monthly: 'price_monthly',
       yearly:  'price_yearly',
       weekly:  'price_weekly',
     };
-    const basePrice = Number(plan[priceField[billing_cycle]]) || 0;
+    const basePrice = Number(plan[priceField[billing_cycle]] ?? 0);
 
     let promoDiscount = 0;
     if (plan.promo_price != null) {
@@ -247,8 +247,8 @@ router.post(
       }
     }
 
-    const feePercent  = parseFloat(pm.fee_percent) || 0;
-    const feeAmount   = Math.round(basePrice * feePercent / 100);
+    const feePercent  = Number(pm.fee_percent ?? 0);
+    const feeAmount   = Math.round((basePrice - promoDiscount) * feePercent / 100);
     const totalAmount = basePrice - promoDiscount + feeAmount;
 
     // Payment instructions
@@ -264,25 +264,32 @@ router.post(
         type:             'bank_transfer',
         account_info:     accountInfo,
         transfer_content: transferContent,
-        instructions_vi:  pm.instructions_vi,
+        amount:           totalAmount,
+        instructions_vi:  pm.instructions_vi ?? null,
+        instructions_en:  pm.instructions_en ?? null,
       };
     } else if (pm.method_type === 'ewallet') {
       paymentInstructions = {
         type:             'qr_code',
-        qr_image_url:     accountInfo.qr_image_url || null,
+        qr_image_url:     accountInfo.qr_image_url ?? null,
         transfer_content: transferContent,
-        instructions_vi:  pm.instructions_vi,
+        amount:           totalAmount,
+        instructions_vi:  pm.instructions_vi ?? null,
+        instructions_en:  pm.instructions_en ?? null,
       };
     } else if (pm.method_type === 'card') {
       paymentInstructions = {
         type:         'redirect',
         redirect_url: null,
+        amount:       totalAmount,
       };
     } else {
       paymentInstructions = {
         type:             'manual',
         transfer_content: transferContent,
-        instructions_vi:  pm.instructions_vi,
+        amount:           totalAmount,
+        instructions_vi:  pm.instructions_vi ?? null,
+        instructions_en:  pm.instructions_en ?? null,
       };
     }
 
@@ -301,7 +308,9 @@ router.post(
       payment_method: {
         code:         pm.code,
         display_name: pm.display_name,
-        logo_url:     pm.logo_url,
+        logo_url:     pm.logo_url ?? null,
+        method_type:  pm.method_type,
+        fee_percent:  Number(pm.fee_percent ?? 0),
       },
       payment_instructions: paymentInstructions,
       expires_at: expiresAt,
