@@ -20,6 +20,8 @@ import apiReviewRoutes from './routes/api/review';
 import apiLeitnerRoutes from './routes/api/leitner';
 import apiPracticeRoutes from './routes/api/practice';
 import apiSubscriptionsRoutes from './routes/api/subscriptions';
+import apiEbooksRoutes from './routes/api/ebooks';
+import apiGamesRoutes from './routes/api/games';
 
 import authRoutes from './routes/auth';
 import dashboardRoutes from './routes/dashboard';
@@ -123,6 +125,10 @@ app.use('/api/v1/leitner', requireApiAuth, apiLeitnerRoutes);
 app.use('/api/v1/practice', requireApiAuth, apiPracticeRoutes);
 //Phase 7: subscriptions (plans public, others auth) — must be before broad /api/v1 catch-all
 app.use('/api/v1/subscriptions', apiSubscriptionsRoutes);
+//Phase 9: ebooks
+app.use('/api/v1/ebooks', requireApiAuth, apiEbooksRoutes);
+//Phase 10: games (levels/word-lists/semantic-sets public; runs/leaderboard/stats auth handled per-route)
+app.use('/api/v1/games', apiGamesRoutes);
 // Cards routes use broad /api/v1 prefix — must come after all specific /api/v1/* mounts
 app.use('/api/v1', requireApiAuth, apiCardsRoutes);
 

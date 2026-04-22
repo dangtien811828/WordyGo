@@ -35,6 +35,8 @@ const migrations: MigrationDef[] = [
   { name: 'Phase 6: clean user_card_progress (drop SRS)',    file: './migrations/17_clean_user_card_progress' },
   { name: 'Phase 7: Payment Methods (2 bảng + admin_note)', file: './migrations/18_payment_methods' },
   { name: 'Phase 7.2: user_subscriptions pending_payment status', file: './migrations/19_user_subscription_pending' },
+  { name: 'Phase 9: paragraphs table + user_reading_progress.current_paragraph_index', file: './migrations/20_paragraphs' },
+  { name: 'Phase 9: user_ebook_favorites table', file: './migrations/21_user_ebook_favorites' },
 ];
 
 export const migrate = async (): Promise<void> => {

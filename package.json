@@ -25,6 +25,7 @@
     "cors": "^2.8.6",
     "dotenv": "^16.6.1",
     "ejs": "^3.1.10",
+    "epub2": "^3.0.2",
     "express": "^4.21.2",
     "express-ejs-layouts": "^2.5.1",
     "express-rate-limit": "^8.3.2",
