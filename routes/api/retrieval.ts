@@ -9,6 +9,22 @@ import { moderateInput, gradeSentences } from '../../services/openaiService';
 
 const router = Router();
 
+function handleOpenAIError(res: Response, err: any): Response {
+  if (err.message?.includes('OPENAI_API_KEY')) {
+    return apiError(res, 503, 'SERVICE_UNAVAILABLE',
+      'AI grading service is not configured. Please contact admin.');
+  }
+  if (err.constructor?.name === 'APIConnectionTimeoutError' || err.code === 'ETIMEDOUT') {
+    return apiError(res, 504, 'GPT_TIMEOUT',
+      'AI grading timed out. Please try again.');
+  }
+  if (err.status === 429) {
+    return apiError(res, 429, 'GPT_RATE_LIMITED',
+      'AI service is busy. Please try again in a minute.');
+  }
+  throw err;
+}
+
 // First Vietnamese definition — Pro sense first, legacy meaning_vi fallback
 const VI_PREVIEW = `COALESCE(
   (SELECT es.definition_vi FROM entry_senses es
@@ -123,7 +139,12 @@ router.post(
 
     // ── Step 1: Moderation ─────────────────────────────────────────────────────
     const combinedText = sentences.join(' ');
-    const modResult = await moderateInput(combinedText);
+    let modResult: Awaited<ReturnType<typeof moderateInput>>;
+    try {
+      modResult = await moderateInput(combinedText);
+    } catch (err: any) {
+      return handleOpenAIError(res, err);
+    }
 
     if (modResult.flagged) {
       await pool.query(
@@ -185,7 +206,9 @@ router.post(
     }
 
     // ── Step 4: Grade with OpenAI ──────────────────────────────────────────────
-    const gradeResult = await gradeSentences({
+    let gradeResult: Awaited<ReturnType<typeof gradeSentences>>;
+    try {
+      gradeResult = await gradeSentences({
       targetWords: resolvedWords.map(w => ({
         headword: w.headword,
         meaning_vi: w.meaning_vi,
@@ -194,7 +217,10 @@ router.post(
       sentences,
       userLevel: req.user!.level,
       systemPrompt: templates[0].system_prompt,
-    });
+      });
+    } catch (err: any) {
+      return handleOpenAIError(res, err);
+    }
 
     const { output } = gradeResult;
 

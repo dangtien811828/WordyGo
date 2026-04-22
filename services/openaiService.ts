@@ -2,12 +2,28 @@ import OpenAI from 'openai';
 import { zodResponseFormat } from 'openai/helpers/zod';
 import { z } from 'zod';
 
-const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-  timeout: parseInt(process.env.OPENAI_TIMEOUT_MS || '20000', 10),
-});
-
 const MODEL = process.env.OPENAI_MODEL || 'gpt-4o-2024-08-06';
+
+// ── Lazy init — no top-level instantiation ────────────────────────────────────
+let _client: OpenAI | null = null;
+
+function getClient(): OpenAI {
+  if (!_client) {
+    const apiKey = process.env.OPENAI_API_KEY;
+    if (!apiKey) {
+      throw new Error('OPENAI_API_KEY environment variable is not set');
+    }
+    _client = new OpenAI({
+      apiKey,
+      timeout: parseInt(process.env.OPENAI_TIMEOUT_MS || '20000', 10),
+    });
+  }
+  return _client;
+}
+
+export function isOpenAIConfigured(): boolean {
+  return !!process.env.OPENAI_API_KEY;
+}
 
 // gpt-4o-2024-08-06 pricing (USD per token)
 const PRICE_IN  = 2.50  / 1_000_000;
@@ -63,7 +79,7 @@ export interface GradeResult {
 // ── moderateInput ─────────────────────────────────────────────────────────────
 
 export async function moderateInput(text: string): Promise<ModerationResult> {
-  const response = await client.moderations.create({ input: text });
+  const response = await getClient().moderations.create({ input: text });
   const result = response.results[0];
 
   if (!result.flagged) {
@@ -105,7 +121,7 @@ export async function gradeSentences(input: GradeInput): Promise<GradeResult> {
 
   const start = Date.now();
 
-  const completion = await client.chat.completions.parse({
+  const completion = await getClient().chat.completions.parse({
     model: MODEL,
     messages: [
       { role: 'system', content: systemPrompt },
