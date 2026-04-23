@@ -24,8 +24,15 @@ const typeLabel = {
 
 <% if (methods.length > 0) { %>
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px">
-  <% methods.forEach(function(m) { %>
-  <div class="card" style="padding:0;overflow:hidden;opacity:<%= m.is_active ? 1 : .6 %>">
+  <% methods.forEach(function(m) {
+       const v = validations[m.id] || { is_valid: false, missing_fields: [] };
+       let statusLabel, statusColor;
+       if (m.is_active && v.is_valid)       { statusLabel = '✅ Active';               statusColor = '#276749'; }
+       else if (m.is_active && !v.is_valid)  { statusLabel = '⚠️ Active (incomplete)'; statusColor = '#975a16'; }
+       else if (!m.is_active && v.is_valid)  { statusLabel = '🔴 Inactive';             statusColor = '#718096'; }
+       else                                  { statusLabel = '⚙️ Not configured';       statusColor = '#c05621'; }
+  %>
+  <div class="card" style="padding:0;overflow:hidden;opacity:<%= m.is_active ? 1 : .65 %>">
     <div style="padding:16px;display:flex;align-items:center;gap:14px;border-bottom:1px solid #e2e8f0">
       <% if (m.logo_url) { %>
         <img src="<%= m.logo_url %>" alt="<%= m.display_name %>"
@@ -41,10 +48,17 @@ const typeLabel = {
       </div>
       <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
         <span class="badge <%= typeBadge[m.method_type] || 'badge-secondary' %>"><%= typeLabel[m.method_type] || m.method_type %></span>
-        <% if (!m.is_active) { %>
-          <span class="badge badge-secondary" style="font-size:10px">inactive</span>
-        <% } %>
       </div>
+    </div>
+
+    <!-- Status badge -->
+    <div style="padding:8px 16px;background:#f7fafc;border-bottom:1px solid #e2e8f0;display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
+      <span style="font-size:12px;font-weight:600;color:<%= statusColor %>"><%= statusLabel %></span>
+      <% if (!v.is_valid) { %>
+        <span style="font-size:11px;color:#e53e3e;text-align:right;line-height:1.4">
+          Thiếu: <%= v.missing_fields.join(', ') %>
+        </span>
+      <% } %>
     </div>
 
     <% if (m.description) { %>
@@ -60,7 +74,13 @@ const typeLabel = {
       <a href="/subscriptions/payment-methods/<%= m.id %>/edit" class="btn btn-sm btn-secondary">Sửa</a>
 
       <form method="POST" action="/subscriptions/payment-methods/<%= m.id %>/toggle-active" style="margin:0">
-        <button type="submit" class="btn btn-sm <%= m.is_active ? 'btn-secondary' : 'btn-primary' %>">
+        <button type="submit"
+                class="btn btn-sm <%= m.is_active ? 'btn-secondary' : 'btn-primary' %>"
+                <% if (!m.is_active && !v.is_valid) { %>
+                  title="Cần điền đủ thông tin trước khi activate"
+                  style="opacity:.5;cursor:not-allowed"
+                  onclick="return confirm('Method này chưa đủ config (thiếu: <%= v.missing_fields.join(', ') %>). Vẫn muốn thử activate?')"
+                <% } %>>
           <%= m.is_active ? '⏸ Tắt' : '▶ Bật' %>
         </button>
       </form>
@@ -71,7 +91,7 @@ const typeLabel = {
       </form>
     </div>
   </div>
-  <% }) %>
+  <% }); %>
 </div>
 <% } else { %>
 <div class="card" style="padding:60px;text-align:center;color:#718096">

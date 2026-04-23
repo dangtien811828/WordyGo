@@ -37,7 +37,8 @@ export async function injectAdmin(req: Request, res: Response, next: NextFunctio
   try {
     res.locals.admin = req.session ? req.session.admin : null;
     res.locals.success = req.flash('success');
-    res.locals.error = req.flash('error');
+    res.locals.error   = req.flash('error');
+    res.locals.warning = req.flash('warning');
     res.locals.currentQuery = req.query;
     res.locals.pendingApprovals = 0;
     res.locals.pendingTransactions = 0;

@@ -6,6 +6,7 @@ import { ApiRequest, requireApiAuth, optionalApiAuth } from '../../middlewares/a
 import { asyncHandler } from '../../utils/asyncHandler';
 import { apiSuccess, apiError } from '../../utils/apiResponse';
 import { validateBody } from '../../middlewares/validateBody';
+import { validatePaymentMethodConfig } from '../../utils/paymentMethodValidator';
 import {
   getActiveSubscription,
   getFeaturesForUser,
@@ -17,10 +18,10 @@ const router = Router();
 
 // ── In-memory plan cache (5 min TTL) ─────────────────────────────────────────
 const planCache = new NodeCache({ stdTTL: 300, checkperiod: 60 });
-const CACHE_KEY_ALL  = 'plans:all';
-const CACHE_KEY_ID   = (id: string) => `plan:${id}`;
+const CACHE_KEY_ALL = 'plans:all';
+const CACHE_KEY_ID  = (id: string) => `plan:${id}`;
 
-// ── Helper: load plans with features + payment_methods from DB ───────────────
+// ── Helper: load plans with features + active payment_methods from DB ─────────
 
 async function loadPlansFromDb(activeOnly = true) {
   const where = activeOnly ? `WHERE sp.status = 'active'` : '';
@@ -48,7 +49,8 @@ async function loadPlansFromDb(activeOnly = true) {
     pool.query(
       `SELECT ppm.plan_id,
               pm.id, pm.code, pm.display_name, pm.logo_url,
-              pm.method_type, pm.fee_percent
+              pm.method_type,
+              COALESCE(pm.fee_percent, 0) AS fee_percent
          FROM plan_payment_methods ppm
          JOIN payment_methods pm ON pm.id = ppm.payment_method_id
         WHERE ppm.plan_id = ANY($1::uuid[])
@@ -68,23 +70,25 @@ async function loadPlansFromDb(activeOnly = true) {
   for (const m of methodsRes.rows) {
     if (!methodMap[m.plan_id]) methodMap[m.plan_id] = [];
     methodMap[m.plan_id].push({
-      id: m.id,
-      code: m.code,
+      id:           m.id,
+      code:         m.code,
       display_name: m.display_name,
-      logo_url: m.logo_url,
-      method_type: m.method_type,
-      fee_percent: parseFloat(m.fee_percent) || 0,
+      logo_url:     m.logo_url ?? null,
+      method_type:  m.method_type,
+      fee_percent:  Number(m.fee_percent ?? 0),
     });
   }
 
   return plans.map((p: any) => ({
     ...p,
-    price_monthly: Number(p.price_monthly),
-    price_yearly:  p.price_yearly  != null ? Number(p.price_yearly)  : null,
-    price_weekly:  p.price_weekly  != null ? Number(p.price_weekly)  : null,
-    promo_price:   p.promo_price   != null ? Number(p.promo_price)   : null,
-    features:      featureMap[p.id]  || [],
-    payment_methods: methodMap[p.id] || [],
+    price_monthly: Number(p.price_monthly ?? 0),
+    price_yearly:  Number(p.price_yearly  ?? 0),
+    price_weekly:  Number(p.price_weekly  ?? 0),
+    trial_days:    Number(p.trial_days    ?? 0),
+    sort_order:    Number(p.sort_order    ?? 0),
+    promo_price:   p.promo_price != null ? Number(p.promo_price) : null,
+    features:        featureMap[p.id] || [],
+    payment_methods: methodMap[p.id]  || [],
   }));
 }
 
@@ -131,15 +135,13 @@ router.get(
   asyncHandler(async (req: ApiRequest, res: Response) => {
     const userId = req.user!.id;
 
-    const sub = await getActiveSubscription(userId);
+    const sub      = await getActiveSubscription(userId);
     const features = await getFeaturesForUser(userId);
 
-    // Build usage map for numeric features
+    // Usage for all feature keys — always a number, never null
     const usageMap: Record<string, number> = {};
-    for (const [key, val] of Object.entries(features)) {
-      if (val !== 'unlimited' && !isNaN(parseInt(val))) {
-        usageMap[key] = await getUsage(userId, key);
-      }
+    for (const key of Object.keys(features)) {
+      usageMap[key] = Number((await getUsage(userId, key)) ?? 0);
     }
 
     let currentPlan: any = null;
@@ -149,11 +151,28 @@ router.get(
         currentPlan = cached;
       } else {
         const { rows } = await pool.query(
-          `SELECT id, name, description, icon_color, price_monthly, is_recommended, sort_order
+          `SELECT id, name, description, icon_color,
+                  price_monthly, price_yearly, price_weekly,
+                  trial_days, promo_price, is_recommended, sort_order
              FROM subscription_plans WHERE id = $1`,
           [sub.plan_id]
         );
-        currentPlan = rows[0] || null;
+        if (rows[0]) {
+          const p = rows[0];
+          currentPlan = {
+            id:            p.id,
+            name:          p.name,
+            description:   p.description   ?? null,
+            icon_color:    p.icon_color     ?? null,
+            price_monthly: Number(p.price_monthly ?? 0),
+            price_yearly:  Number(p.price_yearly  ?? 0),
+            price_weekly:  Number(p.price_weekly  ?? 0),
+            trial_days:    Number(p.trial_days    ?? 0),
+            promo_price:   p.promo_price != null ? Number(p.promo_price) : null,
+            is_recommended: Boolean(p.is_recommended),
+            sort_order:    Number(p.sort_order ?? 0),
+          };
+        }
       }
     }
 
@@ -204,7 +223,7 @@ router.post(
     const userId = req.user!.id;
     const { plan_id, billing_cycle, payment_method_code } = req.body;
 
-    // Load plan
+    // Validate plan
     const { rows: planRows } = await pool.query(
       `SELECT * FROM subscription_plans WHERE id = $1 AND status = 'active'`,
       [plan_id]
@@ -214,7 +233,7 @@ router.post(
     }
     const plan = planRows[0];
 
-    // Load payment method (must be active and linked to this plan)
+    // Validate payment method — must be active and linked to this plan
     const { rows: pmRows } = await pool.query(
       `SELECT pm.*
          FROM payment_methods pm
@@ -223,12 +242,20 @@ router.post(
       [payment_method_code, plan_id]
     );
     if (!pmRows[0]) {
-      return apiError(res, 400, 'VALIDATION_ERROR',
+      return apiError(res, 400, 'PAYMENT_METHOD_NOT_AVAILABLE',
         'Phương thức thanh toán không hợp lệ hoặc không được chấp nhận cho gói này');
     }
     const pm = pmRows[0];
 
-    // Pricing — all numeric fields default to 0, never null
+    // Safety net: reject if method is active but config incomplete
+    const pmValidation = validatePaymentMethodConfig(pm);
+    if (!pmValidation.is_valid) {
+      return apiError(res, 400, 'PAYMENT_METHOD_NOT_CONFIGURED',
+        'Phương thức thanh toán này tạm thời không khả dụng',
+        { missing_fields: pmValidation.missing_fields });
+    }
+
+    // Pricing — all numbers, never null
     const priceField: Record<string, string> = {
       monthly: 'price_monthly',
       yearly:  'price_yearly',
@@ -238,11 +265,10 @@ router.post(
 
     let promoDiscount = 0;
     if (plan.promo_price != null) {
-      const now = new Date();
+      const now        = new Date();
       const promoStart = plan.promo_start ? new Date(plan.promo_start) : null;
       const promoEnd   = plan.promo_end   ? new Date(plan.promo_end)   : null;
-      const inWindow = (!promoStart || now >= promoStart) && (!promoEnd || now <= promoEnd);
-      if (inWindow) {
+      if ((!promoStart || now >= promoStart) && (!promoEnd || now <= promoEnd)) {
         promoDiscount = Math.max(0, basePrice - Number(plan.promo_price));
       }
     }
@@ -251,53 +277,67 @@ router.post(
     const feeAmount   = Math.round((basePrice - promoDiscount) * feePercent / 100);
     const totalAmount = basePrice - promoDiscount + feeAmount;
 
-    // Payment instructions
-    const ts = Date.now();
-    const shortId = userId.replace(/-/g, '').substring(0, 8).toUpperCase();
-    const transferContent = `EL_${shortId}_${ts}`;
+    // Transfer content
+    const shortId         = userId.replace(/-/g, '').substring(0, 8).toUpperCase();
+    const transferContent = `EL_${shortId}_${Date.now()}`;
 
+    // Payment instructions — structured per method_type
+    const info = pm.account_info ?? {};
     let paymentInstructions: Record<string, any>;
-    const accountInfo = pm.account_info || {};
 
-    if (pm.method_type === 'bank') {
-      paymentInstructions = {
-        type:             'bank_transfer',
-        account_info:     accountInfo,
-        transfer_content: transferContent,
-        amount:           totalAmount,
-        instructions_vi:  pm.instructions_vi ?? null,
-        instructions_en:  pm.instructions_en ?? null,
-      };
-    } else if (pm.method_type === 'ewallet') {
-      paymentInstructions = {
-        type:             'qr_code',
-        qr_image_url:     accountInfo.qr_image_url ?? null,
-        transfer_content: transferContent,
-        amount:           totalAmount,
-        instructions_vi:  pm.instructions_vi ?? null,
-        instructions_en:  pm.instructions_en ?? null,
-      };
-    } else if (pm.method_type === 'card') {
-      paymentInstructions = {
-        type:         'redirect',
-        redirect_url: null,
-        amount:       totalAmount,
-      };
-    } else {
-      paymentInstructions = {
-        type:             'manual',
-        transfer_content: transferContent,
-        amount:           totalAmount,
-        instructions_vi:  pm.instructions_vi ?? null,
-        instructions_en:  pm.instructions_en ?? null,
-      };
+    switch (pm.method_type) {
+      case 'bank':
+        paymentInstructions = {
+          type: 'bank_transfer',
+          account_info: {
+            account_number: info.account_number ?? '',
+            account_name:   info.account_name   ?? '',
+            bank_name:      info.bank_name       ?? '',
+            swift_code:     info.swift_code      ?? null,
+            branch:         info.branch          ?? null,
+          },
+          transfer_content: transferContent,
+          amount:           totalAmount,
+          instructions_vi:  pm.instructions_vi ?? null,
+          instructions_en:  pm.instructions_en ?? null,
+        };
+        break;
+
+      case 'ewallet':
+        paymentInstructions = {
+          type:             'qr_code',
+          qr_image_url:     info.qr_image_url ?? null,
+          phone_number:     info.phone_number ?? null,
+          account_name:     info.account_name ?? null,
+          transfer_content: transferContent,
+          amount:           totalAmount,
+          instructions_vi:  pm.instructions_vi ?? null,
+          instructions_en:  pm.instructions_en ?? null,
+        };
+        break;
+
+      case 'card':
+      case 'international':
+        paymentInstructions = {
+          type:         'redirect',
+          redirect_url: null,
+          amount:       totalAmount,
+        };
+        break;
+
+      default:
+        paymentInstructions = {
+          type:             'manual',
+          transfer_content: transferContent,
+          amount:           totalAmount,
+          instructions_vi:  pm.instructions_vi ?? null,
+          instructions_en:  pm.instructions_en ?? null,
+        };
     }
-
-    const expiresAt = new Date(Date.now() + 30 * 60 * 1000).toISOString();
 
     return apiSuccess(res, {
       plan_id,
-      plan_name:   plan.name,
+      plan_name:    plan.name,
       billing_cycle,
       pricing: {
         base_price:     basePrice,
@@ -310,10 +350,10 @@ router.post(
         display_name: pm.display_name,
         logo_url:     pm.logo_url ?? null,
         method_type:  pm.method_type,
-        fee_percent:  Number(pm.fee_percent ?? 0),
+        fee_percent:  feePercent,
       },
       payment_instructions: paymentInstructions,
-      expires_at: expiresAt,
+      expires_at: new Date(Date.now() + 30 * 60 * 1000).toISOString(),
     });
   })
 );
@@ -340,19 +380,32 @@ router.post(
         'Bạn đã có subscription đang hoạt động. Hãy cancel trước khi đăng ký mới.');
     }
 
-    // Validate plan + payment method
+    // Validate plan
     const { rows: planRows } = await pool.query(
-      `SELECT sp.*, pm.id AS pm_id, pm.code AS pm_code
-         FROM subscription_plans sp
-         JOIN plan_payment_methods ppm ON ppm.plan_id = sp.id
-         JOIN payment_methods pm ON pm.id = ppm.payment_method_id
-        WHERE sp.id = $1 AND sp.status = 'active'
-          AND pm.code = $2 AND pm.is_active = TRUE`,
-      [plan_id, payment_method_code]
+      `SELECT id FROM subscription_plans WHERE id = $1 AND status = 'active'`,
+      [plan_id]
     );
     if (!planRows[0]) {
-      return apiError(res, 400, 'VALIDATION_ERROR',
-        'Plan hoặc phương thức thanh toán không hợp lệ');
+      return apiError(res, 400, 'VALIDATION_ERROR', 'Plan không hợp lệ hoặc không active');
+    }
+
+    // Validate payment method — active + linked to plan + configured
+    const { rows: pmRows } = await pool.query(
+      `SELECT pm.*
+         FROM payment_methods pm
+         JOIN plan_payment_methods ppm ON ppm.payment_method_id = pm.id
+        WHERE pm.code = $1 AND pm.is_active = TRUE AND ppm.plan_id = $2`,
+      [payment_method_code, plan_id]
+    );
+    if (!pmRows[0]) {
+      return apiError(res, 400, 'PAYMENT_METHOD_NOT_AVAILABLE',
+        'Phương thức thanh toán không hợp lệ hoặc không được chấp nhận cho gói này');
+    }
+    const pm = pmRows[0];
+    const pmValidation = validatePaymentMethodConfig(pm);
+    if (!pmValidation.is_valid) {
+      return apiError(res, 400, 'PAYMENT_METHOD_NOT_CONFIGURED',
+        'Phương thức thanh toán này tạm thời không khả dụng');
     }
 
     const periodStart = new Date();
@@ -362,7 +415,6 @@ router.post(
     try {
       await client.query('BEGIN');
 
-      // Create user_subscription (pending_payment)
       const { rows: subRows } = await client.query(
         `INSERT INTO user_subscriptions
            (user_id, plan_id, billing_cycle, price_paid, status,
@@ -373,7 +425,6 @@ router.post(
       );
       const subscriptionId = subRows[0].id;
 
-      // Create transaction (pending)
       const { rows: txRows } = await client.query(
         `INSERT INTO transactions
            (user_id, subscription_id, type, amount, payment_method, payment_ref, status)
@@ -383,7 +434,7 @@ router.post(
       );
       const transactionId = txRows[0].id;
 
-      // Notify all super_admins
+      // Notify super_admins
       const { rows: adminRows } = await client.query(
         `SELECT id FROM admin_accounts WHERE role = 'super_admin'`
       );
@@ -391,10 +442,7 @@ router.post(
       for (const admin of adminRows) {
         await client.query(
           `INSERT INTO notifications (admin_id, type, title, message, link_url)
-           VALUES ($1, 'payment_pending_review',
-                   'Thanh toán chờ duyệt',
-                   $2,
-                   '/subscriptions/transactions')`,
+           VALUES ($1, 'payment_pending_review', 'Thanh toán chờ duyệt', $2, '/subscriptions/transactions')`,
           [admin.id, `User ${userEmail} vừa thanh toán, cần xác nhận`]
         );
       }
@@ -434,8 +482,7 @@ router.post(
     );
 
     if (rows.length === 0) {
-      return apiError(res, 404, 'NOT_FOUND',
-        'Không tìm thấy subscription active để cancel');
+      return apiError(res, 404, 'NOT_FOUND', 'Không tìm thấy subscription active để cancel');
     }
 
     return res.status(204).send();
@@ -449,8 +496,8 @@ router.get(
   requireApiAuth,
   asyncHandler(async (req: ApiRequest, res: Response) => {
     const userId = req.user!.id;
-    const page  = Math.max(1, parseInt(String(req.query.page))  || 1);
-    const limit = Math.max(1, parseInt(String(req.query.limit)) || 20);
+    const page   = Math.max(1, parseInt(String(req.query.page))  || 1);
+    const limit  = Math.max(1, parseInt(String(req.query.limit)) || 20);
     const offset = (page - 1) * limit;
 
     const statusFilter = typeof req.query.status === 'string' && req.query.status
@@ -469,12 +516,14 @@ router.get(
 
     const [dataRes, countRes] = await Promise.all([
       pool.query(
-        `SELECT t.id, t.type, t.amount, t.payment_method, t.payment_ref,
+        `SELECT t.id, t.type, COALESCE(t.amount, 0) AS amount,
+                t.payment_method, t.payment_ref,
                 t.status, t.created_at,
                 sp.name AS plan_name,
                 pm.display_name AS payment_method_display,
-                pm.logo_url AS payment_method_logo,
-                pm.code AS payment_method_code
+                pm.logo_url     AS payment_method_logo,
+                pm.code         AS payment_method_code,
+                pm.method_type  AS payment_method_type
            FROM transactions t
            LEFT JOIN user_subscriptions us ON us.id = t.subscription_id
            LEFT JOIN subscription_plans sp ON sp.id = us.plan_id
@@ -494,24 +543,21 @@ router.get(
 
     const items = dataRes.rows.map((r: any) => ({
       id:           r.id,
-      plan_name:    r.plan_name || null,
+      type:         r.type,
+      plan_name:    r.plan_name ?? null,
       amount:       Number(r.amount),
       payment_method: {
         code:         r.payment_method_code || r.payment_method,
         display_name: r.payment_method_display || r.payment_method,
-        logo_url:     r.payment_method_logo || null,
+        logo_url:     r.payment_method_logo  ?? null,
+        method_type:  r.payment_method_type  ?? null,
       },
-      status:       r.status,
-      payment_ref:  r.payment_ref,
-      created_at:   r.created_at,
+      status:      r.status,
+      payment_ref: r.payment_ref ?? null,
+      created_at:  r.created_at,
     }));
 
-    return apiSuccess(res, {
-      items,
-      total,
-      page,
-      limit,
-    });
+    return apiSuccess(res, { items, total, page, limit });
   })
 );
 

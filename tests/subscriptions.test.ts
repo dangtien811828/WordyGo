@@ -23,6 +23,10 @@ let checkoutPmId = '';
 let checkoutTxId = '';
 let checkoutSubId = '';
 
+// Extra PMs for error-case tests
+let inactivePmId = '';
+let unconfigPmId = '';
+
 // ── Setup ─────────────────────────────────────────────────────────────────────
 
 beforeAll(async () => {
@@ -84,10 +88,14 @@ beforeAll(async () => {
 
   const { rows: pmRows } = await pool.query(
     `INSERT INTO payment_methods
-       (code, display_name, method_type, is_active, sort_order)
-     VALUES ($1, 'Test Ewallet', 'ewallet', TRUE, 99)
+       (code, display_name, method_type, is_active, sort_order,
+        logo_url, instructions_vi, account_info)
+     VALUES ($1, 'Test Ewallet', 'ewallet', TRUE, 99,
+             'https://example.com/test-logo.png',
+             'Chuyển tiền qua ví điện tử test',
+             $2)
      RETURNING id`,
-    [`test_ew_${TS}`]
+    [`test_ew_${TS}`, { phone_number: '0901234567', account_name: 'Test Account', qr_image_url: 'https://example.com/qr.png' }]
   );
   checkoutPmId = pmRows[0].id;
   testPmId = pmRows[0].id;
@@ -96,6 +104,38 @@ beforeAll(async () => {
     `INSERT INTO plan_payment_methods (plan_id, payment_method_id)
      VALUES ($1, $2)`,
     [checkoutPlanId, checkoutPmId]
+  );
+
+  // Inactive PM (is_active=FALSE) — linked to plan to verify it's excluded from plan.payment_methods
+  const { rows: inactivePmRows } = await pool.query(
+    `INSERT INTO payment_methods
+       (code, display_name, method_type, is_active, sort_order)
+     VALUES ($1, 'Test Inactive PM', 'ewallet', FALSE, 97)
+     RETURNING id`,
+    [`test_inactive_${TS}`]
+  );
+  inactivePmId = inactivePmRows[0].id;
+
+  await pool.query(
+    `INSERT INTO plan_payment_methods (plan_id, payment_method_id)
+     VALUES ($1, $2)`,
+    [checkoutPlanId, inactivePmId]
+  );
+
+  // Unconfigured PM (is_active=TRUE but missing logo_url, instructions_vi, account_info)
+  const { rows: unconfigPmRows } = await pool.query(
+    `INSERT INTO payment_methods
+       (code, display_name, method_type, is_active, sort_order)
+     VALUES ($1, 'Test Unconfig PM', 'ewallet', TRUE, 96)
+     RETURNING id`,
+    [`test_unconf_${TS}`]
+  );
+  unconfigPmId = unconfigPmRows[0].id;
+
+  await pool.query(
+    `INSERT INTO plan_payment_methods (plan_id, payment_method_id)
+     VALUES ($1, $2)`,
+    [checkoutPlanId, unconfigPmId]
   );
 });
 
@@ -111,7 +151,10 @@ afterAll(async () => {
     [testPlanId, checkoutPlanId]);
   await pool.query(`DELETE FROM subscription_plans WHERE id IN ($1, $2)`,
     [testPlanId, checkoutPlanId]);
-  await pool.query(`DELETE FROM payment_methods WHERE id = $1`, [checkoutPmId]);
+  await pool.query(
+    `DELETE FROM payment_methods WHERE id IN ($1, $2, $3)`,
+    [checkoutPmId, inactivePmId, unconfigPmId]
+  );
   await pool.query(`DELETE FROM users WHERE email LIKE $1`, [`${EMAIL_PREFIX}%`]);
   await pool.end();
 });
@@ -143,6 +186,27 @@ describe('GET /api/v1/subscriptions/plans', () => {
     for (const plan of res.body.data) {
       expect(plan).not.toHaveProperty('priceMonthly');
       expect(plan).not.toHaveProperty('isRecommended');
+    }
+  });
+
+  it('payment_methods only includes is_active=TRUE methods (inactive PM excluded)', async () => {
+    const res = await request(app).get('/api/v1/subscriptions/plans');
+    expect(res.status).toBe(200);
+    const testPlan = res.body.data.find((p: any) => p.id === checkoutPlanId);
+    expect(testPlan).toBeDefined();
+    const pmCodes: string[] = testPlan.payment_methods.map((m: any) => m.code);
+    expect(pmCodes).toContain(`test_ew_${TS}`);
+    expect(pmCodes).not.toContain(`test_inactive_${TS}`);
+  });
+
+  it('numeric plan fields (price_monthly, trial_days, sort_order) are always numbers, never null', async () => {
+    const res = await request(app).get('/api/v1/subscriptions/plans');
+    expect(res.status).toBe(200);
+    for (const plan of res.body.data) {
+      expect(typeof plan.price_monthly).toBe('number');
+      expect(typeof plan.price_yearly).toBe('number');
+      expect(typeof plan.trial_days).toBe('number');
+      expect(typeof plan.sort_order).toBe('number');
     }
   });
 });
@@ -229,6 +293,22 @@ describe('POST /api/v1/subscriptions/checkout/preview', () => {
     await pool.query(`DELETE FROM user_subscriptions WHERE id = $1`, [testSubId]);
   });
 
+  it('GET /me with no subscription — usage values are numeric (never null) for all keys', async () => {
+    const res = await request(app)
+      .get('/api/v1/subscriptions/me')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(res.status).toBe(200);
+    expect(res.body.data.subscription).toBeNull();
+    const usage = res.body.data.usage;
+    expect(usage).toBeDefined();
+    expect(typeof usage).toBe('object');
+    for (const val of Object.values(usage as Record<string, any>)) {
+      expect(typeof val).toBe('number');
+      expect(val).not.toBeNull();
+    }
+  });
+
   it('returns pricing + payment_instructions with transfer_content', async () => {
     const res = await request(app)
       .post('/api/v1/subscriptions/checkout/preview')
@@ -249,6 +329,25 @@ describe('POST /api/v1/subscriptions/checkout/preview', () => {
     expect(res.body.data).toHaveProperty('expires_at');
   });
 
+  it('pricing fields in response are all numbers, never null', async () => {
+    const res = await request(app)
+      .post('/api/v1/subscriptions/checkout/preview')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        plan_id:             checkoutPlanId,
+        billing_cycle:       'monthly',
+        payment_method_code: `test_ew_${TS}`,
+      });
+
+    expect(res.status).toBe(200);
+    const p = res.body.data.pricing;
+    expect(typeof p.base_price).toBe('number');
+    expect(typeof p.promo_discount).toBe('number');
+    expect(typeof p.fee_amount).toBe('number');
+    expect(typeof p.total_amount).toBe('number');
+    expect(typeof res.body.data.payment_method.fee_percent).toBe('number');
+  });
+
   it('400 for unknown payment_method_code', async () => {
     const res = await request(app)
       .post('/api/v1/subscriptions/checkout/preview')
@@ -259,6 +358,32 @@ describe('POST /api/v1/subscriptions/checkout/preview', () => {
         payment_method_code: 'nonexistent_method',
       });
     expect(res.status).toBe(400);
+  });
+
+  it('400 PAYMENT_METHOD_NOT_AVAILABLE when PM is inactive', async () => {
+    const res = await request(app)
+      .post('/api/v1/subscriptions/checkout/preview')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        plan_id:             checkoutPlanId,
+        billing_cycle:       'monthly',
+        payment_method_code: `test_inactive_${TS}`,
+      });
+    expect(res.status).toBe(400);
+    expect(res.body.error.code).toBe('PAYMENT_METHOD_NOT_AVAILABLE');
+  });
+
+  it('400 PAYMENT_METHOD_NOT_CONFIGURED when PM is active but config incomplete', async () => {
+    const res = await request(app)
+      .post('/api/v1/subscriptions/checkout/preview')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        plan_id:             checkoutPlanId,
+        billing_cycle:       'monthly',
+        payment_method_code: `test_unconf_${TS}`,
+      });
+    expect(res.status).toBe(400);
+    expect(res.body.error.code).toBe('PAYMENT_METHOD_NOT_CONFIGURED');
   });
 });
 

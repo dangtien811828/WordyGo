@@ -2,6 +2,7 @@ import type { Request, Response } from 'express';
 import Subscription from '../models/Subscription';
 import PaymentMethod from '../models/PaymentMethod';
 import { uploadPaymentLogo } from '../middlewares/upload';
+import { validatePaymentMethodConfig } from '../utils/paymentMethodValidator';
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -253,10 +254,14 @@ const subscriptionController = {
   async getPaymentMethods(req: Request, res: Response) {
     try {
       const methods = await PaymentMethod.findAll();
+      const validations = Object.fromEntries(
+        methods.map((m: any) => [m.id, validatePaymentMethodConfig(m)])
+      );
       res.render('subscriptions/payment-methods/list', {
         title: 'Payment Methods',
         active: 'subscriptions',
         methods,
+        validations,
       });
     } catch (err) {
       console.error('[Subscriptions] getPaymentMethods error:', err);
@@ -357,21 +362,41 @@ const subscriptionController = {
           : (req.body.logo_url_manual || existing.logo_url || null);
 
         const accountInfo = buildAccountInfo(req.body);
+        const methodType  = Array.isArray(req.body.method_type)
+          ? req.body.method_type[0]
+          : req.body.method_type;
+
+        let isActive = req.body.is_active === 'on' || req.body.is_active === 'true';
+        let autoDeactivated = false;
+        if (isActive) {
+          const validation = validatePaymentMethodConfig({
+            method_type:     methodType,
+            account_info:    accountInfo,
+            logo_url,
+            instructions_vi: req.body.instructions_vi || null,
+          });
+          if (!validation.is_valid) {
+            isActive = false;
+            autoDeactivated = true;
+            req.flash('warning',
+              `Đã lưu nhưng tự động deactivate vì thiếu: ${validation.missing_fields.join(', ')}`);
+          }
+        }
 
         await PaymentMethod.update(id, {
           display_name:    (req.body.display_name || '').trim(),
           description:     req.body.description || null,
           logo_url,
-          method_type:     req.body.method_type,
+          method_type:     methodType,
           account_info:    accountInfo,
           instructions_vi: req.body.instructions_vi || null,
           instructions_en: req.body.instructions_en || null,
           fee_percent:     req.body.fee_percent || 0,
-          is_active:       req.body.is_active === 'on' || req.body.is_active === 'true',
+          is_active:       isActive,
           sort_order:      req.body.sort_order || 0,
         });
 
-        req.flash('success', 'Đã cập nhật phương thức thanh toán');
+        if (!autoDeactivated) req.flash('success', 'Đã cập nhật phương thức thanh toán');
         return res.redirect('/subscriptions/payment-methods');
       } catch (e) {
         console.error('[Subscriptions] postEditPaymentMethod error:', e);
@@ -396,7 +421,24 @@ const subscriptionController = {
   async postTogglePaymentMethod(req: Request, res: Response) {
     const { id } = req.params as { id: string };
     try {
-      await PaymentMethod.toggleActive(id);
+      const method = await PaymentMethod.findById(id);
+      if (!method) {
+        req.flash('error', 'Phương thức thanh toán không tồn tại');
+        return res.redirect('/subscriptions/payment-methods');
+      }
+
+      const newActiveState = !method.is_active;
+      if (newActiveState) {
+        const validation = validatePaymentMethodConfig(method);
+        if (!validation.is_valid) {
+          req.flash('error',
+            `Không thể activate: thiếu ${validation.missing_fields.join(', ')}. Vui lòng edit và điền đầy đủ trước.`);
+          return res.redirect('/subscriptions/payment-methods');
+        }
+      }
+
+      await PaymentMethod.update(id, { ...method, is_active: newActiveState });
+      req.flash('success', newActiveState ? 'Đã bật phương thức thanh toán' : 'Đã tắt phương thức thanh toán');
     } catch (err) {
       console.error('[Subscriptions] postTogglePaymentMethod error:', err);
       req.flash('error', 'Không thể thay đổi trạng thái');

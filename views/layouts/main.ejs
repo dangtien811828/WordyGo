@@ -20,6 +20,9 @@
     <% if (typeof success !== 'undefined' && success.length > 0) { %>
       <div class="alert alert-success"><%= success %></div>
     <% } %>
+    <% if (typeof warning !== 'undefined' && warning.length > 0) { %>
+      <div class="alert alert-warning"><%= warning %></div>
+    <% } %>
     <% if (typeof error !== 'undefined' && error.length > 0) { %>
       <div class="alert alert-error"><%= error %></div>
     <% } %>
