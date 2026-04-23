@@ -13,6 +13,7 @@ import {
   registerLimiter,
   refreshLimiter,
 } from '../../middlewares/rateLimiter';
+import { computeSubscriptionBadge } from '../../utils/subscriptionHelper';
 
 const router = Router();
 
@@ -28,16 +29,22 @@ const generateAccessToken = (userId: string, email: string): string =>
 const generateRefreshToken = (userId: string, tokenId: string): string =>
   jwt.sign({ userId, tokenId }, getSecret(), { expiresIn: REFRESH_TOKEN_TTL });
 
-const formatUser = (row: any) => ({
-  id: row.id,
-  email: row.email,
-  full_name: row.full_name,
-  level: row.level,
-  status: row.status,
-  streak_current: row.streak_current,
-  streak_longest: row.streak_longest,
-  avatar_url: row.avatar_url,
-});
+async function buildUserResponse(row: any) {
+  return {
+    id:                 row.id,
+    email:              row.email,
+    full_name:          row.full_name  ?? null,
+    phone:              row.phone      ?? null,
+    avatar_url:         row.avatar_url ?? null,
+    level:              row.level,
+    status:             row.status,
+    streak_current:     Number(row.streak_current ?? 0),
+    streak_longest:     Number(row.streak_longest ?? 0),
+    last_active_at:     row.last_active_at ?? null,
+    created_at:         row.created_at,
+    subscription_badge: await computeSubscriptionBadge(row.id),
+  };
+}
 
 // Issue an access + refresh token pair and persist the refresh token record.
 const issueTokens = async (
@@ -97,8 +104,9 @@ router.post(
     const { rows } = await pool.query(
       `INSERT INTO users (email, password_hash, full_name, phone, level)
        VALUES ($1, $2, $3, $4, $5)
-       RETURNING id, email, full_name, level, status,
-                 streak_current, streak_longest, avatar_url`,
+       RETURNING id, email, full_name, phone, level, status,
+                 streak_current, streak_longest, avatar_url,
+                 last_active_at, created_at`,
       [
         email.toLowerCase().trim(),
         password_hash,
@@ -109,11 +117,14 @@ router.post(
     );
 
     const user = rows[0];
-    const tokens = await issueTokens(req, user);
+    const [tokens, userResponse] = await Promise.all([
+      issueTokens(req, user),
+      buildUserResponse(user),
+    ]);
 
     res.status(201).json({
       success: true,
-      data: { ...tokens, user: formatUser(user) },
+      data: { ...tokens, user: userResponse },
       message: 'Đăng ký thành công',
     });
   })
@@ -130,9 +141,7 @@ router.post(
     const { email, password } = req.body;
 
     const { rows } = await pool.query(
-      `SELECT id, email, password_hash, full_name, level, status,
-              streak_current, streak_longest, avatar_url
-       FROM users WHERE email = $1`,
+      `SELECT id, email, password_hash, status FROM users WHERE email = $1`,
       [email.toLowerCase().trim()]
     );
 
@@ -140,27 +149,36 @@ router.post(
       return apiError(res, 401, 'INVALID_CREDENTIALS', 'Email hoặc mật khẩu không đúng');
     }
 
-    const user = rows[0];
+    const authRow = rows[0];
 
-    if (user.status === 'banned') {
+    if (authRow.status === 'banned') {
       return apiError(res, 403, 'ACCOUNT_BANNED', 'Tài khoản đã bị khóa. Vui lòng liên hệ hỗ trợ.');
     }
 
-    const isMatch = await bcrypt.compare(password, user.password_hash);
+    const isMatch = await bcrypt.compare(password, authRow.password_hash);
     if (!isMatch) {
       return apiError(res, 401, 'INVALID_CREDENTIALS', 'Email hoặc mật khẩu không đúng');
     }
 
-    await pool.query(
-      'UPDATE users SET last_login_at = NOW(), last_active_at = NOW() WHERE id = $1',
-      [user.id]
+    // Update timestamps and fetch all fields in one query
+    const { rows: updatedRows } = await pool.query(
+      `UPDATE users
+          SET last_login_at = NOW(), last_active_at = NOW()
+        WHERE id = $1
+        RETURNING id, email, full_name, phone, level, status,
+                  streak_current, streak_longest, avatar_url,
+                  last_active_at, created_at`,
+      [authRow.id]
     );
 
-    const tokens = await issueTokens(req, user);
+    const [tokens, userResponse] = await Promise.all([
+      issueTokens(req, authRow),
+      buildUserResponse(updatedRows[0]),
+    ]);
 
     return apiSuccess(
       res,
-      { ...tokens, user: formatUser(user) },
+      { ...tokens, user: userResponse },
       'Đăng nhập thành công'
     );
   })
@@ -189,8 +207,9 @@ router.post(
 
     const { rows } = await pool.query(
       `SELECT t.id, t.revoked, t.expires_at,
-              u.id AS user_id, u.email, u.full_name, u.level, u.status,
-              u.streak_current, u.streak_longest, u.avatar_url
+              u.id AS user_id, u.email, u.full_name, u.phone, u.level, u.status,
+              u.streak_current, u.streak_longest, u.avatar_url,
+              u.last_active_at, u.created_at
        FROM user_refresh_tokens t
        JOIN users u ON u.id = t.user_id
        WHERE t.token_id = $1`,
@@ -219,21 +238,28 @@ router.post(
       [decoded.tokenId]
     );
 
-    const user = {
-      id: row.user_id,
-      email: row.email,
-      full_name: row.full_name,
-      level: row.level,
-      status: row.status,
+    const userRow = {
+      id:             row.user_id,
+      email:          row.email,
+      full_name:      row.full_name,
+      phone:          row.phone,
+      level:          row.level,
+      status:         row.status,
       streak_current: row.streak_current,
       streak_longest: row.streak_longest,
-      avatar_url: row.avatar_url,
+      avatar_url:     row.avatar_url,
+      last_active_at: row.last_active_at,
+      created_at:     row.created_at,
     };
-    const tokens = await issueTokens(req, user);
+
+    const [tokens, userResponse] = await Promise.all([
+      issueTokens(req, userRow),
+      buildUserResponse(userRow),
+    ]);
 
     return apiSuccess(
       res,
-      { ...tokens, user: formatUser(user) },
+      { ...tokens, user: userResponse },
       'Token đã được cấp mới'
     );
   })

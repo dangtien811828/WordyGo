@@ -91,6 +91,22 @@ export async function getUsage(userId: string, featureKey: string): Promise<numb
   }
 }
 
+// ── Subscription badge ────────────────────────────────────────────────────────
+
+export async function computeSubscriptionBadge(userId: string): Promise<string> {
+  const { rows } = await pool.query(
+    `SELECT sp.name
+       FROM user_subscriptions us
+       JOIN subscription_plans sp ON sp.id = us.plan_id
+      WHERE us.user_id = $1
+        AND us.status = 'active'
+        AND us.current_period_end > NOW()
+      LIMIT 1`,
+    [userId]
+  );
+  return rows.length === 0 ? 'FREE' : rows[0].name.toUpperCase();
+}
+
 // ── Period end calculator ─────────────────────────────────────────────────────
 
 export function calcPeriodEnd(billingCycle: string, startDate: Date = new Date()): Date {

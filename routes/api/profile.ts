@@ -9,6 +9,7 @@ import { validateBody } from '../../middlewares/validateBody';
 import { asyncHandler } from '../../utils/asyncHandler';
 import { apiSuccess, apiError } from '../../utils/apiResponse';
 import { uploadAvatar } from '../../middlewares/upload';
+import { computeSubscriptionBadge } from '../../utils/subscriptionHelper';
 
 const router = Router();
 
@@ -48,20 +49,34 @@ router.get(
     const user = rows[0];
 
     // Computed: days_active trong 30 ngày qua
-    const { rows: daysRows } = await pool.query(
-      `SELECT COUNT(DISTINCT DATE(created_at AT TIME ZONE 'UTC'))::int AS days_active
-       FROM user_activity_log
-       WHERE user_id = $1 AND created_at >= NOW() - INTERVAL '30 days'`,
-      [userId]
-    );
+    const [daysRes, badge] = await Promise.all([
+      pool.query(
+        `SELECT COUNT(DISTINCT DATE(created_at AT TIME ZONE 'UTC'))::int AS days_active
+         FROM user_activity_log
+         WHERE user_id = $1 AND created_at >= NOW() - INTERVAL '30 days'`,
+        [userId]
+      ),
+      computeSubscriptionBadge(userId),
+    ]);
 
     // TODO: bảng bookmarks chưa có — tạm trả 0.
     const total_words_saved = 0;
 
     return apiSuccess(res, {
-      ...user,
+      id:                 user.id,
+      email:              user.email,
+      full_name:          user.full_name  ?? null,
+      phone:              user.phone      ?? null,
+      avatar_url:         user.avatar_url ?? null,
+      level:              user.level,
+      status:             user.status,
+      streak_current:     Number(user.streak_current ?? 0),
+      streak_longest:     Number(user.streak_longest ?? 0),
+      last_active_at:     user.last_active_at  ?? null,
+      created_at:         user.created_at,
+      subscription_badge: badge,
       total_words_saved,
-      days_active: daysRows[0]?.days_active ?? 0,
+      days_active: daysRes.rows[0]?.days_active ?? 0,
     });
   })
 );
