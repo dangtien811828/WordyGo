@@ -8,3 +8,4 @@ CLAUDE.md
 dist/
 *.tsbuildinfo
 /docs
+/scripts/dict-data
