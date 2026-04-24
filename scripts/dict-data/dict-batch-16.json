@@ -1,0 +1,1072 @@
+[
+  {
+    "headword": "assessment",
+    "meaning_vi": "sự đánh giá",
+    "pos": ["noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈsesmənt/",
+    "ipa_us": "/əˈsesmənt/",
+    "audio_uk": "assessment_uk.mp3",
+    "audio_us": "assessment_us.mp3",
+    "etymology": "From Old French assessement, from assesser ('to assess')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "an opinion or judgement about something that has been thought about carefully",
+        "definition_vi": "sự đánh giá, nhận định về ai/cái gì",
+        "grammar_note": "[countable, uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "What is your assessment of the situation?", "vi": "Bạn đánh giá tình hình thế nào?" },
+          { "en": "The report provided a detailed assessment of the risks.", "vi": "Báo cáo đưa ra đánh giá chi tiết về các rủi ro." }
+        ],
+        "synonyms": ["evaluation", "appraisal", "judgement"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "the process of testing or judging the quality or level of something",
+        "definition_vi": "bài kiểm tra, quá trình đánh giá năng lực",
+        "grammar_note": "[countable, uncountable]",
+        "domain": "education",
+        "register": null,
+        "examples": [
+          { "en": "Students will have a written assessment at the end of the course.", "vi": "Sinh viên sẽ có bài kiểm tra viết cuối khóa." }
+        ],
+        "synonyms": ["test", "examination", "review"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "assessments" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "risk assessment", "pattern": "noun+noun", "example_en": "A risk assessment was carried out before the project.", "example_vi": "Đánh giá rủi ro đã được thực hiện trước dự án." },
+      { "collocation": "make an assessment", "pattern": "verb+noun", "example_en": "It's too early to make an assessment.", "example_vi": "Còn quá sớm để đưa ra đánh giá." },
+      { "collocation": "accurate assessment", "pattern": "adj+noun", "example_en": "We need an accurate assessment of the damage.", "example_vi": "Chúng ta cần đánh giá chính xác mức độ thiệt hại." }
+    ]
+  },
+  {
+    "headword": "asset",
+    "meaning_vi": "tài sản, lợi thế",
+    "pos": ["noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ˈæset/",
+    "ipa_us": "/ˈæset/",
+    "audio_uk": "asset_uk.mp3",
+    "audio_us": "asset_us.mp3",
+    "etymology": "From Anglo-French asetz, from Old French assez ('enough')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a person or thing that is valuable or useful",
+        "definition_vi": "người/thứ có giá trị, lợi thế",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She is a great asset to the team.", "vi": "Cô ấy là một tài sản lớn cho đội." },
+          { "en": "Good communication skills are a real asset.", "vi": "Kỹ năng giao tiếp tốt là một lợi thế thực sự." }
+        ],
+        "synonyms": ["advantage", "strength", "resource"],
+        "antonyms": ["liability", "disadvantage"]
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "a thing of value, especially property, that a person or company owns",
+        "definition_vi": "tài sản (thuộc sở hữu)",
+        "grammar_note": "[countable, usually plural]",
+        "domain": "finance",
+        "register": "formal",
+        "examples": [
+          { "en": "The company's total assets are worth $5 billion.", "vi": "Tổng tài sản của công ty trị giá 5 tỷ đô la." },
+          { "en": "He had to sell his assets to pay off debts.", "vi": "Anh ta phải bán tài sản để trả nợ." }
+        ],
+        "synonyms": ["property", "holdings", "possessions"],
+        "antonyms": ["debt", "liability"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "assets" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "valuable asset", "pattern": "adj+noun", "example_en": "Experience is a valuable asset.", "example_vi": "Kinh nghiệm là một tài sản quý giá." },
+      { "collocation": "freeze assets", "pattern": "verb+noun", "example_en": "The government froze his assets.", "example_vi": "Chính phủ đã đóng băng tài sản của anh ta." }
+    ]
+  },
+  {
+    "headword": "assign",
+    "meaning_vi": "giao, phân công",
+    "pos": ["verb"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈsaɪn/",
+    "ipa_us": "/əˈsaɪn/",
+    "audio_uk": "assign_uk.mp3",
+    "audio_us": "assign_us.mp3",
+    "etymology": "From Old French assigner, from Latin assignare ('to mark out, allot')",
+    "is_countable": null,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to give somebody a particular job or task",
+        "definition_vi": "giao việc, phân công nhiệm vụ cho ai",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The teacher assigned homework to the students.", "vi": "Giáo viên giao bài tập cho học sinh." },
+          { "en": "He was assigned to the marketing department.", "vi": "Anh ấy được phân công vào phòng marketing." }
+        ],
+        "synonyms": ["allocate", "delegate", "appoint"],
+        "antonyms": []
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to provide a person for a particular task or position",
+        "definition_vi": "cử, bổ nhiệm ai vào vị trí",
+        "grammar_note": "[transitive + to]",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "Two nurses were assigned to the night shift.", "vi": "Hai y tá được cử trực ca đêm." }
+        ],
+        "synonyms": ["designate", "nominate"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "assigns" },
+      { "form_type": "past_simple", "form_value": "assigned" },
+      { "form_type": "past_participle", "form_value": "assigned" },
+      { "form_type": "present_participle", "form_value": "assigning" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "assign a task", "pattern": "verb+noun", "example_en": "The manager assigned each person a task.", "example_vi": "Quản lý giao nhiệm vụ cho từng người." },
+      { "collocation": "randomly assign", "pattern": "adv+verb", "example_en": "Students were randomly assigned to groups.", "example_vi": "Sinh viên được phân chia ngẫu nhiên vào các nhóm." }
+    ]
+  },
+  {
+    "headword": "assignment",
+    "meaning_vi": "bài tập, nhiệm vụ",
+    "pos": ["noun"],
+    "cefr_level": "B1",
+    "ipa_uk": "/əˈsaɪnmənt/",
+    "ipa_us": "/əˈsaɪnmənt/",
+    "audio_uk": "assignment_uk.mp3",
+    "audio_us": "assignment_us.mp3",
+    "etymology": "From assign + -ment",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a task or piece of work given to somebody as part of their job or studies",
+        "definition_vi": "bài tập, nhiệm vụ được giao",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "I have to finish this assignment by Friday.", "vi": "Tôi phải hoàn thành bài tập này trước thứ Sáu." },
+          { "en": "She was given a difficult assignment.", "vi": "Cô ấy được giao một nhiệm vụ khó." }
+        ],
+        "synonyms": ["task", "project", "homework"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "the act of giving a particular job or task to somebody",
+        "definition_vi": "sự phân công, giao việc",
+        "grammar_note": "[uncountable]",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "The assignment of roles took place on the first day.", "vi": "Việc phân công vai trò diễn ra vào ngày đầu tiên." }
+        ],
+        "synonyms": ["allocation", "designation"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "assignments" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "complete an assignment", "pattern": "verb+noun", "example_en": "You must complete the assignment on time.", "example_vi": "Bạn phải hoàn thành bài tập đúng hạn." },
+      { "collocation": "writing assignment", "pattern": "noun+noun", "example_en": "The writing assignment is due next week.", "example_vi": "Bài viết phải nộp tuần tới." }
+    ]
+  },
+  {
+    "headword": "assist",
+    "meaning_vi": "giúp đỡ, hỗ trợ",
+    "pos": ["verb"],
+    "cefr_level": "B1",
+    "ipa_uk": "/əˈsɪst/",
+    "ipa_us": "/əˈsɪst/",
+    "audio_uk": "assist_uk.mp3",
+    "audio_us": "assist_us.mp3",
+    "etymology": "From Latin assistere ('to stand by, help'), from ad- + sistere ('to stand')",
+    "is_countable": null,
+    "is_transitive": true,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to help somebody to do something",
+        "definition_vi": "giúp đỡ, hỗ trợ ai làm gì",
+        "grammar_note": "[transitive, intransitive]",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "The nurse assisted the doctor during the operation.", "vi": "Y tá hỗ trợ bác sĩ trong ca phẫu thuật." },
+          { "en": "Can I assist you with anything?", "vi": "Tôi có thể giúp gì cho bạn không?" }
+        ],
+        "synonyms": ["help", "aid", "support"],
+        "antonyms": ["hinder", "obstruct"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "assists" },
+      { "form_type": "past_simple", "form_value": "assisted" },
+      { "form_type": "past_participle", "form_value": "assisted" },
+      { "form_type": "present_participle", "form_value": "assisting" }
+    ],
+    "phrasal_verbs": [
+      {
+        "phrasal_verb": "assist with",
+        "particle": "with",
+        "is_separable": false,
+        "definition_en": "to help somebody with a particular thing",
+        "definition_vi": "hỗ trợ ai về việc gì",
+        "example_en": "She assisted with the preparations for the event.",
+        "example_vi": "Cô ấy hỗ trợ chuẩn bị cho sự kiện."
+      }
+    ],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "assist in", "pattern": "verb+prep", "example_en": "He assisted in the investigation.", "example_vi": "Anh ấy hỗ trợ trong cuộc điều tra." }
+    ]
+  },
+  {
+    "headword": "assistance",
+    "meaning_vi": "sự giúp đỡ, hỗ trợ",
+    "pos": ["noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈsɪstəns/",
+    "ipa_us": "/əˈsɪstəns/",
+    "audio_uk": "assistance_uk.mp3",
+    "audio_us": "assistance_us.mp3",
+    "etymology": "From assist + -ance",
+    "is_countable": false,
+    "is_transitive": null,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "help or support",
+        "definition_vi": "sự giúp đỡ, hỗ trợ",
+        "grammar_note": "[uncountable]",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "Do you need any assistance?", "vi": "Bạn có cần hỗ trợ gì không?" },
+          { "en": "Financial assistance is available for students.", "vi": "Hỗ trợ tài chính dành cho sinh viên." }
+        ],
+        "synonyms": ["help", "aid", "support"],
+        "antonyms": ["hindrance", "obstruction"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [
+      {
+        "idiom_text": "come to someone's assistance",
+        "definition_en": "to help somebody who needs help",
+        "definition_vi": "đến giúp đỡ ai đó",
+        "example_en": "A passer-by came to her assistance when she fell.",
+        "example_vi": "Một người qua đường đã đến giúp khi cô ấy ngã."
+      }
+    ],
+    "collocations": [
+      { "collocation": "provide assistance", "pattern": "verb+noun", "example_en": "The government provides assistance to the poor.", "example_vi": "Chính phủ hỗ trợ người nghèo." },
+      { "collocation": "financial assistance", "pattern": "adj+noun", "example_en": "She applied for financial assistance.", "example_vi": "Cô ấy xin hỗ trợ tài chính." },
+      { "collocation": "technical assistance", "pattern": "adj+noun", "example_en": "They offered technical assistance.", "example_vi": "Họ đề nghị hỗ trợ kỹ thuật." }
+    ]
+  },
+  {
+    "headword": "assistant",
+    "meaning_vi": "trợ lý, phụ tá",
+    "pos": ["noun", "adjective"],
+    "cefr_level": "A2",
+    "ipa_uk": "/əˈsɪstənt/",
+    "ipa_us": "/əˈsɪstənt/",
+    "audio_uk": "assistant_uk.mp3",
+    "audio_us": "assistant_us.mp3",
+    "etymology": "From assist + -ant",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a person who helps or supports somebody, usually in their job",
+        "definition_vi": "trợ lý, phụ tá, người giúp việc",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She works as a personal assistant to the CEO.", "vi": "Cô ấy làm trợ lý cá nhân cho giám đốc." },
+          { "en": "He asked his assistant to book a flight.", "vi": "Anh ấy nhờ trợ lý đặt vé máy bay." }
+        ],
+        "synonyms": ["helper", "aide", "deputy"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "a person who serves customers in a shop",
+        "definition_vi": "nhân viên bán hàng",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": "British English",
+        "examples": [
+          { "en": "The shop assistant helped me find the right size.", "vi": "Nhân viên bán hàng giúp tôi tìm đúng cỡ." }
+        ],
+        "synonyms": ["salesperson", "clerk"],
+        "antonyms": []
+      },
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "having a rank below a senior person and helping them",
+        "definition_vi": "phó, trợ lý (chức vụ)",
+        "grammar_note": "[only before noun]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She is the assistant manager.", "vi": "Cô ấy là phó quản lý." }
+        ],
+        "synonyms": ["deputy", "associate"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "assistants" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "personal assistant", "pattern": "adj+noun", "example_en": "She hired a personal assistant.", "example_vi": "Cô ấy thuê một trợ lý cá nhân." },
+      { "collocation": "shop assistant", "pattern": "noun+noun", "example_en": "Ask the shop assistant for help.", "example_vi": "Nhờ nhân viên bán hàng giúp đỡ." },
+      { "collocation": "assistant manager", "pattern": "adj+noun", "example_en": "He was promoted to assistant manager.", "example_vi": "Anh ấy được thăng chức phó quản lý." }
+    ]
+  },
+  {
+    "headword": "associate",
+    "meaning_vi": "liên kết, liên tưởng",
+    "pos": ["verb"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈsəʊsieɪt/",
+    "ipa_us": "/əˈsoʊsieɪt/",
+    "audio_uk": "associate_uk.mp3",
+    "audio_us": "associate_us.mp3",
+    "etymology": "From Latin associatus, past participle of associare ('to join with')",
+    "is_countable": null,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to make a connection between people or things in your mind",
+        "definition_vi": "liên tưởng, liên kết trong đầu",
+        "grammar_note": "[transitive + with]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "I always associate summer with holidays.", "vi": "Tôi luôn liên tưởng mùa hè với kỳ nghỉ." },
+          { "en": "Most people associate this brand with quality.", "vi": "Hầu hết mọi người liên kết thương hiệu này với chất lượng." }
+        ],
+        "synonyms": ["connect", "link", "relate"],
+        "antonyms": ["dissociate", "separate"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to spend time with somebody or a group",
+        "definition_vi": "giao du, kết giao với ai",
+        "grammar_note": "[intransitive + with]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "He doesn't associate with those people anymore.", "vi": "Anh ấy không giao du với những người đó nữa." }
+        ],
+        "synonyms": ["mix", "socialize", "mingle"],
+        "antonyms": ["avoid"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "associates" },
+      { "form_type": "past_simple", "form_value": "associated" },
+      { "form_type": "past_participle", "form_value": "associated" },
+      { "form_type": "present_participle", "form_value": "associating" }
+    ],
+    "phrasal_verbs": [
+      {
+        "phrasal_verb": "associate with",
+        "particle": "with",
+        "is_separable": false,
+        "definition_en": "to connect in your mind; to spend time with",
+        "definition_vi": "liên tưởng tới; giao du với",
+        "example_en": "She doesn't want to be associated with the scandal.",
+        "example_vi": "Cô ấy không muốn bị liên quan đến vụ bê bối."
+      }
+    ],
+    "idioms": [
+      {
+        "idiom_text": "guilt by association",
+        "definition_en": "being considered guilty because of the people you are connected with",
+        "definition_vi": "bị coi có tội vì liên quan đến người khác",
+        "example_en": "He was punished by guilt by association.",
+        "example_vi": "Anh ta bị phạt vì liên đới."
+      }
+    ],
+    "collocations": [
+      { "collocation": "closely associated", "pattern": "adv+verb", "example_en": "The two companies are closely associated.", "example_vi": "Hai công ty có liên kết chặt chẽ." },
+      { "collocation": "commonly associated", "pattern": "adv+verb", "example_en": "Stress is commonly associated with modern life.", "example_vi": "Căng thẳng thường gắn liền với cuộc sống hiện đại." }
+    ]
+  },
+  {
+    "headword": "associated",
+    "meaning_vi": "liên quan, liên kết",
+    "pos": ["adjective"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈsəʊsieɪtɪd/",
+    "ipa_us": "/əˈsoʊsieɪtɪd/",
+    "audio_uk": "associated_uk.mp3",
+    "audio_us": "associated_us.mp3",
+    "etymology": "Past participle of associate, used as adjective",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "connected with something",
+        "definition_vi": "liên quan, có liên kết với",
+        "grammar_note": "[+ with]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Smoking is associated with lung cancer.", "vi": "Hút thuốc có liên quan đến ung thư phổi." },
+          { "en": "There are risks associated with the procedure.", "vi": "Có những rủi ro liên quan đến quy trình này." }
+        ],
+        "synonyms": ["connected", "related", "linked"],
+        "antonyms": ["unrelated", "unconnected"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "closely associated with", "pattern": "adv+adj+prep", "example_en": "The disease is closely associated with poor diet.", "example_vi": "Bệnh này có liên quan chặt chẽ với chế độ ăn kém." },
+      { "collocation": "associated costs", "pattern": "adj+noun", "example_en": "You must consider the associated costs.", "example_vi": "Bạn phải tính đến các chi phí liên quan." }
+    ]
+  },
+  {
+    "headword": "association",
+    "meaning_vi": "hiệp hội, sự liên kết",
+    "pos": ["noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˌsəʊsiˈeɪʃn/",
+    "ipa_us": "/əˌsoʊsiˈeɪʃn/",
+    "audio_uk": "association_uk.mp3",
+    "audio_us": "association_us.mp3",
+    "etymology": "From Latin associationem, from associare ('to join with')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "an official group of people who have joined together for a particular purpose",
+        "definition_vi": "hiệp hội, hội, tổ chức",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "He is a member of the National Basketball Association.", "vi": "Anh ấy là thành viên của Hiệp hội Bóng rổ Quốc gia." }
+        ],
+        "synonyms": ["organization", "society", "union"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "a connection or relationship between things",
+        "definition_vi": "sự liên kết, mối liên hệ",
+        "grammar_note": "[countable, uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "There is a strong association between smoking and cancer.", "vi": "Có mối liên hệ mạnh giữa hút thuốc và ung thư." },
+          { "en": "The word has negative associations.", "vi": "Từ đó gợi lên những liên tưởng tiêu cực." }
+        ],
+        "synonyms": ["connection", "link", "relationship"],
+        "antonyms": ["separation"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "associations" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      {
+        "idiom_text": "in association with",
+        "definition_en": "together with; working with",
+        "definition_vi": "phối hợp với, kết hợp với",
+        "example_en": "The event was organized in association with UNICEF.",
+        "example_vi": "Sự kiện được tổ chức phối hợp với UNICEF."
+      }
+    ],
+    "collocations": [
+      { "collocation": "trade association", "pattern": "noun+noun", "example_en": "He joined a trade association.", "example_vi": "Anh ấy gia nhập một hiệp hội thương mại." },
+      { "collocation": "close association", "pattern": "adj+noun", "example_en": "They have a close association with the university.", "example_vi": "Họ có mối liên kết chặt chẽ với trường đại học." }
+    ]
+  },
+  {
+    "headword": "assume",
+    "meaning_vi": "cho rằng, giả định",
+    "pos": ["verb"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈsjuːm/",
+    "ipa_us": "/əˈsuːm/",
+    "audio_uk": "assume_uk.mp3",
+    "audio_us": "assume_us.mp3",
+    "etymology": "From Latin assumere ('to take up'), from ad- + sumere ('to take')",
+    "is_countable": null,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to think or accept that something is true without proof",
+        "definition_vi": "cho rằng, giả định, phỏng đoán",
+        "grammar_note": "[transitive + that clause]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "I assumed that you knew about the meeting.", "vi": "Tôi cho rằng bạn đã biết về cuộc họp." },
+          { "en": "Let's assume for a moment that the plan works.", "vi": "Hãy giả sử rằng kế hoạch sẽ thành công." }
+        ],
+        "synonyms": ["suppose", "presume", "guess"],
+        "antonyms": ["know", "prove"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to take or begin to have power or responsibility",
+        "definition_vi": "đảm nhận, nắm giữ (quyền lực, trách nhiệm)",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "She assumed the role of president.", "vi": "Bà ấy đảm nhận vai trò chủ tịch." },
+          { "en": "He assumed control of the company.", "vi": "Ông ấy nắm quyền kiểm soát công ty." }
+        ],
+        "synonyms": ["take on", "undertake", "accept"],
+        "antonyms": ["relinquish", "give up"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "assumes" },
+      { "form_type": "past_simple", "form_value": "assumed" },
+      { "form_type": "past_participle", "form_value": "assumed" },
+      { "form_type": "present_participle", "form_value": "assuming" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "assume responsibility", "pattern": "verb+noun", "example_en": "He assumed full responsibility for the mistake.", "example_vi": "Anh ấy nhận hoàn toàn trách nhiệm về sai lầm." },
+      { "collocation": "reasonably assume", "pattern": "adv+verb", "example_en": "We can reasonably assume that prices will rise.", "example_vi": "Chúng ta có thể cho rằng giá sẽ tăng." },
+      { "collocation": "assume control", "pattern": "verb+noun", "example_en": "The army assumed control of the government.", "example_vi": "Quân đội nắm quyền kiểm soát chính phủ." }
+    ]
+  },
+  {
+    "headword": "assumption",
+    "meaning_vi": "giả định, sự suy đoán",
+    "pos": ["noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈsʌmpʃn/",
+    "ipa_us": "/əˈsʌmpʃn/",
+    "audio_uk": "assumption_uk.mp3",
+    "audio_us": "assumption_us.mp3",
+    "etymology": "From Latin assumptionem, from assumere ('to take up')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a belief or feeling that something is true without proof",
+        "definition_vi": "giả định, điều suy đoán (chưa được chứng minh)",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Your assumption is wrong.", "vi": "Giả định của bạn sai rồi." },
+          { "en": "We are working on the assumption that everyone agrees.", "vi": "Chúng tôi đang làm dựa trên giả định rằng mọi người đều đồng ý." }
+        ],
+        "synonyms": ["presumption", "supposition", "belief"],
+        "antonyms": ["fact", "certainty"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "assumptions" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "make an assumption", "pattern": "verb+noun", "example_en": "Don't make assumptions about people.", "example_vi": "Đừng suy đoán về người khác." },
+      { "collocation": "false assumption", "pattern": "adj+noun", "example_en": "The plan was based on a false assumption.", "example_vi": "Kế hoạch dựa trên một giả định sai." },
+      { "collocation": "underlying assumption", "pattern": "adj+noun", "example_en": "What is the underlying assumption here?", "example_vi": "Giả định cơ bản ở đây là gì?" }
+    ]
+  },
+  {
+    "headword": "assurance",
+    "meaning_vi": "sự đảm bảo, cam đoan",
+    "pos": ["noun"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˈʃʊərəns/",
+    "ipa_us": "/əˈʃʊrəns/",
+    "audio_uk": "assurance_uk.mp3",
+    "audio_us": "assurance_us.mp3",
+    "etymology": "From Old French assurance, from assurer ('to assure')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a statement that something will certainly be true or happen",
+        "definition_vi": "lời đảm bảo, cam đoan",
+        "grammar_note": "[countable, uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "He gave me his assurance that the work would be done.", "vi": "Anh ấy cam đoan với tôi rằng công việc sẽ được hoàn thành." },
+          { "en": "Despite his assurances, nothing changed.", "vi": "Dù anh ấy đã đảm bảo, không gì thay đổi." }
+        ],
+        "synonyms": ["guarantee", "promise", "pledge"],
+        "antonyms": ["doubt", "uncertainty"]
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "confidence in yourself and your abilities",
+        "definition_vi": "sự tự tin",
+        "grammar_note": "[uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She spoke with calm assurance.", "vi": "Cô ấy nói với vẻ tự tin bình thản." }
+        ],
+        "synonyms": ["confidence", "self-assurance", "poise"],
+        "antonyms": ["insecurity", "self-doubt"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "assurances" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "give assurance", "pattern": "verb+noun", "example_en": "The manager gave assurance that jobs were safe.", "example_vi": "Quản lý đảm bảo rằng công việc được an toàn." },
+      { "collocation": "quality assurance", "pattern": "noun+noun", "example_en": "The quality assurance team found a defect.", "example_vi": "Nhóm đảm bảo chất lượng phát hiện lỗi." }
+    ]
+  },
+  {
+    "headword": "assure",
+    "meaning_vi": "đảm bảo, cam đoan",
+    "pos": ["verb"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈʃʊə(r)/",
+    "ipa_us": "/əˈʃʊr/",
+    "audio_uk": "assure_uk.mp3",
+    "audio_us": "assure_us.mp3",
+    "etymology": "From Old French assurer, from Latin assecurare ('to make safe')",
+    "is_countable": null,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to tell somebody that something is definitely true, especially when they have doubts",
+        "definition_vi": "đảm bảo, cam đoan với ai",
+        "grammar_note": "[transitive + that clause]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "I assure you that everything is under control.", "vi": "Tôi đảm bảo với bạn rằng mọi thứ đang trong tầm kiểm soát." },
+          { "en": "She assured him that she would be there.", "vi": "Cô ấy cam đoan với anh ấy rằng cô sẽ có mặt." }
+        ],
+        "synonyms": ["guarantee", "promise", "convince"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "assures" },
+      { "form_type": "past_simple", "form_value": "assured" },
+      { "form_type": "past_participle", "form_value": "assured" },
+      { "form_type": "present_participle", "form_value": "assuring" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      {
+        "idiom_text": "rest assured",
+        "definition_en": "used to tell somebody not to worry because something is definitely true",
+        "definition_vi": "cứ yên tâm",
+        "example_en": "Rest assured, your money is safe with us.",
+        "example_vi": "Cứ yên tâm, tiền của bạn an toàn với chúng tôi."
+      }
+    ],
+    "collocations": [
+      { "collocation": "assure somebody that", "pattern": "verb+object+clause", "example_en": "The doctor assured her that the results were normal.", "example_vi": "Bác sĩ đảm bảo với cô ấy rằng kết quả bình thường." }
+    ]
+  },
+  {
+    "headword": "astonishing",
+    "meaning_vi": "đáng kinh ngạc",
+    "pos": ["adjective"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈstɒnɪʃɪŋ/",
+    "ipa_us": "/əˈstɑːnɪʃɪŋ/",
+    "audio_uk": "astonishing_uk.mp3",
+    "audio_us": "astonishing_us.mp3",
+    "etymology": "From astonish + -ing",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "very surprising; difficult to believe",
+        "definition_vi": "đáng kinh ngạc, gây sửng sốt",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She ran at an astonishing speed.", "vi": "Cô ấy chạy với tốc độ đáng kinh ngạc." },
+          { "en": "The results were astonishing.", "vi": "Kết quả thật đáng kinh ngạc." }
+        ],
+        "synonyms": ["amazing", "astounding", "stunning", "remarkable"],
+        "antonyms": ["ordinary", "unremarkable", "unsurprising"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "truly astonishing", "pattern": "adv+adj", "example_en": "The growth rate was truly astonishing.", "example_vi": "Tốc độ tăng trưởng thực sự đáng kinh ngạc." },
+      { "collocation": "astonishing fact", "pattern": "adj+noun", "example_en": "Here is an astonishing fact.", "example_vi": "Đây là một sự thật đáng kinh ngạc." }
+    ]
+  },
+  {
+    "headword": "asylum",
+    "meaning_vi": "quyền tị nạn",
+    "pos": ["noun"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˈsaɪləm/",
+    "ipa_us": "/əˈsaɪləm/",
+    "audio_uk": "asylum_uk.mp3",
+    "audio_us": "asylum_us.mp3",
+    "etymology": "From Latin asylum, from Greek asylon ('sanctuary'), from a- ('without') + sylon ('right of seizure')",
+    "is_countable": false,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "protection given by a government to people who have left their own country because of danger",
+        "definition_vi": "quyền tị nạn, sự che chở chính trị",
+        "grammar_note": "[uncountable]",
+        "domain": "politics",
+        "register": null,
+        "examples": [
+          { "en": "He applied for political asylum.", "vi": "Anh ấy xin tị nạn chính trị." },
+          { "en": "The country granted asylum to the refugees.", "vi": "Đất nước cấp quyền tị nạn cho những người tị nạn." }
+        ],
+        "synonyms": ["refuge", "sanctuary", "shelter"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "seek asylum", "pattern": "verb+noun", "example_en": "Thousands of people seek asylum every year.", "example_vi": "Hàng nghìn người tìm kiếm quyền tị nạn mỗi năm." },
+      { "collocation": "grant asylum", "pattern": "verb+noun", "example_en": "The government refused to grant asylum.", "example_vi": "Chính phủ từ chối cấp quyền tị nạn." },
+      { "collocation": "political asylum", "pattern": "adj+noun", "example_en": "She was given political asylum.", "example_vi": "Cô ấy được cấp tị nạn chính trị." }
+    ]
+  },
+  {
+    "headword": "at",
+    "meaning_vi": "ở, tại, vào lúc",
+    "pos": ["preposition"],
+    "cefr_level": "A1",
+    "ipa_uk": "/ət/",
+    "ipa_us": "/ət/",
+    "audio_uk": "at_uk.mp3",
+    "audio_us": "at_us.mp3",
+    "etymology": "From Old English æt ('at, near, by')",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "preposition",
+        "sense_order": 0,
+        "definition_en": "used to say where something or somebody is or where something happens",
+        "definition_vi": "ở, tại (nơi chốn)",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She is at home.", "vi": "Cô ấy ở nhà." },
+          { "en": "We met at the airport.", "vi": "Chúng tôi gặp nhau ở sân bay." }
+        ],
+        "synonyms": ["in", "on"],
+        "antonyms": []
+      },
+      {
+        "pos": "preposition",
+        "sense_order": 1,
+        "definition_en": "used to say when something happens",
+        "definition_vi": "vào lúc (thời gian)",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The meeting starts at 9 a.m.", "vi": "Cuộc họp bắt đầu lúc 9 giờ sáng." },
+          { "en": "He arrived at midnight.", "vi": "Anh ấy đến vào lúc nửa đêm." }
+        ],
+        "synonyms": [],
+        "antonyms": []
+      },
+      {
+        "pos": "preposition",
+        "sense_order": 2,
+        "definition_en": "used to say the direction or target of something",
+        "definition_vi": "vào, hướng về (mục tiêu)",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She looked at me.", "vi": "Cô ấy nhìn tôi." },
+          { "en": "He threw the ball at the wall.", "vi": "Anh ấy ném bóng vào tường." }
+        ],
+        "synonyms": ["towards"],
+        "antonyms": ["away from"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [
+      {
+        "idiom_text": "at all",
+        "definition_en": "used for emphasis in negative sentences and questions",
+        "definition_vi": "chút nào (dùng trong câu phủ định, câu hỏi)",
+        "example_en": "I don't understand at all.",
+        "example_vi": "Tôi hoàn toàn không hiểu."
+      },
+      {
+        "idiom_text": "at once",
+        "definition_en": "immediately; at the same time",
+        "definition_vi": "ngay lập tức; đồng thời",
+        "example_en": "Do it at once!",
+        "example_vi": "Làm ngay đi!"
+      },
+      {
+        "idiom_text": "at least",
+        "definition_en": "not less than; used to express a minimum",
+        "definition_vi": "ít nhất",
+        "example_en": "You need at least 8 hours of sleep.",
+        "example_vi": "Bạn cần ngủ ít nhất 8 tiếng."
+      }
+    ],
+    "collocations": [
+      { "collocation": "at work", "pattern": "prep+noun", "example_en": "She's still at work.", "example_vi": "Cô ấy vẫn đang ở chỗ làm." },
+      { "collocation": "at first", "pattern": "prep+adj", "example_en": "At first, I didn't like it.", "example_vi": "Lúc đầu, tôi không thích nó." }
+    ]
+  },
+  {
+    "headword": "athlete",
+    "meaning_vi": "vận động viên",
+    "pos": ["noun"],
+    "cefr_level": "A2",
+    "ipa_uk": "/ˈæθliːt/",
+    "ipa_us": "/ˈæθliːt/",
+    "audio_uk": "athlete_uk.mp3",
+    "audio_us": "athlete_us.mp3",
+    "etymology": "From Latin athleta, from Greek athletes ('contestant'), from athlein ('to compete for a prize')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a person who competes in sports",
+        "definition_vi": "vận động viên, người chơi thể thao",
+        "grammar_note": "[countable]",
+        "domain": "sports",
+        "register": null,
+        "examples": [
+          { "en": "She is a professional athlete.", "vi": "Cô ấy là vận động viên chuyên nghiệp." },
+          { "en": "The athletes trained hard for the Olympics.", "vi": "Các vận động viên tập luyện chăm chỉ cho Olympic." }
+        ],
+        "synonyms": ["sportsman", "sportswoman", "competitor", "player"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "athletes" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "professional athlete", "pattern": "adj+noun", "example_en": "He became a professional athlete at 18.", "example_vi": "Anh ấy trở thành vận động viên chuyên nghiệp năm 18 tuổi." },
+      { "collocation": "Olympic athlete", "pattern": "adj+noun", "example_en": "She is an Olympic athlete.", "example_vi": "Cô ấy là vận động viên Olympic." }
+    ]
+  },
+  {
+    "headword": "atmosphere",
+    "meaning_vi": "bầu không khí, khí quyển",
+    "pos": ["noun"],
+    "cefr_level": "B1",
+    "ipa_uk": "/ˈætməsfɪə(r)/",
+    "ipa_us": "/ˈætməsfɪr/",
+    "audio_uk": "atmosphere_uk.mp3",
+    "audio_us": "atmosphere_us.mp3",
+    "etymology": "From Modern Latin atmosphaera, from Greek atmos ('vapor') + sphaira ('sphere')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "the feeling or mood in a place or situation",
+        "definition_vi": "bầu không khí, không khí (cảm xúc)",
+        "grammar_note": "[countable, usually singular]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The restaurant has a relaxed atmosphere.", "vi": "Nhà hàng có bầu không khí thoải mái." },
+          { "en": "There was a tense atmosphere in the room.", "vi": "Có bầu không khí căng thẳng trong phòng." }
+        ],
+        "synonyms": ["mood", "ambience", "vibe", "feeling"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "the mixture of gases that surrounds the earth",
+        "definition_vi": "khí quyển",
+        "grammar_note": "[singular] the atmosphere",
+        "domain": "science",
+        "register": null,
+        "examples": [
+          { "en": "Pollution is damaging the atmosphere.", "vi": "Ô nhiễm đang gây hại cho khí quyển." }
+        ],
+        "synonyms": ["air", "sky"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "atmospheres" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "friendly atmosphere", "pattern": "adj+noun", "example_en": "The hotel has a friendly atmosphere.", "example_vi": "Khách sạn có bầu không khí thân thiện." },
+      { "collocation": "create an atmosphere", "pattern": "verb+noun", "example_en": "Music helps create a romantic atmosphere.", "example_vi": "Nhạc giúp tạo ra bầu không khí lãng mạn." },
+      { "collocation": "earth's atmosphere", "pattern": "noun+noun", "example_en": "The earth's atmosphere protects us from radiation.", "example_vi": "Khí quyển trái đất bảo vệ chúng ta khỏi bức xạ." }
+    ]
+  },
+  {
+    "headword": "atrocity",
+    "meaning_vi": "hành vi tàn bạo",
+    "pos": ["noun"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˈtrɒsəti/",
+    "ipa_us": "/əˈtrɑːsəti/",
+    "audio_uk": "atrocity_uk.mp3",
+    "audio_us": "atrocity_us.mp3",
+    "etymology": "From French atrocité, from Latin atrocitas, from atrox ('cruel, fierce')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a cruel and violent act, especially in a war",
+        "definition_vi": "hành vi tàn bạo, tội ác (đặc biệt trong chiến tranh)",
+        "grammar_note": "[countable, usually plural]",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "The report documented war atrocities.", "vi": "Báo cáo ghi nhận các tội ác chiến tranh." },
+          { "en": "Both sides committed atrocities during the conflict.", "vi": "Cả hai bên đều phạm tội ác trong cuộc xung đột." }
+        ],
+        "synonyms": ["outrage", "horror", "crime", "brutality"],
+        "antonyms": ["kindness", "mercy"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "atrocities" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "commit an atrocity", "pattern": "verb+noun", "example_en": "Soldiers committed terrible atrocities.", "example_vi": "Binh lính đã phạm những tội ác khủng khiếp." },
+      { "collocation": "war atrocity", "pattern": "noun+noun", "example_en": "The trial focused on war atrocities.", "example_vi": "Phiên tòa tập trung vào các tội ác chiến tranh." }
+    ]
+  }
+]

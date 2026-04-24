@@ -1,0 +1,1029 @@
+[
+  {
+    "headword": "applicant",
+    "meaning_vi": "người nộp đơn, ứng viên",
+    "pos": ["noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ˈæplɪkənt/",
+    "ipa_us": "/ˈæplɪkənt/",
+    "etymology": "From Latin applicantem, from applicare ('to attach, join')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a person who formally requests something, especially a job or a place at a college",
+        "definition_vi": "người nộp đơn xin việc hoặc xin vào trường",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "There were over 500 applicants for the position.", "vi": "Có hơn 500 ứng viên cho vị trí đó." },
+          { "en": "Successful applicants will be notified by email.", "vi": "Các ứng viên trúng tuyển sẽ được thông báo qua email." }
+        ],
+        "synonyms": ["candidate", "contender"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "applicants" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "job applicant", "pattern": "noun+noun", "example_en": "All job applicants must submit a CV.", "example_vi": "Tất cả ứng viên phải nộp CV." },
+      { "collocation": "successful applicant", "pattern": "adj+noun", "example_en": "The successful applicant will start in June.", "example_vi": "Ứng viên trúng tuyển sẽ bắt đầu vào tháng Sáu." }
+    ]
+  },
+  {
+    "headword": "application",
+    "meaning_vi": "đơn xin, ứng dụng",
+    "pos": ["noun"],
+    "cefr_level": "A2",
+    "ipa_uk": "/ˌæplɪˈkeɪʃn/",
+    "ipa_us": "/ˌæplɪˈkeɪʃn/",
+    "etymology": "From Latin applicationem ('a joining to, an attaching')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a formal written request for something such as a job, permission, or a place at a college",
+        "definition_vi": "đơn xin (việc, phép, nhập học)",
+        "grammar_note": "[countable, uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "I submitted my application last week.", "vi": "Tôi đã nộp đơn tuần trước." },
+          { "en": "The deadline for applications is March 31.", "vi": "Hạn nộp đơn là ngày 31 tháng Ba." }
+        ],
+        "synonyms": ["request", "petition"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "a computer program designed for a particular purpose",
+        "definition_vi": "ứng dụng (phần mềm)",
+        "grammar_note": "[countable]",
+        "domain": "computing",
+        "register": null,
+        "examples": [
+          { "en": "Download the application from the App Store.", "vi": "Tải ứng dụng từ App Store." }
+        ],
+        "synonyms": ["app", "program", "software"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 2,
+        "definition_en": "the practical use of something, especially a theory or discovery",
+        "definition_vi": "sự áp dụng, ứng dụng (thực tế)",
+        "grammar_note": "[uncountable, countable]",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "The research has many practical applications.", "vi": "Nghiên cứu này có nhiều ứng dụng thực tế." }
+        ],
+        "synonyms": ["use", "implementation"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "applications" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "job application", "pattern": "noun+noun", "example_en": "She filled in a job application.", "example_vi": "Cô ấy điền đơn xin việc." },
+      { "collocation": "submit an application", "pattern": "verb+noun", "example_en": "Please submit your application online.", "example_vi": "Vui lòng nộp đơn trực tuyến." },
+      { "collocation": "application form", "pattern": "noun+noun", "example_en": "Please complete the application form.", "example_vi": "Vui lòng điền đơn đăng ký." }
+    ]
+  },
+  {
+    "headword": "apply",
+    "meaning_vi": "nộp đơn, áp dụng",
+    "pos": ["verb"],
+    "cefr_level": "A2",
+    "ipa_uk": "/əˈplaɪ/",
+    "ipa_us": "/əˈplaɪ/",
+    "etymology": "From Old French aplier, from Latin applicare ('to attach, join to')",
+    "is_countable": null,
+    "is_transitive": false,
+    "register": null,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to make a formal request for a job, a place at college, permission, etc.",
+        "definition_vi": "nộp đơn, xin (việc, nhập học, phép)",
+        "grammar_note": "[intransitive] apply (to somebody/something) (for something)",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "I applied for the job online.", "vi": "Tôi đã nộp đơn xin việc trực tuyến." },
+          { "en": "She applied to three universities.", "vi": "Cô ấy nộp đơn vào ba trường đại học." }
+        ],
+        "synonyms": ["request", "petition"],
+        "antonyms": ["withdraw"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to be relevant or to affect a particular person, group, or situation",
+        "definition_vi": "áp dụng, có hiệu lực",
+        "grammar_note": "[intransitive] apply (to somebody/something)",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "This rule applies to everyone.", "vi": "Quy tắc này áp dụng cho tất cả mọi người." }
+        ],
+        "synonyms": ["pertain", "relate", "concern"],
+        "antonyms": []
+      },
+      {
+        "pos": "verb",
+        "sense_order": 2,
+        "definition_en": "to spread or put something onto a surface",
+        "definition_vi": "bôi, thoa, dán (lên bề mặt)",
+        "grammar_note": "[transitive] apply something (to something)",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Apply the cream twice a day.", "vi": "Thoa kem hai lần một ngày." }
+        ],
+        "synonyms": ["spread", "put on", "rub"],
+        "antonyms": ["remove"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "applies" },
+      { "form_type": "past_simple", "form_value": "applied" },
+      { "form_type": "past_participle", "form_value": "applied" },
+      { "form_type": "present_participle", "form_value": "applying" }
+    ],
+    "phrasal_verbs": [
+      { "phrasal_verb": "apply for", "particle": "for", "is_separable": false, "definition_en": "to make a formal request for something", "definition_vi": "nộp đơn xin", "example_en": "He applied for a visa.", "example_vi": "Anh ấy nộp đơn xin thị thực." }
+    ],
+    "idioms": [
+      { "idiom_text": "apply yourself", "definition_en": "to work hard and concentrate on something", "definition_vi": "nỗ lực, tập trung làm việc", "example_en": "If you apply yourself, you'll pass the exam.", "example_vi": "Nếu bạn nỗ lực, bạn sẽ đậu kỳ thi." }
+    ],
+    "collocations": [
+      { "collocation": "apply for a job", "pattern": "verb+prep+noun", "example_en": "She applied for a job at Google.", "example_vi": "Cô ấy nộp đơn xin việc ở Google." },
+      { "collocation": "apply pressure", "pattern": "verb+noun", "example_en": "Apply pressure to the wound.", "example_vi": "Ấn chặt vào vết thương." }
+    ]
+  },
+  {
+    "headword": "appoint",
+    "meaning_vi": "bổ nhiệm, chỉ định",
+    "pos": ["verb"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈpɔɪnt/",
+    "ipa_us": "/əˈpɔɪnt/",
+    "etymology": "From Old French apointer ('to arrange, settle')",
+    "is_countable": null,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to choose someone for a job or position of responsibility",
+        "definition_vi": "bổ nhiệm, chỉ định (ai vào vị trí)",
+        "grammar_note": "[transitive] appoint somebody (to something / as something)",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "She was appointed as the new director.", "vi": "Cô ấy được bổ nhiệm làm giám đốc mới." },
+          { "en": "The president appointed him to the committee.", "vi": "Tổng thống chỉ định ông vào ủy ban." }
+        ],
+        "synonyms": ["assign", "designate", "nominate"],
+        "antonyms": ["dismiss", "fire"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "appoints" },
+      { "form_type": "past_simple", "form_value": "appointed" },
+      { "form_type": "past_participle", "form_value": "appointed" },
+      { "form_type": "present_participle", "form_value": "appointing" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "newly appointed", "pattern": "adv+adj", "example_en": "The newly appointed manager made changes.", "example_vi": "Vị quản lý mới bổ nhiệm đã thay đổi nhiều thứ." },
+      { "collocation": "appoint a committee", "pattern": "verb+noun", "example_en": "They appointed a committee to investigate.", "example_vi": "Họ chỉ định một ủy ban để điều tra." }
+    ]
+  },
+  {
+    "headword": "appointment",
+    "meaning_vi": "cuộc hẹn, sự bổ nhiệm",
+    "pos": ["noun"],
+    "cefr_level": "B1",
+    "ipa_uk": "/əˈpɔɪntmənt/",
+    "ipa_us": "/əˈpɔɪntmənt/",
+    "etymology": "From Old French apointement",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a formal arrangement to meet or visit someone at a particular time and place",
+        "definition_vi": "cuộc hẹn, lịch hẹn",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "I have a dentist appointment at 3 o'clock.", "vi": "Tôi có lịch hẹn nha sĩ lúc 3 giờ." },
+          { "en": "Please make an appointment before visiting.", "vi": "Vui lòng đặt lịch hẹn trước khi đến." }
+        ],
+        "synonyms": ["meeting", "date", "engagement"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "the act of choosing someone for a job or position",
+        "definition_vi": "sự bổ nhiệm, sự chỉ định",
+        "grammar_note": "[uncountable, countable]",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "His appointment as CEO surprised everyone.", "vi": "Việc bổ nhiệm ông làm CEO khiến mọi người bất ngờ." }
+        ],
+        "synonyms": ["nomination", "designation"],
+        "antonyms": ["dismissal"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "appointments" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "make an appointment", "pattern": "verb+noun", "example_en": "I need to make an appointment with the doctor.", "example_vi": "Tôi cần đặt lịch hẹn với bác sĩ." },
+      { "collocation": "keep an appointment", "pattern": "verb+noun", "example_en": "Please try to keep your appointment.", "example_vi": "Xin hãy cố đến đúng lịch hẹn." },
+      { "collocation": "cancel an appointment", "pattern": "verb+noun", "example_en": "She had to cancel her appointment.", "example_vi": "Cô ấy phải hủy lịch hẹn." }
+    ]
+  },
+  {
+    "headword": "appreciate",
+    "meaning_vi": "đánh giá cao, trân trọng, cảm kích",
+    "pos": ["verb"],
+    "cefr_level": "B1",
+    "ipa_uk": "/əˈpriːʃieɪt/",
+    "ipa_us": "/əˈpriːʃieɪt/",
+    "etymology": "From Latin appretiare ('to set a price on')",
+    "is_countable": null,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to recognize the good qualities of someone or something; to be grateful for something",
+        "definition_vi": "đánh giá cao, trân trọng, cảm kích",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "I really appreciate your help.", "vi": "Tôi thực sự cảm kích sự giúp đỡ của bạn." },
+          { "en": "She doesn't appreciate good music.", "vi": "Cô ấy không biết thưởng thức nhạc hay." }
+        ],
+        "synonyms": ["value", "treasure", "be grateful for"],
+        "antonyms": ["despise", "disregard"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to understand the true nature of a situation or problem",
+        "definition_vi": "hiểu rõ, nhận thức được",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "I appreciate that this is a difficult decision.", "vi": "Tôi hiểu rằng đây là một quyết định khó khăn." }
+        ],
+        "synonyms": ["understand", "realize", "recognize"],
+        "antonyms": []
+      },
+      {
+        "pos": "verb",
+        "sense_order": 2,
+        "definition_en": "to increase in value over time",
+        "definition_vi": "tăng giá trị, lên giá",
+        "grammar_note": "[intransitive]",
+        "domain": "finance",
+        "register": null,
+        "examples": [
+          { "en": "The property has appreciated by 20%.", "vi": "Bất động sản đã tăng giá 20%." }
+        ],
+        "synonyms": ["increase", "rise", "grow"],
+        "antonyms": ["depreciate", "decrease"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "appreciates" },
+      { "form_type": "past_simple", "form_value": "appreciated" },
+      { "form_type": "past_participle", "form_value": "appreciated" },
+      { "form_type": "present_participle", "form_value": "appreciating" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "greatly appreciate", "pattern": "adv+verb", "example_en": "We would greatly appreciate your support.", "example_vi": "Chúng tôi rất cảm kích sự ủng hộ của bạn." },
+      { "collocation": "appreciate the effort", "pattern": "verb+noun", "example_en": "I appreciate the effort you've put in.", "example_vi": "Tôi trân trọng nỗ lực bạn đã bỏ ra." }
+    ]
+  },
+  {
+    "headword": "appreciation",
+    "meaning_vi": "sự đánh giá cao, lòng biết ơn",
+    "pos": ["noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˌpriːʃiˈeɪʃn/",
+    "ipa_us": "/əˌpriːʃiˈeɪʃn/",
+    "etymology": "From Latin appretiationem",
+    "is_countable": false,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a feeling of being grateful for something",
+        "definition_vi": "lòng biết ơn, sự cảm kích",
+        "grammar_note": "[uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She showed her appreciation with a gift.", "vi": "Cô ấy thể hiện lòng biết ơn bằng một món quà." }
+        ],
+        "synonyms": ["gratitude", "thankfulness"],
+        "antonyms": ["ingratitude"]
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "an understanding of the qualities or importance of something",
+        "definition_vi": "sự thấu hiểu, sự đánh giá đúng",
+        "grammar_note": "[uncountable, singular]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "He has a deep appreciation of art.", "vi": "Anh ấy am hiểu sâu sắc về nghệ thuật." }
+        ],
+        "synonyms": ["understanding", "awareness"],
+        "antonyms": ["ignorance"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "show appreciation", "pattern": "verb+noun", "example_en": "They showed their appreciation by clapping.", "example_vi": "Họ thể hiện sự cảm kích bằng cách vỗ tay." },
+      { "collocation": "deep appreciation", "pattern": "adj+noun", "example_en": "I have a deep appreciation for his work.", "example_vi": "Tôi rất trân trọng công việc của anh ấy." }
+    ]
+  },
+  {
+    "headword": "approach",
+    "meaning_vi": "tiếp cận, phương pháp",
+    "pos": ["verb", "noun"],
+    "cefr_level": "B1",
+    "ipa_uk": "/əˈprəʊtʃ/",
+    "ipa_us": "/əˈproʊtʃ/",
+    "etymology": "From Old French approchier, from Latin appropiare ('to come nearer to')",
+    "is_countable": true,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to come near or nearer to someone or something in distance or time",
+        "definition_vi": "tiến đến, đến gần",
+        "grammar_note": "[intransitive, transitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The train is approaching the station.", "vi": "Tàu đang tiến vào ga." },
+          { "en": "Winter is approaching.", "vi": "Mùa đông đang đến gần." }
+        ],
+        "synonyms": ["near", "advance", "come close"],
+        "antonyms": ["leave", "retreat", "withdraw"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to speak to someone about something, especially to ask for something",
+        "definition_vi": "tiếp cận, bắt chuyện (để nhờ vả)",
+        "grammar_note": "[transitive] approach somebody (about/for something)",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She approached me about the project.", "vi": "Cô ấy tiếp cận tôi về dự án." }
+        ],
+        "synonyms": ["contact", "speak to"],
+        "antonyms": ["avoid"]
+      },
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a way of dealing with something; a method",
+        "definition_vi": "cách tiếp cận, phương pháp",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "We need a new approach to this problem.", "vi": "Chúng ta cần một cách tiếp cận mới cho vấn đề này." }
+        ],
+        "synonyms": ["method", "strategy", "technique"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "approaches" },
+      { "form_type": "past_simple", "form_value": "approached" },
+      { "form_type": "past_participle", "form_value": "approached" },
+      { "form_type": "present_participle", "form_value": "approaching" },
+      { "form_type": "plural", "form_value": "approaches" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "take an approach", "pattern": "verb+noun", "example_en": "We should take a different approach.", "example_vi": "Chúng ta nên thử cách tiếp cận khác." },
+      { "collocation": "a cautious approach", "pattern": "adj+noun", "example_en": "The government adopted a cautious approach.", "example_vi": "Chính phủ áp dụng cách tiếp cận thận trọng." }
+    ]
+  },
+  {
+    "headword": "appropriate",
+    "meaning_vi": "phù hợp, thích hợp",
+    "pos": ["adjective"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈprəʊpriət/",
+    "ipa_us": "/əˈproʊpriət/",
+    "etymology": "From Latin appropriatus ('made one's own')",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "suitable, acceptable, or correct for the particular circumstances",
+        "definition_vi": "phù hợp, thích hợp, đúng đắn",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Is this dress appropriate for a job interview?", "vi": "Chiếc váy này có phù hợp cho buổi phỏng vấn không?" },
+          { "en": "Please take appropriate action.", "vi": "Xin hãy thực hiện hành động thích hợp." }
+        ],
+        "synonyms": ["suitable", "proper", "fitting", "relevant"],
+        "antonyms": ["inappropriate", "unsuitable", "improper"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "comparative", "form_value": "more appropriate" },
+      { "form_type": "superlative", "form_value": "most appropriate" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "appropriate behaviour", "pattern": "adj+noun", "example_en": "Students must display appropriate behaviour.", "example_vi": "Học sinh phải có hành vi phù hợp." },
+      { "collocation": "as appropriate", "pattern": "phrase", "example_en": "Adjust the settings as appropriate.", "example_vi": "Điều chỉnh cài đặt khi thích hợp." }
+    ]
+  },
+  {
+    "headword": "appropriately",
+    "meaning_vi": "một cách phù hợp, đúng cách",
+    "pos": ["adverb"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˈprəʊpriətli/",
+    "ipa_us": "/əˈproʊpriətli/",
+    "etymology": "From appropriate + -ly",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adverb",
+        "sense_order": 0,
+        "definition_en": "in a way that is suitable or proper in the circumstances",
+        "definition_vi": "một cách phù hợp, đúng cách, đúng mực",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Please dress appropriately for the event.", "vi": "Vui lòng ăn mặc phù hợp cho sự kiện." },
+          { "en": "She responded appropriately to the situation.", "vi": "Cô ấy phản ứng đúng cách trước tình huống." }
+        ],
+        "synonyms": ["suitably", "properly", "fittingly"],
+        "antonyms": ["inappropriately"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "dress appropriately", "pattern": "verb+adv", "example_en": "You must dress appropriately for court.", "example_vi": "Bạn phải ăn mặc phù hợp khi ra tòa." },
+      { "collocation": "respond appropriately", "pattern": "verb+adv", "example_en": "Staff should respond appropriately to complaints.", "example_vi": "Nhân viên nên phản hồi đúng cách khi có khiếu nại." }
+    ]
+  },
+  {
+    "headword": "approval",
+    "meaning_vi": "sự chấp thuận, sự tán thành",
+    "pos": ["noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈpruːvl/",
+    "ipa_us": "/əˈpruːvl/",
+    "etymology": "From approve + -al",
+    "is_countable": false,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "official agreement or permission to do something",
+        "definition_vi": "sự phê duyệt, sự chấp thuận (chính thức)",
+        "grammar_note": "[uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The project requires government approval.", "vi": "Dự án cần sự phê duyệt của chính phủ." },
+          { "en": "The plan was given approval yesterday.", "vi": "Kế hoạch đã được chấp thuận hôm qua." }
+        ],
+        "synonyms": ["permission", "consent", "authorization"],
+        "antonyms": ["rejection", "disapproval", "refusal"]
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "a feeling that someone or something is good or acceptable",
+        "definition_vi": "sự tán thành, sự đồng tình",
+        "grammar_note": "[uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "He nodded his approval.", "vi": "Ông ấy gật đầu tán thành." }
+        ],
+        "synonyms": ["endorsement", "support"],
+        "antonyms": ["disapproval"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "approvals" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "seal of approval", "definition_en": "an official sign that something is accepted or approved", "definition_vi": "dấu mộc chấp thuận, sự công nhận chính thức", "example_en": "The product received the FDA's seal of approval.", "example_vi": "Sản phẩm nhận được sự chấp thuận của FDA." }
+    ],
+    "collocations": [
+      { "collocation": "gain approval", "pattern": "verb+noun", "example_en": "The proposal gained approval from the board.", "example_vi": "Đề xuất được hội đồng chấp thuận." },
+      { "collocation": "prior approval", "pattern": "adj+noun", "example_en": "You need prior approval before travelling.", "example_vi": "Bạn cần được chấp thuận trước khi đi." }
+    ]
+  },
+  {
+    "headword": "approve",
+    "meaning_vi": "chấp thuận, phê duyệt, tán thành",
+    "pos": ["verb"],
+    "cefr_level": "B1",
+    "ipa_uk": "/əˈpruːv/",
+    "ipa_us": "/əˈpruːv/",
+    "etymology": "From Old French aprover, from Latin approbare ('to regard as good')",
+    "is_countable": null,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to officially agree to or accept something",
+        "definition_vi": "phê duyệt, chấp thuận (chính thức)",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The committee approved the budget.", "vi": "Ủy ban đã phê duyệt ngân sách." },
+          { "en": "The drug has been approved by the FDA.", "vi": "Thuốc đã được FDA phê duyệt." }
+        ],
+        "synonyms": ["authorize", "endorse", "ratify"],
+        "antonyms": ["reject", "deny", "refuse"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to think that someone or something is good or acceptable",
+        "definition_vi": "tán thành, đồng tình",
+        "grammar_note": "[intransitive] approve (of somebody/something)",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Her parents don't approve of her boyfriend.", "vi": "Bố mẹ cô ấy không tán thành bạn trai cô ấy." }
+        ],
+        "synonyms": ["support", "favour", "agree with"],
+        "antonyms": ["disapprove", "oppose"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "approves" },
+      { "form_type": "past_simple", "form_value": "approved" },
+      { "form_type": "past_participle", "form_value": "approved" },
+      { "form_type": "present_participle", "form_value": "approving" }
+    ],
+    "phrasal_verbs": [
+      { "phrasal_verb": "approve of", "particle": "of", "is_separable": false, "definition_en": "to think that someone or something is good or acceptable", "definition_vi": "tán thành, chấp nhận", "example_en": "I don't approve of smoking.", "example_vi": "Tôi không tán thành việc hút thuốc." }
+    ],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "unanimously approve", "pattern": "adv+verb", "example_en": "The board unanimously approved the plan.", "example_vi": "Hội đồng nhất trí phê duyệt kế hoạch." }
+    ]
+  },
+  {
+    "headword": "approximately",
+    "meaning_vi": "khoảng, xấp xỉ",
+    "pos": ["adverb"],
+    "cefr_level": "B1",
+    "ipa_uk": "/əˈprɒksɪmətli/",
+    "ipa_us": "/əˈprɑːksɪmətli/",
+    "etymology": "From approximate + -ly",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adverb",
+        "sense_order": 0,
+        "definition_en": "close to an exact amount or number but not completely accurate",
+        "definition_vi": "khoảng, xấp xỉ, gần đúng",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The journey takes approximately two hours.", "vi": "Hành trình mất khoảng hai tiếng." },
+          { "en": "There are approximately 30 students in each class.", "vi": "Có khoảng 30 học sinh mỗi lớp." }
+        ],
+        "synonyms": ["about", "roughly", "around", "nearly"],
+        "antonyms": ["exactly", "precisely"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": []
+  },
+  {
+    "headword": "April",
+    "meaning_vi": "tháng Tư",
+    "pos": ["noun"],
+    "cefr_level": "A1",
+    "ipa_uk": "/ˈeɪprəl/",
+    "ipa_us": "/ˈeɪprəl/",
+    "etymology": "From Latin Aprilis, possibly from aperire ('to open'), referring to buds opening in spring",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "the fourth month of the year, between March and May",
+        "definition_vi": "tháng Tư (tháng thứ 4 trong năm)",
+        "grammar_note": "[uncountable, countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She was born in April.", "vi": "Cô ấy sinh vào tháng Tư." },
+          { "en": "The project will be finished by April.", "vi": "Dự án sẽ hoàn thành trước tháng Tư." }
+        ],
+        "synonyms": [],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "Aprils" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "April Fools' Day", "definition_en": "the first day of April when people play tricks on each other", "definition_vi": "ngày Cá tháng Tư (1/4), ngày trêu đùa", "example_en": "He played a prank on me on April Fools' Day.", "example_vi": "Anh ấy chơi khăm tôi vào ngày Cá tháng Tư." }
+    ],
+    "collocations": []
+  },
+  {
+    "headword": "arbitrary",
+    "meaning_vi": "tùy tiện, độc đoán",
+    "pos": ["adjective"],
+    "cefr_level": "C1",
+    "ipa_uk": "/ˈɑːbɪtrəri/",
+    "ipa_us": "/ˈɑːrbɪtreri/",
+    "etymology": "From Latin arbitrarius ('depending on the will')",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "not based on any reason or system; seeming random or unfair",
+        "definition_vi": "tùy tiện, không có căn cứ, ngẫu nhiên",
+        "grammar_note": null,
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "The choice of date was entirely arbitrary.", "vi": "Việc chọn ngày hoàn toàn tùy tiện." },
+          { "en": "The rules seem arbitrary and unfair.", "vi": "Các quy tắc có vẻ tùy tiện và bất công." }
+        ],
+        "synonyms": ["random", "subjective", "unreasonable"],
+        "antonyms": ["rational", "reasonable", "logical"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "arbitrary decision", "pattern": "adj+noun", "example_en": "It was an arbitrary decision by the manager.", "example_vi": "Đó là quyết định tùy tiện của quản lý." },
+      { "collocation": "arbitrary rule", "pattern": "adj+noun", "example_en": "Students complained about arbitrary rules.", "example_vi": "Học sinh phàn nàn về các quy tắc tùy tiện." }
+    ]
+  },
+  {
+    "headword": "architect",
+    "meaning_vi": "kiến trúc sư",
+    "pos": ["noun"],
+    "cefr_level": "B1",
+    "ipa_uk": "/ˈɑːkɪtekt/",
+    "ipa_us": "/ˈɑːrkɪtekt/",
+    "etymology": "From Greek arkhitekton ('chief builder'), from arkhi- ('chief') + tekton ('builder')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a person whose job is to design buildings",
+        "definition_vi": "kiến trúc sư",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She works as an architect in London.", "vi": "Cô ấy làm kiến trúc sư ở London." },
+          { "en": "The architect designed a stunning building.", "vi": "Kiến trúc sư thiết kế một tòa nhà tuyệt đẹp." }
+        ],
+        "synonyms": ["designer", "planner"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "a person who is responsible for creating or planning something",
+        "definition_vi": "người thiết kế, người tạo ra (ý tưởng, kế hoạch)",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "He was the architect of the peace agreement.", "vi": "Ông ấy là người kiến tạo thỏa thuận hòa bình." }
+        ],
+        "synonyms": ["creator", "founder", "mastermind"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "architects" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "chief architect", "pattern": "adj+noun", "example_en": "She was the chief architect of the reforms.", "example_vi": "Bà ấy là kiến trúc sư trưởng của các cải cách." }
+    ]
+  },
+  {
+    "headword": "architectural",
+    "meaning_vi": "thuộc kiến trúc",
+    "pos": ["adjective"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ˌɑːkɪˈtektʃərəl/",
+    "ipa_us": "/ˌɑːrkɪˈtektʃərəl/",
+    "etymology": "From architecture + -al",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "relating to the design and construction of buildings",
+        "definition_vi": "thuộc về kiến trúc, liên quan đến kiến trúc",
+        "grammar_note": null,
+        "domain": "architecture",
+        "register": null,
+        "examples": [
+          { "en": "The building is of great architectural importance.", "vi": "Tòa nhà có giá trị kiến trúc to lớn." },
+          { "en": "She studied architectural design.", "vi": "Cô ấy học thiết kế kiến trúc." }
+        ],
+        "synonyms": ["structural", "design-related"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "architectural design", "pattern": "adj+noun", "example_en": "The architectural design won several awards.", "example_vi": "Thiết kế kiến trúc đã giành nhiều giải thưởng." },
+      { "collocation": "architectural heritage", "pattern": "adj+noun", "example_en": "The city is rich in architectural heritage.", "example_vi": "Thành phố giàu di sản kiến trúc." }
+    ]
+  },
+  {
+    "headword": "architecture",
+    "meaning_vi": "kiến trúc",
+    "pos": ["noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ˈɑːkɪtektʃə(r)/",
+    "ipa_us": "/ˈɑːrkɪtektʃər/",
+    "etymology": "From Latin architectura",
+    "is_countable": false,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "the art and study of designing buildings",
+        "definition_vi": "kiến trúc (ngành thiết kế xây dựng)",
+        "grammar_note": "[uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She studied architecture at university.", "vi": "Cô ấy học kiến trúc ở đại học." }
+        ],
+        "synonyms": ["building design"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "the design or style of a building or buildings",
+        "definition_vi": "kiến trúc, phong cách kiến trúc (của tòa nhà)",
+        "grammar_note": "[uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The architecture of the old town is beautiful.", "vi": "Kiến trúc của phố cổ rất đẹp." }
+        ],
+        "synonyms": ["design", "structure", "style"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 2,
+        "definition_en": "the structure and organization of a computer system",
+        "definition_vi": "kiến trúc (hệ thống máy tính)",
+        "grammar_note": "[uncountable, countable]",
+        "domain": "computing",
+        "register": null,
+        "examples": [
+          { "en": "The software architecture needs to be redesigned.", "vi": "Kiến trúc phần mềm cần được thiết kế lại." }
+        ],
+        "synonyms": ["framework", "infrastructure"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "modern architecture", "pattern": "adj+noun", "example_en": "I love modern architecture.", "example_vi": "Tôi yêu thích kiến trúc hiện đại." },
+      { "collocation": "system architecture", "pattern": "noun+noun", "example_en": "We need to review the system architecture.", "example_vi": "Chúng ta cần xem lại kiến trúc hệ thống." }
+    ]
+  },
+  {
+    "headword": "archive",
+    "meaning_vi": "kho lưu trữ, lưu trữ",
+    "pos": ["noun", "verb"],
+    "cefr_level": "C1",
+    "ipa_uk": "/ˈɑːkaɪv/",
+    "ipa_us": "/ˈɑːrkaɪv/",
+    "etymology": "From French archives, from Latin archivum, from Greek arkheion ('public records')",
+    "is_countable": true,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a collection of historical documents or records",
+        "definition_vi": "kho lưu trữ, tài liệu lưu trữ",
+        "grammar_note": "[countable, usually plural]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The national archives contain millions of documents.", "vi": "Kho lưu trữ quốc gia chứa hàng triệu tài liệu." }
+        ],
+        "synonyms": ["records", "repository", "library"],
+        "antonyms": []
+      },
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to store documents, files, etc. for future reference",
+        "definition_vi": "lưu trữ (tài liệu, dữ liệu)",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The emails are automatically archived.", "vi": "Các email được lưu trữ tự động." },
+          { "en": "Archive the old files before deleting them.", "vi": "Lưu trữ các file cũ trước khi xóa." }
+        ],
+        "synonyms": ["store", "preserve", "save"],
+        "antonyms": ["delete", "discard"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "archives" },
+      { "form_type": "third_person_singular", "form_value": "archives" },
+      { "form_type": "past_simple", "form_value": "archived" },
+      { "form_type": "past_participle", "form_value": "archived" },
+      { "form_type": "present_participle", "form_value": "archiving" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "national archive", "pattern": "adj+noun", "example_en": "The document is kept in the national archive.", "example_vi": "Tài liệu được lưu giữ trong kho lưu trữ quốc gia." },
+      { "collocation": "archive data", "pattern": "verb+noun", "example_en": "We need to archive the old data.", "example_vi": "Chúng ta cần lưu trữ dữ liệu cũ." }
+    ]
+  },
+  {
+    "headword": "area",
+    "meaning_vi": "khu vực, lĩnh vực, diện tích",
+    "pos": ["noun"],
+    "cefr_level": "A1",
+    "ipa_uk": "/ˈeəriə/",
+    "ipa_us": "/ˈeriə/",
+    "etymology": "From Latin area ('a level piece of ground, open space')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a part of a place, town, country, etc.",
+        "definition_vi": "khu vực, vùng",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Do you live in this area?", "vi": "Bạn sống ở khu vực này à?" },
+          { "en": "The area around the station is very busy.", "vi": "Khu vực quanh ga rất đông đúc." }
+        ],
+        "synonyms": ["region", "zone", "district", "neighbourhood"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "a particular subject or field of activity",
+        "definition_vi": "lĩnh vực, mảng (hoạt động, kiến thức)",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Software development is a growing area.", "vi": "Phát triển phần mềm là một lĩnh vực đang phát triển." },
+          { "en": "This is not my area of expertise.", "vi": "Đây không phải lĩnh vực chuyên môn của tôi." }
+        ],
+        "synonyms": ["field", "domain", "sector", "discipline"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 2,
+        "definition_en": "the size of a surface, measured in square units",
+        "definition_vi": "diện tích",
+        "grammar_note": "[countable, uncountable]",
+        "domain": "mathematics",
+        "register": null,
+        "examples": [
+          { "en": "The area of the room is 20 square metres.", "vi": "Diện tích phòng là 20 mét vuông." }
+        ],
+        "synonyms": ["surface", "size", "extent"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "areas" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "grey area", "definition_en": "a situation or subject that is not clear or easy to define", "definition_vi": "vùng xám, ranh giới mơ hồ", "example_en": "The law is a bit of a grey area on this issue.", "example_vi": "Luật hơi mơ hồ về vấn đề này." }
+    ],
+    "collocations": [
+      { "collocation": "local area", "pattern": "adj+noun", "example_en": "There are many shops in the local area.", "example_vi": "Có nhiều cửa hàng trong khu vực lân cận." },
+      { "collocation": "area of expertise", "pattern": "noun+prep+noun", "example_en": "AI is her area of expertise.", "example_vi": "AI là lĩnh vực chuyên môn của cô ấy." },
+      { "collocation": "residential area", "pattern": "adj+noun", "example_en": "It's a quiet residential area.", "example_vi": "Đây là khu dân cư yên tĩnh." }
+    ]
+  }
+]

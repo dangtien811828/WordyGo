@@ -1,0 +1,1077 @@
+[
+  {
+    "headword": "arena",
+    "meaning_vi": "đấu trường, sân vận động",
+    "pos": ["noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈriːnə/",
+    "ipa_us": "/əˈriːnə/",
+    "etymology": "From Latin harena ('sand, sandy place, arena')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a large building with seats around an open area, used for sports or entertainment",
+        "definition_vi": "nhà thi đấu, sân vận động có khán đài bao quanh",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The concert will be held at the arena.", "vi": "Buổi hòa nhạc sẽ được tổ chức tại nhà thi đấu." },
+          { "en": "The arena can hold 20,000 spectators.", "vi": "Sân vận động có thể chứa 20.000 khán giả." }
+        ],
+        "synonyms": ["stadium", "venue", "amphitheatre"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "an area of activity or discussion",
+        "definition_vi": "lĩnh vực, trường hoạt động",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "He entered the political arena at a young age.", "vi": "Anh ấy bước vào chính trường khi còn trẻ." }
+        ],
+        "synonyms": ["field", "domain", "sphere"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "arenas" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "political arena", "pattern": "adj+noun", "example_en": "She is well known in the political arena.", "example_vi": "Bà ấy nổi tiếng trên chính trường." },
+      { "collocation": "international arena", "pattern": "adj+noun", "example_en": "The company competes in the international arena.", "example_vi": "Công ty cạnh tranh trên đấu trường quốc tế." }
+    ]
+  },
+  {
+    "headword": "arguably",
+    "meaning_vi": "có thể cho rằng",
+    "pos": ["adverb"],
+    "cefr_level": "C1",
+    "ipa_uk": "/ˈɑːɡjuəbli/",
+    "ipa_us": "/ˈɑːrɡjuəbli/",
+    "etymology": "From argue + -ably",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "adverb",
+        "sense_order": 0,
+        "definition_en": "used to state an opinion that can be supported by evidence",
+        "definition_vi": "có thể nói rằng, có lẽ đúng khi nói rằng",
+        "grammar_note": "[sentence adverb]",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "He is arguably the best player in the world.", "vi": "Có thể nói anh ấy là cầu thủ giỏi nhất thế giới." },
+          { "en": "This is arguably the most important decision of her career.", "vi": "Đây có thể cho là quyết định quan trọng nhất trong sự nghiệp của cô ấy." }
+        ],
+        "synonyms": ["possibly", "perhaps", "conceivably"],
+        "antonyms": ["undeniably", "undoubtedly"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "arguably the best", "pattern": "adv+adj", "example_en": "It's arguably the best restaurant in town.", "example_vi": "Đây có thể nói là nhà hàng tốt nhất trong thành phố." },
+      { "collocation": "arguably the most important", "pattern": "adv+adj", "example_en": "This is arguably the most important issue.", "example_vi": "Đây có thể cho là vấn đề quan trọng nhất." }
+    ]
+  },
+  {
+    "headword": "argue",
+    "meaning_vi": "tranh luận, cãi nhau",
+    "pos": ["verb"],
+    "cefr_level": "A2",
+    "ipa_uk": "/ˈɑːɡjuː/",
+    "ipa_us": "/ˈɑːrɡjuː/",
+    "etymology": "From Old French arguer, from Latin arguere ('to make clear, prove')",
+    "is_countable": null,
+    "is_transitive": false,
+    "register": null,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to speak angrily to somebody because you disagree with them",
+        "definition_vi": "cãi nhau, tranh cãi",
+        "grammar_note": "[intransitive] argue (with somebody) (about/over something)",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "They argued about money all the time.", "vi": "Họ cãi nhau về tiền bạc suốt ngày." },
+          { "en": "Don't argue with me!", "vi": "Đừng cãi tôi!" }
+        ],
+        "synonyms": ["quarrel", "fight", "bicker", "squabble"],
+        "antonyms": ["agree", "concur"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to give reasons why you think something is right or wrong",
+        "definition_vi": "lập luận, biện luận",
+        "grammar_note": "[transitive, intransitive] argue that...; argue for/against something",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "She argued that the law should be changed.", "vi": "Cô ấy lập luận rằng luật nên được thay đổi." },
+          { "en": "He argued strongly against the proposal.", "vi": "Ông ấy phản biện mạnh mẽ về đề xuất đó." }
+        ],
+        "synonyms": ["contend", "maintain", "assert", "claim"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "argues" },
+      { "form_type": "past_simple", "form_value": "argued" },
+      { "form_type": "past_participle", "form_value": "argued" },
+      { "form_type": "present_participle", "form_value": "arguing" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "argue the toss", "definition_en": "to continue to disagree about a decision that has already been made", "definition_vi": "tiếp tục cãi về chuyện đã rồi", "example_en": "There's no point arguing the toss now.", "example_vi": "Không ích gì cãi về chuyện đã rồi nữa." }
+    ],
+    "collocations": [
+      { "collocation": "argue a case", "pattern": "verb+noun", "example_en": "The lawyer argued the case brilliantly.", "example_vi": "Luật sư biện hộ vụ án xuất sắc." },
+      { "collocation": "argue convincingly", "pattern": "verb+adv", "example_en": "She argued convincingly for reform.", "example_vi": "Cô ấy lập luận thuyết phục cho sự cải cách." }
+    ]
+  },
+  {
+    "headword": "argument",
+    "meaning_vi": "cuộc tranh luận, lý lẽ",
+    "pos": ["noun"],
+    "cefr_level": "B1",
+    "ipa_uk": "/ˈɑːɡjumənt/",
+    "ipa_us": "/ˈɑːrɡjumənt/",
+    "etymology": "From Old French argument, from Latin argumentum",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "an angry conversation between two or more people who disagree",
+        "definition_vi": "cuộc cãi nhau, cuộc tranh cãi",
+        "grammar_note": "[countable] argument (with somebody) (about/over something)",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "They had a big argument about money.", "vi": "Họ có một cuộc cãi nhau lớn về tiền bạc." },
+          { "en": "I got into an argument with the taxi driver.", "vi": "Tôi cãi nhau với tài xế taxi." }
+        ],
+        "synonyms": ["quarrel", "dispute", "row", "disagreement"],
+        "antonyms": ["agreement", "harmony"]
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "a reason or set of reasons given to support an idea",
+        "definition_vi": "lập luận, luận điểm",
+        "grammar_note": "[countable] argument for/against something",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "There are strong arguments for and against the plan.", "vi": "Có những lập luận mạnh mẽ ủng hộ và phản đối kế hoạch." },
+          { "en": "His argument was very convincing.", "vi": "Lập luận của anh ấy rất thuyết phục." }
+        ],
+        "synonyms": ["reasoning", "case", "point", "rationale"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "arguments" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "for the sake of argument", "definition_en": "as a way of discussing something, even if you don't agree", "definition_vi": "để mà tranh luận, giả sử thế", "example_en": "Let's say, for the sake of argument, that she is right.", "example_vi": "Giả sử rằng cô ấy đúng đi." }
+    ],
+    "collocations": [
+      { "collocation": "heated argument", "pattern": "adj+noun", "example_en": "They had a heated argument.", "example_vi": "Họ có một cuộc tranh cãi gay gắt." },
+      { "collocation": "win an argument", "pattern": "verb+noun", "example_en": "She always wins the argument.", "example_vi": "Cô ấy luôn thắng trong tranh luận." },
+      { "collocation": "strong argument", "pattern": "adj+noun", "example_en": "There is a strong argument for change.", "example_vi": "Có lập luận mạnh mẽ ủng hộ sự thay đổi." }
+    ]
+  },
+  {
+    "headword": "arise",
+    "meaning_vi": "phát sinh, nảy sinh",
+    "pos": ["verb"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈraɪz/",
+    "ipa_us": "/əˈraɪz/",
+    "etymology": "From Old English ārīsan ('to rise up')",
+    "is_countable": null,
+    "is_transitive": false,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to happen; to start to exist or develop",
+        "definition_vi": "phát sinh, nảy sinh, xảy ra",
+        "grammar_note": "[intransitive]",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "A new problem has arisen.", "vi": "Một vấn đề mới đã phát sinh." },
+          { "en": "If any difficulties arise, let me know.", "vi": "Nếu có khó khăn nào phát sinh, hãy cho tôi biết." }
+        ],
+        "synonyms": ["occur", "emerge", "appear", "come up"],
+        "antonyms": ["disappear", "cease"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to result from a particular situation",
+        "definition_vi": "xuất phát từ, bắt nguồn từ",
+        "grammar_note": "[intransitive] arise from/out of something",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "The problem arose from a misunderstanding.", "vi": "Vấn đề bắt nguồn từ sự hiểu lầm." }
+        ],
+        "synonyms": ["result", "stem", "originate"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "arises" },
+      { "form_type": "past_simple", "form_value": "arose", "tags": ["irregular"] },
+      { "form_type": "past_participle", "form_value": "arisen", "tags": ["irregular"] },
+      { "form_type": "present_participle", "form_value": "arising" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "problems arise", "pattern": "noun+verb", "example_en": "Problems may arise during the process.", "example_vi": "Vấn đề có thể phát sinh trong quá trình." },
+      { "collocation": "questions arise", "pattern": "noun+verb", "example_en": "Several questions arose during the meeting.", "example_vi": "Nhiều câu hỏi nảy sinh trong cuộc họp." },
+      { "collocation": "arise from", "pattern": "verb+prep", "example_en": "Many health issues arise from poor diet.", "example_vi": "Nhiều vấn đề sức khỏe bắt nguồn từ chế độ ăn kém." }
+    ]
+  },
+  {
+    "headword": "arm",
+    "meaning_vi": "cánh tay; vũ trang",
+    "pos": ["noun", "verb"],
+    "cefr_level": "A2",
+    "ipa_uk": "/ɑːm/",
+    "ipa_us": "/ɑːrm/",
+    "etymology": "From Old English earm ('arm, forearm')",
+    "is_countable": true,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "the long part of the body between the shoulder and the hand",
+        "definition_vi": "cánh tay",
+        "grammar_note": "[countable]",
+        "domain": "body",
+        "register": null,
+        "examples": [
+          { "en": "She broke her arm in the accident.", "vi": "Cô ấy bị gãy tay trong vụ tai nạn." },
+          { "en": "He held the baby in his arms.", "vi": "Anh ấy bế em bé trong vòng tay." }
+        ],
+        "synonyms": ["limb"],
+        "antonyms": []
+      },
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to provide weapons for yourself or others to fight a battle or war",
+        "definition_vi": "vũ trang, trang bị vũ khí",
+        "grammar_note": "[transitive, intransitive]",
+        "domain": "military",
+        "register": null,
+        "examples": [
+          { "en": "The rebels armed themselves with rifles.", "vi": "Quân nổi dậy tự trang bị súng trường." }
+        ],
+        "synonyms": ["equip", "supply", "furnish"],
+        "antonyms": ["disarm"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "arms" },
+      { "form_type": "third_person_singular", "form_value": "arms" },
+      { "form_type": "past_simple", "form_value": "armed" },
+      { "form_type": "past_participle", "form_value": "armed" },
+      { "form_type": "present_participle", "form_value": "arming" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "cost an arm and a leg", "definition_en": "to be very expensive", "definition_vi": "rất đắt đỏ", "example_en": "That car cost me an arm and a leg.", "example_vi": "Chiếc xe đó tốn của tôi rất nhiều tiền." },
+      { "idiom_text": "with open arms", "definition_en": "in a very friendly way, with enthusiasm", "definition_vi": "nhiệt tình, niềm nở", "example_en": "They welcomed us with open arms.", "example_vi": "Họ chào đón chúng tôi rất niềm nở." },
+      { "idiom_text": "twist somebody's arm", "definition_en": "to persuade or force somebody to do something", "definition_vi": "ép buộc, thuyết phục ai đó", "example_en": "I didn't want to go, but she twisted my arm.", "example_vi": "Tôi không muốn đi, nhưng cô ấy ép tôi." }
+    ],
+    "collocations": [
+      { "collocation": "broken arm", "pattern": "adj+noun", "example_en": "He played with a broken arm.", "example_vi": "Anh ấy thi đấu với cánh tay bị gãy." },
+      { "collocation": "fold your arms", "pattern": "verb+noun", "example_en": "She folded her arms and waited.", "example_vi": "Cô ấy khoanh tay và chờ đợi." }
+    ]
+  },
+  {
+    "headword": "armed",
+    "meaning_vi": "có vũ trang",
+    "pos": ["adjective"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ɑːmd/",
+    "ipa_us": "/ɑːrmd/",
+    "etymology": "Past participle of arm",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "carrying weapons, especially a gun",
+        "definition_vi": "có vũ trang, mang vũ khí",
+        "grammar_note": null,
+        "domain": "military",
+        "register": null,
+        "examples": [
+          { "en": "Armed guards stood at the entrance.", "vi": "Lính bảo vệ có vũ trang đứng ở cổng vào." },
+          { "en": "The suspect was armed and dangerous.", "vi": "Nghi phạm có vũ trang và nguy hiểm." }
+        ],
+        "synonyms": ["equipped", "weaponed"],
+        "antonyms": ["unarmed", "defenceless"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "armed forces", "pattern": "adj+noun", "example_en": "He served in the armed forces for 10 years.", "example_vi": "Ông ấy phục vụ trong lực lượng vũ trang 10 năm." },
+      { "collocation": "armed robbery", "pattern": "adj+noun", "example_en": "He was arrested for armed robbery.", "example_vi": "Anh ta bị bắt vì tội cướp có vũ trang." },
+      { "collocation": "armed conflict", "pattern": "adj+noun", "example_en": "The country is in the middle of an armed conflict.", "example_vi": "Đất nước đang giữa cuộc xung đột vũ trang." }
+    ]
+  },
+  {
+    "headword": "arms",
+    "meaning_vi": "vũ khí",
+    "pos": ["noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ɑːmz/",
+    "ipa_us": "/ɑːrmz/",
+    "etymology": "From Old French armes, from Latin arma ('weapons')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "weapons, especially those used in war",
+        "definition_vi": "vũ khí (dùng trong chiến tranh)",
+        "grammar_note": "[plural]",
+        "domain": "military",
+        "register": null,
+        "examples": [
+          { "en": "The country is spending billions on arms.", "vi": "Đất nước đang chi hàng tỷ cho vũ khí." },
+          { "en": "The sale of arms to the region has been banned.", "vi": "Việc bán vũ khí cho khu vực đã bị cấm." }
+        ],
+        "synonyms": ["weapons", "weaponry", "firearms", "munitions"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "up in arms", "definition_en": "very angry and protesting strongly", "definition_vi": "phẫn nộ, phản đối kịch liệt", "example_en": "Residents are up in arms about the new road.", "example_vi": "Cư dân phẫn nộ về con đường mới." }
+    ],
+    "collocations": [
+      { "collocation": "arms race", "pattern": "noun+noun", "example_en": "The arms race between the two countries intensified.", "example_vi": "Cuộc chạy đua vũ trang giữa hai nước leo thang." },
+      { "collocation": "arms deal", "pattern": "noun+noun", "example_en": "The government signed a major arms deal.", "example_vi": "Chính phủ ký một thỏa thuận vũ khí lớn." }
+    ]
+  },
+  {
+    "headword": "army",
+    "meaning_vi": "quân đội",
+    "pos": ["noun"],
+    "cefr_level": "A2",
+    "ipa_uk": "/ˈɑːmi/",
+    "ipa_us": "/ˈɑːrmi/",
+    "etymology": "From Old French armée, from Latin armata ('armed forces')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a large organized group of soldiers trained to fight on land",
+        "definition_vi": "quân đội, lục quân",
+        "grammar_note": "[countable]",
+        "domain": "military",
+        "register": null,
+        "examples": [
+          { "en": "He joined the army when he was 18.", "vi": "Anh ấy gia nhập quân đội lúc 18 tuổi." },
+          { "en": "The army was deployed to the border.", "vi": "Quân đội được triển khai đến biên giới." }
+        ],
+        "synonyms": ["military", "troops", "forces"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "a large number of people organized for a particular purpose",
+        "definition_vi": "đội quân, đám đông (nghĩa bóng)",
+        "grammar_note": "[countable] army of something",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "An army of volunteers helped with the flood.", "vi": "Một đội quân tình nguyện viên giúp đỡ trong trận lụt." }
+        ],
+        "synonyms": ["host", "crowd", "multitude"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "armies" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "join the army", "pattern": "verb+noun", "example_en": "She decided to join the army.", "example_vi": "Cô ấy quyết định gia nhập quân đội." },
+      { "collocation": "army base", "pattern": "noun+noun", "example_en": "The army base is near the city.", "example_vi": "Căn cứ quân đội nằm gần thành phố." }
+    ]
+  },
+  {
+    "headword": "around",
+    "meaning_vi": "xung quanh, khoảng",
+    "pos": ["adverb", "preposition"],
+    "cefr_level": "A1",
+    "ipa_uk": "/əˈraʊnd/",
+    "ipa_us": "/əˈraʊnd/",
+    "etymology": "From a- + round",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "preposition",
+        "sense_order": 0,
+        "definition_en": "on every side of; surrounding",
+        "definition_vi": "xung quanh",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "They sat around the table.", "vi": "Họ ngồi xung quanh bàn." },
+          { "en": "She looked around the room.", "vi": "Cô ấy nhìn quanh phòng." }
+        ],
+        "synonyms": ["round", "surrounding"],
+        "antonyms": []
+      },
+      {
+        "pos": "adverb",
+        "sense_order": 0,
+        "definition_en": "approximately",
+        "definition_vi": "khoảng, xấp xỉ",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "It costs around $500.", "vi": "Nó có giá khoảng 500 đô la." },
+          { "en": "There were around 50 people.", "vi": "Có khoảng 50 người." }
+        ],
+        "synonyms": ["approximately", "about", "roughly"],
+        "antonyms": ["exactly", "precisely"]
+      },
+      {
+        "pos": "adverb",
+        "sense_order": 1,
+        "definition_en": "in or to many places; here and there",
+        "definition_vi": "đây đó, khắp nơi",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "I've been travelling around.", "vi": "Tôi đã đi du lịch khắp nơi." }
+        ],
+        "synonyms": ["about", "here and there"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "the other way around", "definition_en": "in the opposite way or order", "definition_vi": "ngược lại", "example_en": "It's not me who needs you — it's the other way around.", "example_vi": "Không phải tôi cần bạn — mà ngược lại." }
+    ],
+    "collocations": [
+      { "collocation": "around the world", "pattern": "prep+noun", "example_en": "People around the world are watching.", "example_vi": "Mọi người trên khắp thế giới đang theo dõi." },
+      { "collocation": "around the corner", "pattern": "prep+noun", "example_en": "The shop is just around the corner.", "example_vi": "Cửa hàng ở ngay quanh góc." }
+    ]
+  },
+  {
+    "headword": "arrange",
+    "meaning_vi": "sắp xếp, thu xếp",
+    "pos": ["verb"],
+    "cefr_level": "B1",
+    "ipa_uk": "/əˈreɪndʒ/",
+    "ipa_us": "/əˈreɪndʒ/",
+    "etymology": "From Old French arangier ('to put in a row')",
+    "is_countable": null,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to plan or organize something in advance",
+        "definition_vi": "thu xếp, sắp đặt, tổ chức",
+        "grammar_note": "[transitive] arrange something; arrange to do something",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "I've arranged a meeting for Friday.", "vi": "Tôi đã thu xếp một cuộc họp vào thứ Sáu." },
+          { "en": "Can you arrange a taxi for me?", "vi": "Bạn có thể thu xếp taxi cho tôi không?" }
+        ],
+        "synonyms": ["organize", "plan", "set up", "schedule"],
+        "antonyms": ["cancel"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to put things in a particular order or position",
+        "definition_vi": "sắp xếp, bố trí",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She arranged the flowers in a vase.", "vi": "Cô ấy cắm hoa vào bình." },
+          { "en": "The books are arranged alphabetically.", "vi": "Sách được sắp xếp theo thứ tự chữ cái." }
+        ],
+        "synonyms": ["order", "sort", "organize", "position"],
+        "antonyms": ["disarrange", "scatter"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "arranges" },
+      { "form_type": "past_simple", "form_value": "arranged" },
+      { "form_type": "past_participle", "form_value": "arranged" },
+      { "form_type": "present_participle", "form_value": "arranging" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "arrange a meeting", "pattern": "verb+noun", "example_en": "I'll arrange a meeting with the team.", "example_vi": "Tôi sẽ thu xếp một cuộc họp với nhóm." },
+      { "collocation": "arrange a visit", "pattern": "verb+noun", "example_en": "We arranged a visit to the factory.", "example_vi": "Chúng tôi sắp xếp một chuyến thăm nhà máy." },
+      { "collocation": "neatly arranged", "pattern": "adv+adj", "example_en": "The room was neatly arranged.", "example_vi": "Phòng được sắp xếp gọn gàng." }
+    ]
+  },
+  {
+    "headword": "arrangement",
+    "meaning_vi": "sự sắp xếp, thỏa thuận",
+    "pos": ["noun"],
+    "cefr_level": "B1",
+    "ipa_uk": "/əˈreɪndʒmənt/",
+    "ipa_us": "/əˈreɪndʒmənt/",
+    "etymology": "From arrange + -ment",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "plans or preparations for something that will happen in the future",
+        "definition_vi": "sự thu xếp, kế hoạch chuẩn bị",
+        "grammar_note": "[countable, usually plural]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "We need to make arrangements for the wedding.", "vi": "Chúng ta cần thu xếp cho đám cưới." },
+          { "en": "What are the travel arrangements?", "vi": "Kế hoạch đi lại như thế nào?" }
+        ],
+        "synonyms": ["plan", "preparation", "organization"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "an agreement between people about how something will be done",
+        "definition_vi": "thỏa thuận, sự dàn xếp",
+        "grammar_note": "[countable, uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "We came to an arrangement about the rent.", "vi": "Chúng tôi đạt được thỏa thuận về tiền thuê." }
+        ],
+        "synonyms": ["agreement", "deal", "settlement"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "arrangements" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "make arrangements", "pattern": "verb+noun", "example_en": "Have you made the arrangements?", "example_vi": "Bạn đã thu xếp xong chưa?" },
+      { "collocation": "travel arrangements", "pattern": "noun+noun", "example_en": "I'll handle the travel arrangements.", "example_vi": "Tôi sẽ lo liệu việc đi lại." },
+      { "collocation": "seating arrangement", "pattern": "noun+noun", "example_en": "The seating arrangement was perfect.", "example_vi": "Cách sắp xếp chỗ ngồi rất hoàn hảo." }
+    ]
+  },
+  {
+    "headword": "array",
+    "meaning_vi": "dãy, loạt, mảng",
+    "pos": ["noun"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˈreɪ/",
+    "ipa_us": "/əˈreɪ/",
+    "etymology": "From Old French areer ('to arrange')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a large number or wide range of things",
+        "definition_vi": "loạt, dãy, tập hợp nhiều thứ",
+        "grammar_note": "[countable, usually singular] an array of something",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "The shop has a vast array of products.", "vi": "Cửa hàng có rất nhiều loại sản phẩm." },
+          { "en": "She faced a bewildering array of choices.", "vi": "Cô ấy đối mặt với vô số lựa chọn." }
+        ],
+        "synonyms": ["range", "collection", "variety", "selection"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "a set of data arranged in rows and columns in a computer program",
+        "definition_vi": "mảng (trong lập trình)",
+        "grammar_note": "[countable]",
+        "domain": "computing",
+        "register": "technical",
+        "examples": [
+          { "en": "The data is stored in an array.", "vi": "Dữ liệu được lưu trong một mảng." }
+        ],
+        "synonyms": ["list", "matrix"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "arrays" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "vast array", "pattern": "adj+noun", "example_en": "There is a vast array of options.", "example_vi": "Có vô số lựa chọn." },
+      { "collocation": "wide array", "pattern": "adj+noun", "example_en": "The menu offers a wide array of dishes.", "example_vi": "Thực đơn có nhiều loại món ăn." }
+    ]
+  },
+  {
+    "headword": "arrest",
+    "meaning_vi": "bắt giữ",
+    "pos": ["verb", "noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈrest/",
+    "ipa_us": "/əˈrest/",
+    "etymology": "From Old French arester ('to stop, stay'), from Latin restare",
+    "is_countable": true,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to take somebody to a police station because they are believed to have committed a crime",
+        "definition_vi": "bắt giữ, bắt giam",
+        "grammar_note": "[transitive] arrest somebody (for something)",
+        "domain": "law",
+        "register": null,
+        "examples": [
+          { "en": "The police arrested two suspects.", "vi": "Cảnh sát bắt giữ hai nghi phạm." },
+          { "en": "She was arrested for theft.", "vi": "Cô ấy bị bắt vì tội trộm cắp." }
+        ],
+        "synonyms": ["detain", "apprehend", "seize"],
+        "antonyms": ["release", "free"]
+      },
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "the act of taking somebody to a police station and keeping them there",
+        "definition_vi": "sự bắt giữ, vụ bắt giữ",
+        "grammar_note": "[countable, uncountable]",
+        "domain": "law",
+        "register": null,
+        "examples": [
+          { "en": "The police made several arrests.", "vi": "Cảnh sát thực hiện nhiều vụ bắt giữ." },
+          { "en": "He is under arrest for murder.", "vi": "Anh ta bị bắt vì tội giết người." }
+        ],
+        "synonyms": ["detention", "apprehension"],
+        "antonyms": ["release"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "arrests" },
+      { "form_type": "past_simple", "form_value": "arrested" },
+      { "form_type": "past_participle", "form_value": "arrested" },
+      { "form_type": "present_participle", "form_value": "arresting" },
+      { "form_type": "plural", "form_value": "arrests" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "under arrest", "definition_en": "held by the police for a crime", "definition_vi": "bị bắt giữ", "example_en": "You're under arrest!", "example_vi": "Anh bị bắt!" }
+    ],
+    "collocations": [
+      { "collocation": "make an arrest", "pattern": "verb+noun", "example_en": "Police made an arrest this morning.", "example_vi": "Cảnh sát đã thực hiện bắt giữ sáng nay." },
+      { "collocation": "arrest warrant", "pattern": "noun+noun", "example_en": "The judge issued an arrest warrant.", "example_vi": "Thẩm phán ban hành lệnh bắt giữ." }
+    ]
+  },
+  {
+    "headword": "arrival",
+    "meaning_vi": "sự đến, sự xuất hiện",
+    "pos": ["noun"],
+    "cefr_level": "B1",
+    "ipa_uk": "/əˈraɪvl/",
+    "ipa_us": "/əˈraɪvl/",
+    "etymology": "From arrive + -al",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "an act of arriving at a place",
+        "definition_vi": "sự đến nơi, sự đến",
+        "grammar_note": "[countable, uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Guests are expected on arrival.", "vi": "Khách được chờ đón khi đến." },
+          { "en": "The arrival of the train was delayed.", "vi": "Tàu đến bị trễ." }
+        ],
+        "synonyms": ["coming", "appearance", "entrance"],
+        "antonyms": ["departure", "leaving"]
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "a person who has just arrived at a place",
+        "definition_vi": "người mới đến",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "New arrivals should report to reception.", "vi": "Người mới đến vui lòng đăng ký ở lễ tân." }
+        ],
+        "synonyms": ["newcomer"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "arrivals" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "dead on arrival", "definition_en": "already dead when reaching a hospital; something that has no chance of success", "definition_vi": "chết khi đến nơi; không có cơ hội thành công", "example_en": "The proposal was dead on arrival.", "example_vi": "Đề xuất đó không có cơ hội ngay từ đầu." }
+    ],
+    "collocations": [
+      { "collocation": "on arrival", "pattern": "prep+noun", "example_en": "Please check in on arrival.", "example_vi": "Vui lòng đăng ký khi đến nơi." },
+      { "collocation": "late arrival", "pattern": "adj+noun", "example_en": "We apologize for the late arrival.", "example_vi": "Chúng tôi xin lỗi vì đến trễ." }
+    ]
+  },
+  {
+    "headword": "arrive",
+    "meaning_vi": "đến, tới",
+    "pos": ["verb"],
+    "cefr_level": "A1",
+    "ipa_uk": "/əˈraɪv/",
+    "ipa_us": "/əˈraɪv/",
+    "etymology": "From Old French ariver, from Latin ad + ripa ('to the shore')",
+    "is_countable": null,
+    "is_transitive": false,
+    "register": null,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to reach a place, especially at the end of a journey",
+        "definition_vi": "đến, tới nơi",
+        "grammar_note": "[intransitive] arrive (at/in something)",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "We arrived at the airport early.", "vi": "Chúng tôi đến sân bay sớm." },
+          { "en": "What time does the train arrive?", "vi": "Mấy giờ tàu đến?" }
+        ],
+        "synonyms": ["reach", "get to", "come"],
+        "antonyms": ["leave", "depart"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to happen or to start to exist",
+        "definition_vi": "đến, xảy đến",
+        "grammar_note": "[intransitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The day of the exam finally arrived.", "vi": "Ngày thi cuối cùng cũng đã đến." }
+        ],
+        "synonyms": ["come", "occur"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "arrives" },
+      { "form_type": "past_simple", "form_value": "arrived" },
+      { "form_type": "past_participle", "form_value": "arrived" },
+      { "form_type": "present_participle", "form_value": "arriving" }
+    ],
+    "phrasal_verbs": [
+      { "phrasal_verb": "arrive at", "particle": "at", "is_separable": false, "definition_en": "to reach a decision, conclusion, or agreement after thinking", "definition_vi": "đi đến (quyết định, kết luận)", "example_en": "We finally arrived at a decision.", "example_vi": "Cuối cùng chúng tôi cũng đi đến quyết định." }
+    ],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "arrive safely", "pattern": "verb+adv", "example_en": "They arrived safely.", "example_vi": "Họ đến nơi an toàn." },
+      { "collocation": "arrive on time", "pattern": "verb+prep", "example_en": "Please arrive on time.", "example_vi": "Vui lòng đến đúng giờ." },
+      { "collocation": "arrive late", "pattern": "verb+adv", "example_en": "He always arrives late.", "example_vi": "Anh ấy luôn đến trễ." }
+    ]
+  },
+  {
+    "headword": "arrow",
+    "meaning_vi": "mũi tên",
+    "pos": ["noun"],
+    "cefr_level": "B1",
+    "ipa_uk": "/ˈærəʊ/",
+    "ipa_us": "/ˈæroʊ/",
+    "etymology": "From Old English arwe, earh",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a thin stick with a sharp point at one end, shot from a bow",
+        "definition_vi": "mũi tên (bắn từ cung)",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "He shot an arrow at the target.", "vi": "Anh ấy bắn mũi tên vào bia." }
+        ],
+        "synonyms": ["dart", "bolt"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "a sign or symbol (→) used to show direction",
+        "definition_vi": "mũi tên (ký hiệu chỉ hướng)",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Follow the arrows to the exit.", "vi": "Đi theo mũi tên đến lối ra." }
+        ],
+        "synonyms": ["pointer", "indicator"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "arrows" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "straight as an arrow", "definition_en": "completely straight; very honest", "definition_vi": "thẳng tắp; rất trung thực", "example_en": "The road is straight as an arrow.", "example_vi": "Con đường thẳng tắp." }
+    ],
+    "collocations": [
+      { "collocation": "bow and arrow", "pattern": "noun+noun", "example_en": "He hunted with a bow and arrow.", "example_vi": "Anh ấy săn bắn bằng cung tên." }
+    ]
+  },
+  {
+    "headword": "art",
+    "meaning_vi": "nghệ thuật",
+    "pos": ["noun"],
+    "cefr_level": "A1",
+    "ipa_uk": "/ɑːt/",
+    "ipa_us": "/ɑːrt/",
+    "etymology": "From Old French art, from Latin artem ('skill, craft')",
+    "is_countable": false,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "the use of the imagination to express ideas or feelings, especially in painting, drawing, or sculpture",
+        "definition_vi": "nghệ thuật (hội họa, điêu khắc...)",
+        "grammar_note": "[uncountable]",
+        "domain": "arts",
+        "register": null,
+        "examples": [
+          { "en": "She's studying art at university.", "vi": "Cô ấy đang học nghệ thuật ở đại học." },
+          { "en": "The gallery has a fine collection of modern art.", "vi": "Phòng trưng bày có bộ sưu tập nghệ thuật hiện đại tuyệt đẹp." }
+        ],
+        "synonyms": ["artwork", "fine art"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "a skill or special ability",
+        "definition_vi": "nghệ thuật, kỹ năng khéo léo",
+        "grammar_note": "[countable, uncountable] the art of something",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Cooking is an art.", "vi": "Nấu ăn là một nghệ thuật." },
+          { "en": "She has mastered the art of negotiation.", "vi": "Cô ấy thành thạo nghệ thuật đàm phán." }
+        ],
+        "synonyms": ["craft", "skill", "talent"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "arts" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "state of the art", "definition_en": "the most modern and advanced", "definition_vi": "hiện đại nhất, tiên tiến nhất", "example_en": "The lab has state-of-the-art equipment.", "example_vi": "Phòng thí nghiệm có thiết bị tiên tiến nhất." }
+    ],
+    "collocations": [
+      { "collocation": "work of art", "pattern": "noun+prep+noun", "example_en": "The building is a work of art.", "example_vi": "Tòa nhà là một tác phẩm nghệ thuật." },
+      { "collocation": "modern art", "pattern": "adj+noun", "example_en": "She loves modern art.", "example_vi": "Cô ấy yêu thích nghệ thuật hiện đại." },
+      { "collocation": "art gallery", "pattern": "noun+noun", "example_en": "We visited the art gallery.", "example_vi": "Chúng tôi tham quan phòng trưng bày nghệ thuật." }
+    ]
+  },
+  {
+    "headword": "article",
+    "meaning_vi": "bài báo, mạo từ, điều khoản",
+    "pos": ["noun"],
+    "cefr_level": "A2",
+    "ipa_uk": "/ˈɑːtɪkl/",
+    "ipa_us": "/ˈɑːrtɪkl/",
+    "etymology": "From Old French article, from Latin articulus ('small joint, division')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a piece of writing about a subject in a newspaper, magazine, or website",
+        "definition_vi": "bài báo, bài viết",
+        "grammar_note": "[countable]",
+        "domain": "media",
+        "register": null,
+        "examples": [
+          { "en": "I read an interesting article about AI.", "vi": "Tôi đọc một bài báo thú vị về AI." },
+          { "en": "She writes articles for a science magazine.", "vi": "Cô ấy viết bài cho tạp chí khoa học." }
+        ],
+        "synonyms": ["piece", "story", "report", "column"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "a word used before a noun — 'a/an' (indefinite) or 'the' (definite)",
+        "definition_vi": "mạo từ (a, an, the)",
+        "grammar_note": "[countable]",
+        "domain": "grammar",
+        "register": "technical",
+        "examples": [
+          { "en": "'The' is the definite article in English.", "vi": "'The' là mạo từ xác định trong tiếng Anh." }
+        ],
+        "synonyms": ["determiner"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 2,
+        "definition_en": "a separate clause or item in a legal document or agreement",
+        "definition_vi": "điều khoản (trong hợp đồng, luật pháp)",
+        "grammar_note": "[countable]",
+        "domain": "law",
+        "register": "formal",
+        "examples": [
+          { "en": "Article 5 of the constitution guarantees free speech.", "vi": "Điều 5 của hiến pháp đảm bảo quyền tự do ngôn luận." }
+        ],
+        "synonyms": ["clause", "section", "provision"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "articles" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "newspaper article", "pattern": "noun+noun", "example_en": "I saw it in a newspaper article.", "example_vi": "Tôi thấy điều đó trong một bài báo." },
+      { "collocation": "write an article", "pattern": "verb+noun", "example_en": "She wrote an article about climate change.", "example_vi": "Cô ấy viết bài về biến đổi khí hậu." },
+      { "collocation": "read an article", "pattern": "verb+noun", "example_en": "Have you read the article?", "example_vi": "Bạn đã đọc bài báo chưa?" }
+    ]
+  },
+  {
+    "headword": "articulate",
+    "meaning_vi": "diễn đạt rõ ràng; hoạt ngôn",
+    "pos": ["verb", "adjective"],
+    "cefr_level": "C1",
+    "ipa_uk": "/ɑːˈtɪkjuleɪt/",
+    "ipa_us": "/ɑːrˈtɪkjuleɪt/",
+    "etymology": "From Latin articulatus ('jointed, distinct')",
+    "is_countable": null,
+    "is_transitive": true,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to express an idea or feeling clearly in words",
+        "definition_vi": "diễn đạt, trình bày rõ ràng",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "She articulated her views very clearly.", "vi": "Cô ấy trình bày quan điểm rất rõ ràng." },
+          { "en": "He struggled to articulate his feelings.", "vi": "Anh ấy khó diễn đạt cảm xúc của mình." }
+        ],
+        "synonyms": ["express", "convey", "communicate", "voice"],
+        "antonyms": ["mumble"]
+      },
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "good at expressing ideas or feelings clearly in words",
+        "definition_vi": "hoạt ngôn, diễn đạt tốt",
+        "grammar_note": null,
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "She's an articulate and confident speaker.", "vi": "Cô ấy là diễn giả hoạt ngôn và tự tin." }
+        ],
+        "synonyms": ["eloquent", "fluent", "well-spoken"],
+        "antonyms": ["inarticulate", "tongue-tied"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "articulates" },
+      { "form_type": "past_simple", "form_value": "articulated" },
+      { "form_type": "past_participle", "form_value": "articulated" },
+      { "form_type": "present_participle", "form_value": "articulating" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "clearly articulate", "pattern": "adv+verb", "example_en": "He clearly articulated his position.", "example_vi": "Anh ấy trình bày rõ ràng lập trường của mình." },
+      { "collocation": "articulate a vision", "pattern": "verb+noun", "example_en": "The CEO articulated a new vision for the company.", "example_vi": "Giám đốc trình bày tầm nhìn mới cho công ty." }
+    ]
+  }
+]

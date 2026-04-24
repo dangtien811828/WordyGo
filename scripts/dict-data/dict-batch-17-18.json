@@ -1,0 +1,1544 @@
+[
+  {
+    "headword": "attach",
+    "meaning_vi": "gắn, đính kèm",
+    "pos": ["verb"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈtætʃ/",
+    "ipa_us": "/əˈtætʃ/",
+    "etymology": "From Old French atachier ('to fasten, fix')",
+    "is_transitive": true,
+    "senses": [
+      {
+        "pos": "verb", "sense_order": 0,
+        "definition_en": "to fasten or join one thing to another",
+        "definition_vi": "gắn, đính, gài vào",
+        "grammar_note": "[transitive]",
+        "examples": [
+          { "en": "Attach the photo to your application form.", "vi": "Đính ảnh vào đơn xin việc của bạn." },
+          { "en": "She attached a label to the suitcase.", "vi": "Cô ấy gắn nhãn vào vali." }
+        ],
+        "synonyms": ["fasten", "fix", "connect", "join"],
+        "antonyms": ["detach", "remove", "separate"]
+      },
+      {
+        "pos": "verb", "sense_order": 1,
+        "definition_en": "to include a file with an email",
+        "definition_vi": "đính kèm (file, email)",
+        "grammar_note": "[transitive]",
+        "domain": "computing",
+        "examples": [
+          { "en": "I'll attach the report to this email.", "vi": "Tôi sẽ đính kèm báo cáo vào email này." }
+        ],
+        "synonyms": ["enclose", "append"],
+        "antonyms": []
+      },
+      {
+        "pos": "verb", "sense_order": 2,
+        "definition_en": "to believe something is important or valuable",
+        "definition_vi": "gắn, coi trọng (tầm quan trọng)",
+        "grammar_note": "[transitive] attach importance/value to",
+        "examples": [
+          { "en": "He attaches great importance to family.", "vi": "Anh ấy rất coi trọng gia đình." }
+        ],
+        "synonyms": ["assign", "attribute", "ascribe"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "attaches" },
+      { "form_type": "past_simple", "form_value": "attached" },
+      { "form_type": "past_participle", "form_value": "attached" },
+      { "form_type": "present_participle", "form_value": "attaching" }
+    ],
+    "phrasal_verbs": [
+      {
+        "phrasal_verb": "attach to",
+        "particle": "to",
+        "is_separable": false,
+        "definition_en": "to become connected or joined to",
+        "definition_vi": "gắn liền với",
+        "example_en": "No blame attaches to you.",
+        "example_vi": "Không có lỗi nào gắn với bạn cả."
+      }
+    ],
+    "idioms": [
+      {
+        "idiom_text": "no strings attached",
+        "definition_en": "without special conditions or restrictions",
+        "definition_vi": "không ràng buộc, không điều kiện",
+        "example_en": "They offered the money with no strings attached.",
+        "example_vi": "Họ đề nghị tiền mà không kèm điều kiện gì."
+      }
+    ],
+    "collocations": [
+      { "collocation": "attach importance", "pattern": "verb+noun", "example_en": "She attaches great importance to punctuality.", "example_vi": "Cô ấy rất coi trọng sự đúng giờ." },
+      { "collocation": "attach a file", "pattern": "verb+noun", "example_en": "Please attach a file to the email.", "example_vi": "Vui lòng đính kèm file vào email." }
+    ]
+  },
+  {
+    "headword": "attachment",
+    "meaning_vi": "sự gắn bó, file đính kèm",
+    "pos": ["noun"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˈtætʃmənt/",
+    "ipa_us": "/əˈtætʃmənt/",
+    "is_countable": true,
+    "senses": [
+      {
+        "pos": "noun", "sense_order": 0,
+        "definition_en": "a strong feeling of love or loyalty",
+        "definition_vi": "sự gắn bó, tình cảm gắn kết",
+        "grammar_note": "[countable, uncountable]",
+        "examples": [
+          { "en": "She has a deep attachment to her hometown.", "vi": "Cô ấy có sự gắn bó sâu sắc với quê hương." }
+        ],
+        "synonyms": ["bond", "connection", "affection"],
+        "antonyms": ["detachment"]
+      },
+      {
+        "pos": "noun", "sense_order": 1,
+        "definition_en": "a file sent with an email",
+        "definition_vi": "file đính kèm, tệp đính kèm",
+        "grammar_note": "[countable]",
+        "domain": "computing",
+        "examples": [
+          { "en": "I can't open the attachment.", "vi": "Tôi không mở được file đính kèm." }
+        ],
+        "synonyms": ["file", "enclosure"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "attachments" }
+    ],
+    "collocations": [
+      { "collocation": "email attachment", "pattern": "noun+noun", "example_en": "Did you check the email attachment?", "example_vi": "Bạn đã kiểm tra file đính kèm email chưa?" },
+      { "collocation": "emotional attachment", "pattern": "adj+noun", "example_en": "He has an emotional attachment to the house.", "example_vi": "Anh ấy có sự gắn bó tình cảm với ngôi nhà." }
+    ]
+  },
+  {
+    "headword": "attack",
+    "meaning_vi": "tấn công, cuộc tấn công",
+    "pos": ["verb", "noun"],
+    "cefr_level": "B1",
+    "ipa_uk": "/əˈtæk/",
+    "ipa_us": "/əˈtæk/",
+    "is_transitive": true,
+    "senses": [
+      {
+        "pos": "verb", "sense_order": 0,
+        "definition_en": "to use violence against someone or something",
+        "definition_vi": "tấn công, đánh",
+        "grammar_note": "[transitive, intransitive]",
+        "examples": [
+          { "en": "The army attacked at dawn.", "vi": "Quân đội tấn công lúc bình minh." },
+          { "en": "He was attacked by a group of men.", "vi": "Anh ta bị một nhóm người tấn công." }
+        ],
+        "synonyms": ["assault", "strike", "charge"],
+        "antonyms": ["defend", "protect", "retreat"]
+      },
+      {
+        "pos": "verb", "sense_order": 1,
+        "definition_en": "to criticize someone strongly",
+        "definition_vi": "chỉ trích, công kích",
+        "grammar_note": "[transitive]",
+        "examples": [
+          { "en": "The newspaper attacked the government's policy.", "vi": "Tờ báo chỉ trích chính sách của chính phủ." }
+        ],
+        "synonyms": ["criticize", "condemn", "denounce"],
+        "antonyms": ["praise", "support"]
+      },
+      {
+        "pos": "noun", "sense_order": 0,
+        "definition_en": "an act of using violence or force",
+        "definition_vi": "cuộc tấn công, vụ tấn công",
+        "grammar_note": "[countable]",
+        "examples": [
+          { "en": "The city was under attack.", "vi": "Thành phố đang bị tấn công." }
+        ],
+        "synonyms": ["assault", "offensive", "raid"],
+        "antonyms": ["defence", "retreat"]
+      },
+      {
+        "pos": "noun", "sense_order": 1,
+        "definition_en": "a sudden period of illness",
+        "definition_vi": "cơn (bệnh), cơn phát tác",
+        "grammar_note": "[countable]",
+        "examples": [
+          { "en": "She suffered a heart attack.", "vi": "Bà ấy bị một cơn đau tim." }
+        ],
+        "synonyms": ["fit", "bout", "episode"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "attacks" },
+      { "form_type": "past_simple", "form_value": "attacked" },
+      { "form_type": "past_participle", "form_value": "attacked" },
+      { "form_type": "present_participle", "form_value": "attacking" },
+      { "form_type": "plural", "form_value": "attacks" }
+    ],
+    "idioms": [
+      {
+        "idiom_text": "under attack",
+        "definition_en": "being attacked or criticized",
+        "definition_vi": "bị tấn công, bị chỉ trích",
+        "example_en": "The plan came under attack from all sides.",
+        "example_vi": "Kế hoạch bị chỉ trích từ mọi phía."
+      }
+    ],
+    "collocations": [
+      { "collocation": "launch an attack", "pattern": "verb+noun", "example_en": "They launched an attack on the enemy base.", "example_vi": "Họ phát động cuộc tấn công vào căn cứ địch." },
+      { "collocation": "heart attack", "pattern": "noun+noun", "example_en": "He died of a heart attack.", "example_vi": "Ông ấy chết vì cơn đau tim." },
+      { "collocation": "panic attack", "pattern": "noun+noun", "example_en": "She had a panic attack during the exam.", "example_vi": "Cô ấy bị lên cơn hoảng loạn trong kỳ thi." }
+    ]
+  },
+  {
+    "headword": "attain",
+    "meaning_vi": "đạt được",
+    "pos": ["verb"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˈteɪn/",
+    "ipa_us": "/əˈteɪn/",
+    "is_transitive": true,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "verb", "sense_order": 0,
+        "definition_en": "to succeed in reaching a goal or level",
+        "definition_vi": "đạt được, giành được (mục tiêu, trình độ)",
+        "grammar_note": "[transitive]",
+        "register": "formal",
+        "examples": [
+          { "en": "She attained the highest score in the class.", "vi": "Cô ấy đạt điểm cao nhất lớp." },
+          { "en": "He attained the rank of captain.", "vi": "Anh ấy đạt cấp bậc đại úy." }
+        ],
+        "synonyms": ["achieve", "reach", "accomplish", "gain"],
+        "antonyms": ["fail", "lose"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "attains" },
+      { "form_type": "past_simple", "form_value": "attained" },
+      { "form_type": "past_participle", "form_value": "attained" },
+      { "form_type": "present_participle", "form_value": "attaining" }
+    ],
+    "collocations": [
+      { "collocation": "attain a goal", "pattern": "verb+noun", "example_en": "We attained our goal ahead of schedule.", "example_vi": "Chúng tôi đạt mục tiêu trước thời hạn." }
+    ]
+  },
+  {
+    "headword": "attempt",
+    "meaning_vi": "cố gắng, nỗ lực",
+    "pos": ["verb", "noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈtempt/",
+    "ipa_us": "/əˈtempt/",
+    "is_transitive": true,
+    "senses": [
+      {
+        "pos": "verb", "sense_order": 0,
+        "definition_en": "to try to do something, especially something difficult",
+        "definition_vi": "cố gắng, thử làm",
+        "grammar_note": "[transitive]",
+        "examples": [
+          { "en": "He attempted to climb the mountain.", "vi": "Anh ấy cố gắng leo núi." },
+          { "en": "Don't attempt this at home.", "vi": "Đừng thử làm điều này ở nhà." }
+        ],
+        "synonyms": ["try", "endeavour", "strive"],
+        "antonyms": ["abandon", "give up"]
+      },
+      {
+        "pos": "noun", "sense_order": 0,
+        "definition_en": "an act of trying to do something",
+        "definition_vi": "nỗ lực, lần thử",
+        "grammar_note": "[countable]",
+        "examples": [
+          { "en": "This is my third attempt at passing the test.", "vi": "Đây là lần thử thứ ba của tôi để đậu bài kiểm tra." }
+        ],
+        "synonyms": ["try", "effort", "endeavour"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "attempts" },
+      { "form_type": "past_simple", "form_value": "attempted" },
+      { "form_type": "past_participle", "form_value": "attempted" },
+      { "form_type": "present_participle", "form_value": "attempting" },
+      { "form_type": "plural", "form_value": "attempts" }
+    ],
+    "collocations": [
+      { "collocation": "make an attempt", "pattern": "verb+noun", "example_en": "She made an attempt to apologize.", "example_vi": "Cô ấy đã cố gắng xin lỗi." },
+      { "collocation": "failed attempt", "pattern": "adj+noun", "example_en": "After several failed attempts, he succeeded.", "example_vi": "Sau nhiều lần thất bại, anh ấy đã thành công." }
+    ]
+  },
+  {
+    "headword": "attend",
+    "meaning_vi": "tham dự, tham gia",
+    "pos": ["verb"],
+    "cefr_level": "B1",
+    "ipa_uk": "/əˈtend/",
+    "ipa_us": "/əˈtend/",
+    "is_transitive": true,
+    "senses": [
+      {
+        "pos": "verb", "sense_order": 0,
+        "definition_en": "to be present at an event or activity",
+        "definition_vi": "tham dự, có mặt",
+        "grammar_note": "[transitive, intransitive]",
+        "examples": [
+          { "en": "Over 500 people attended the conference.", "vi": "Hơn 500 người tham dự hội nghị." },
+          { "en": "She attends church every Sunday.", "vi": "Cô ấy đi nhà thờ mỗi Chủ nhật." }
+        ],
+        "synonyms": ["go to", "be present at", "show up"],
+        "antonyms": ["miss", "skip", "absent"]
+      },
+      {
+        "pos": "verb", "sense_order": 1,
+        "definition_en": "to go regularly to a school or place",
+        "definition_vi": "theo học, đi học",
+        "grammar_note": "[transitive]",
+        "examples": [
+          { "en": "He attends a school in the city centre.", "vi": "Anh ấy theo học tại một trường ở trung tâm thành phố." }
+        ],
+        "synonyms": ["go to", "enrol in"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "attends" },
+      { "form_type": "past_simple", "form_value": "attended" },
+      { "form_type": "past_participle", "form_value": "attended" },
+      { "form_type": "present_participle", "form_value": "attending" }
+    ],
+    "phrasal_verbs": [
+      {
+        "phrasal_verb": "attend to",
+        "particle": "to",
+        "is_separable": false,
+        "definition_en": "to deal with something; to take care of",
+        "definition_vi": "giải quyết, chăm sóc",
+        "example_en": "I have some urgent business to attend to.",
+        "example_vi": "Tôi có vài việc khẩn cần giải quyết."
+      }
+    ],
+    "collocations": [
+      { "collocation": "attend a meeting", "pattern": "verb+noun", "example_en": "All staff must attend the meeting.", "example_vi": "Tất cả nhân viên phải tham dự cuộc họp." },
+      { "collocation": "attend a funeral", "pattern": "verb+noun", "example_en": "We attended his funeral last week.", "example_vi": "Chúng tôi dự đám tang của anh ấy tuần trước." }
+    ]
+  },
+  {
+    "headword": "attendance",
+    "meaning_vi": "sự tham dự, số người dự",
+    "pos": ["noun"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˈtendəns/",
+    "ipa_us": "/əˈtendəns/",
+    "is_countable": false,
+    "senses": [
+      {
+        "pos": "noun", "sense_order": 0,
+        "definition_en": "the act of being present at a place",
+        "definition_vi": "sự tham dự, sự có mặt",
+        "grammar_note": "[uncountable]",
+        "examples": [
+          { "en": "Attendance at the meeting is compulsory.", "vi": "Việc tham dự cuộc họp là bắt buộc." }
+        ],
+        "synonyms": ["presence", "participation"],
+        "antonyms": ["absence"]
+      },
+      {
+        "pos": "noun", "sense_order": 1,
+        "definition_en": "the number of people present",
+        "definition_vi": "số người tham dự",
+        "grammar_note": "[countable, uncountable]",
+        "examples": [
+          { "en": "The attendance at the match was 40,000.", "vi": "Số người dự trận đấu là 40.000." }
+        ],
+        "synonyms": ["turnout"],
+        "antonyms": []
+      }
+    ],
+    "collocations": [
+      { "collocation": "school attendance", "pattern": "noun+noun", "example_en": "School attendance has improved this year.", "example_vi": "Tỉ lệ đi học đã cải thiện năm nay." },
+      { "collocation": "attendance record", "pattern": "noun+noun", "example_en": "She has a perfect attendance record.", "example_vi": "Cô ấy có thành tích chuyên cần hoàn hảo." }
+    ]
+  },
+  {
+    "headword": "attention",
+    "meaning_vi": "sự chú ý",
+    "pos": ["noun"],
+    "cefr_level": "A2",
+    "ipa_uk": "/əˈtenʃn/",
+    "ipa_us": "/əˈtenʃn/",
+    "is_countable": false,
+    "senses": [
+      {
+        "pos": "noun", "sense_order": 0,
+        "definition_en": "the act of listening to or watching carefully",
+        "definition_vi": "sự chú ý, sự tập trung",
+        "grammar_note": "[uncountable]",
+        "examples": [
+          { "en": "Pay attention to what I'm saying.", "vi": "Hãy chú ý đến những gì tôi nói." },
+          { "en": "She tried to attract his attention.", "vi": "Cô ấy cố thu hút sự chú ý của anh ta." }
+        ],
+        "synonyms": ["focus", "concentration", "notice"],
+        "antonyms": ["inattention", "neglect", "distraction"]
+      }
+    ],
+    "idioms": [
+      {
+        "idiom_text": "pay attention",
+        "definition_en": "to watch or listen carefully",
+        "definition_vi": "chú ý, lắng nghe",
+        "example_en": "Pay attention! This is important.",
+        "example_vi": "Chú ý! Đây là điều quan trọng."
+      },
+      {
+        "idiom_text": "draw attention to",
+        "definition_en": "to make people notice something",
+        "definition_vi": "thu hút sự chú ý, lưu ý đến",
+        "example_en": "The report draws attention to rising costs.",
+        "example_vi": "Báo cáo lưu ý đến chi phí tăng cao."
+      }
+    ],
+    "collocations": [
+      { "collocation": "attract attention", "pattern": "verb+noun", "example_en": "The noise attracted everyone's attention.", "example_vi": "Tiếng ồn thu hút sự chú ý của mọi người." },
+      { "collocation": "close attention", "pattern": "adj+noun", "example_en": "Pay close attention to the details.", "example_vi": "Hãy chú ý kỹ đến chi tiết." },
+      { "collocation": "attention span", "pattern": "noun+noun", "example_en": "Children have a short attention span.", "example_vi": "Trẻ em có khoảng tập trung ngắn." }
+    ]
+  },
+  {
+    "headword": "attitude",
+    "meaning_vi": "thái độ",
+    "pos": ["noun"],
+    "cefr_level": "B1",
+    "ipa_uk": "/ˈætɪtjuːd/",
+    "ipa_us": "/ˈætɪtuːd/",
+    "is_countable": true,
+    "senses": [
+      {
+        "pos": "noun", "sense_order": 0,
+        "definition_en": "the way you think and feel about something",
+        "definition_vi": "thái độ, quan điểm",
+        "grammar_note": "[countable]",
+        "examples": [
+          { "en": "She has a positive attitude towards life.", "vi": "Cô ấy có thái độ tích cực với cuộc sống." },
+          { "en": "His attitude to work needs to change.", "vi": "Thái độ làm việc của anh ta cần thay đổi." }
+        ],
+        "synonyms": ["mindset", "outlook", "approach", "mentality"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "attitudes" }
+    ],
+    "collocations": [
+      { "collocation": "positive attitude", "pattern": "adj+noun", "example_en": "Keep a positive attitude.", "example_vi": "Hãy giữ thái độ tích cực." },
+      { "collocation": "change your attitude", "pattern": "verb+noun", "example_en": "You need to change your attitude.", "example_vi": "Bạn cần thay đổi thái độ." }
+    ]
+  },
+  {
+    "headword": "attorney",
+    "meaning_vi": "luật sư",
+    "pos": ["noun"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˈtɜːni/",
+    "ipa_us": "/əˈtɜːrni/",
+    "is_countable": true,
+    "senses": [
+      {
+        "pos": "noun", "sense_order": 0,
+        "definition_en": "a lawyer, especially one who represents someone in court",
+        "definition_vi": "luật sư",
+        "grammar_note": "[countable]",
+        "examples": [
+          { "en": "She hired an attorney to handle the case.", "vi": "Cô ấy thuê một luật sư để xử lý vụ kiện." }
+        ],
+        "synonyms": ["lawyer", "counsel", "solicitor", "barrister"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "attorneys" }
+    ],
+    "collocations": [
+      { "collocation": "defense attorney", "pattern": "noun+noun", "example_en": "The defense attorney argued the case.", "example_vi": "Luật sư bào chữa tranh luận vụ án." },
+      { "collocation": "district attorney", "pattern": "noun+noun", "example_en": "The district attorney filed charges.", "example_vi": "Công tố viên quận đã nộp đơn truy tố." }
+    ]
+  },
+  {
+    "headword": "attract",
+    "meaning_vi": "thu hút, hấp dẫn",
+    "pos": ["verb"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈtrækt/",
+    "ipa_us": "/əˈtrækt/",
+    "is_transitive": true,
+    "senses": [
+      {
+        "pos": "verb", "sense_order": 0,
+        "definition_en": "to make someone interested or draw their attention",
+        "definition_vi": "thu hút, lôi cuốn",
+        "grammar_note": "[transitive]",
+        "examples": [
+          { "en": "The city attracts millions of tourists every year.", "vi": "Thành phố thu hút hàng triệu du khách mỗi năm." },
+          { "en": "What attracted you to this job?", "vi": "Điều gì thu hút bạn đến công việc này?" }
+        ],
+        "synonyms": ["draw", "appeal to", "lure", "entice"],
+        "antonyms": ["repel", "repulse", "deter"]
+      },
+      {
+        "pos": "verb", "sense_order": 1,
+        "definition_en": "to cause a physical force that pulls things together",
+        "definition_vi": "hút (lực vật lý)",
+        "grammar_note": "[transitive]",
+        "domain": "physics",
+        "examples": [
+          { "en": "Magnets attract iron.", "vi": "Nam châm hút sắt." }
+        ],
+        "synonyms": ["pull", "draw"],
+        "antonyms": ["repel"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "attracts" },
+      { "form_type": "past_simple", "form_value": "attracted" },
+      { "form_type": "past_participle", "form_value": "attracted" },
+      { "form_type": "present_participle", "form_value": "attracting" }
+    ],
+    "collocations": [
+      { "collocation": "attract attention", "pattern": "verb+noun", "example_en": "Her bright dress attracted a lot of attention.", "example_vi": "Chiếc váy sáng màu của cô ấy thu hút nhiều sự chú ý." },
+      { "collocation": "attract investment", "pattern": "verb+noun", "example_en": "The country needs to attract foreign investment.", "example_vi": "Đất nước cần thu hút đầu tư nước ngoài." }
+    ]
+  },
+  {
+    "headword": "attraction",
+    "meaning_vi": "sức hút, điểm tham quan",
+    "pos": ["noun"],
+    "cefr_level": "B1",
+    "ipa_uk": "/əˈtrækʃn/",
+    "ipa_us": "/əˈtrækʃn/",
+    "is_countable": true,
+    "senses": [
+      {
+        "pos": "noun", "sense_order": 0,
+        "definition_en": "a feeling of liking or being interested in someone",
+        "definition_vi": "sức hấp dẫn, sự thu hút",
+        "grammar_note": "[uncountable, countable]",
+        "examples": [
+          { "en": "She felt an immediate attraction to him.", "vi": "Cô ấy cảm thấy bị thu hút ngay lập tức bởi anh ta." }
+        ],
+        "synonyms": ["appeal", "charm", "allure"],
+        "antonyms": ["repulsion"]
+      },
+      {
+        "pos": "noun", "sense_order": 1,
+        "definition_en": "an interesting place to visit or thing to do",
+        "definition_vi": "điểm tham quan, điểm thu hút",
+        "grammar_note": "[countable]",
+        "examples": [
+          { "en": "The Eiffel Tower is a major tourist attraction.", "vi": "Tháp Eiffel là một điểm thu hút du khách lớn." }
+        ],
+        "synonyms": ["sight", "landmark", "destination"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "attractions" }
+    ],
+    "collocations": [
+      { "collocation": "tourist attraction", "pattern": "noun+noun", "example_en": "The temple is a popular tourist attraction.", "example_vi": "Ngôi đền là một điểm du lịch phổ biến." },
+      { "collocation": "main attraction", "pattern": "adj+noun", "example_en": "The main attraction was the fireworks.", "example_vi": "Điểm nhấn chính là pháo hoa." }
+    ]
+  },
+  {
+    "headword": "attractive",
+    "meaning_vi": "hấp dẫn, đẹp",
+    "pos": ["adjective"],
+    "cefr_level": "B1",
+    "ipa_uk": "/əˈtræktɪv/",
+    "ipa_us": "/əˈtræktɪv/",
+    "senses": [
+      {
+        "pos": "adjective", "sense_order": 0,
+        "definition_en": "pleasant to look at; beautiful",
+        "definition_vi": "hấp dẫn, đẹp, quyến rũ",
+        "examples": [
+          { "en": "She's a very attractive woman.", "vi": "Cô ấy là một phụ nữ rất hấp dẫn." }
+        ],
+        "synonyms": ["beautiful", "good-looking", "handsome", "appealing"],
+        "antonyms": ["unattractive", "ugly", "plain"]
+      },
+      {
+        "pos": "adjective", "sense_order": 1,
+        "definition_en": "interesting or appealing",
+        "definition_vi": "hấp dẫn, thu hút (ý tưởng, đề nghị)",
+        "examples": [
+          { "en": "It's an attractive offer.", "vi": "Đó là một đề nghị hấp dẫn." }
+        ],
+        "synonyms": ["appealing", "tempting", "inviting"],
+        "antonyms": ["unappealing"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "comparative", "form_value": "more attractive" },
+      { "form_type": "superlative", "form_value": "most attractive" }
+    ],
+    "collocations": [
+      { "collocation": "physically attractive", "pattern": "adv+adj", "example_en": "He is physically attractive.", "example_vi": "Anh ấy có ngoại hình hấp dẫn." },
+      { "collocation": "attractive offer", "pattern": "adj+noun", "example_en": "They made us an attractive offer.", "example_vi": "Họ đưa ra cho chúng tôi một đề nghị hấp dẫn." }
+    ]
+  },
+  {
+    "headword": "attribute",
+    "meaning_vi": "thuộc tính; quy cho",
+    "pos": ["noun", "verb"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ˈætrɪbjuːt/",
+    "ipa_us": "/ˈætrɪbjuːt/",
+    "senses": [
+      {
+        "pos": "noun", "sense_order": 0,
+        "definition_en": "a quality or feature of someone or something",
+        "definition_vi": "thuộc tính, đặc điểm, phẩm chất",
+        "grammar_note": "[countable]",
+        "examples": [
+          { "en": "Patience is an important attribute for a teacher.", "vi": "Kiên nhẫn là phẩm chất quan trọng của giáo viên." }
+        ],
+        "synonyms": ["quality", "characteristic", "feature", "trait"],
+        "antonyms": []
+      },
+      {
+        "pos": "verb", "sense_order": 0,
+        "definition_en": "to say something is caused by or belongs to someone",
+        "definition_vi": "quy cho, gán cho",
+        "grammar_note": "[transitive] attribute sth to",
+        "examples": [
+          { "en": "She attributes her success to hard work.", "vi": "Cô ấy quy thành công của mình cho sự chăm chỉ." }
+        ],
+        "synonyms": ["ascribe", "credit", "assign"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "attributes" },
+      { "form_type": "third_person_singular", "form_value": "attributes" },
+      { "form_type": "past_simple", "form_value": "attributed" },
+      { "form_type": "past_participle", "form_value": "attributed" },
+      { "form_type": "present_participle", "form_value": "attributing" }
+    ],
+    "collocations": [
+      { "collocation": "attribute to", "pattern": "verb+prep", "example_en": "The painting is attributed to Picasso.", "example_vi": "Bức tranh được cho là của Picasso." }
+    ]
+  },
+  {
+    "headword": "auction",
+    "meaning_vi": "đấu giá, cuộc đấu giá",
+    "pos": ["noun", "verb"],
+    "cefr_level": "C1",
+    "ipa_uk": "/ˈɔːkʃn/",
+    "ipa_us": "/ˈɑːkʃn/",
+    "senses": [
+      {
+        "pos": "noun", "sense_order": 0,
+        "definition_en": "a public sale where things are sold to the person who offers the most money",
+        "definition_vi": "cuộc đấu giá, phiên đấu giá",
+        "grammar_note": "[countable, uncountable]",
+        "examples": [
+          { "en": "The painting was sold at auction for $1 million.", "vi": "Bức tranh được bán đấu giá với giá 1 triệu đô la." }
+        ],
+        "synonyms": ["sale", "bidding"],
+        "antonyms": []
+      },
+      {
+        "pos": "verb", "sense_order": 0,
+        "definition_en": "to sell something at an auction",
+        "definition_vi": "bán đấu giá",
+        "grammar_note": "[transitive]",
+        "examples": [
+          { "en": "The house will be auctioned next month.", "vi": "Ngôi nhà sẽ được bán đấu giá vào tháng tới." }
+        ],
+        "synonyms": ["sell"],
+        "antonyms": ["buy"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "auctions" },
+      { "form_type": "third_person_singular", "form_value": "auctions" },
+      { "form_type": "past_simple", "form_value": "auctioned" },
+      { "form_type": "past_participle", "form_value": "auctioned" },
+      { "form_type": "present_participle", "form_value": "auctioning" }
+    ],
+    "phrasal_verbs": [
+      {
+        "phrasal_verb": "auction off",
+        "particle": "off",
+        "is_separable": true,
+        "definition_en": "to sell something at an auction",
+        "definition_vi": "bán đấu giá hết",
+        "example_en": "They auctioned off the old furniture.",
+        "example_vi": "Họ bán đấu giá hết đồ nội thất cũ."
+      }
+    ],
+    "collocations": [
+      { "collocation": "put up for auction", "pattern": "verb+prep", "example_en": "The estate was put up for auction.", "example_vi": "Bất động sản được đưa ra bán đấu giá." }
+    ]
+  },
+  {
+    "headword": "audience",
+    "meaning_vi": "khán giả, người xem",
+    "pos": ["noun"],
+    "cefr_level": "A2",
+    "ipa_uk": "/ˈɔːdiəns/",
+    "ipa_us": "/ˈɑːdiəns/",
+    "is_countable": true,
+    "senses": [
+      {
+        "pos": "noun", "sense_order": 0,
+        "definition_en": "the group of people watching or listening to a performance, speech, etc.",
+        "definition_vi": "khán giả, thính giả",
+        "grammar_note": "[countable + singular or plural verb]",
+        "examples": [
+          { "en": "The audience applauded loudly.", "vi": "Khán giả vỗ tay nhiệt liệt." },
+          { "en": "He spoke to an audience of 500 people.", "vi": "Ông ấy nói chuyện trước 500 khán giả." }
+        ],
+        "synonyms": ["spectators", "viewers", "listeners", "crowd"],
+        "antonyms": ["performer"]
+      },
+      {
+        "pos": "noun", "sense_order": 1,
+        "definition_en": "the people who read, watch, or listen to something",
+        "definition_vi": "đối tượng, người xem/đọc",
+        "grammar_note": "[countable]",
+        "examples": [
+          { "en": "The book is aimed at a young audience.", "vi": "Cuốn sách nhắm đến đối tượng trẻ." }
+        ],
+        "synonyms": ["readership", "public"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "audiences" }
+    ],
+    "collocations": [
+      { "collocation": "target audience", "pattern": "noun+noun", "example_en": "Who is the target audience?", "example_vi": "Đối tượng mục tiêu là ai?" },
+      { "collocation": "live audience", "pattern": "adj+noun", "example_en": "The show was filmed before a live audience.", "example_vi": "Chương trình được quay trước khán giả trực tiếp." }
+    ]
+  },
+  {
+    "headword": "audio",
+    "meaning_vi": "âm thanh, audio",
+    "pos": ["adjective", "noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ˈɔːdiəʊ/",
+    "ipa_us": "/ˈɑːdiəʊ/",
+    "senses": [
+      {
+        "pos": "adjective", "sense_order": 0,
+        "definition_en": "connected with sound and the recording of sound",
+        "definition_vi": "thuộc về âm thanh",
+        "examples": [
+          { "en": "The audio quality is excellent.", "vi": "Chất lượng âm thanh rất tuyệt vời." }
+        ],
+        "synonyms": ["sound", "sonic"],
+        "antonyms": ["visual", "video"]
+      },
+      {
+        "pos": "noun", "sense_order": 0,
+        "definition_en": "sound, especially recorded sound",
+        "definition_vi": "âm thanh, audio",
+        "grammar_note": "[uncountable]",
+        "examples": [
+          { "en": "The audio was recorded in a studio.", "vi": "Âm thanh được thu trong phòng thu." }
+        ],
+        "synonyms": ["sound", "recording"],
+        "antonyms": []
+      }
+    ],
+    "collocations": [
+      { "collocation": "audio file", "pattern": "noun+noun", "example_en": "Download the audio file.", "example_vi": "Tải file âm thanh xuống." },
+      { "collocation": "audio equipment", "pattern": "noun+noun", "example_en": "They bought new audio equipment.", "example_vi": "Họ mua thiết bị âm thanh mới." }
+    ]
+  },
+  {
+    "headword": "audit",
+    "meaning_vi": "kiểm toán",
+    "pos": ["noun", "verb"],
+    "cefr_level": "C1",
+    "ipa_uk": "/ˈɔːdɪt/",
+    "ipa_us": "/ˈɑːdɪt/",
+    "senses": [
+      {
+        "pos": "noun", "sense_order": 0,
+        "definition_en": "an official examination of financial records",
+        "definition_vi": "cuộc kiểm toán",
+        "grammar_note": "[countable]",
+        "examples": [
+          { "en": "The company is undergoing an audit.", "vi": "Công ty đang trải qua cuộc kiểm toán." }
+        ],
+        "synonyms": ["examination", "inspection", "review"],
+        "antonyms": []
+      },
+      {
+        "pos": "verb", "sense_order": 0,
+        "definition_en": "to officially examine financial records",
+        "definition_vi": "kiểm toán",
+        "grammar_note": "[transitive]",
+        "examples": [
+          { "en": "The accounts are audited every year.", "vi": "Sổ sách được kiểm toán hàng năm." }
+        ],
+        "synonyms": ["examine", "inspect", "review"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "audits" },
+      { "form_type": "third_person_singular", "form_value": "audits" },
+      { "form_type": "past_simple", "form_value": "audited" },
+      { "form_type": "past_participle", "form_value": "audited" },
+      { "form_type": "present_participle", "form_value": "auditing" }
+    ],
+    "collocations": [
+      { "collocation": "financial audit", "pattern": "adj+noun", "example_en": "A financial audit revealed the fraud.", "example_vi": "Cuộc kiểm toán tài chính phát hiện gian lận." },
+      { "collocation": "conduct an audit", "pattern": "verb+noun", "example_en": "They conducted an audit of the department.", "example_vi": "Họ tiến hành kiểm toán phòng ban." }
+    ]
+  },
+  {
+    "headword": "August",
+    "meaning_vi": "tháng Tám",
+    "pos": ["noun"],
+    "cefr_level": "A1",
+    "ipa_uk": "/ˈɔːɡəst/",
+    "ipa_us": "/ˈɑːɡəst/",
+    "is_countable": false,
+    "senses": [
+      {
+        "pos": "noun", "sense_order": 0,
+        "definition_en": "the 8th month of the year",
+        "definition_vi": "tháng Tám",
+        "examples": [
+          { "en": "My birthday is in August.", "vi": "Sinh nhật tôi vào tháng Tám." }
+        ],
+        "synonyms": [],
+        "antonyms": []
+      }
+    ]
+  },
+  {
+    "headword": "aunt",
+    "meaning_vi": "cô, dì, bác gái",
+    "pos": ["noun"],
+    "cefr_level": "A1",
+    "ipa_uk": "/ɑːnt/",
+    "ipa_us": "/ænt/",
+    "is_countable": true,
+    "senses": [
+      {
+        "pos": "noun", "sense_order": 0,
+        "definition_en": "the sister of your father or mother, or the wife of your uncle",
+        "definition_vi": "cô, dì, bác gái, thím",
+        "grammar_note": "[countable]",
+        "examples": [
+          { "en": "I visited my aunt in Hanoi.", "vi": "Tôi đến thăm cô ở Hà Nội." },
+          { "en": "Aunt Mary is coming for dinner.", "vi": "Dì Mary sẽ đến ăn tối." }
+        ],
+        "synonyms": ["auntie"],
+        "antonyms": ["uncle"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "aunts" }
+    ]
+  },
+  {
+    "headword": "authentic",
+    "meaning_vi": "chính gốc, xác thực",
+    "pos": ["adjective"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ɔːˈθentɪk/",
+    "ipa_us": "/ɑːˈθentɪk/",
+    "senses": [
+      {
+        "pos": "adjective", "sense_order": 0,
+        "definition_en": "known to be real and genuine, not fake",
+        "definition_vi": "chính gốc, xác thực, thật",
+        "examples": [
+          { "en": "Is this painting authentic?", "vi": "Bức tranh này có phải hàng thật không?" },
+          { "en": "The restaurant serves authentic Vietnamese food.", "vi": "Nhà hàng phục vụ đồ ăn Việt Nam chính gốc." }
+        ],
+        "synonyms": ["genuine", "real", "original", "true"],
+        "antonyms": ["fake", "counterfeit", "false"]
+      }
+    ],
+    "collocations": [
+      { "collocation": "authentic experience", "pattern": "adj+noun", "example_en": "We wanted an authentic experience.", "example_vi": "Chúng tôi muốn trải nghiệm chân thực." }
+    ]
+  },
+  {
+    "headword": "author",
+    "meaning_vi": "tác giả",
+    "pos": ["noun"],
+    "cefr_level": "A2",
+    "ipa_uk": "/ˈɔːθə(r)/",
+    "ipa_us": "/ˈɑːθər/",
+    "is_countable": true,
+    "senses": [
+      {
+        "pos": "noun", "sense_order": 0,
+        "definition_en": "a person who writes books or articles",
+        "definition_vi": "tác giả, nhà văn",
+        "grammar_note": "[countable]",
+        "examples": [
+          { "en": "She is the author of three best-selling novels.", "vi": "Cô ấy là tác giả của ba cuốn tiểu thuyết bán chạy." },
+          { "en": "Who is your favourite author?", "vi": "Tác giả yêu thích của bạn là ai?" }
+        ],
+        "synonyms": ["writer", "novelist", "playwright"],
+        "antonyms": ["reader"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "authors" }
+    ],
+    "collocations": [
+      { "collocation": "best-selling author", "pattern": "adj+noun", "example_en": "He is a best-selling author.", "example_vi": "Ông ấy là tác giả bán chạy nhất." }
+    ]
+  },
+  {
+    "headword": "authority",
+    "meaning_vi": "quyền lực, cơ quan chức năng",
+    "pos": ["noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ɔːˈθɒrəti/",
+    "ipa_us": "/əˈθɔːrəti/",
+    "is_countable": true,
+    "senses": [
+      {
+        "pos": "noun", "sense_order": 0,
+        "definition_en": "the power or right to give orders and make decisions",
+        "definition_vi": "quyền lực, quyền hạn, thẩm quyền",
+        "grammar_note": "[uncountable]",
+        "examples": [
+          { "en": "She has the authority to make decisions.", "vi": "Cô ấy có quyền đưa ra quyết định." }
+        ],
+        "synonyms": ["power", "control", "command"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun", "sense_order": 1,
+        "definition_en": "a person or organization with official power",
+        "definition_vi": "nhà chức trách, cơ quan chức năng",
+        "grammar_note": "[countable, usually plural]",
+        "examples": [
+          { "en": "The authorities are investigating the case.", "vi": "Nhà chức trách đang điều tra vụ việc." },
+          { "en": "Contact the local authority for more information.", "vi": "Liên hệ cơ quan địa phương để biết thêm." }
+        ],
+        "synonyms": ["official", "government body"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun", "sense_order": 2,
+        "definition_en": "an expert on a subject",
+        "definition_vi": "chuyên gia, nhà chuyên môn",
+        "grammar_note": "[countable] authority on",
+        "examples": [
+          { "en": "He is an authority on medieval history.", "vi": "Ông ấy là chuyên gia về lịch sử trung cổ." }
+        ],
+        "synonyms": ["expert", "specialist"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "authorities" }
+    ],
+    "collocations": [
+      { "collocation": "local authority", "pattern": "adj+noun", "example_en": "The local authority approved the plan.", "example_vi": "Chính quyền địa phương phê duyệt kế hoạch." },
+      { "collocation": "have authority", "pattern": "verb+noun", "example_en": "Only the manager has authority to sign.", "example_vi": "Chỉ quản lý mới có quyền ký." }
+    ]
+  },
+  {
+    "headword": "authorize",
+    "meaning_vi": "cho phép, ủy quyền",
+    "pos": ["verb"],
+    "cefr_level": "C1",
+    "ipa_uk": "/ˈɔːθəraɪz/",
+    "ipa_us": "/ˈɑːθəraɪz/",
+    "is_transitive": true,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "verb", "sense_order": 0,
+        "definition_en": "to give official permission for something",
+        "definition_vi": "cho phép, ủy quyền, phê duyệt",
+        "grammar_note": "[transitive]",
+        "register": "formal",
+        "examples": [
+          { "en": "The government authorized the use of force.", "vi": "Chính phủ cho phép sử dụng vũ lực." },
+          { "en": "Only the director can authorize this payment.", "vi": "Chỉ giám đốc mới có thể phê duyệt khoản thanh toán này." }
+        ],
+        "synonyms": ["permit", "approve", "sanction", "allow"],
+        "antonyms": ["prohibit", "forbid", "ban"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "authorizes" },
+      { "form_type": "past_simple", "form_value": "authorized" },
+      { "form_type": "past_participle", "form_value": "authorized" },
+      { "form_type": "present_participle", "form_value": "authorizing" }
+    ]
+  },
+  {
+    "headword": "auto",
+    "meaning_vi": "ô tô, xe hơi; tự động",
+    "pos": ["noun", "adjective"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ˈɔːtəʊ/",
+    "ipa_us": "/ˈɑːtoʊ/",
+    "senses": [
+      {
+        "pos": "noun", "sense_order": 0,
+        "definition_en": "a car",
+        "definition_vi": "ô tô, xe hơi",
+        "grammar_note": "[countable]",
+        "examples": [
+          { "en": "The auto industry is growing.", "vi": "Ngành công nghiệp ô tô đang phát triển." }
+        ],
+        "synonyms": ["car", "automobile", "vehicle"],
+        "antonyms": []
+      },
+      {
+        "pos": "adjective", "sense_order": 0,
+        "definition_en": "relating to cars or operating by itself",
+        "definition_vi": "tự động, thuộc ô tô",
+        "examples": [
+          { "en": "The camera has an auto focus feature.", "vi": "Máy ảnh có tính năng lấy nét tự động." }
+        ],
+        "synonyms": ["automatic"],
+        "antonyms": ["manual"]
+      }
+    ],
+    "collocations": [
+      { "collocation": "auto industry", "pattern": "noun+noun", "example_en": "The auto industry employs millions.", "example_vi": "Ngành công nghiệp ô tô tạo việc làm cho hàng triệu người." }
+    ]
+  },
+  {
+    "headword": "automatic",
+    "meaning_vi": "tự động",
+    "pos": ["adjective"],
+    "cefr_level": "B1",
+    "ipa_uk": "/ˌɔːtəˈmætɪk/",
+    "ipa_us": "/ˌɑːtəˈmætɪk/",
+    "senses": [
+      {
+        "pos": "adjective", "sense_order": 0,
+        "definition_en": "working by itself without human control",
+        "definition_vi": "tự động (máy móc)",
+        "examples": [
+          { "en": "The doors are automatic.", "vi": "Cửa mở tự động." },
+          { "en": "She drives an automatic car.", "vi": "Cô ấy lái xe số tự động." }
+        ],
+        "synonyms": ["automated", "self-operating", "mechanical"],
+        "antonyms": ["manual", "hand-operated"]
+      },
+      {
+        "pos": "adjective", "sense_order": 1,
+        "definition_en": "done without thinking",
+        "definition_vi": "tự động, máy móc (phản ứng)",
+        "examples": [
+          { "en": "Breathing is an automatic process.", "vi": "Hô hấp là quá trình tự động." }
+        ],
+        "synonyms": ["instinctive", "involuntary", "reflexive"],
+        "antonyms": ["deliberate", "conscious"]
+      }
+    ],
+    "collocations": [
+      { "collocation": "automatic pilot", "pattern": "adj+noun", "example_en": "The plane was on automatic pilot.", "example_vi": "Máy bay đang ở chế độ lái tự động." },
+      { "collocation": "automatic transmission", "pattern": "adj+noun", "example_en": "The car has automatic transmission.", "example_vi": "Xe có hộp số tự động." }
+    ]
+  },
+  {
+    "headword": "automatically",
+    "meaning_vi": "tự động, một cách tự động",
+    "pos": ["adverb"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ˌɔːtəˈmætɪkli/",
+    "ipa_us": "/ˌɑːtəˈmætɪkli/",
+    "senses": [
+      {
+        "pos": "adverb", "sense_order": 0,
+        "definition_en": "by itself, without human action",
+        "definition_vi": "tự động, một cách tự động",
+        "examples": [
+          { "en": "The light turns on automatically.", "vi": "Đèn bật tự động." },
+          { "en": "Data is automatically saved every 5 minutes.", "vi": "Dữ liệu được tự động lưu mỗi 5 phút." }
+        ],
+        "synonyms": ["by itself", "mechanically"],
+        "antonyms": ["manually"]
+      }
+    ]
+  },
+  {
+    "headword": "autonomy",
+    "meaning_vi": "quyền tự chủ, tự trị",
+    "pos": ["noun"],
+    "cefr_level": "C1",
+    "ipa_uk": "/ɔːˈtɒnəmi/",
+    "ipa_us": "/ɔːˈtɑːnəmi/",
+    "is_countable": false,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "noun", "sense_order": 0,
+        "definition_en": "the freedom for a country, region, or organization to govern itself",
+        "definition_vi": "quyền tự trị, quyền tự chủ",
+        "grammar_note": "[uncountable]",
+        "register": "formal",
+        "examples": [
+          { "en": "The region was granted autonomy.", "vi": "Vùng này được trao quyền tự trị." },
+          { "en": "Teachers should have more autonomy.", "vi": "Giáo viên nên có nhiều quyền tự chủ hơn." }
+        ],
+        "synonyms": ["independence", "self-governance", "freedom"],
+        "antonyms": ["dependence", "subordination"]
+      }
+    ],
+    "collocations": [
+      { "collocation": "regional autonomy", "pattern": "adj+noun", "example_en": "They demanded regional autonomy.", "example_vi": "Họ yêu cầu quyền tự trị khu vực." }
+    ]
+  },
+  {
+    "headword": "autumn",
+    "meaning_vi": "mùa thu",
+    "pos": ["noun"],
+    "cefr_level": "A2",
+    "ipa_uk": "/ˈɔːtəm/",
+    "ipa_us": "/ˈɑːtəm/",
+    "is_countable": true,
+    "senses": [
+      {
+        "pos": "noun", "sense_order": 0,
+        "definition_en": "the season between summer and winter, when leaves fall",
+        "definition_vi": "mùa thu",
+        "grammar_note": "[countable, uncountable]",
+        "examples": [
+          { "en": "The leaves change colour in autumn.", "vi": "Lá đổi màu vào mùa thu." },
+          { "en": "We visited Hanoi last autumn.", "vi": "Chúng tôi đến Hà Nội mùa thu năm ngoái." }
+        ],
+        "synonyms": ["fall"],
+        "antonyms": ["spring"]
+      }
+    ],
+    "collocations": [
+      { "collocation": "early autumn", "pattern": "adj+noun", "example_en": "It was early autumn.", "example_vi": "Đó là đầu mùa thu." },
+      { "collocation": "autumn leaves", "pattern": "noun+noun", "example_en": "The autumn leaves were beautiful.", "example_vi": "Lá mùa thu rất đẹp." }
+    ]
+  },
+  {
+    "headword": "availability",
+    "meaning_vi": "sự sẵn có, tính khả dụng",
+    "pos": ["noun"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˌveɪləˈbɪləti/",
+    "ipa_us": "/əˌveɪləˈbɪləti/",
+    "is_countable": false,
+    "senses": [
+      {
+        "pos": "noun", "sense_order": 0,
+        "definition_en": "the state of being available or obtainable",
+        "definition_vi": "sự sẵn có, tính khả dụng",
+        "grammar_note": "[uncountable]",
+        "examples": [
+          { "en": "Please check availability before booking.", "vi": "Vui lòng kiểm tra tình trạng còn chỗ trước khi đặt." },
+          { "en": "The availability of fresh water is limited.", "vi": "Nguồn nước sạch sẵn có rất hạn chế." }
+        ],
+        "synonyms": ["accessibility", "supply"],
+        "antonyms": ["unavailability", "scarcity"]
+      }
+    ],
+    "collocations": [
+      { "collocation": "subject to availability", "pattern": "phrase", "example_en": "Tickets are subject to availability.", "example_vi": "Vé tùy thuộc vào tình trạng còn hàng." }
+    ]
+  },
+  {
+    "headword": "available",
+    "meaning_vi": "có sẵn, sẵn có",
+    "pos": ["adjective"],
+    "cefr_level": "A1",
+    "ipa_uk": "/əˈveɪləbl/",
+    "ipa_us": "/əˈveɪləbl/",
+    "senses": [
+      {
+        "pos": "adjective", "sense_order": 0,
+        "definition_en": "that you can get, buy, or use",
+        "definition_vi": "có sẵn, sẵn có, có thể dùng được",
+        "examples": [
+          { "en": "Tickets are available online.", "vi": "Vé có sẵn trên mạng." },
+          { "en": "This product is no longer available.", "vi": "Sản phẩm này không còn bán nữa." }
+        ],
+        "synonyms": ["obtainable", "accessible", "at hand"],
+        "antonyms": ["unavailable"]
+      },
+      {
+        "pos": "adjective", "sense_order": 1,
+        "definition_en": "free to see or talk to someone",
+        "definition_vi": "rảnh, có thời gian",
+        "examples": [
+          { "en": "Are you available tomorrow?", "vi": "Ngày mai bạn rảnh không?" }
+        ],
+        "synonyms": ["free", "unoccupied"],
+        "antonyms": ["busy", "unavailable"]
+      }
+    ],
+    "collocations": [
+      { "collocation": "readily available", "pattern": "adv+adj", "example_en": "Information is readily available online.", "example_vi": "Thông tin có sẵn dễ dàng trên mạng." },
+      { "collocation": "commercially available", "pattern": "adv+adj", "example_en": "The drug is now commercially available.", "example_vi": "Thuốc này hiện đã được bán trên thị trường." }
+    ]
+  },
+  {
+    "headword": "average",
+    "meaning_vi": "trung bình",
+    "pos": ["adjective", "noun", "verb"],
+    "cefr_level": "B1",
+    "ipa_uk": "/ˈævərɪdʒ/",
+    "ipa_us": "/ˈævərɪdʒ/",
+    "senses": [
+      {
+        "pos": "adjective", "sense_order": 0,
+        "definition_en": "typical or normal",
+        "definition_vi": "trung bình, bình thường",
+        "examples": [
+          { "en": "The average age of students is 20.", "vi": "Tuổi trung bình của sinh viên là 20." },
+          { "en": "It was an average performance.", "vi": "Đó là một màn trình diễn bình thường." }
+        ],
+        "synonyms": ["typical", "normal", "ordinary", "standard"],
+        "antonyms": ["exceptional", "outstanding"]
+      },
+      {
+        "pos": "noun", "sense_order": 0,
+        "definition_en": "the result obtained by adding amounts together and dividing by the number of amounts",
+        "definition_vi": "số trung bình, mức trung bình",
+        "grammar_note": "[countable]",
+        "examples": [
+          { "en": "On average, she works 8 hours a day.", "vi": "Trung bình cô ấy làm việc 8 tiếng một ngày." }
+        ],
+        "synonyms": ["mean", "norm"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "averages" }
+    ],
+    "idioms": [
+      {
+        "idiom_text": "on average",
+        "definition_en": "typically; usually",
+        "definition_vi": "trung bình, tính trung bình",
+        "example_en": "On average, I sleep 7 hours a night.",
+        "example_vi": "Trung bình tôi ngủ 7 tiếng mỗi đêm."
+      }
+    ],
+    "collocations": [
+      { "collocation": "above average", "pattern": "prep+noun", "example_en": "Her grades are above average.", "example_vi": "Điểm của cô ấy trên trung bình." },
+      { "collocation": "below average", "pattern": "prep+noun", "example_en": "Sales were below average.", "example_vi": "Doanh số dưới mức trung bình." }
+    ]
+  },
+  {
+    "headword": "avoid",
+    "meaning_vi": "tránh, né tránh",
+    "pos": ["verb"],
+    "cefr_level": "A2",
+    "ipa_uk": "/əˈvɔɪd/",
+    "ipa_us": "/əˈvɔɪd/",
+    "is_transitive": true,
+    "senses": [
+      {
+        "pos": "verb", "sense_order": 0,
+        "definition_en": "to keep away from something or someone",
+        "definition_vi": "tránh, né tránh",
+        "grammar_note": "[transitive + noun/-ing]",
+        "examples": [
+          { "en": "She avoided making eye contact.", "vi": "Cô ấy tránh giao tiếp bằng mắt." },
+          { "en": "Try to avoid the rush hour.", "vi": "Cố gắng tránh giờ cao điểm." }
+        ],
+        "synonyms": ["evade", "dodge", "steer clear of", "shun"],
+        "antonyms": ["face", "confront", "seek"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "avoids" },
+      { "form_type": "past_simple", "form_value": "avoided" },
+      { "form_type": "past_participle", "form_value": "avoided" },
+      { "form_type": "present_participle", "form_value": "avoiding" }
+    ],
+    "collocations": [
+      { "collocation": "avoid mistakes", "pattern": "verb+noun", "example_en": "Read carefully to avoid mistakes.", "example_vi": "Đọc kỹ để tránh sai sót." },
+      { "collocation": "avoid conflict", "pattern": "verb+noun", "example_en": "She tries to avoid conflict.", "example_vi": "Cô ấy cố tránh xung đột." }
+    ]
+  },
+  {
+    "headword": "await",
+    "meaning_vi": "chờ đợi",
+    "pos": ["verb"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˈweɪt/",
+    "ipa_us": "/əˈweɪt/",
+    "is_transitive": true,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "verb", "sense_order": 0,
+        "definition_en": "to wait for something",
+        "definition_vi": "chờ đợi",
+        "grammar_note": "[transitive]",
+        "register": "formal",
+        "examples": [
+          { "en": "We are awaiting your reply.", "vi": "Chúng tôi đang chờ phản hồi của bạn." },
+          { "en": "A surprise awaited him at home.", "vi": "Một bất ngờ đang chờ anh ấy ở nhà." }
+        ],
+        "synonyms": ["wait for", "expect", "anticipate"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "awaits" },
+      { "form_type": "past_simple", "form_value": "awaited" },
+      { "form_type": "past_participle", "form_value": "awaited" },
+      { "form_type": "present_participle", "form_value": "awaiting" }
+    ],
+    "collocations": [
+      { "collocation": "eagerly await", "pattern": "adv+verb", "example_en": "Fans eagerly await the new album.", "example_vi": "Fan hâm mộ háo hức chờ đợi album mới." }
+    ]
+  },
+  {
+    "headword": "award",
+    "meaning_vi": "giải thưởng; trao giải",
+    "pos": ["noun", "verb"],
+    "cefr_level": "B1",
+    "ipa_uk": "/əˈwɔːd/",
+    "ipa_us": "/əˈwɔːrd/",
+    "senses": [
+      {
+        "pos": "noun", "sense_order": 0,
+        "definition_en": "a prize given for an achievement",
+        "definition_vi": "giải thưởng",
+        "grammar_note": "[countable]",
+        "examples": [
+          { "en": "She won an award for best actress.", "vi": "Cô ấy giành giải nữ diễn viên xuất sắc nhất." }
+        ],
+        "synonyms": ["prize", "trophy", "honour"],
+        "antonyms": []
+      },
+      {
+        "pos": "verb", "sense_order": 0,
+        "definition_en": "to give a prize or money to someone officially",
+        "definition_vi": "trao giải, trao tặng",
+        "grammar_note": "[transitive] award sb sth / award sth to sb",
+        "examples": [
+          { "en": "He was awarded a scholarship.", "vi": "Anh ấy được trao học bổng." }
+        ],
+        "synonyms": ["give", "grant", "present"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "awards" },
+      { "form_type": "third_person_singular", "form_value": "awards" },
+      { "form_type": "past_simple", "form_value": "awarded" },
+      { "form_type": "past_participle", "form_value": "awarded" },
+      { "form_type": "present_participle", "form_value": "awarding" }
+    ],
+    "collocations": [
+      { "collocation": "win an award", "pattern": "verb+noun", "example_en": "The film won several awards.", "example_vi": "Bộ phim giành nhiều giải thưởng." },
+      { "collocation": "award ceremony", "pattern": "noun+noun", "example_en": "The award ceremony is tonight.", "example_vi": "Lễ trao giải tối nay." }
+    ]
+  },
+  {
+    "headword": "aware",
+    "meaning_vi": "nhận thức, biết",
+    "pos": ["adjective"],
+    "cefr_level": "B1",
+    "ipa_uk": "/əˈweə(r)/",
+    "ipa_us": "/əˈwer/",
+    "senses": [
+      {
+        "pos": "adjective", "sense_order": 0,
+        "definition_en": "knowing that something exists or is happening",
+        "definition_vi": "nhận thức được, biết, ý thức được",
+        "grammar_note": "[not before noun] aware of / aware that",
+        "examples": [
+          { "en": "Are you aware of the risks?", "vi": "Bạn có biết về những rủi ro không?" },
+          { "en": "I'm aware that this is difficult.", "vi": "Tôi biết rằng điều này khó." }
+        ],
+        "synonyms": ["conscious", "mindful", "informed"],
+        "antonyms": ["unaware", "ignorant", "oblivious"]
+      }
+    ],
+    "idioms": [
+      {
+        "idiom_text": "as far as I am aware",
+        "definition_en": "used to say you believe something is true based on what you know",
+        "definition_vi": "theo như tôi biết",
+        "example_en": "As far as I'm aware, no decision has been made.",
+        "example_vi": "Theo như tôi biết, chưa có quyết định nào được đưa ra."
+      }
+    ],
+    "collocations": [
+      { "collocation": "well aware", "pattern": "adv+adj", "example_en": "She is well aware of the problem.", "example_vi": "Cô ấy rất biết rõ vấn đề." },
+      { "collocation": "acutely aware", "pattern": "adv+adj", "example_en": "He was acutely aware of the danger.", "example_vi": "Anh ấy nhận thức rõ ràng về nguy hiểm." }
+    ]
+  },
+  {
+    "headword": "awareness",
+    "meaning_vi": "nhận thức, sự hiểu biết",
+    "pos": ["noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈweənəs/",
+    "ipa_us": "/əˈwernəs/",
+    "is_countable": false,
+    "senses": [
+      {
+        "pos": "noun", "sense_order": 0,
+        "definition_en": "knowledge or understanding of something",
+        "definition_vi": "nhận thức, sự hiểu biết",
+        "grammar_note": "[uncountable]",
+        "examples": [
+          { "en": "We need to raise awareness of climate change.", "vi": "Chúng ta cần nâng cao nhận thức về biến đổi khí hậu." }
+        ],
+        "synonyms": ["consciousness", "understanding", "knowledge"],
+        "antonyms": ["ignorance", "unawareness"]
+      }
+    ],
+    "collocations": [
+      { "collocation": "raise awareness", "pattern": "verb+noun", "example_en": "The campaign aims to raise awareness.", "example_vi": "Chiến dịch nhằm nâng cao nhận thức." },
+      { "collocation": "public awareness", "pattern": "adj+noun", "example_en": "Public awareness of the issue has grown.", "example_vi": "Nhận thức của công chúng về vấn đề này đã tăng." }
+    ]
+  },
+  {
+    "headword": "away",
+    "meaning_vi": "xa, đi, rời đi",
+    "pos": ["adverb"],
+    "cefr_level": "A1",
+    "ipa_uk": "/əˈweɪ/",
+    "ipa_us": "/əˈweɪ/",
+    "senses": [
+      {
+        "pos": "adverb", "sense_order": 0,
+        "definition_en": "to or at a distance from someone or something",
+        "definition_vi": "xa, cách xa",
+        "examples": [
+          { "en": "The beach is 2 miles away.", "vi": "Bãi biển cách đây 2 dặm." },
+          { "en": "She walked away without saying goodbye.", "vi": "Cô ấy bỏ đi mà không nói lời tạm biệt." }
+        ],
+        "synonyms": ["off", "aside"],
+        "antonyms": ["near", "close", "here"]
+      },
+      {
+        "pos": "adverb", "sense_order": 1,
+        "definition_en": "not present; gone",
+        "definition_vi": "vắng, đi vắng",
+        "examples": [
+          { "en": "He's away on business.", "vi": "Anh ấy đi công tác vắng." }
+        ],
+        "synonyms": ["absent", "gone"],
+        "antonyms": ["present", "here"]
+      }
+    ],
+    "idioms": [
+      {
+        "idiom_text": "right away",
+        "definition_en": "immediately",
+        "definition_vi": "ngay lập tức",
+        "example_en": "I'll do it right away.",
+        "example_vi": "Tôi sẽ làm ngay lập tức."
+      },
+      {
+        "idiom_text": "far and away",
+        "definition_en": "by a very large amount",
+        "definition_vi": "hơn hẳn, vượt trội",
+        "example_en": "She is far and away the best student.",
+        "example_vi": "Cô ấy hơn hẳn là học sinh giỏi nhất."
+      }
+    ]
+  },
+  {
+    "headword": "awful",
+    "meaning_vi": "tồi tệ, kinh khủng",
+    "pos": ["adjective"],
+    "cefr_level": "B1",
+    "ipa_uk": "/ˈɔːfl/",
+    "ipa_us": "/ˈɑːfl/",
+    "senses": [
+      {
+        "pos": "adjective", "sense_order": 0,
+        "definition_en": "very bad or unpleasant",
+        "definition_vi": "tồi tệ, kinh khủng, tệ hại",
+        "examples": [
+          { "en": "The weather was awful.", "vi": "Thời tiết rất tồi tệ." },
+          { "en": "I feel awful about what happened.", "vi": "Tôi cảm thấy rất tệ về chuyện đã xảy ra." }
+        ],
+        "synonyms": ["terrible", "horrible", "dreadful", "appalling"],
+        "antonyms": ["wonderful", "great", "excellent"]
+      },
+      {
+        "pos": "adjective", "sense_order": 1,
+        "definition_en": "used to emphasize how much or how great",
+        "definition_vi": "rất nhiều, kinh khủng (nhấn mạnh)",
+        "examples": [
+          { "en": "I have an awful lot of work to do.", "vi": "Tôi có rất nhiều việc phải làm." }
+        ],
+        "synonyms": ["enormous", "huge"],
+        "antonyms": []
+      }
+    ],
+    "collocations": [
+      { "collocation": "look awful", "pattern": "verb+adj", "example_en": "You look awful. Are you OK?", "example_vi": "Bạn trông tệ quá. Bạn ổn không?" },
+      { "collocation": "feel awful", "pattern": "verb+adj", "example_en": "I feel awful about forgetting.", "example_vi": "Tôi cảm thấy rất tệ vì đã quên." }
+    ]
+  },
+  {
+    "headword": "awkward",
+    "meaning_vi": "lúng túng, vụng về",
+    "pos": ["adjective"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ˈɔːkwəd/",
+    "ipa_us": "/ˈɑːkwərd/",
+    "senses": [
+      {
+        "pos": "adjective", "sense_order": 0,
+        "definition_en": "making you feel embarrassed or uncomfortable",
+        "definition_vi": "lúng túng, ngượng ngùng, khó xử",
+        "examples": [
+          { "en": "There was an awkward silence.", "vi": "Có một khoảng im lặng khó xử." },
+          { "en": "I felt awkward at the party.", "vi": "Tôi cảm thấy lúng túng ở bữa tiệc." }
+        ],
+        "synonyms": ["embarrassing", "uncomfortable", "uneasy"],
+        "antonyms": ["comfortable", "relaxed"]
+      },
+      {
+        "pos": "adjective", "sense_order": 1,
+        "definition_en": "not moving in a smooth way; clumsy",
+        "definition_vi": "vụng về, lóng ngóng",
+        "examples": [
+          { "en": "He made an awkward attempt to dance.", "vi": "Anh ấy nhảy một cách vụng về." }
+        ],
+        "synonyms": ["clumsy", "ungainly", "graceless"],
+        "antonyms": ["graceful", "elegant"]
+      },
+      {
+        "pos": "adjective", "sense_order": 2,
+        "definition_en": "difficult to deal with",
+        "definition_vi": "khó xử, rắc rối, phiền phức",
+        "examples": [
+          { "en": "It's an awkward situation.", "vi": "Đó là tình huống khó xử." }
+        ],
+        "synonyms": ["difficult", "tricky", "problematic"],
+        "antonyms": ["easy", "straightforward"]
+      }
+    ],
+    "collocations": [
+      { "collocation": "awkward silence", "pattern": "adj+noun", "example_en": "An awkward silence filled the room.", "example_vi": "Sự im lặng ngại ngùng bao trùm căn phòng." },
+      { "collocation": "awkward moment", "pattern": "adj+noun", "example_en": "It was such an awkward moment.", "example_vi": "Đó thật là khoảnh khắc khó xử." },
+      { "collocation": "feel awkward", "pattern": "verb+adj", "example_en": "Don't feel awkward about asking.", "example_vi": "Đừng ngại ngùng khi hỏi." }
+    ]
+  }
+]
