@@ -1,0 +1,1001 @@
+[
+  {
+    "headword": "aged",
+    "meaning_vi": "già, cao tuổi",
+    "pos": ["adjective"],
+    "cefr_level": "B2",
+    "ipa_uk": "/eɪdʒd/",
+    "ipa_us": "/eɪdʒd/",
+    "etymology": "From Middle English aged, from age + -ed",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "having lived for a long time; old",
+        "definition_vi": "già, cao tuổi",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She cared for her aged parents.", "vi": "Cô ấy chăm sóc cha mẹ già của mình." },
+          { "en": "The aged need special medical attention.", "vi": "Người cao tuổi cần được chăm sóc y tế đặc biệt." }
+        ],
+        "synonyms": ["elderly", "old", "senior"],
+        "antonyms": ["young", "youthful"]
+      },
+      {
+        "pos": "adjective",
+        "sense_order": 1,
+        "definition_en": "of the age of",
+        "definition_vi": "ở độ tuổi",
+        "grammar_note": "[aged + number]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "A boy aged 10 was found safe.", "vi": "Một cậu bé 10 tuổi đã được tìm thấy an toàn." }
+        ],
+        "synonyms": [],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "comparative", "form_value": "more aged" },
+      { "form_type": "superlative", "form_value": "most aged" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "aged care", "pattern": "adj+noun", "example_en": "She works in aged care.", "example_vi": "Cô ấy làm việc trong lĩnh vực chăm sóc người cao tuổi." },
+      { "collocation": "middle-aged", "pattern": "adj+adj", "example_en": "He is a middle-aged man.", "example_vi": "Ông ấy là một người đàn ông trung niên." }
+    ]
+  },
+  {
+    "headword": "agency",
+    "meaning_vi": "cơ quan, đại lý, hãng",
+    "pos": ["noun"],
+    "cefr_level": "B1",
+    "ipa_uk": "/ˈeɪdʒənsi/",
+    "ipa_us": "/ˈeɪdʒənsi/",
+    "etymology": "From Medieval Latin agentia, from Latin agens ('doing, acting')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a business or organization that provides a particular service",
+        "definition_vi": "đại lý, hãng, công ty dịch vụ",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She works for an advertising agency.", "vi": "Cô ấy làm việc cho một công ty quảng cáo." },
+          { "en": "I booked the trip through a travel agency.", "vi": "Tôi đặt chuyến đi qua một đại lý du lịch." }
+        ],
+        "synonyms": ["firm", "bureau", "company", "organization"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "a government department that provides a specific service",
+        "definition_vi": "cơ quan (chính phủ)",
+        "grammar_note": "[countable]",
+        "domain": "government",
+        "register": "formal",
+        "examples": [
+          { "en": "The agency is responsible for food safety.", "vi": "Cơ quan này chịu trách nhiệm về an toàn thực phẩm." }
+        ],
+        "synonyms": ["department", "body", "authority"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "agencies" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "travel agency", "pattern": "noun+noun", "example_en": "We booked through a travel agency.", "example_vi": "Chúng tôi đặt qua đại lý du lịch." },
+      { "collocation": "government agency", "pattern": "noun+noun", "example_en": "A government agency investigated the case.", "example_vi": "Một cơ quan chính phủ điều tra vụ việc." },
+      { "collocation": "news agency", "pattern": "noun+noun", "example_en": "The news agency reported the event.", "example_vi": "Hãng thông tấn đưa tin sự kiện." }
+    ]
+  },
+  {
+    "headword": "agenda",
+    "meaning_vi": "chương trình nghị sự, lịch trình",
+    "pos": ["noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈdʒendə/",
+    "ipa_us": "/əˈdʒendə/",
+    "etymology": "From Latin agenda ('things to be done'), plural of agendum",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a list of items to be discussed at a meeting",
+        "definition_vi": "chương trình nghị sự, lịch trình cuộc họp",
+        "grammar_note": "[countable]",
+        "domain": "business",
+        "register": null,
+        "examples": [
+          { "en": "What's on the agenda for today's meeting?", "vi": "Chương trình nghị sự cuộc họp hôm nay là gì?" },
+          { "en": "The first item on the agenda is the budget.", "vi": "Mục đầu tiên trong chương trình nghị sự là ngân sách." }
+        ],
+        "synonyms": ["schedule", "program", "plan"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "a plan or aim that is kept secret",
+        "definition_vi": "mục đích ngầm, ý đồ",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "He has his own hidden agenda.", "vi": "Anh ta có mục đích ngầm riêng." }
+        ],
+        "synonyms": ["motive", "intention"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "agendas" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "hidden agenda", "definition_en": "a secret reason for doing something", "definition_vi": "mục đích ngầm, ý đồ giấu kín", "example_en": "I suspect she has a hidden agenda.", "example_vi": "Tôi nghi cô ấy có ý đồ giấu kín." }
+    ],
+    "collocations": [
+      { "collocation": "set the agenda", "pattern": "verb+noun", "example_en": "The chairman set the agenda.", "example_vi": "Chủ tọa đặt ra chương trình nghị sự." },
+      { "collocation": "top of the agenda", "pattern": "noun+prep+noun", "example_en": "Climate change is top of the agenda.", "example_vi": "Biến đổi khí hậu đứng đầu chương trình nghị sự." }
+    ]
+  },
+  {
+    "headword": "agent",
+    "meaning_vi": "đại lý, người đại diện, điệp viên",
+    "pos": ["noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ˈeɪdʒənt/",
+    "ipa_us": "/ˈeɪdʒənt/",
+    "etymology": "From Latin agentem ('doing'), present participle of agere ('to do')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a person who acts for or represents another person in business",
+        "definition_vi": "đại lý, người đại diện",
+        "grammar_note": "[countable]",
+        "domain": "business",
+        "register": null,
+        "examples": [
+          { "en": "Contact your insurance agent.", "vi": "Liên hệ đại lý bảo hiểm của bạn." },
+          { "en": "She hired an agent to sell her house.", "vi": "Cô ấy thuê một người đại diện để bán nhà." }
+        ],
+        "synonyms": ["representative", "broker", "dealer"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "a person who works secretly for a government or organization",
+        "definition_vi": "điệp viên, mật vụ",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "He was a secret agent during the war.", "vi": "Ông ấy là điệp viên trong thời chiến." }
+        ],
+        "synonyms": ["spy", "operative"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 2,
+        "definition_en": "a substance that produces a chemical or physical effect",
+        "definition_vi": "tác nhân, chất",
+        "grammar_note": "[countable]",
+        "domain": "science",
+        "register": "technical",
+        "examples": [
+          { "en": "Bleach is a powerful cleaning agent.", "vi": "Thuốc tẩy là chất tẩy rửa mạnh." }
+        ],
+        "synonyms": ["substance", "chemical"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "agents" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "free agent", "definition_en": "a person who can act independently, not controlled by anyone", "definition_vi": "người tự do, không bị ràng buộc", "example_en": "After the contract ended, he became a free agent.", "example_vi": "Sau khi hết hợp đồng, anh ấy trở thành người tự do." }
+    ],
+    "collocations": [
+      { "collocation": "estate agent", "pattern": "noun+noun", "example_en": "The estate agent showed us the house.", "example_vi": "Nhân viên bất động sản dẫn chúng tôi xem nhà." },
+      { "collocation": "travel agent", "pattern": "noun+noun", "example_en": "Ask your travel agent for details.", "example_vi": "Hỏi đại lý du lịch để biết chi tiết." },
+      { "collocation": "secret agent", "pattern": "adj+noun", "example_en": "He dreamed of being a secret agent.", "example_vi": "Anh ấy mơ làm điệp viên." }
+    ]
+  },
+  {
+    "headword": "aggression",
+    "meaning_vi": "sự xâm lược, sự gây hấn",
+    "pos": ["noun"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˈɡreʃn/",
+    "ipa_us": "/əˈɡreʃn/",
+    "etymology": "From Latin aggressio ('an attack'), from aggredi ('to attack')",
+    "is_countable": false,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "angry or violent feelings or behaviour",
+        "definition_vi": "sự hung hăng, sự gây hấn",
+        "grammar_note": "[uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "He showed signs of aggression.", "vi": "Anh ấy có dấu hiệu hung hăng." },
+          { "en": "The dog displayed aggression towards strangers.", "vi": "Con chó tỏ ra hung dữ với người lạ." }
+        ],
+        "synonyms": ["hostility", "violence", "belligerence"],
+        "antonyms": ["peacefulness", "gentleness", "passivity"]
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "the act of attacking a country without being provoked",
+        "definition_vi": "sự xâm lược",
+        "grammar_note": "[uncountable]",
+        "domain": "politics",
+        "register": "formal",
+        "examples": [
+          { "en": "An act of military aggression.", "vi": "Một hành động xâm lược quân sự." }
+        ],
+        "synonyms": ["invasion", "attack", "assault"],
+        "antonyms": ["peace", "diplomacy"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "act of aggression", "pattern": "noun+prep+noun", "example_en": "The bombing was an act of aggression.", "example_vi": "Vụ đánh bom là một hành động gây hấn." },
+      { "collocation": "show aggression", "pattern": "verb+noun", "example_en": "The player showed aggression on the field.", "example_vi": "Cầu thủ thể hiện sự hung hăng trên sân." }
+    ]
+  },
+  {
+    "headword": "aggressive",
+    "meaning_vi": "hung hăng, hung dữ, quyết liệt",
+    "pos": ["adjective"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈɡresɪv/",
+    "ipa_us": "/əˈɡresɪv/",
+    "etymology": "From Latin aggressivus, from aggredi ('to attack')",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "behaving in an angry or violent way towards another person",
+        "definition_vi": "hung hăng, hung dữ",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "He became aggressive when he was drunk.", "vi": "Anh ấy trở nên hung hăng khi say rượu." },
+          { "en": "The dog is aggressive towards strangers.", "vi": "Con chó hung dữ với người lạ." }
+        ],
+        "synonyms": ["hostile", "violent", "belligerent", "fierce"],
+        "antonyms": ["gentle", "peaceful", "passive", "calm"]
+      },
+      {
+        "pos": "adjective",
+        "sense_order": 1,
+        "definition_en": "acting with force and determination to succeed",
+        "definition_vi": "quyết liệt, mạnh mẽ",
+        "grammar_note": null,
+        "domain": "business",
+        "register": null,
+        "examples": [
+          { "en": "The company has an aggressive marketing strategy.", "vi": "Công ty có chiến lược marketing quyết liệt." }
+        ],
+        "synonyms": ["assertive", "forceful", "bold"],
+        "antonyms": ["timid", "cautious"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "comparative", "form_value": "more aggressive" },
+      { "form_type": "superlative", "form_value": "most aggressive" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "aggressive behaviour", "pattern": "adj+noun", "example_en": "Aggressive behaviour will not be tolerated.", "example_vi": "Hành vi hung hăng sẽ không được chấp nhận." },
+      { "collocation": "aggressive marketing", "pattern": "adj+noun", "example_en": "They used aggressive marketing tactics.", "example_vi": "Họ sử dụng chiến thuật marketing quyết liệt." }
+    ]
+  },
+  {
+    "headword": "ago",
+    "meaning_vi": "trước, cách đây",
+    "pos": ["adverb"],
+    "cefr_level": "A1",
+    "ipa_uk": "/əˈɡəʊ/",
+    "ipa_us": "/əˈɡoʊ/",
+    "etymology": "From Middle English ago, agone ('gone by')",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adverb",
+        "sense_order": 0,
+        "definition_en": "used to show how far in the past something happened",
+        "definition_vi": "trước đây, cách đây",
+        "grammar_note": "[time expression + ago]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "I met her two years ago.", "vi": "Tôi gặp cô ấy hai năm trước." },
+          { "en": "It happened a long time ago.", "vi": "Chuyện đó xảy ra rất lâu rồi." },
+          { "en": "He left five minutes ago.", "vi": "Anh ấy đi cách đây năm phút." }
+        ],
+        "synonyms": ["before", "previously", "earlier"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "a long time ago", "pattern": "phrase", "example_en": "That was a long time ago.", "example_vi": "Chuyện đó lâu lắm rồi." },
+      { "collocation": "years ago", "pattern": "noun+ago", "example_en": "I graduated years ago.", "example_vi": "Tôi tốt nghiệp nhiều năm trước." }
+    ]
+  },
+  {
+    "headword": "agree",
+    "meaning_vi": "đồng ý, tán thành",
+    "pos": ["verb"],
+    "cefr_level": "A1",
+    "ipa_uk": "/əˈɡriː/",
+    "ipa_us": "/əˈɡriː/",
+    "etymology": "From Old French agreer ('to please, satisfy'), from a gré ('to one's liking')",
+    "is_countable": null,
+    "is_transitive": false,
+    "register": null,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to have the same opinion as somebody",
+        "definition_vi": "đồng ý, cùng quan điểm",
+        "grammar_note": "[intransitive + with]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "I agree with you completely.", "vi": "Tôi hoàn toàn đồng ý với bạn." },
+          { "en": "Do you agree that we should leave?", "vi": "Bạn có đồng ý là chúng ta nên đi không?" }
+        ],
+        "synonyms": ["concur", "consent", "approve"],
+        "antonyms": ["disagree", "object", "oppose"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to say yes; to accept a plan or suggestion",
+        "definition_vi": "chấp nhận, chấp thuận",
+        "grammar_note": "[intransitive/transitive + to]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She agreed to help us.", "vi": "Cô ấy đồng ý giúp chúng tôi." },
+          { "en": "They agreed on a price.", "vi": "Họ thống nhất được giá." }
+        ],
+        "synonyms": ["accept", "consent"],
+        "antonyms": ["refuse", "decline", "reject"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "agrees" },
+      { "form_type": "past_simple", "form_value": "agreed" },
+      { "form_type": "past_participle", "form_value": "agreed" },
+      { "form_type": "present_participle", "form_value": "agreeing" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "agree to disagree", "definition_en": "to accept that you have different opinions and stop arguing", "definition_vi": "đồng ý rằng hai bên khác quan điểm, chấp nhận bất đồng", "example_en": "Let's just agree to disagree on this topic.", "example_vi": "Hãy chấp nhận rằng chúng ta bất đồng về chủ đề này." },
+      { "idiom_text": "couldn't agree more", "definition_en": "to completely agree with someone", "definition_vi": "hoàn toàn đồng ý", "example_en": "I couldn't agree more with your suggestion.", "example_vi": "Tôi hoàn toàn đồng ý với gợi ý của bạn." }
+    ],
+    "collocations": [
+      { "collocation": "agree with somebody", "pattern": "verb+prep", "example_en": "I agree with the decision.", "example_vi": "Tôi đồng ý với quyết định đó." },
+      { "collocation": "agree on something", "pattern": "verb+prep", "example_en": "We agreed on a date.", "example_vi": "Chúng tôi thống nhất ngày." },
+      { "collocation": "agree to a plan", "pattern": "verb+prep+noun", "example_en": "Both sides agreed to the plan.", "example_vi": "Cả hai bên đồng ý kế hoạch." }
+    ]
+  },
+  {
+    "headword": "agreement",
+    "meaning_vi": "thỏa thuận, sự đồng ý, hợp đồng",
+    "pos": ["noun"],
+    "cefr_level": "B1",
+    "ipa_uk": "/əˈɡriːmənt/",
+    "ipa_us": "/əˈɡriːmənt/",
+    "etymology": "From Old French agreement, from agreer ('to agree')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "an arrangement or promise made between two or more people or groups",
+        "definition_vi": "thỏa thuận, hợp đồng",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "They signed a trade agreement.", "vi": "Họ ký một thỏa thuận thương mại." },
+          { "en": "We reached an agreement after long discussions.", "vi": "Chúng tôi đạt được thỏa thuận sau nhiều cuộc thảo luận." }
+        ],
+        "synonyms": ["deal", "contract", "pact", "treaty"],
+        "antonyms": ["disagreement", "dispute"]
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "the state of sharing the same opinion",
+        "definition_vi": "sự đồng ý, sự nhất trí",
+        "grammar_note": "[uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "There is general agreement on this issue.", "vi": "Có sự nhất trí chung về vấn đề này." }
+        ],
+        "synonyms": ["consensus", "accord", "harmony"],
+        "antonyms": ["disagreement", "conflict"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "agreements" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "reach an agreement", "pattern": "verb+noun", "example_en": "They finally reached an agreement.", "example_vi": "Cuối cùng họ cũng đạt được thỏa thuận." },
+      { "collocation": "sign an agreement", "pattern": "verb+noun", "example_en": "Both parties signed the agreement.", "example_vi": "Cả hai bên ký thỏa thuận." },
+      { "collocation": "peace agreement", "pattern": "noun+noun", "example_en": "A peace agreement was signed.", "example_vi": "Một thỏa thuận hòa bình đã được ký." },
+      { "collocation": "in agreement", "pattern": "prep+noun", "example_en": "We are in agreement.", "example_vi": "Chúng tôi nhất trí." }
+    ]
+  },
+  {
+    "headword": "agricultural",
+    "meaning_vi": "thuộc nông nghiệp",
+    "pos": ["adjective"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ˌæɡrɪˈkʌltʃərəl/",
+    "ipa_us": "/ˌæɡrɪˈkʌltʃərəl/",
+    "etymology": "From agriculture + -al",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "connected with farming",
+        "definition_vi": "thuộc nông nghiệp, nông nghiệp",
+        "grammar_note": null,
+        "domain": "agriculture",
+        "register": null,
+        "examples": [
+          { "en": "Agricultural land is becoming scarce.", "vi": "Đất nông nghiệp đang trở nên khan hiếm." },
+          { "en": "The country's agricultural output has increased.", "vi": "Sản lượng nông nghiệp của nước này đã tăng." }
+        ],
+        "synonyms": ["farming", "agrarian", "rural"],
+        "antonyms": ["industrial", "urban"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "agricultural land", "pattern": "adj+noun", "example_en": "They converted agricultural land into housing.", "example_vi": "Họ chuyển đổi đất nông nghiệp thành nhà ở." },
+      { "collocation": "agricultural production", "pattern": "adj+noun", "example_en": "Agricultural production has risen.", "example_vi": "Sản xuất nông nghiệp đã tăng." }
+    ]
+  },
+  {
+    "headword": "agriculture",
+    "meaning_vi": "nông nghiệp",
+    "pos": ["noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ˈæɡrɪkʌltʃə(r)/",
+    "ipa_us": "/ˈæɡrɪkʌltʃər/",
+    "etymology": "From Latin agricultura, from ager ('field') + cultura ('cultivation')",
+    "is_countable": false,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "the science or practice of farming",
+        "definition_vi": "nông nghiệp",
+        "grammar_note": "[uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Agriculture is the main industry in this region.", "vi": "Nông nghiệp là ngành công nghiệp chính trong vùng này." },
+          { "en": "She studied agriculture at university.", "vi": "Cô ấy học nông nghiệp ở đại học." }
+        ],
+        "synonyms": ["farming", "cultivation", "husbandry"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "modern agriculture", "pattern": "adj+noun", "example_en": "Modern agriculture uses advanced technology.", "example_vi": "Nông nghiệp hiện đại sử dụng công nghệ tiên tiến." },
+      { "collocation": "Ministry of Agriculture", "pattern": "noun+prep+noun", "example_en": "The Ministry of Agriculture announced new policies.", "example_vi": "Bộ Nông nghiệp công bố chính sách mới." }
+    ]
+  },
+  {
+    "headword": "ah",
+    "meaning_vi": "à, ồ, ạ",
+    "pos": ["exclamation"],
+    "cefr_level": "A2",
+    "ipa_uk": "/ɑː/",
+    "ipa_us": "/ɑː/",
+    "etymology": "Natural exclamation",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": "informal",
+    "senses": [
+      {
+        "pos": "exclamation",
+        "sense_order": 0,
+        "definition_en": "used to express understanding, surprise, pity, or pleasure",
+        "definition_vi": "à (hiểu ra), ồ (ngạc nhiên), ạ (đồng cảm)",
+        "grammar_note": null,
+        "domain": null,
+        "register": "informal",
+        "examples": [
+          { "en": "Ah, I see what you mean.", "vi": "À, tôi hiểu ý bạn rồi." },
+          { "en": "Ah, that's beautiful!", "vi": "Ồ, đẹp quá!" }
+        ],
+        "synonyms": ["oh", "aha"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": []
+  },
+  {
+    "headword": "ahead",
+    "meaning_vi": "phía trước, trước",
+    "pos": ["adverb"],
+    "cefr_level": "A2",
+    "ipa_uk": "/əˈhed/",
+    "ipa_us": "/əˈhed/",
+    "etymology": "From a- ('on') + head",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adverb",
+        "sense_order": 0,
+        "definition_en": "further forward in space or time; in front",
+        "definition_vi": "phía trước, ở đằng trước",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The road ahead was blocked.", "vi": "Con đường phía trước bị chặn." },
+          { "en": "Go straight ahead.", "vi": "Đi thẳng phía trước." }
+        ],
+        "synonyms": ["forward", "in front", "onward"],
+        "antonyms": ["behind", "backward"]
+      },
+      {
+        "pos": "adverb",
+        "sense_order": 1,
+        "definition_en": "in advance; before an event",
+        "definition_vi": "trước, sớm hơn",
+        "grammar_note": "[ahead of]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Plan ahead to avoid problems.", "vi": "Lên kế hoạch trước để tránh rắc rối." },
+          { "en": "She arrived ahead of schedule.", "vi": "Cô ấy đến sớm hơn lịch trình." }
+        ],
+        "synonyms": ["in advance", "beforehand", "early"],
+        "antonyms": ["late", "behind"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "go ahead", "definition_en": "used to give permission or encourage someone to do something", "definition_vi": "cứ tiến hành, cứ làm đi", "example_en": "Can I use your phone? — Go ahead.", "example_vi": "Tôi dùng điện thoại bạn được không? — Cứ tự nhiên." },
+      { "idiom_text": "ahead of the game", "definition_en": "in a better position than competitors", "definition_vi": "đi trước đối thủ, nắm lợi thế", "example_en": "We need to stay ahead of the game.", "example_vi": "Chúng ta cần đi trước đối thủ." }
+    ],
+    "collocations": [
+      { "collocation": "straight ahead", "pattern": "adv+adv", "example_en": "Look straight ahead.", "example_vi": "Nhìn thẳng phía trước." },
+      { "collocation": "ahead of time", "pattern": "adv+prep+noun", "example_en": "Finish the work ahead of time.", "example_vi": "Hoàn thành công việc trước thời hạn." },
+      { "collocation": "plan ahead", "pattern": "verb+adv", "example_en": "Always plan ahead.", "example_vi": "Luôn lên kế hoạch trước." }
+    ]
+  },
+  {
+    "headword": "aid",
+    "meaning_vi": "viện trợ, sự giúp đỡ, trợ giúp",
+    "pos": ["noun", "verb"],
+    "cefr_level": "B2",
+    "ipa_uk": "/eɪd/",
+    "ipa_us": "/eɪd/",
+    "etymology": "From Old French aide, from Latin adiutare ('to help')",
+    "is_countable": false,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "money, food, etc. sent to help countries in difficult situations",
+        "definition_vi": "viện trợ",
+        "grammar_note": "[uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The country received foreign aid.", "vi": "Đất nước nhận được viện trợ nước ngoài." },
+          { "en": "Emergency aid was sent to the disaster area.", "vi": "Viện trợ khẩn cấp được gửi đến vùng thiên tai." }
+        ],
+        "synonyms": ["assistance", "help", "support", "relief"],
+        "antonyms": ["hindrance"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to help someone or something",
+        "definition_vi": "hỗ trợ, giúp đỡ",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "The medicine aided his recovery.", "vi": "Thuốc giúp anh ấy hồi phục." }
+        ],
+        "synonyms": ["help", "assist", "support"],
+        "antonyms": ["hinder", "impede"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "aids" },
+      { "form_type": "past_simple", "form_value": "aided" },
+      { "form_type": "past_participle", "form_value": "aided" },
+      { "form_type": "present_participle", "form_value": "aiding" },
+      { "form_type": "plural", "form_value": "aids" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "come to somebody's aid", "definition_en": "to help someone who is in trouble", "definition_vi": "đến giúp ai đó", "example_en": "Nobody came to his aid.", "example_vi": "Không ai đến giúp anh ấy." },
+      { "idiom_text": "in aid of", "definition_en": "in order to help or raise money for", "definition_vi": "để hỗ trợ, nhằm mục đích gây quỹ", "example_en": "A concert in aid of charity.", "example_vi": "Một buổi hòa nhạc gây quỹ từ thiện." }
+    ],
+    "collocations": [
+      { "collocation": "foreign aid", "pattern": "adj+noun", "example_en": "The government increased foreign aid.", "example_vi": "Chính phủ tăng viện trợ nước ngoài." },
+      { "collocation": "first aid", "pattern": "adj+noun", "example_en": "Do you know first aid?", "example_vi": "Bạn có biết sơ cứu không?" },
+      { "collocation": "humanitarian aid", "pattern": "adj+noun", "example_en": "Humanitarian aid was delivered to the refugees.", "example_vi": "Viện trợ nhân đạo được gửi đến người tị nạn." }
+    ]
+  },
+  {
+    "headword": "aide",
+    "meaning_vi": "trợ lý, phụ tá",
+    "pos": ["noun"],
+    "cefr_level": "C1",
+    "ipa_uk": "/eɪd/",
+    "ipa_us": "/eɪd/",
+    "etymology": "From French aide ('helper')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a person who helps an important person, especially a politician",
+        "definition_vi": "trợ lý, phụ tá",
+        "grammar_note": "[countable]",
+        "domain": "politics",
+        "register": "formal",
+        "examples": [
+          { "en": "The president's aide confirmed the meeting.", "vi": "Trợ lý tổng thống xác nhận cuộc họp." },
+          { "en": "She worked as an aide to the senator.", "vi": "Cô ấy làm phụ tá cho thượng nghị sĩ." }
+        ],
+        "synonyms": ["assistant", "advisor", "helper"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "aides" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "presidential aide", "pattern": "adj+noun", "example_en": "A presidential aide spoke to reporters.", "example_vi": "Một trợ lý tổng thống nói chuyện với phóng viên." },
+      { "collocation": "senior aide", "pattern": "adj+noun", "example_en": "His senior aide resigned.", "example_vi": "Trợ lý cấp cao của ông ấy đã từ chức." }
+    ]
+  },
+  {
+    "headword": "AIDS",
+    "meaning_vi": "bệnh AIDS, bệnh SIDA",
+    "pos": ["noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/eɪdz/",
+    "ipa_us": "/eɪdz/",
+    "etymology": "Acronym for Acquired Immune Deficiency Syndrome",
+    "is_countable": false,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a serious disease that destroys the body's ability to fight infection",
+        "definition_vi": "bệnh AIDS (hội chứng suy giảm miễn dịch mắc phải)",
+        "grammar_note": "[uncountable]",
+        "domain": "medical",
+        "register": null,
+        "examples": [
+          { "en": "Many people still die from AIDS every year.", "vi": "Nhiều người vẫn chết vì AIDS mỗi năm." },
+          { "en": "The charity raises money for AIDS research.", "vi": "Tổ chức từ thiện gây quỹ nghiên cứu AIDS." }
+        ],
+        "synonyms": [],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "AIDS virus", "pattern": "noun+noun", "example_en": "The AIDS virus was identified in 1983.", "example_vi": "Virus AIDS được xác định vào năm 1983." },
+      { "collocation": "AIDS prevention", "pattern": "noun+noun", "example_en": "AIDS prevention programs are important.", "example_vi": "Các chương trình phòng chống AIDS rất quan trọng." }
+    ]
+  },
+  {
+    "headword": "aim",
+    "meaning_vi": "mục tiêu, nhắm, hướng tới",
+    "pos": ["noun", "verb"],
+    "cefr_level": "A2",
+    "ipa_uk": "/eɪm/",
+    "ipa_us": "/eɪm/",
+    "etymology": "From Old French aesmer, esmer ('to estimate'), from Latin aestimare",
+    "is_countable": true,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "the purpose of doing something; what you are trying to achieve",
+        "definition_vi": "mục tiêu, mục đích",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The aim of the project is to reduce pollution.", "vi": "Mục tiêu của dự án là giảm ô nhiễm." },
+          { "en": "She achieved her aim of becoming a doctor.", "vi": "Cô ấy đạt được mục tiêu trở thành bác sĩ." }
+        ],
+        "synonyms": ["goal", "objective", "target", "purpose"],
+        "antonyms": []
+      },
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to try or intend to achieve something",
+        "definition_vi": "nhắm đến, hướng tới",
+        "grammar_note": "[intransitive + to/at/for]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "We aim to finish by Friday.", "vi": "Chúng tôi hướng tới hoàn thành trước thứ Sáu." },
+          { "en": "The program is aimed at young people.", "vi": "Chương trình hướng tới giới trẻ." }
+        ],
+        "synonyms": ["intend", "target", "plan"],
+        "antonyms": []
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to point a weapon or camera at something",
+        "definition_vi": "nhắm, chĩa (vũ khí, máy ảnh)",
+        "grammar_note": "[transitive + at]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "He aimed the gun at the target.", "vi": "Anh ấy nhắm súng vào mục tiêu." }
+        ],
+        "synonyms": ["point", "direct", "target"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "aims" },
+      { "form_type": "past_simple", "form_value": "aimed" },
+      { "form_type": "past_participle", "form_value": "aimed" },
+      { "form_type": "present_participle", "form_value": "aiming" },
+      { "form_type": "plural", "form_value": "aims" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "take aim", "definition_en": "to point a weapon at a target", "definition_vi": "ngắm bắn, nhắm mục tiêu", "example_en": "He took aim and fired.", "example_vi": "Anh ấy ngắm và bắn." }
+    ],
+    "collocations": [
+      { "collocation": "main aim", "pattern": "adj+noun", "example_en": "The main aim is customer satisfaction.", "example_vi": "Mục tiêu chính là sự hài lòng của khách hàng." },
+      { "collocation": "aim to achieve", "pattern": "verb+prep+verb", "example_en": "We aim to achieve the best results.", "example_vi": "Chúng tôi hướng tới đạt kết quả tốt nhất." }
+    ]
+  },
+  {
+    "headword": "air",
+    "meaning_vi": "không khí, không trung",
+    "pos": ["noun", "verb"],
+    "cefr_level": "A1",
+    "ipa_uk": "/eə(r)/",
+    "ipa_us": "/er/",
+    "etymology": "From Old French air, from Latin aer, from Greek aēr ('air, atmosphere')",
+    "is_countable": false,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "the mixture of gases that surrounds the earth and that we breathe",
+        "definition_vi": "không khí",
+        "grammar_note": "[uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Let's go outside for some fresh air.", "vi": "Ra ngoài hít thở không khí trong lành đi." },
+          { "en": "The air was polluted.", "vi": "Không khí bị ô nhiễm." }
+        ],
+        "synonyms": ["atmosphere", "breeze"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "the space above the ground",
+        "definition_vi": "không trung, bầu trời",
+        "grammar_note": "[uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The ball flew through the air.", "vi": "Quả bóng bay qua không trung." }
+        ],
+        "synonyms": ["sky", "space"],
+        "antonyms": ["ground"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to broadcast on television or radio",
+        "definition_vi": "phát sóng",
+        "grammar_note": "[transitive]",
+        "domain": "media",
+        "register": null,
+        "examples": [
+          { "en": "The show airs every Sunday.", "vi": "Chương trình phát sóng mỗi Chủ nhật." }
+        ],
+        "synonyms": ["broadcast", "transmit"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "airs" },
+      { "form_type": "past_simple", "form_value": "aired" },
+      { "form_type": "past_participle", "form_value": "aired" },
+      { "form_type": "present_participle", "form_value": "airing" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "in the air", "definition_en": "felt by many people; likely to happen", "definition_vi": "bao trùm, lan tỏa trong không khí", "example_en": "Change is in the air.", "example_vi": "Sự thay đổi đang bao trùm." },
+      { "idiom_text": "up in the air", "definition_en": "not yet decided; uncertain", "definition_vi": "chưa chắc chắn, chưa quyết định", "example_en": "Our plans are still up in the air.", "example_vi": "Kế hoạch của chúng tôi vẫn chưa chắc chắn." },
+      { "idiom_text": "clear the air", "definition_en": "to remove tension by talking openly about a problem", "definition_vi": "giải tỏa bầu không khí, nói thẳng để giải quyết", "example_en": "Let's talk and clear the air.", "example_vi": "Hãy nói chuyện để giải tỏa bầu không khí." }
+    ],
+    "collocations": [
+      { "collocation": "fresh air", "pattern": "adj+noun", "example_en": "I need some fresh air.", "example_vi": "Tôi cần chút không khí trong lành." },
+      { "collocation": "air pollution", "pattern": "noun+noun", "example_en": "Air pollution is a major problem.", "example_vi": "Ô nhiễm không khí là vấn đề lớn." },
+      { "collocation": "hot air", "pattern": "adj+noun", "example_en": "His promises were just hot air.", "example_vi": "Lời hứa của anh ta chỉ là nói suông." }
+    ]
+  },
+  {
+    "headword": "aircraft",
+    "meaning_vi": "máy bay, tàu bay",
+    "pos": ["noun"],
+    "cefr_level": "B1",
+    "ipa_uk": "/ˈeəkrɑːft/",
+    "ipa_us": "/ˈerkræft/",
+    "etymology": "From air + craft",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "any vehicle that can fly, such as a plane or helicopter",
+        "definition_vi": "máy bay, phương tiện bay",
+        "grammar_note": "[countable, plural unchanged: aircraft]",
+        "domain": "transport",
+        "register": null,
+        "examples": [
+          { "en": "The aircraft landed safely.", "vi": "Máy bay hạ cánh an toàn." },
+          { "en": "Military aircraft flew overhead.", "vi": "Máy bay quân sự bay qua đầu." }
+        ],
+        "synonyms": ["airplane", "plane", "jet", "aeroplane"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "military aircraft", "pattern": "adj+noun", "example_en": "Military aircraft were deployed.", "example_vi": "Máy bay quân sự đã được triển khai." },
+      { "collocation": "aircraft carrier", "pattern": "noun+noun", "example_en": "The aircraft carrier was stationed in the Pacific.", "example_vi": "Tàu sân bay đóng quân ở Thái Bình Dương." }
+    ]
+  },
+  {
+    "headword": "airline",
+    "meaning_vi": "hãng hàng không",
+    "pos": ["noun"],
+    "cefr_level": "A2",
+    "ipa_uk": "/ˈeəlaɪn/",
+    "ipa_us": "/ˈerlaɪn/",
+    "etymology": "From air + line",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a company that provides regular flights for carrying passengers and goods",
+        "definition_vi": "hãng hàng không",
+        "grammar_note": "[countable]",
+        "domain": "transport",
+        "register": null,
+        "examples": [
+          { "en": "Which airline are you flying with?", "vi": "Bạn bay hãng nào?" },
+          { "en": "Several airlines offer flights to London.", "vi": "Nhiều hãng hàng không có chuyến bay đến London." }
+        ],
+        "synonyms": ["carrier", "airways"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "airlines" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "budget airline", "pattern": "adj+noun", "example_en": "Budget airlines offer cheap flights.", "example_vi": "Hãng hàng không giá rẻ cung cấp vé rẻ." },
+      { "collocation": "airline ticket", "pattern": "noun+noun", "example_en": "I booked the airline ticket online.", "example_vi": "Tôi đặt vé máy bay trực tuyến." },
+      { "collocation": "airline industry", "pattern": "noun+noun", "example_en": "The airline industry was hit by the pandemic.", "example_vi": "Ngành hàng không bị ảnh hưởng bởi đại dịch." }
+    ]
+  }
+]

@@ -1,0 +1,911 @@
+[
+  {
+    "headword": "adhere",
+    "meaning_vi": "tuân thủ, bám vào",
+    "pos": ["verb"],
+    "cefr_level": "C1",
+    "ipa_uk": "/ədˈhɪə(r)/",
+    "ipa_us": "/ədˈhɪr/",
+    "etymology": "From Latin adhaerēre ('to stick to')",
+    "is_transitive": false,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to follow or obey a rule, law, or set of instructions",
+        "definition_vi": "tuân thủ, tuân theo (quy tắc, luật)",
+        "grammar_note": "[intransitive + to]",
+        "examples": [
+          { "en": "All members must adhere to the rules.", "vi": "Tất cả thành viên phải tuân thủ các quy tắc." },
+          { "en": "She adhered strictly to her diet.", "vi": "Cô ấy tuân thủ nghiêm ngặt chế độ ăn kiêng." }
+        ],
+        "synonyms": ["follow", "obey", "comply", "abide by"],
+        "antonyms": ["violate", "break", "disobey"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to stick firmly to a surface or substance",
+        "definition_vi": "bám vào, dính vào (bề mặt)",
+        "grammar_note": "[intransitive + to]",
+        "examples": [
+          { "en": "The glue adheres well to wood.", "vi": "Keo dính tốt vào gỗ." }
+        ],
+        "synonyms": ["stick", "cling", "bond", "attach"],
+        "antonyms": ["detach", "separate"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "adheres" },
+      { "form_type": "past_simple", "form_value": "adhered" },
+      { "form_type": "past_participle", "form_value": "adhered" },
+      { "form_type": "present_participle", "form_value": "adhering" }
+    ],
+    "phrasal_verbs": [
+      {
+        "phrasal_verb": "adhere to",
+        "particle": "to",
+        "is_separable": false,
+        "definition_en": "to continue to follow or support a belief, plan, or agreement",
+        "definition_vi": "tuân theo, giữ vững (niềm tin, kế hoạch)",
+        "example_en": "We must adhere to the original plan.",
+        "example_vi": "Chúng ta phải tuân theo kế hoạch ban đầu."
+      }
+    ],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "adhere to rules", "pattern": "verb+prep+noun", "example_en": "Students must adhere to school rules.", "example_vi": "Học sinh phải tuân thủ nội quy trường." },
+      { "collocation": "strictly adhere", "pattern": "adv+verb", "example_en": "We strictly adhere to safety standards.", "example_vi": "Chúng tôi tuân thủ nghiêm ngặt các tiêu chuẩn an toàn." }
+    ]
+  },
+  {
+    "headword": "adjacent",
+    "meaning_vi": "liền kề, kế bên",
+    "pos": ["adjective"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˈdʒeɪsnt/",
+    "ipa_us": "/əˈdʒeɪsnt/",
+    "etymology": "From Latin adjacēns ('lying near')",
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "next to or near something",
+        "definition_vi": "liền kề, kế bên, sát cạnh",
+        "grammar_note": "[+ to]",
+        "examples": [
+          { "en": "The hotel is adjacent to the train station.", "vi": "Khách sạn nằm liền kề nhà ga." },
+          { "en": "We sat in adjacent seats.", "vi": "Chúng tôi ngồi ở ghế kế bên nhau." }
+        ],
+        "synonyms": ["neighbouring", "next", "adjoining", "nearby"],
+        "antonyms": ["distant", "remote", "far"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "adjacent to", "pattern": "adj+prep", "example_en": "The park is adjacent to the library.", "example_vi": "Công viên nằm kế bên thư viện." },
+      { "collocation": "adjacent room", "pattern": "adj+noun", "example_en": "The noise came from the adjacent room.", "example_vi": "Tiếng ồn phát ra từ phòng bên cạnh." }
+    ]
+  },
+  {
+    "headword": "adjust",
+    "meaning_vi": "điều chỉnh, thích nghi",
+    "pos": ["verb"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈdʒʌst/",
+    "ipa_us": "/əˈdʒʌst/",
+    "etymology": "From Old French ajuster ('to make conform')",
+    "is_transitive": true,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to change something slightly to make it more correct, effective, or suitable",
+        "definition_vi": "điều chỉnh, chỉnh sửa",
+        "grammar_note": "[transitive]",
+        "examples": [
+          { "en": "He adjusted the mirror before driving.", "vi": "Anh ấy điều chỉnh gương trước khi lái xe." },
+          { "en": "You can adjust the volume here.", "vi": "Bạn có thể điều chỉnh âm lượng ở đây." }
+        ],
+        "synonyms": ["modify", "alter", "change", "tune"],
+        "antonyms": ["fix", "leave"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to get used to a new situation",
+        "definition_vi": "thích nghi, thích ứng",
+        "grammar_note": "[intransitive + to]",
+        "examples": [
+          { "en": "It took her a while to adjust to the new school.", "vi": "Cô ấy mất một thời gian để thích nghi với trường mới." }
+        ],
+        "synonyms": ["adapt", "acclimatize", "accommodate"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "adjusts" },
+      { "form_type": "past_simple", "form_value": "adjusted" },
+      { "form_type": "past_participle", "form_value": "adjusted" },
+      { "form_type": "present_participle", "form_value": "adjusting" }
+    ],
+    "phrasal_verbs": [
+      {
+        "phrasal_verb": "adjust to",
+        "particle": "to",
+        "is_separable": false,
+        "definition_en": "to become familiar with a new situation",
+        "definition_vi": "thích nghi với",
+        "example_en": "Children adjust to change quickly.",
+        "example_vi": "Trẻ em thích nghi với sự thay đổi nhanh chóng."
+      }
+    ],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "adjust settings", "pattern": "verb+noun", "example_en": "Adjust the settings to your preference.", "example_vi": "Điều chỉnh cài đặt theo sở thích của bạn." },
+      { "collocation": "adjust accordingly", "pattern": "verb+adv", "example_en": "Plans were adjusted accordingly.", "example_vi": "Kế hoạch đã được điều chỉnh phù hợp." }
+    ]
+  },
+  {
+    "headword": "adjustment",
+    "meaning_vi": "sự điều chỉnh, sự thích nghi",
+    "pos": ["noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈdʒʌstmənt/",
+    "ipa_us": "/əˈdʒʌstmənt/",
+    "is_countable": true,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a small change made to something to improve or correct it",
+        "definition_vi": "sự điều chỉnh, sự chỉnh sửa",
+        "grammar_note": "[countable, uncountable]",
+        "examples": [
+          { "en": "A few minor adjustments are needed.", "vi": "Cần một vài điều chỉnh nhỏ." },
+          { "en": "The adjustment of the seat is easy.", "vi": "Việc điều chỉnh ghế rất dễ." }
+        ],
+        "synonyms": ["modification", "alteration", "change", "correction"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "the process of getting used to a new situation",
+        "definition_vi": "sự thích nghi, sự thích ứng",
+        "grammar_note": "[uncountable]",
+        "examples": [
+          { "en": "The adjustment to university life can be difficult.", "vi": "Sự thích nghi với cuộc sống đại học có thể khó khăn." }
+        ],
+        "synonyms": ["adaptation", "acclimatization"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "adjustments" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "make adjustments", "pattern": "verb+noun", "example_en": "We need to make some adjustments.", "example_vi": "Chúng ta cần thực hiện một số điều chỉnh." },
+      { "collocation": "minor adjustment", "pattern": "adj+noun", "example_en": "Only a minor adjustment is required.", "example_vi": "Chỉ cần một điều chỉnh nhỏ." }
+    ]
+  },
+  {
+    "headword": "administer",
+    "meaning_vi": "quản lý, thực thi",
+    "pos": ["verb"],
+    "cefr_level": "C1",
+    "ipa_uk": "/ədˈmɪnɪstə(r)/",
+    "ipa_us": "/ədˈmɪnɪstər/",
+    "etymology": "From Latin administrāre ('to manage, direct')",
+    "is_transitive": true,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to manage or organize a system, company, or institution",
+        "definition_vi": "quản lý, điều hành (hệ thống, tổ chức)",
+        "grammar_note": "[transitive]",
+        "examples": [
+          { "en": "She administers a large charity.", "vi": "Bà ấy điều hành một tổ chức từ thiện lớn." }
+        ],
+        "synonyms": ["manage", "run", "direct", "oversee"],
+        "antonyms": []
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to give a drug, medicine, or treatment to someone",
+        "definition_vi": "cho (thuốc), tiêm, thực hiện (điều trị)",
+        "grammar_note": "[transitive]",
+        "domain": "medical",
+        "examples": [
+          { "en": "The nurse administered the vaccine.", "vi": "Y tá tiêm vắc-xin." },
+          { "en": "The drug can be administered orally.", "vi": "Thuốc có thể uống bằng đường uống." }
+        ],
+        "synonyms": ["give", "apply", "dispense"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "administers" },
+      { "form_type": "past_simple", "form_value": "administered" },
+      { "form_type": "past_participle", "form_value": "administered" },
+      { "form_type": "present_participle", "form_value": "administering" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "administer justice", "pattern": "verb+noun", "example_en": "Courts administer justice fairly.", "example_vi": "Tòa án thực thi công lý một cách công bằng." },
+      { "collocation": "administer a test", "pattern": "verb+noun", "example_en": "Teachers administer the test at 9 a.m.", "example_vi": "Giáo viên tổ chức bài kiểm tra lúc 9 giờ sáng." }
+    ]
+  },
+  {
+    "headword": "administration",
+    "meaning_vi": "sự quản lý, chính quyền",
+    "pos": ["noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ədˌmɪnɪˈstreɪʃn/",
+    "ipa_us": "/ədˌmɪnɪˈstreɪʃn/",
+    "is_countable": true,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "the activities involved in managing a business, organization, or system",
+        "definition_vi": "sự quản lý, công tác hành chính",
+        "grammar_note": "[uncountable]",
+        "examples": [
+          { "en": "She works in hospital administration.", "vi": "Cô ấy làm việc trong bộ phận hành chính bệnh viện." }
+        ],
+        "synonyms": ["management", "governance", "direction"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "the government of a country, especially the US",
+        "definition_vi": "chính quyền, chính phủ (đặc biệt Mỹ)",
+        "grammar_note": "[countable]",
+        "examples": [
+          { "en": "The new administration took office in January.", "vi": "Chính quyền mới nhậm chức vào tháng Giêng." }
+        ],
+        "synonyms": ["government", "regime", "authority"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "administrations" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "business administration", "pattern": "noun+noun", "example_en": "She has a degree in business administration.", "example_vi": "Cô ấy có bằng quản trị kinh doanh." },
+      { "collocation": "public administration", "pattern": "adj+noun", "example_en": "He works in public administration.", "example_vi": "Anh ấy làm việc trong ngành hành chính công." }
+    ]
+  },
+  {
+    "headword": "administrative",
+    "meaning_vi": "thuộc hành chính, thuộc quản lý",
+    "pos": ["adjective"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ədˈmɪnɪstrətɪv/",
+    "ipa_us": "/ədˈmɪnɪstreɪtɪv/",
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "connected with organizing the work of a business or institution",
+        "definition_vi": "thuộc hành chính, thuộc quản lý",
+        "examples": [
+          { "en": "The job involves a lot of administrative work.", "vi": "Công việc này bao gồm nhiều việc hành chính." },
+          { "en": "Administrative costs have increased.", "vi": "Chi phí hành chính đã tăng lên." }
+        ],
+        "synonyms": ["managerial", "organizational", "bureaucratic"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "administrative staff", "pattern": "adj+noun", "example_en": "The administrative staff handled the paperwork.", "example_vi": "Nhân viên hành chính xử lý giấy tờ." },
+      { "collocation": "administrative duties", "pattern": "adj+noun", "example_en": "Her administrative duties include scheduling.", "example_vi": "Nhiệm vụ hành chính của cô ấy bao gồm lên lịch." }
+    ]
+  },
+  {
+    "headword": "administrator",
+    "meaning_vi": "người quản lý, quản trị viên",
+    "pos": ["noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ədˈmɪnɪstreɪtə(r)/",
+    "ipa_us": "/ədˈmɪnɪstreɪtər/",
+    "is_countable": true,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a person whose job is to manage or organize a business, system, or institution",
+        "definition_vi": "người quản lý, quản trị viên",
+        "grammar_note": "[countable]",
+        "examples": [
+          { "en": "The school administrator handled the complaint.", "vi": "Quản lý trường đã xử lý khiếu nại." },
+          { "en": "She is the system administrator.", "vi": "Cô ấy là quản trị viên hệ thống." }
+        ],
+        "synonyms": ["manager", "director", "executive", "supervisor"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "administrators" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "system administrator", "pattern": "noun+noun", "example_en": "Contact the system administrator.", "example_vi": "Liên hệ quản trị viên hệ thống." },
+      { "collocation": "school administrator", "pattern": "noun+noun", "example_en": "The school administrator met with parents.", "example_vi": "Quản lý trường gặp phụ huynh." }
+    ]
+  },
+  {
+    "headword": "admire",
+    "meaning_vi": "ngưỡng mộ, khâm phục",
+    "pos": ["verb"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ədˈmaɪə(r)/",
+    "ipa_us": "/ədˈmaɪər/",
+    "is_transitive": true,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to respect someone for what they have done or to respect their qualities",
+        "definition_vi": "ngưỡng mộ, khâm phục (ai đó)",
+        "grammar_note": "[transitive]",
+        "examples": [
+          { "en": "I really admire your courage.", "vi": "Tôi thực sự khâm phục sự dũng cảm của bạn." },
+          { "en": "She is admired for her dedication.", "vi": "Cô ấy được ngưỡng mộ vì sự cống hiến." }
+        ],
+        "synonyms": ["respect", "esteem", "look up to", "appreciate"],
+        "antonyms": ["despise", "scorn", "disrespect"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to look at something with pleasure because it is attractive",
+        "definition_vi": "ngắm, chiêm ngưỡng",
+        "grammar_note": "[transitive]",
+        "examples": [
+          { "en": "We stopped to admire the view.", "vi": "Chúng tôi dừng lại để ngắm cảnh." }
+        ],
+        "synonyms": ["appreciate", "enjoy", "marvel at"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "admires" },
+      { "form_type": "past_simple", "form_value": "admired" },
+      { "form_type": "past_participle", "form_value": "admired" },
+      { "form_type": "present_participle", "form_value": "admiring" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "greatly admire", "pattern": "adv+verb", "example_en": "I greatly admire her work.", "example_vi": "Tôi rất ngưỡng mộ công việc của cô ấy." },
+      { "collocation": "admire the scenery", "pattern": "verb+noun", "example_en": "We admired the scenery from the top.", "example_vi": "Chúng tôi ngắm phong cảnh từ trên đỉnh." }
+    ]
+  },
+  {
+    "headword": "admission",
+    "meaning_vi": "sự nhận vào, sự thừa nhận, phí vào cửa",
+    "pos": ["noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ədˈmɪʃn/",
+    "ipa_us": "/ədˈmɪʃn/",
+    "is_countable": true,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "the act of accepting someone into a school, hospital, or organization",
+        "definition_vi": "sự nhận vào, sự tuyển sinh",
+        "grammar_note": "[uncountable, countable]",
+        "examples": [
+          { "en": "Admission to the university is competitive.", "vi": "Việc tuyển sinh vào đại học rất cạnh tranh." }
+        ],
+        "synonyms": ["entry", "admittance", "access", "acceptance"],
+        "antonyms": ["rejection", "refusal", "exclusion"]
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "the money that you pay to enter a place",
+        "definition_vi": "phí vào cửa, tiền vé",
+        "grammar_note": "[uncountable]",
+        "examples": [
+          { "en": "Admission is free for children under 5.", "vi": "Miễn phí vào cửa cho trẻ dưới 5 tuổi." }
+        ],
+        "synonyms": ["entrance fee", "ticket price"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 2,
+        "definition_en": "a statement in which you admit that something is true",
+        "definition_vi": "sự thừa nhận, lời thú nhận",
+        "grammar_note": "[countable]",
+        "examples": [
+          { "en": "His silence was an admission of guilt.", "vi": "Sự im lặng của anh ta là một sự thừa nhận tội lỗi." }
+        ],
+        "synonyms": ["confession", "acknowledgment", "declaration"],
+        "antonyms": ["denial"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "admissions" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "gain admission", "pattern": "verb+noun", "example_en": "She gained admission to Harvard.", "example_vi": "Cô ấy được nhận vào Harvard." },
+      { "collocation": "admission fee", "pattern": "noun+noun", "example_en": "The admission fee is $10.", "example_vi": "Phí vào cửa là 10 đô la." }
+    ]
+  },
+  {
+    "headword": "admit",
+    "meaning_vi": "thừa nhận, cho vào",
+    "pos": ["verb"],
+    "cefr_level": "A2",
+    "ipa_uk": "/ədˈmɪt/",
+    "ipa_us": "/ədˈmɪt/",
+    "is_transitive": true,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to agree that something is true, especially unwillingly",
+        "definition_vi": "thừa nhận, thú nhận",
+        "grammar_note": "[transitive, intransitive]",
+        "examples": [
+          { "en": "He admitted that he was wrong.", "vi": "Anh ấy thừa nhận mình đã sai." },
+          { "en": "She admitted to stealing the money.", "vi": "Cô ấy thú nhận đã lấy trộm tiền." }
+        ],
+        "synonyms": ["confess", "acknowledge", "concede", "accept"],
+        "antonyms": ["deny", "reject", "dispute"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to allow someone to enter a place or become a member",
+        "definition_vi": "cho vào, nhận vào",
+        "grammar_note": "[transitive]",
+        "examples": [
+          { "en": "He was admitted to hospital last night.", "vi": "Anh ấy nhập viện tối qua." },
+          { "en": "The club admits new members every year.", "vi": "Câu lạc bộ nhận thành viên mới hàng năm." }
+        ],
+        "synonyms": ["allow in", "let in", "accept", "receive"],
+        "antonyms": ["refuse", "exclude", "reject"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "admits" },
+      { "form_type": "past_simple", "form_value": "admitted" },
+      { "form_type": "past_participle", "form_value": "admitted" },
+      { "form_type": "present_participle", "form_value": "admitting" }
+    ],
+    "phrasal_verbs": [
+      {
+        "phrasal_verb": "admit to",
+        "particle": "to",
+        "is_separable": false,
+        "definition_en": "to confess to doing something wrong",
+        "definition_vi": "thú nhận đã làm (điều sai)",
+        "example_en": "He finally admitted to the crime.",
+        "example_vi": "Cuối cùng anh ta thú nhận tội."
+      }
+    ],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "freely admit", "pattern": "adv+verb", "example_en": "I freely admit I was wrong.", "example_vi": "Tôi thừa nhận thẳng thắn rằng tôi đã sai." },
+      { "collocation": "admit defeat", "pattern": "verb+noun", "example_en": "He refused to admit defeat.", "example_vi": "Anh ấy từ chối thừa nhận thất bại." }
+    ]
+  },
+  {
+    "headword": "adolescent",
+    "meaning_vi": "thanh thiếu niên, vị thành niên",
+    "pos": ["noun", "adjective"],
+    "cefr_level": "C1",
+    "ipa_uk": "/ˌædəˈlesnt/",
+    "ipa_us": "/ˌædəˈlesnt/",
+    "is_countable": true,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a young person who is developing from a child into an adult",
+        "definition_vi": "thanh thiếu niên, vị thành niên",
+        "grammar_note": "[countable]",
+        "examples": [
+          { "en": "The programme is designed for adolescents.", "vi": "Chương trình được thiết kế cho thanh thiếu niên." }
+        ],
+        "synonyms": ["teenager", "youth", "young person"],
+        "antonyms": ["adult", "child"]
+      },
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "relating to or typical of a young person between childhood and adulthood",
+        "definition_vi": "thuộc tuổi vị thành niên",
+        "examples": [
+          { "en": "Adolescent behaviour can be unpredictable.", "vi": "Hành vi của tuổi vị thành niên có thể khó đoán." }
+        ],
+        "synonyms": ["teenage", "youthful", "juvenile"],
+        "antonyms": ["mature", "adult"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "adolescents" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "adolescent behaviour", "pattern": "adj+noun", "example_en": "This is typical adolescent behaviour.", "example_vi": "Đây là hành vi điển hình của tuổi vị thành niên." }
+    ]
+  },
+  {
+    "headword": "adopt",
+    "meaning_vi": "nhận nuôi, áp dụng",
+    "pos": ["verb"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈdɒpt/",
+    "ipa_us": "/əˈdɑːpt/",
+    "is_transitive": true,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to take another person's child into your family and legally become its parent",
+        "definition_vi": "nhận nuôi, nhận làm con nuôi",
+        "grammar_note": "[transitive, intransitive]",
+        "examples": [
+          { "en": "They decided to adopt a child.", "vi": "Họ quyết định nhận nuôi một đứa trẻ." }
+        ],
+        "synonyms": ["take in", "foster"],
+        "antonyms": ["abandon", "give up"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to start using a new method, idea, or policy",
+        "definition_vi": "áp dụng, chấp nhận (phương pháp, ý tưởng)",
+        "grammar_note": "[transitive]",
+        "examples": [
+          { "en": "The company adopted a new strategy.", "vi": "Công ty áp dụng chiến lược mới." },
+          { "en": "Many countries have adopted this approach.", "vi": "Nhiều quốc gia đã áp dụng cách tiếp cận này." }
+        ],
+        "synonyms": ["embrace", "take on", "implement", "accept"],
+        "antonyms": ["reject", "abandon", "discard"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "adopts" },
+      { "form_type": "past_simple", "form_value": "adopted" },
+      { "form_type": "past_participle", "form_value": "adopted" },
+      { "form_type": "present_participle", "form_value": "adopting" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "adopt a policy", "pattern": "verb+noun", "example_en": "The government adopted a new policy.", "example_vi": "Chính phủ áp dụng chính sách mới." },
+      { "collocation": "widely adopted", "pattern": "adv+verb", "example_en": "The technology has been widely adopted.", "example_vi": "Công nghệ đã được áp dụng rộng rãi." }
+    ]
+  },
+  {
+    "headword": "adoption",
+    "meaning_vi": "sự nhận nuôi, sự áp dụng",
+    "pos": ["noun"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˈdɒpʃn/",
+    "ipa_us": "/əˈdɑːpʃn/",
+    "is_countable": true,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "the act of adopting a child",
+        "definition_vi": "sự nhận nuôi con",
+        "grammar_note": "[uncountable, countable]",
+        "examples": [
+          { "en": "She was given up for adoption at birth.", "vi": "Cô ấy bị cho đi làm con nuôi từ khi mới sinh." }
+        ],
+        "synonyms": ["fostering"],
+        "antonyms": ["abandonment"]
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "the decision to start using something new",
+        "definition_vi": "sự áp dụng, sự chấp nhận (cái mới)",
+        "grammar_note": "[uncountable]",
+        "examples": [
+          { "en": "The adoption of new technology is essential.", "vi": "Việc áp dụng công nghệ mới là cần thiết." }
+        ],
+        "synonyms": ["acceptance", "implementation", "embracing"],
+        "antonyms": ["rejection"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "adoptions" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "put up for adoption", "pattern": "verb+prep+noun", "example_en": "The puppy was put up for adoption.", "example_vi": "Chú chó con được cho đi nhận nuôi." },
+      { "collocation": "technology adoption", "pattern": "noun+noun", "example_en": "Technology adoption varies by region.", "example_vi": "Việc áp dụng công nghệ khác nhau theo vùng." }
+    ]
+  },
+  {
+    "headword": "adult",
+    "meaning_vi": "người lớn, trưởng thành",
+    "pos": ["noun", "adjective"],
+    "cefr_level": "A2",
+    "ipa_uk": "/ˈædʌlt/",
+    "ipa_us": "/əˈdʌlt/",
+    "is_countable": true,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a person who is fully grown or legally old enough to be responsible for their actions",
+        "definition_vi": "người lớn, người trưởng thành",
+        "grammar_note": "[countable]",
+        "examples": [
+          { "en": "This film is for adults only.", "vi": "Phim này chỉ dành cho người lớn." },
+          { "en": "Adults pay full price.", "vi": "Người lớn trả giá đầy đủ." }
+        ],
+        "synonyms": ["grown-up"],
+        "antonyms": ["child", "minor", "kid"]
+      },
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "fully grown or developed; for or relating to adults",
+        "definition_vi": "trưởng thành, dành cho người lớn",
+        "examples": [
+          { "en": "She has two adult children.", "vi": "Bà ấy có hai con đã trưởng thành." },
+          { "en": "Adult education is available at the centre.", "vi": "Giáo dục cho người lớn có sẵn tại trung tâm." }
+        ],
+        "synonyms": ["mature", "grown-up", "fully grown"],
+        "antonyms": ["juvenile", "childish"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "adults" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "adult education", "pattern": "adj+noun", "example_en": "She teaches adult education classes.", "example_vi": "Cô ấy dạy lớp giáo dục cho người lớn." },
+      { "collocation": "young adult", "pattern": "adj+noun", "example_en": "The book is aimed at young adults.", "example_vi": "Cuốn sách hướng đến thanh niên." }
+    ]
+  },
+  {
+    "headword": "advance",
+    "meaning_vi": "tiến bộ, tiến lên, trước",
+    "pos": ["noun", "verb", "adjective"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ədˈvɑːns/",
+    "ipa_us": "/ədˈvæns/",
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "progress or development in a particular area",
+        "definition_vi": "sự tiến bộ, bước tiến",
+        "grammar_note": "[countable, uncountable]",
+        "examples": [
+          { "en": "Recent advances in medicine have saved many lives.", "vi": "Những tiến bộ gần đây trong y học đã cứu nhiều mạng sống." }
+        ],
+        "synonyms": ["progress", "development", "breakthrough", "improvement"],
+        "antonyms": ["decline", "regression"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to move forward; to make progress",
+        "definition_vi": "tiến lên, tiến bộ",
+        "grammar_note": "[intransitive, transitive]",
+        "examples": [
+          { "en": "The army advanced towards the city.", "vi": "Quân đội tiến về phía thành phố." },
+          { "en": "Technology has advanced rapidly.", "vi": "Công nghệ đã tiến bộ nhanh chóng." }
+        ],
+        "synonyms": ["progress", "proceed", "move forward"],
+        "antonyms": ["retreat", "withdraw", "regress"]
+      },
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "done or given before a particular time or event",
+        "definition_vi": "trước, sớm (đặt trước)",
+        "examples": [
+          { "en": "You need to give advance notice.", "vi": "Bạn cần thông báo trước." }
+        ],
+        "synonyms": ["prior", "early", "preliminary"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "advances" },
+      { "form_type": "third_person_singular", "form_value": "advances" },
+      { "form_type": "past_simple", "form_value": "advanced" },
+      { "form_type": "past_participle", "form_value": "advanced" },
+      { "form_type": "present_participle", "form_value": "advancing" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      {
+        "idiom_text": "in advance",
+        "definition_en": "before a particular time; beforehand",
+        "definition_vi": "trước, trước đó",
+        "example_en": "Please book tickets in advance.",
+        "example_vi": "Vui lòng đặt vé trước."
+      }
+    ],
+    "collocations": [
+      { "collocation": "advance warning", "pattern": "adj+noun", "example_en": "We had no advance warning.", "example_vi": "Chúng tôi không được cảnh báo trước." },
+      { "collocation": "in advance of", "pattern": "prep+noun", "example_en": "Preparations were made in advance of the event.", "example_vi": "Việc chuẩn bị được thực hiện trước sự kiện." },
+      { "collocation": "technological advance", "pattern": "adj+noun", "example_en": "Technological advances have transformed society.", "example_vi": "Những tiến bộ công nghệ đã biến đổi xã hội." }
+    ]
+  },
+  {
+    "headword": "advanced",
+    "meaning_vi": "nâng cao, tiên tiến",
+    "pos": ["adjective"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ədˈvɑːnst/",
+    "ipa_us": "/ədˈvænst/",
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "having the most modern and recently developed ideas, methods, or technology",
+        "definition_vi": "tiên tiến, hiện đại",
+        "examples": [
+          { "en": "Japan is an advanced industrial nation.", "vi": "Nhật Bản là một quốc gia công nghiệp tiên tiến." }
+        ],
+        "synonyms": ["modern", "sophisticated", "cutting-edge", "state-of-the-art"],
+        "antonyms": ["primitive", "basic", "outdated"]
+      },
+      {
+        "pos": "adjective",
+        "sense_order": 1,
+        "definition_en": "at a high level; not elementary",
+        "definition_vi": "nâng cao, trình độ cao",
+        "examples": [
+          { "en": "This is an advanced English course.", "vi": "Đây là khóa học tiếng Anh nâng cao." },
+          { "en": "She has advanced skills in programming.", "vi": "Cô ấy có kỹ năng lập trình nâng cao." }
+        ],
+        "synonyms": ["high-level", "complex", "expert"],
+        "antonyms": ["basic", "elementary", "beginner"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "advanced technology", "pattern": "adj+noun", "example_en": "They use advanced technology.", "example_vi": "Họ sử dụng công nghệ tiên tiến." },
+      { "collocation": "advanced level", "pattern": "adj+noun", "example_en": "He is studying at an advanced level.", "example_vi": "Anh ấy đang học ở trình độ nâng cao." }
+    ]
+  },
+  {
+    "headword": "advantage",
+    "meaning_vi": "lợi thế, ưu điểm",
+    "pos": ["noun"],
+    "cefr_level": "A2",
+    "ipa_uk": "/ədˈvɑːntɪdʒ/",
+    "ipa_us": "/ədˈvæntɪdʒ/",
+    "is_countable": true,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a thing that helps you or is useful; a benefit",
+        "definition_vi": "lợi thế, ưu điểm, lợi ích",
+        "grammar_note": "[countable, uncountable]",
+        "examples": [
+          { "en": "The main advantage is the low cost.", "vi": "Ưu điểm chính là chi phí thấp." },
+          { "en": "She had the advantage of a good education.", "vi": "Cô ấy có lợi thế của nền giáo dục tốt." }
+        ],
+        "synonyms": ["benefit", "asset", "strength", "merit"],
+        "antonyms": ["disadvantage", "drawback", "weakness"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "advantages" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      {
+        "idiom_text": "take advantage of",
+        "definition_en": "to make use of an opportunity; or to treat someone unfairly",
+        "definition_vi": "tận dụng; hoặc lợi dụng (ai đó)",
+        "example_en": "You should take advantage of this opportunity.",
+        "example_vi": "Bạn nên tận dụng cơ hội này."
+      }
+    ],
+    "collocations": [
+      { "collocation": "have an advantage", "pattern": "verb+noun", "example_en": "Taller players have an advantage.", "example_vi": "Cầu thủ cao hơn có lợi thế." },
+      { "collocation": "competitive advantage", "pattern": "adj+noun", "example_en": "Innovation gives us a competitive advantage.", "example_vi": "Đổi mới mang lại cho chúng tôi lợi thế cạnh tranh." },
+      { "collocation": "advantage over", "pattern": "noun+prep", "example_en": "We have an advantage over our competitors.", "example_vi": "Chúng tôi có lợi thế hơn đối thủ." }
+    ]
+  },
+  {
+    "headword": "adventure",
+    "meaning_vi": "cuộc phiêu lưu",
+    "pos": ["noun"],
+    "cefr_level": "B1",
+    "ipa_uk": "/ədˈventʃə(r)/",
+    "ipa_us": "/ədˈventʃər/",
+    "is_countable": true,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "an unusual, exciting, or dangerous experience or activity",
+        "definition_vi": "cuộc phiêu lưu, cuộc mạo hiểm",
+        "grammar_note": "[countable, uncountable]",
+        "examples": [
+          { "en": "Travelling through Africa was a great adventure.", "vi": "Du lịch qua châu Phi là một cuộc phiêu lưu tuyệt vời." },
+          { "en": "She was looking for adventure.", "vi": "Cô ấy tìm kiếm sự phiêu lưu." }
+        ],
+        "synonyms": ["expedition", "journey", "escapade", "quest"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "adventures" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "sense of adventure", "pattern": "noun+prep+noun", "example_en": "He has a great sense of adventure.", "example_vi": "Anh ấy rất thích phiêu lưu." },
+      { "collocation": "adventure sport", "pattern": "noun+noun", "example_en": "They enjoy adventure sports like rock climbing.", "example_vi": "Họ thích các môn thể thao mạo hiểm như leo núi." }
+    ]
+  },
+  {
+    "headword": "adverse",
+    "meaning_vi": "bất lợi, xấu",
+    "pos": ["adjective"],
+    "cefr_level": "C1",
+    "ipa_uk": "/ˈædvɜːs/",
+    "ipa_us": "/ædˈvɜːrs/",
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "negative, unpleasant, or harmful",
+        "definition_vi": "bất lợi, xấu, có hại",
+        "examples": [
+          { "en": "The drug has adverse side effects.", "vi": "Thuốc có tác dụng phụ có hại." },
+          { "en": "Adverse weather conditions delayed the flight.", "vi": "Điều kiện thời tiết xấu làm chuyến bay bị trễ." }
+        ],
+        "synonyms": ["unfavourable", "negative", "harmful", "detrimental"],
+        "antonyms": ["favourable", "positive", "beneficial"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "adverse effect", "pattern": "adj+noun", "example_en": "Pollution has adverse effects on health.", "example_vi": "Ô nhiễm có ảnh hưởng xấu đến sức khỏe." },
+      { "collocation": "adverse conditions", "pattern": "adj+noun", "example_en": "They worked under adverse conditions.", "example_vi": "Họ làm việc trong điều kiện bất lợi." },
+      { "collocation": "adverse reaction", "pattern": "adj+noun", "example_en": "Some patients had an adverse reaction.", "example_vi": "Một số bệnh nhân có phản ứng phụ." }
+    ]
+  }
+]

@@ -1,0 +1,1110 @@
+[
+  {
+    "headword": "a",
+    "meaning_vi": "một",
+    "pos": ["article"],
+    "cefr_level": "A1",
+    "ipa_uk": "/ə/",
+    "ipa_us": "/ə/",
+    "etymology": "From Old English ān ('one')",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "article",
+        "sense_order": 0,
+        "definition_en": "used before countable nouns referring to something not yet mentioned",
+        "definition_vi": "một (dùng trước danh từ đếm được chưa được nhắc đến)",
+        "grammar_note": "[indefinite article]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "I saw a dog in the park.", "vi": "Tôi thấy một con chó trong công viên." },
+          { "en": "She is a teacher.", "vi": "Cô ấy là một giáo viên." }
+        ],
+        "synonyms": ["one", "any"],
+        "antonyms": ["the"]
+      },
+      {
+        "pos": "article",
+        "sense_order": 1,
+        "definition_en": "used to show that somebody/something belongs to a class or group",
+        "definition_vi": "một (chỉ loại, nhóm)",
+        "grammar_note": "[indefinite article]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "A cat is a domestic animal.", "vi": "Mèo là động vật nuôi trong nhà." }
+        ],
+        "synonyms": [],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": []
+  },
+  {
+    "headword": "abandon",
+    "meaning_vi": "bỏ rơi, từ bỏ",
+    "pos": ["verb", "noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈbændən/",
+    "ipa_us": "/əˈbændən/",
+    "etymology": "From Old French abandoner ('to surrender, give up')",
+    "is_countable": null,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to leave somebody/something permanently, especially when you should stay",
+        "definition_vi": "bỏ rơi, ruồng bỏ (ai đó)",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The baby was abandoned by its mother.", "vi": "Đứa bé bị mẹ bỏ rơi." },
+          { "en": "He abandoned his wife and children.", "vi": "Ông ta bỏ rơi vợ con." }
+        ],
+        "synonyms": ["desert", "forsake", "leave"],
+        "antonyms": ["keep", "support", "stay with"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to stop doing or supporting something; to give up",
+        "definition_vi": "từ bỏ, hủy bỏ (kế hoạch, hy vọng)",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "They abandoned the plan.", "vi": "Họ từ bỏ kế hoạch." },
+          { "en": "The match was abandoned because of rain.", "vi": "Trận đấu bị hủy vì mưa." }
+        ],
+        "synonyms": ["give up", "drop", "scrap", "cancel"],
+        "antonyms": ["continue", "persist", "maintain"]
+      },
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a feeling of freedom from worry or shame",
+        "definition_vi": "sự phóng túng, buông thả",
+        "grammar_note": "[uncountable]",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "She danced with wild abandon.", "vi": "Cô ấy nhảy múa phóng khoáng." }
+        ],
+        "synonyms": ["recklessness", "wildness"],
+        "antonyms": ["restraint", "caution"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "abandons" },
+      { "form_type": "past_simple", "form_value": "abandoned" },
+      { "form_type": "past_participle", "form_value": "abandoned" },
+      { "form_type": "present_participle", "form_value": "abandoning" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      {
+        "idiom_text": "abandon ship",
+        "definition_en": "to leave a ship because it is sinking; to leave a failing project",
+        "definition_vi": "bỏ tàu; rời bỏ dự án thất bại",
+        "example_en": "The captain ordered the crew to abandon ship.",
+        "example_vi": "Thuyền trưởng ra lệnh cho thủy thủ bỏ tàu."
+      }
+    ],
+    "collocations": [
+      { "collocation": "abandon hope", "pattern": "verb+noun", "example_en": "Don't abandon hope.", "example_vi": "Đừng từ bỏ hy vọng." },
+      { "collocation": "abandon a plan", "pattern": "verb+noun", "example_en": "They were forced to abandon the plan.", "example_vi": "Họ buộc phải từ bỏ kế hoạch." }
+    ]
+  },
+  {
+    "headword": "ability",
+    "meaning_vi": "khả năng, năng lực",
+    "pos": ["noun"],
+    "cefr_level": "A2",
+    "ipa_uk": "/əˈbɪləti/",
+    "ipa_us": "/əˈbɪləti/",
+    "etymology": "From Old French ableté, from Latin habilitās ('aptitude')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "the fact that somebody is able to do something",
+        "definition_vi": "khả năng (làm được việc gì đó)",
+        "grammar_note": "[uncountable, countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She has the ability to solve complex problems.", "vi": "Cô ấy có khả năng giải quyết các vấn đề phức tạp." },
+          { "en": "People may lose their ability to communicate.", "vi": "Mọi người có thể mất khả năng giao tiếp." }
+        ],
+        "synonyms": ["capability", "capacity", "skill", "talent"],
+        "antonyms": ["inability", "incapability"]
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "a high level of skill or intelligence",
+        "definition_vi": "tài năng, năng lực",
+        "grammar_note": "[uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She is a woman of considerable ability.", "vi": "Cô ấy là người phụ nữ có năng lực đáng nể." }
+        ],
+        "synonyms": ["talent", "competence", "expertise"],
+        "antonyms": ["incompetence"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "abilities" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      {
+        "idiom_text": "to the best of one's ability",
+        "definition_en": "as well as someone can",
+        "definition_vi": "hết khả năng của mình",
+        "example_en": "I did the job to the best of my ability.",
+        "example_vi": "Tôi đã làm công việc hết khả năng của mình."
+      }
+    ],
+    "collocations": [
+      { "collocation": "natural ability", "pattern": "adj+noun", "example_en": "She has a natural ability for music.", "example_vi": "Cô ấy có năng khiếu âm nhạc tự nhiên." },
+      { "collocation": "ability to learn", "pattern": "noun+to-inf", "example_en": "Children have an amazing ability to learn.", "example_vi": "Trẻ em có khả năng học hỏi tuyệt vời." }
+    ]
+  },
+  {
+    "headword": "able",
+    "meaning_vi": "có thể, có khả năng",
+    "pos": ["adjective"],
+    "cefr_level": "A2",
+    "ipa_uk": "/ˈeɪbl/",
+    "ipa_us": "/ˈeɪbl/",
+    "etymology": "From Old French able, from Latin habilis ('easily handled, apt')",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "having the skill, power, or opportunity to do something",
+        "definition_vi": "có thể, có khả năng (làm gì)",
+        "grammar_note": "[be able to + infinitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Will you be able to come tomorrow?", "vi": "Ngày mai bạn có thể đến không?" },
+          { "en": "I was able to finish the work on time.", "vi": "Tôi đã có thể hoàn thành công việc đúng hạn." }
+        ],
+        "synonyms": ["capable", "competent"],
+        "antonyms": ["unable", "incapable"]
+      },
+      {
+        "pos": "adjective",
+        "sense_order": 1,
+        "definition_en": "intelligent and good at something",
+        "definition_vi": "giỏi, có năng lực",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She is one of the ablest students in the class.", "vi": "Cô ấy là một trong những học sinh giỏi nhất lớp." }
+        ],
+        "synonyms": ["talented", "skilled", "gifted"],
+        "antonyms": ["incompetent"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "comparative", "form_value": "abler" },
+      { "form_type": "superlative", "form_value": "ablest" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "be able to", "pattern": "verb+adj+to", "example_en": "She was able to pass the exam.", "example_vi": "Cô ấy đã có thể vượt qua kỳ thi." }
+    ]
+  },
+  {
+    "headword": "abolish",
+    "meaning_vi": "bãi bỏ, xóa bỏ",
+    "pos": ["verb"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˈbɒlɪʃ/",
+    "ipa_us": "/əˈbɑːlɪʃ/",
+    "etymology": "From Latin abolēre ('to destroy, abolish')",
+    "is_countable": null,
+    "is_transitive": true,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to officially end a law, system, or institution",
+        "definition_vi": "bãi bỏ, xóa bỏ (luật, chế độ)",
+        "grammar_note": "[transitive]",
+        "domain": "law/politics",
+        "register": "formal",
+        "examples": [
+          { "en": "Slavery was abolished in the 19th century.", "vi": "Chế độ nô lệ bị bãi bỏ vào thế kỷ 19." },
+          { "en": "The government plans to abolish the tax.", "vi": "Chính phủ dự định bãi bỏ thuế này." }
+        ],
+        "synonyms": ["eliminate", "end", "scrap", "repeal"],
+        "antonyms": ["establish", "create", "introduce"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "abolishes" },
+      { "form_type": "past_simple", "form_value": "abolished" },
+      { "form_type": "past_participle", "form_value": "abolished" },
+      { "form_type": "present_participle", "form_value": "abolishing" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "abolish slavery", "pattern": "verb+noun", "example_en": "Lincoln helped abolish slavery.", "example_vi": "Lincoln đã góp phần xóa bỏ chế độ nô lệ." },
+      { "collocation": "abolish the death penalty", "pattern": "verb+noun", "example_en": "Many countries have abolished the death penalty.", "example_vi": "Nhiều quốc gia đã bãi bỏ án tử hình." }
+    ]
+  },
+  {
+    "headword": "abortion",
+    "meaning_vi": "phá thai, sự sẩy thai",
+    "pos": ["noun"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˈbɔːʃn/",
+    "ipa_us": "/əˈbɔːrʃn/",
+    "etymology": "From Latin abortiō ('miscarriage'), from aborīrī ('to miscarry')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "the deliberate ending of a pregnancy at an early stage",
+        "definition_vi": "sự phá thai",
+        "grammar_note": "[countable, uncountable]",
+        "domain": "medical",
+        "register": null,
+        "examples": [
+          { "en": "She decided to have an abortion.", "vi": "Cô ấy quyết định phá thai." }
+        ],
+        "synonyms": ["termination"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "abortions" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "have an abortion", "pattern": "verb+noun", "example_en": "She chose to have an abortion.", "example_vi": "Cô ấy chọn phá thai." }
+    ]
+  },
+  {
+    "headword": "about",
+    "meaning_vi": "về, khoảng, xung quanh",
+    "pos": ["preposition", "adverb"],
+    "cefr_level": "A1",
+    "ipa_uk": "/əˈbaʊt/",
+    "ipa_us": "/əˈbaʊt/",
+    "etymology": "From Old English onbūtan ('on the outside of')",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "preposition",
+        "sense_order": 0,
+        "definition_en": "on the subject of; concerning",
+        "definition_vi": "về (chủ đề gì)",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Tell me about your trip.", "vi": "Kể tôi nghe về chuyến đi của bạn." },
+          { "en": "What is the book about?", "vi": "Cuốn sách nói về cái gì?" }
+        ],
+        "synonyms": ["regarding", "concerning", "on"],
+        "antonyms": []
+      },
+      {
+        "pos": "adverb",
+        "sense_order": 0,
+        "definition_en": "approximately; not exactly",
+        "definition_vi": "khoảng, chừng",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "It costs about $50.", "vi": "Nó tốn khoảng 50 đô la." },
+          { "en": "There were about 200 people.", "vi": "Có khoảng 200 người." }
+        ],
+        "synonyms": ["approximately", "roughly", "around"],
+        "antonyms": ["exactly", "precisely"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [
+      {
+        "idiom_text": "be about to",
+        "definition_en": "to be going to do something very soon",
+        "definition_vi": "sắp sửa, chuẩn bị (làm gì)",
+        "example_en": "I was about to leave when you called.",
+        "example_vi": "Tôi đang sắp đi thì bạn gọi."
+      },
+      {
+        "idiom_text": "how about / what about",
+        "definition_en": "used to make a suggestion or ask for opinion",
+        "definition_vi": "thế còn... thì sao, hay là...",
+        "example_en": "How about going to the cinema?",
+        "example_vi": "Hay là đi xem phim?"
+      }
+    ],
+    "collocations": [
+      { "collocation": "think about", "pattern": "verb+prep", "example_en": "Think about what I said.", "example_vi": "Hãy nghĩ về điều tôi nói." },
+      { "collocation": "talk about", "pattern": "verb+prep", "example_en": "We need to talk about this.", "example_vi": "Chúng ta cần nói về chuyện này." }
+    ]
+  },
+  {
+    "headword": "above",
+    "meaning_vi": "ở trên, phía trên",
+    "pos": ["preposition", "adverb"],
+    "cefr_level": "A2",
+    "ipa_uk": "/əˈbʌv/",
+    "ipa_us": "/əˈbʌv/",
+    "etymology": "From Old English abufan ('above')",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "preposition",
+        "sense_order": 0,
+        "definition_en": "at or to a higher position than something",
+        "definition_vi": "ở trên, phía trên (vị trí)",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The plane flew above the clouds.", "vi": "Máy bay bay trên những đám mây." },
+          { "en": "Hang the picture above the fireplace.", "vi": "Treo bức tranh phía trên lò sưởi." }
+        ],
+        "synonyms": ["over", "on top of"],
+        "antonyms": ["below", "under", "beneath"]
+      },
+      {
+        "pos": "preposition",
+        "sense_order": 1,
+        "definition_en": "more than a number, amount, or level",
+        "definition_vi": "trên, hơn (số lượng, mức)",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Temperatures above 30°C are common in summer.", "vi": "Nhiệt độ trên 30°C là phổ biến vào mùa hè." }
+        ],
+        "synonyms": ["over", "exceeding"],
+        "antonyms": ["below", "under"]
+      },
+      {
+        "pos": "adverb",
+        "sense_order": 0,
+        "definition_en": "at or to a higher place",
+        "definition_vi": "ở trên, bên trên",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "See the examples above.", "vi": "Xem các ví dụ ở trên." }
+        ],
+        "synonyms": ["overhead"],
+        "antonyms": ["below"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [
+      {
+        "idiom_text": "above all",
+        "definition_en": "most importantly",
+        "definition_vi": "trên hết, quan trọng nhất",
+        "example_en": "Above all, be honest.",
+        "example_vi": "Trên hết, hãy trung thực."
+      },
+      {
+        "idiom_text": "above and beyond",
+        "definition_en": "more than what is expected or required",
+        "definition_vi": "vượt trên cả mong đợi",
+        "example_en": "She went above and beyond to help us.",
+        "example_vi": "Cô ấy đã cố gắng vượt trên cả mong đợi để giúp chúng tôi."
+      }
+    ],
+    "collocations": []
+  },
+  {
+    "headword": "abroad",
+    "meaning_vi": "ở nước ngoài, ra nước ngoài",
+    "pos": ["adverb"],
+    "cefr_level": "B1",
+    "ipa_uk": "/əˈbrɔːd/",
+    "ipa_us": "/əˈbrɔːd/",
+    "etymology": "From Middle English abrod ('widely, far and wide')",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adverb",
+        "sense_order": 0,
+        "definition_en": "in or to a foreign country",
+        "definition_vi": "ở nước ngoài, ra nước ngoài",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She has never been abroad.", "vi": "Cô ấy chưa bao giờ ra nước ngoài." },
+          { "en": "He lives abroad.", "vi": "Anh ấy sống ở nước ngoài." }
+        ],
+        "synonyms": ["overseas", "in a foreign country"],
+        "antonyms": ["at home", "domestically"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "go abroad", "pattern": "verb+adv", "example_en": "I want to go abroad next year.", "example_vi": "Tôi muốn đi nước ngoài năm tới." },
+      { "collocation": "study abroad", "pattern": "verb+adv", "example_en": "Many students study abroad.", "example_vi": "Nhiều sinh viên du học nước ngoài." },
+      { "collocation": "travel abroad", "pattern": "verb+adv", "example_en": "Do you travel abroad often?", "example_vi": "Bạn có đi nước ngoài thường xuyên không?" }
+    ]
+  },
+  {
+    "headword": "absence",
+    "meaning_vi": "sự vắng mặt, sự thiếu",
+    "pos": ["noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ˈæbsəns/",
+    "ipa_us": "/ˈæbsəns/",
+    "etymology": "From Latin absentia, from absēns ('being away')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "the fact of not being in a place where you are expected to be",
+        "definition_vi": "sự vắng mặt",
+        "grammar_note": "[countable, uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "His absence from work was noticed.", "vi": "Sự vắng mặt của anh ấy ở công ty bị để ý." }
+        ],
+        "synonyms": ["nonattendance"],
+        "antonyms": ["presence", "attendance"]
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "the lack of something",
+        "definition_vi": "sự thiếu, sự không có",
+        "grammar_note": "[uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The absence of evidence is not evidence of absence.", "vi": "Không có bằng chứng không có nghĩa là không tồn tại." }
+        ],
+        "synonyms": ["lack", "deficiency"],
+        "antonyms": ["presence", "abundance"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "absences" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      {
+        "idiom_text": "absence makes the heart grow fonder",
+        "definition_en": "you love someone more when they are far away",
+        "definition_vi": "xa mặt nhưng không cách lòng",
+        "example_en": "I miss her so much. Absence makes the heart grow fonder.",
+        "example_vi": "Tôi nhớ cô ấy quá. Xa mặt nhưng không cách lòng."
+      }
+    ],
+    "collocations": [
+      { "collocation": "in the absence of", "pattern": "prep+noun+prep", "example_en": "In the absence of proof, we cannot act.", "example_vi": "Khi không có bằng chứng, chúng tôi không thể hành động." }
+    ]
+  },
+  {
+    "headword": "absent",
+    "meaning_vi": "vắng mặt, không có",
+    "pos": ["adjective"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ˈæbsənt/",
+    "ipa_us": "/ˈæbsənt/",
+    "etymology": "From Latin absēns ('being away')",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "not in a place because of illness, holiday, etc.",
+        "definition_vi": "vắng mặt, nghỉ",
+        "grammar_note": "[+ from]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "He was absent from school yesterday.", "vi": "Hôm qua anh ấy nghỉ học." },
+          { "en": "Many students were absent today.", "vi": "Hôm nay nhiều học sinh vắng mặt." }
+        ],
+        "synonyms": ["away", "missing", "not present"],
+        "antonyms": ["present", "attending"]
+      },
+      {
+        "pos": "adjective",
+        "sense_order": 1,
+        "definition_en": "not existing; lacking",
+        "definition_vi": "không có, thiếu",
+        "grammar_note": null,
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "Enthusiasm was notably absent.", "vi": "Sự nhiệt tình rõ ràng là không có." }
+        ],
+        "synonyms": ["lacking", "missing"],
+        "antonyms": ["present", "existing"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "absent from", "pattern": "adj+prep", "example_en": "She was absent from the meeting.", "example_vi": "Cô ấy vắng mặt khỏi cuộc họp." }
+    ]
+  },
+  {
+    "headword": "absolute",
+    "meaning_vi": "tuyệt đối, hoàn toàn",
+    "pos": ["adjective"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ˈæbsəluːt/",
+    "ipa_us": "/ˈæbsəluːt/",
+    "etymology": "From Latin absolūtus ('freed, completed')",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "total and complete",
+        "definition_vi": "tuyệt đối, hoàn toàn",
+        "grammar_note": "[only before noun]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "I have absolute confidence in her.", "vi": "Tôi hoàn toàn tin tưởng cô ấy." },
+          { "en": "There is no absolute truth.", "vi": "Không có sự thật tuyệt đối." }
+        ],
+        "synonyms": ["complete", "total", "utter"],
+        "antonyms": ["partial", "relative", "limited"]
+      },
+      {
+        "pos": "adjective",
+        "sense_order": 1,
+        "definition_en": "used to emphasize something strong, often negative",
+        "definition_vi": "hoàn toàn, hết sức (nhấn mạnh)",
+        "grammar_note": "[informal emphasis]",
+        "domain": null,
+        "register": "informal",
+        "examples": [
+          { "en": "The party was an absolute disaster.", "vi": "Bữa tiệc là một thảm họa hoàn toàn." }
+        ],
+        "synonyms": ["complete", "total", "utter", "sheer"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "absolute power", "pattern": "adj+noun", "example_en": "Absolute power corrupts absolutely.", "example_vi": "Quyền lực tuyệt đối dẫn đến tha hóa tuyệt đối." },
+      { "collocation": "absolute majority", "pattern": "adj+noun", "example_en": "They won an absolute majority.", "example_vi": "Họ giành được đa số tuyệt đối." }
+    ]
+  },
+  {
+    "headword": "absolutely",
+    "meaning_vi": "hoàn toàn, chắc chắn rồi",
+    "pos": ["adverb"],
+    "cefr_level": "B1",
+    "ipa_uk": "/ˈæbsəluːtli/",
+    "ipa_us": "/ˈæbsəluːtli/",
+    "etymology": "From absolute + -ly",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adverb",
+        "sense_order": 0,
+        "definition_en": "completely; totally",
+        "definition_vi": "hoàn toàn, tuyệt đối",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "You are absolutely right.", "vi": "Bạn hoàn toàn đúng." },
+          { "en": "It's absolutely impossible.", "vi": "Điều đó hoàn toàn không thể." }
+        ],
+        "synonyms": ["completely", "totally", "entirely", "utterly"],
+        "antonyms": ["partially", "somewhat"]
+      },
+      {
+        "pos": "adverb",
+        "sense_order": 1,
+        "definition_en": "used to express strong agreement",
+        "definition_vi": "chắc chắn rồi, đúng vậy (đồng ý mạnh)",
+        "grammar_note": "[spoken]",
+        "domain": null,
+        "register": "informal",
+        "examples": [
+          { "en": "\"Do you agree?\" \"Absolutely!\"", "vi": "\"Bạn đồng ý chứ?\" \"Chắc chắn rồi!\"" }
+        ],
+        "synonyms": ["certainly", "definitely", "of course"],
+        "antonyms": ["no", "not at all"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "absolutely necessary", "pattern": "adv+adj", "example_en": "It is absolutely necessary to act now.", "example_vi": "Hoàn toàn cần thiết phải hành động ngay." },
+      { "collocation": "absolutely nothing", "pattern": "adv+pronoun", "example_en": "I know absolutely nothing about it.", "example_vi": "Tôi hoàn toàn không biết gì về điều đó." }
+    ]
+  },
+  {
+    "headword": "absorb",
+    "meaning_vi": "hấp thụ, tiếp thu",
+    "pos": ["verb"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əbˈzɔːb/",
+    "ipa_us": "/əbˈzɔːrb/",
+    "etymology": "From Latin absorbēre ('to swallow up')",
+    "is_countable": null,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to take in a liquid, gas, or other substance",
+        "definition_vi": "hấp thụ (chất lỏng, khí)",
+        "grammar_note": "[transitive]",
+        "domain": "science",
+        "register": null,
+        "examples": [
+          { "en": "Plants absorb water through their roots.", "vi": "Cây hấp thụ nước qua rễ." }
+        ],
+        "synonyms": ["soak up", "take in"],
+        "antonyms": ["emit", "release"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to take in and understand information",
+        "definition_vi": "tiếp thu (thông tin, kiến thức)",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "It took me a while to absorb all the information.", "vi": "Tôi mất một lúc để tiếp thu hết thông tin." }
+        ],
+        "synonyms": ["take in", "digest", "assimilate"],
+        "antonyms": ["ignore"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 2,
+        "definition_en": "to hold someone's attention completely",
+        "definition_vi": "thu hút, cuốn hút (sự chú ý)",
+        "grammar_note": "[transitive, usually passive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She was completely absorbed in her book.", "vi": "Cô ấy hoàn toàn mải mê đọc sách." }
+        ],
+        "synonyms": ["engross", "captivate", "fascinate"],
+        "antonyms": ["bore"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "absorbs" },
+      { "form_type": "past_simple", "form_value": "absorbed" },
+      { "form_type": "past_participle", "form_value": "absorbed" },
+      { "form_type": "present_participle", "form_value": "absorbing" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "absorb information", "pattern": "verb+noun", "example_en": "Children absorb information quickly.", "example_vi": "Trẻ em tiếp thu thông tin nhanh." },
+      { "collocation": "be absorbed in", "pattern": "verb+prep", "example_en": "He was absorbed in his work.", "example_vi": "Anh ấy mải mê với công việc." }
+    ]
+  },
+  {
+    "headword": "abstract",
+    "meaning_vi": "trừu tượng",
+    "pos": ["adjective", "noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ˈæbstrækt/",
+    "ipa_us": "/ˈæbstrækt/",
+    "etymology": "From Latin abstractus ('drawn away'), past participle of abstrahĕre",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "based on general ideas and not on any particular real situation or thing",
+        "definition_vi": "trừu tượng (không cụ thể)",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Love and freedom are abstract concepts.", "vi": "Tình yêu và tự do là những khái niệm trừu tượng." }
+        ],
+        "synonyms": ["theoretical", "conceptual"],
+        "antonyms": ["concrete", "tangible", "specific"]
+      },
+      {
+        "pos": "adjective",
+        "sense_order": 1,
+        "definition_en": "relating to abstract art, using shapes and colours rather than realistic images",
+        "definition_vi": "trừu tượng (nghệ thuật)",
+        "grammar_note": null,
+        "domain": "art",
+        "register": null,
+        "examples": [
+          { "en": "She paints abstract art.", "vi": "Cô ấy vẽ tranh trừu tượng." }
+        ],
+        "synonyms": ["non-representational"],
+        "antonyms": ["figurative", "realistic"]
+      },
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a short summary of a longer piece of writing",
+        "definition_vi": "bản tóm tắt (bài nghiên cứu)",
+        "grammar_note": "[countable]",
+        "domain": "academic",
+        "register": "formal",
+        "examples": [
+          { "en": "Please read the abstract before the full paper.", "vi": "Hãy đọc bản tóm tắt trước khi đọc bài đầy đủ." }
+        ],
+        "synonyms": ["summary", "synopsis", "overview"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "abstracts" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      {
+        "idiom_text": "in the abstract",
+        "definition_en": "as a general idea without considering specific facts",
+        "definition_vi": "trên lý thuyết, về mặt lý thuyết",
+        "example_en": "The idea sounds good in the abstract.",
+        "example_vi": "Ý tưởng nghe hay trên lý thuyết."
+      }
+    ],
+    "collocations": [
+      { "collocation": "abstract concept", "pattern": "adj+noun", "example_en": "Justice is an abstract concept.", "example_vi": "Công lý là một khái niệm trừu tượng." },
+      { "collocation": "abstract art", "pattern": "adj+noun", "example_en": "He collects abstract art.", "example_vi": "Anh ấy sưu tầm nghệ thuật trừu tượng." }
+    ]
+  },
+  {
+    "headword": "absurd",
+    "meaning_vi": "vô lý, phi lý",
+    "pos": ["adjective"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əbˈsɜːd/",
+    "ipa_us": "/əbˈsɜːrd/",
+    "etymology": "From Latin absurdus ('out of tune, silly')",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "extremely silly; not logical or sensible",
+        "definition_vi": "vô lý, phi lý, ngớ ngẩn",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "It's absurd to blame me for this.", "vi": "Thật vô lý khi đổ lỗi cho tôi." },
+          { "en": "What an absurd idea!", "vi": "Thật là một ý tưởng phi lý!" }
+        ],
+        "synonyms": ["ridiculous", "ludicrous", "preposterous", "nonsensical"],
+        "antonyms": ["reasonable", "sensible", "logical"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "absolutely absurd", "pattern": "adv+adj", "example_en": "The suggestion is absolutely absurd.", "example_vi": "Gợi ý đó hoàn toàn vô lý." },
+      { "collocation": "seem absurd", "pattern": "verb+adj", "example_en": "It may seem absurd, but it's true.", "example_vi": "Nghe có vẻ vô lý, nhưng đó là sự thật." }
+    ]
+  },
+  {
+    "headword": "abundance",
+    "meaning_vi": "sự dồi dào, sự phong phú",
+    "pos": ["noun"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˈbʌndəns/",
+    "ipa_us": "/əˈbʌndəns/",
+    "etymology": "From Latin abundantia ('fullness, plenty')",
+    "is_countable": false,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a very large quantity of something",
+        "definition_vi": "sự dồi dào, sự phong phú",
+        "grammar_note": "[singular, uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The country has an abundance of natural resources.", "vi": "Đất nước có nguồn tài nguyên thiên nhiên dồi dào." }
+        ],
+        "synonyms": ["plenty", "wealth", "profusion"],
+        "antonyms": ["scarcity", "lack", "shortage"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [
+      {
+        "idiom_text": "in abundance",
+        "definition_en": "in large quantities; more than enough",
+        "definition_vi": "dồi dào, nhiều",
+        "example_en": "Food was available in abundance.",
+        "example_vi": "Thức ăn có sẵn rất dồi dào."
+      }
+    ],
+    "collocations": [
+      { "collocation": "an abundance of", "pattern": "noun+prep", "example_en": "There is an abundance of talent here.", "example_vi": "Ở đây có rất nhiều tài năng." }
+    ]
+  },
+  {
+    "headword": "abuse",
+    "meaning_vi": "lạm dụng, ngược đãi",
+    "pos": ["noun", "verb"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈbjuːs/ (n), /əˈbjuːz/ (v)",
+    "ipa_us": "/əˈbjuːs/ (n), /əˈbjuːz/ (v)",
+    "etymology": "From Latin abūsus ('misuse'), from abūtī ('to misuse')",
+    "is_countable": true,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "the use of something in a way that is wrong or harmful",
+        "definition_vi": "sự lạm dụng",
+        "grammar_note": "[uncountable, countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "alcohol/drug abuse", "vi": "lạm dụng rượu/ma túy" },
+          { "en": "He was accused of abuse of power.", "vi": "Ông ấy bị buộc tội lạm dụng quyền lực." }
+        ],
+        "synonyms": ["misuse", "exploitation"],
+        "antonyms": ["proper use"]
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "cruel or violent treatment of a person",
+        "definition_vi": "sự ngược đãi, bạo hành",
+        "grammar_note": "[uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "child abuse", "vi": "bạo hành trẻ em" }
+        ],
+        "synonyms": ["mistreatment", "maltreatment", "cruelty"],
+        "antonyms": ["care", "protection"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to use something wrongly or for a bad purpose",
+        "definition_vi": "lạm dụng",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "He abused his position to get rich.", "vi": "Ông ấy lạm dụng chức vụ để làm giàu." }
+        ],
+        "synonyms": ["misuse", "exploit"],
+        "antonyms": []
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to treat a person or animal cruelly",
+        "definition_vi": "ngược đãi, bạo hành",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The children had been physically abused.", "vi": "Những đứa trẻ bị bạo hành thể chất." }
+        ],
+        "synonyms": ["mistreat", "harm", "hurt"],
+        "antonyms": ["protect", "care for"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "abuses" },
+      { "form_type": "past_simple", "form_value": "abused" },
+      { "form_type": "past_participle", "form_value": "abused" },
+      { "form_type": "present_participle", "form_value": "abusing" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "drug abuse", "pattern": "noun+noun", "example_en": "Drug abuse is a serious problem.", "example_vi": "Lạm dụng ma túy là vấn đề nghiêm trọng." },
+      { "collocation": "abuse of power", "pattern": "noun+prep+noun", "example_en": "This is a clear abuse of power.", "example_vi": "Đây rõ ràng là lạm dụng quyền lực." },
+      { "collocation": "child abuse", "pattern": "noun+noun", "example_en": "Laws against child abuse have been strengthened.", "example_vi": "Luật chống bạo hành trẻ em đã được tăng cường." }
+    ]
+  },
+  {
+    "headword": "academic",
+    "meaning_vi": "học thuật, thuộc đại học",
+    "pos": ["adjective", "noun"],
+    "cefr_level": "B1",
+    "ipa_uk": "/ˌækəˈdemɪk/",
+    "ipa_us": "/ˌækəˈdemɪk/",
+    "etymology": "From Latin acadēmicus, from Greek akadēmikós",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "connected with education, especially studying in schools and universities",
+        "definition_vi": "thuộc học thuật, thuộc trường học",
+        "grammar_note": null,
+        "domain": "education",
+        "register": null,
+        "examples": [
+          { "en": "Her academic performance is excellent.", "vi": "Thành tích học tập của cô ấy xuất sắc." },
+          { "en": "The academic year starts in September.", "vi": "Năm học bắt đầu vào tháng Chín." }
+        ],
+        "synonyms": ["educational", "scholarly"],
+        "antonyms": ["practical", "vocational"]
+      },
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a person who teaches or does research at a university",
+        "definition_vi": "nhà nghiên cứu, giảng viên đại học",
+        "grammar_note": "[countable]",
+        "domain": "education",
+        "register": null,
+        "examples": [
+          { "en": "She is a well-known academic in the field of linguistics.", "vi": "Cô ấy là nhà nghiên cứu nổi tiếng trong lĩnh vực ngôn ngữ học." }
+        ],
+        "synonyms": ["scholar", "professor", "researcher"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "academics" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "academic year", "pattern": "adj+noun", "example_en": "The academic year begins in September.", "example_vi": "Năm học bắt đầu vào tháng Chín." },
+      { "collocation": "academic achievement", "pattern": "adj+noun", "example_en": "Her academic achievements are impressive.", "example_vi": "Thành tích học tập của cô ấy rất ấn tượng." },
+      { "collocation": "academic research", "pattern": "adj+noun", "example_en": "He is involved in academic research.", "example_vi": "Anh ấy tham gia nghiên cứu học thuật." }
+    ]
+  },
+  {
+    "headword": "academy",
+    "meaning_vi": "học viện, viện hàn lâm",
+    "pos": ["noun"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˈkædəmi/",
+    "ipa_us": "/əˈkædəmi/",
+    "etymology": "From Latin acadēmīa, from Greek Akadēmeia (the school of Plato)",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a school or college for special training",
+        "definition_vi": "học viện, trường chuyên ngành",
+        "grammar_note": "[countable]",
+        "domain": "education",
+        "register": null,
+        "examples": [
+          { "en": "He trained at a military academy.", "vi": "Anh ấy được đào tạo tại học viện quân sự." },
+          { "en": "She studied at a dance academy.", "vi": "Cô ấy học tại học viện múa." }
+        ],
+        "synonyms": ["school", "institute", "college"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "an official organization of distinguished scholars, artists, or scientists",
+        "definition_vi": "viện hàn lâm",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "the Academy of Sciences", "vi": "Viện Hàn lâm Khoa học" }
+        ],
+        "synonyms": ["institution", "society"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "academies" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "military academy", "pattern": "adj+noun", "example_en": "He graduated from a military academy.", "example_vi": "Anh ấy tốt nghiệp học viện quân sự." },
+      { "collocation": "academy award", "pattern": "noun+noun", "example_en": "She won an Academy Award.", "example_vi": "Cô ấy giành giải Oscar." }
+    ]
+  }
+]

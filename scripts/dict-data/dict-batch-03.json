@@ -1,0 +1,961 @@
+[
+  {
+    "headword": "accountant",
+    "meaning_vi": "kế toán viên",
+    "pos": ["noun"],
+    "cefr_level": "B1",
+    "ipa_uk": "/əˈkaʊntənt/",
+    "ipa_us": "/əˈkaʊntənt/",
+    "etymology": "From Old French acontant, from aconter ('to account')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a person whose job is to keep or check financial accounts",
+        "definition_vi": "người làm nghề kế toán, quản lý sổ sách tài chính",
+        "grammar_note": "[countable]",
+        "domain": "finance",
+        "register": null,
+        "examples": [
+          { "en": "She works as an accountant for a large company.", "vi": "Cô ấy làm kế toán cho một công ty lớn." },
+          { "en": "You should hire an accountant to do your taxes.", "vi": "Bạn nên thuê kế toán để làm thuế." }
+        ],
+        "synonyms": ["bookkeeper", "auditor"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "accountants" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "chartered accountant", "pattern": "adj+noun", "example_en": "She qualified as a chartered accountant.", "example_vi": "Cô ấy đã có bằng kế toán công chứng." },
+      { "collocation": "hire an accountant", "pattern": "verb+noun", "example_en": "We need to hire an accountant.", "example_vi": "Chúng tôi cần thuê một kế toán viên." }
+    ]
+  },
+  {
+    "headword": "accumulate",
+    "meaning_vi": "tích lũy, tích góp",
+    "pos": ["verb"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˈkjuːmjəleɪt/",
+    "ipa_us": "/əˈkjuːmjəleɪt/",
+    "etymology": "From Latin accumulare, from ad- ('to') + cumulare ('to heap')",
+    "is_countable": null,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to gradually get more and more of something over a period of time",
+        "definition_vi": "tích lũy, gom góp dần theo thời gian",
+        "grammar_note": "[transitive, intransitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "He accumulated a fortune over many years.", "vi": "Ông ấy tích lũy được một gia tài qua nhiều năm." },
+          { "en": "Dust had accumulated on the shelves.", "vi": "Bụi đã tích tụ trên các kệ." }
+        ],
+        "synonyms": ["gather", "collect", "amass", "build up"],
+        "antonyms": ["disperse", "scatter", "spend"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "accumulates" },
+      { "form_type": "past_simple", "form_value": "accumulated" },
+      { "form_type": "past_participle", "form_value": "accumulated" },
+      { "form_type": "present_participle", "form_value": "accumulating" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "accumulate wealth", "pattern": "verb+noun", "example_en": "It takes years to accumulate wealth.", "example_vi": "Phải mất nhiều năm để tích lũy của cải." },
+      { "collocation": "accumulate evidence", "pattern": "verb+noun", "example_en": "The police accumulated enough evidence.", "example_vi": "Cảnh sát đã thu thập đủ bằng chứng." }
+    ]
+  },
+  {
+    "headword": "accumulation",
+    "meaning_vi": "sự tích lũy, sự tích tụ",
+    "pos": ["noun"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˌkjuːmjəˈleɪʃn/",
+    "ipa_us": "/əˌkjuːmjəˈleɪʃn/",
+    "etymology": "From Latin accumulationem",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "the process of gradually increasing in amount or number",
+        "definition_vi": "quá trình tích tụ, gia tăng dần",
+        "grammar_note": "[uncountable, countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The accumulation of snow blocked the roads.", "vi": "Tuyết tích tụ đã chắn các con đường." },
+          { "en": "The accumulation of wealth is not the goal.", "vi": "Tích lũy của cải không phải là mục tiêu." }
+        ],
+        "synonyms": ["buildup", "collection", "gathering"],
+        "antonyms": ["reduction", "decrease", "loss"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "accumulations" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "accumulation of wealth", "pattern": "noun+of+noun", "example_en": "The accumulation of wealth took decades.", "example_vi": "Việc tích lũy tài sản mất hàng thập kỷ." }
+    ]
+  },
+  {
+    "headword": "accuracy",
+    "meaning_vi": "độ chính xác",
+    "pos": ["noun"],
+    "cefr_level": "C1",
+    "ipa_uk": "/ˈækjərəsi/",
+    "ipa_us": "/ˈækjərəsi/",
+    "etymology": "From Latin accuratus ('done with care')",
+    "is_countable": false,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "the state of being exact or correct",
+        "definition_vi": "sự chính xác, đúng đắn",
+        "grammar_note": "[uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The accuracy of the report has been questioned.", "vi": "Độ chính xác của báo cáo đã bị nghi ngờ." },
+          { "en": "She hit the target with great accuracy.", "vi": "Cô ấy bắn trúng mục tiêu rất chính xác." }
+        ],
+        "synonyms": ["precision", "exactness", "correctness"],
+        "antonyms": ["inaccuracy", "imprecision"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "with accuracy", "pattern": "prep+noun", "example_en": "He predicted the results with accuracy.", "example_vi": "Anh ấy dự đoán kết quả một cách chính xác." },
+      { "collocation": "accuracy rate", "pattern": "noun+noun", "example_en": "The accuracy rate is 98%.", "example_vi": "Tỷ lệ chính xác là 98%." }
+    ]
+  },
+  {
+    "headword": "accurate",
+    "meaning_vi": "chính xác, đúng",
+    "pos": ["adjective"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ˈækjərət/",
+    "ipa_us": "/ˈækjərət/",
+    "etymology": "From Latin accuratus ('done with care')",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "correct and true in every detail",
+        "definition_vi": "chính xác, đúng từng chi tiết",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The information is accurate.", "vi": "Thông tin này chính xác." },
+          { "en": "Is this an accurate description?", "vi": "Đây có phải mô tả chính xác không?" }
+        ],
+        "synonyms": ["precise", "exact", "correct", "right"],
+        "antonyms": ["inaccurate", "wrong", "imprecise"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "comparative", "form_value": "more accurate" },
+      { "form_type": "superlative", "form_value": "most accurate" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "accurate information", "pattern": "adj+noun", "example_en": "We need accurate information.", "example_vi": "Chúng tôi cần thông tin chính xác." },
+      { "collocation": "accurate description", "pattern": "adj+noun", "example_en": "Give an accurate description of the suspect.", "example_vi": "Hãy mô tả chính xác nghi phạm." }
+    ]
+  },
+  {
+    "headword": "accurately",
+    "meaning_vi": "một cách chính xác",
+    "pos": ["adverb"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ˈækjərətli/",
+    "ipa_us": "/ˈækjərətli/",
+    "etymology": "From accurate + -ly",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adverb",
+        "sense_order": 0,
+        "definition_en": "in a way that is correct and true in every detail",
+        "definition_vi": "đúng đắn, chính xác",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The report accurately reflects the situation.", "vi": "Bản báo cáo phản ánh chính xác tình hình." },
+          { "en": "She accurately predicted the outcome.", "vi": "Cô ấy dự đoán chính xác kết quả." }
+        ],
+        "synonyms": ["precisely", "exactly", "correctly"],
+        "antonyms": ["inaccurately", "incorrectly"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "accurately reflect", "pattern": "adv+verb", "example_en": "The data accurately reflects the trend.", "example_vi": "Dữ liệu phản ánh chính xác xu hướng." }
+    ]
+  },
+  {
+    "headword": "accusation",
+    "meaning_vi": "lời buộc tội, cáo buộc",
+    "pos": ["noun"],
+    "cefr_level": "C1",
+    "ipa_uk": "/ˌækjuˈzeɪʃn/",
+    "ipa_us": "/ˌækjuˈzeɪʃn/",
+    "etymology": "From Latin accusationem",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a statement saying that someone has done something wrong or illegal",
+        "definition_vi": "lời buộc tội, cáo buộc rằng ai đó đã làm sai",
+        "grammar_note": "[countable, uncountable]",
+        "domain": "law",
+        "register": null,
+        "examples": [
+          { "en": "He denied the accusations against him.", "vi": "Anh ta phủ nhận các cáo buộc nhắm vào mình." },
+          { "en": "She made serious accusations of fraud.", "vi": "Cô ấy đưa ra những cáo buộc nghiêm trọng về gian lận." }
+        ],
+        "synonyms": ["charge", "allegation", "claim"],
+        "antonyms": ["defense", "denial"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "accusations" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "make an accusation", "pattern": "verb+noun", "example_en": "Don't make accusations without proof.", "example_vi": "Đừng đưa ra cáo buộc khi không có bằng chứng." },
+      { "collocation": "deny an accusation", "pattern": "verb+noun", "example_en": "He firmly denied the accusation.", "example_vi": "Anh ta kiên quyết phủ nhận cáo buộc." },
+      { "collocation": "false accusation", "pattern": "adj+noun", "example_en": "She was the victim of a false accusation.", "example_vi": "Cô ấy là nạn nhân của một cáo buộc sai." }
+    ]
+  },
+  {
+    "headword": "accuse",
+    "meaning_vi": "buộc tội, cáo buộc",
+    "pos": ["verb"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈkjuːz/",
+    "ipa_us": "/əˈkjuːz/",
+    "etymology": "From Latin accusare ('to call to account')",
+    "is_countable": null,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to say that someone has done something wrong or is guilty of something",
+        "definition_vi": "buộc tội, cáo buộc ai đó đã làm sai",
+        "grammar_note": "[transitive] accuse somebody of something",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She accused him of stealing her wallet.", "vi": "Cô ấy buộc tội anh ta ăn cắp ví của cô." },
+          { "en": "He was accused of murder.", "vi": "Anh ta bị buộc tội giết người." }
+        ],
+        "synonyms": ["charge", "blame", "allege"],
+        "antonyms": ["defend", "acquit", "exonerate"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "accuses" },
+      { "form_type": "past_simple", "form_value": "accused" },
+      { "form_type": "past_participle", "form_value": "accused" },
+      { "form_type": "present_participle", "form_value": "accusing" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "accuse somebody of", "pattern": "verb+prep", "example_en": "They accused her of lying.", "example_vi": "Họ buộc tội cô ấy nói dối." },
+      { "collocation": "falsely accuse", "pattern": "adv+verb", "example_en": "He was falsely accused.", "example_vi": "Anh ta bị buộc tội oan." }
+    ]
+  },
+  {
+    "headword": "accused",
+    "meaning_vi": "bị cáo, người bị buộc tội",
+    "pos": ["noun", "adjective"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˈkjuːzd/",
+    "ipa_us": "/əˈkjuːzd/",
+    "etymology": "Past participle of accuse",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a person who is charged with a crime",
+        "definition_vi": "bị cáo, người bị buộc tội",
+        "grammar_note": "[countable] the accused",
+        "domain": "law",
+        "register": "formal",
+        "examples": [
+          { "en": "The accused pleaded not guilty.", "vi": "Bị cáo khai vô tội." }
+        ],
+        "synonyms": ["defendant", "suspect"],
+        "antonyms": ["accuser", "plaintiff"]
+      },
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "charged with a crime or offense",
+        "definition_vi": "bị buộc tội, bị cáo buộc",
+        "grammar_note": null,
+        "domain": "law",
+        "register": "formal",
+        "examples": [
+          { "en": "The accused man was taken to court.", "vi": "Người đàn ông bị buộc tội đã bị đưa ra tòa." }
+        ],
+        "synonyms": ["charged", "indicted"],
+        "antonyms": ["acquitted", "innocent"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "the accused", "definition_en": "the person or people on trial in a court", "definition_vi": "bị cáo (trong phiên tòa)", "example_en": "The accused was found guilty.", "example_vi": "Bị cáo bị kết tội." }
+    ],
+    "collocations": []
+  },
+  {
+    "headword": "achieve",
+    "meaning_vi": "đạt được, giành được",
+    "pos": ["verb"],
+    "cefr_level": "B1",
+    "ipa_uk": "/əˈtʃiːv/",
+    "ipa_us": "/əˈtʃiːv/",
+    "etymology": "From Old French achever ('to finish'), from a- + chief ('end')",
+    "is_countable": null,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to succeed in reaching a goal, status, or standard",
+        "definition_vi": "đạt được mục tiêu, thành tựu",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She achieved her goal of becoming a doctor.", "vi": "Cô ấy đã đạt được mục tiêu trở thành bác sĩ." },
+          { "en": "He achieved great success in business.", "vi": "Anh ấy đạt được thành công lớn trong kinh doanh." }
+        ],
+        "synonyms": ["accomplish", "attain", "reach", "fulfill"],
+        "antonyms": ["fail", "miss", "lose"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "achieves" },
+      { "form_type": "past_simple", "form_value": "achieved" },
+      { "form_type": "past_participle", "form_value": "achieved" },
+      { "form_type": "present_participle", "form_value": "achieving" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "achieve wonders", "definition_en": "to accomplish amazing things", "definition_vi": "làm nên điều kỳ diệu", "example_en": "Teamwork can achieve wonders.", "example_vi": "Làm việc nhóm có thể làm nên điều kỳ diệu." }
+    ],
+    "collocations": [
+      { "collocation": "achieve a goal", "pattern": "verb+noun", "example_en": "We achieved all our goals this year.", "example_vi": "Chúng tôi đã đạt được tất cả mục tiêu năm nay." },
+      { "collocation": "achieve success", "pattern": "verb+noun", "example_en": "She achieved success through hard work.", "example_vi": "Cô ấy đạt được thành công nhờ làm việc chăm chỉ." },
+      { "collocation": "achieve results", "pattern": "verb+noun", "example_en": "The new method achieved better results.", "example_vi": "Phương pháp mới đạt kết quả tốt hơn." }
+    ]
+  },
+  {
+    "headword": "achievement",
+    "meaning_vi": "thành tựu, thành tích",
+    "pos": ["noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈtʃiːvmənt/",
+    "ipa_us": "/əˈtʃiːvmənt/",
+    "etymology": "From achieve + -ment",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a thing that someone has done successfully, especially using effort and skill",
+        "definition_vi": "điều đạt được, thành tựu đáng tự hào",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Winning the award was a great achievement.", "vi": "Giành được giải thưởng là một thành tựu lớn." },
+          { "en": "What do you consider your greatest achievement?", "vi": "Bạn coi đâu là thành tựu lớn nhất của mình?" }
+        ],
+        "synonyms": ["accomplishment", "success", "feat", "triumph"],
+        "antonyms": ["failure", "defeat"]
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "the process of achieving something",
+        "definition_vi": "sự đạt được, quá trình hoàn thành",
+        "grammar_note": "[uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The achievement of peace requires compromise.", "vi": "Việc đạt được hòa bình đòi hỏi sự thỏa hiệp." }
+        ],
+        "synonyms": ["attainment", "realization"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "achievements" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "great achievement", "pattern": "adj+noun", "example_en": "Landing on the moon was a great achievement.", "example_vi": "Đặt chân lên mặt trăng là một thành tựu vĩ đại." },
+      { "collocation": "sense of achievement", "pattern": "noun+of+noun", "example_en": "Finishing the marathon gave me a sense of achievement.", "example_vi": "Hoàn thành cuộc chạy marathon mang lại cho tôi cảm giác thành tựu." },
+      { "collocation": "remarkable achievement", "pattern": "adj+noun", "example_en": "It was a remarkable achievement for the team.", "example_vi": "Đó là thành tích đáng chú ý của đội." }
+    ]
+  },
+  {
+    "headword": "acid",
+    "meaning_vi": "axit, chất chua",
+    "pos": ["noun", "adjective"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ˈæsɪd/",
+    "ipa_us": "/ˈæsɪd/",
+    "etymology": "From Latin acidus ('sour')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a chemical substance that can dissolve metal and has a pH less than 7",
+        "definition_vi": "chất hóa học có tính axit, có thể ăn mòn kim loại",
+        "grammar_note": "[countable, uncountable]",
+        "domain": "chemistry",
+        "register": null,
+        "examples": [
+          { "en": "Citric acid is found in lemons.", "vi": "Axit citric có trong chanh." },
+          { "en": "The acid burned a hole in the metal.", "vi": "Axit đã ăn mòn một lỗ trên kim loại." }
+        ],
+        "synonyms": [],
+        "antonyms": ["alkali", "base"]
+      },
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "having a sour or sharp taste",
+        "definition_vi": "chua, có vị chua",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The fruit has an acid taste.", "vi": "Trái cây có vị chua." }
+        ],
+        "synonyms": ["sour", "tart", "sharp"],
+        "antonyms": ["sweet", "alkaline"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "acids" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "acid test", "definition_en": "a situation that proves whether something is true or good", "definition_vi": "phép thử quyết định", "example_en": "The acid test will be whether sales improve.", "example_vi": "Phép thử quyết định là liệu doanh số có tăng không." }
+    ],
+    "collocations": [
+      { "collocation": "acid rain", "pattern": "adj+noun", "example_en": "Acid rain damages forests.", "example_vi": "Mưa axit phá hủy rừng." },
+      { "collocation": "stomach acid", "pattern": "noun+noun", "example_en": "Too much stomach acid causes heartburn.", "example_vi": "Quá nhiều axit dạ dày gây ợ nóng." }
+    ]
+  },
+  {
+    "headword": "acknowledge",
+    "meaning_vi": "thừa nhận, công nhận",
+    "pos": ["verb"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əkˈnɒlɪdʒ/",
+    "ipa_us": "/əkˈnɑːlɪdʒ/",
+    "etymology": "From Middle English knowlechen ('to confess, recognize')",
+    "is_countable": null,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to accept or admit that something is true or exists",
+        "definition_vi": "thừa nhận, chấp nhận điều gì là sự thật",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "He acknowledged his mistake.", "vi": "Anh ấy thừa nhận sai lầm của mình." },
+          { "en": "She acknowledged that the task was difficult.", "vi": "Cô ấy thừa nhận nhiệm vụ này khó." }
+        ],
+        "synonyms": ["admit", "accept", "recognize", "concede"],
+        "antonyms": ["deny", "reject", "ignore"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to show that you have seen or noticed someone",
+        "definition_vi": "tỏ ý đã thấy, chào hỏi",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She acknowledged me with a smile.", "vi": "Cô ấy mỉm cười chào tôi." }
+        ],
+        "synonyms": ["greet", "notice", "recognize"],
+        "antonyms": ["ignore", "overlook"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "acknowledges" },
+      { "form_type": "past_simple", "form_value": "acknowledged" },
+      { "form_type": "past_participle", "form_value": "acknowledged" },
+      { "form_type": "present_participle", "form_value": "acknowledging" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "widely acknowledged", "pattern": "adv+verb", "example_en": "He is widely acknowledged as an expert.", "example_vi": "Ông ấy được công nhận rộng rãi là chuyên gia." },
+      { "collocation": "acknowledge receipt", "pattern": "verb+noun", "example_en": "Please acknowledge receipt of this email.", "example_vi": "Xin xác nhận đã nhận được email này." }
+    ]
+  },
+  {
+    "headword": "acquire",
+    "meaning_vi": "có được, đạt được, mua lại",
+    "pos": ["verb"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈkwaɪə(r)/",
+    "ipa_us": "/əˈkwaɪər/",
+    "etymology": "From Latin acquirere, from ad- ('to') + quaerere ('to seek')",
+    "is_countable": null,
+    "is_transitive": true,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to obtain or gain something, especially knowledge or a skill",
+        "definition_vi": "có được, thu nhận (kiến thức, kỹ năng)",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She acquired a new skill.", "vi": "Cô ấy đã có được một kỹ năng mới." },
+          { "en": "Children acquire language naturally.", "vi": "Trẻ em tiếp thu ngôn ngữ một cách tự nhiên." }
+        ],
+        "synonyms": ["obtain", "gain", "get", "pick up"],
+        "antonyms": ["lose", "forfeit"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to buy or take over a company or property",
+        "definition_vi": "mua lại, tiếp quản (công ty, tài sản)",
+        "grammar_note": "[transitive]",
+        "domain": "business",
+        "register": "formal",
+        "examples": [
+          { "en": "The company acquired a smaller competitor.", "vi": "Công ty đã mua lại một đối thủ nhỏ hơn." }
+        ],
+        "synonyms": ["purchase", "buy", "take over"],
+        "antonyms": ["sell", "divest"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "acquires" },
+      { "form_type": "past_simple", "form_value": "acquired" },
+      { "form_type": "past_participle", "form_value": "acquired" },
+      { "form_type": "present_participle", "form_value": "acquiring" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "acquired taste", "definition_en": "something you learn to like gradually", "definition_vi": "sở thích phải tập quen mới thấy thích", "example_en": "Coffee is an acquired taste for many people.", "example_vi": "Cà phê là thứ nhiều người phải uống quen mới thích." }
+    ],
+    "collocations": [
+      { "collocation": "acquire knowledge", "pattern": "verb+noun", "example_en": "Students acquire knowledge through practice.", "example_vi": "Học sinh tiếp thu kiến thức thông qua thực hành." },
+      { "collocation": "acquire a skill", "pattern": "verb+noun", "example_en": "You can acquire new skills online.", "example_vi": "Bạn có thể học kỹ năng mới trực tuyến." }
+    ]
+  },
+  {
+    "headword": "acquisition",
+    "meaning_vi": "sự mua lại, sự tiếp thu",
+    "pos": ["noun"],
+    "cefr_level": "C1",
+    "ipa_uk": "/ˌækwɪˈzɪʃn/",
+    "ipa_us": "/ˌækwɪˈzɪʃn/",
+    "etymology": "From Latin acquisitionem",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "the act of buying a company or piece of land",
+        "definition_vi": "sự mua lại (công ty, đất đai)",
+        "grammar_note": "[countable, uncountable]",
+        "domain": "business",
+        "register": "formal",
+        "examples": [
+          { "en": "The acquisition cost $2 billion.", "vi": "Thương vụ mua lại có giá 2 tỷ đô la." }
+        ],
+        "synonyms": ["purchase", "takeover", "buyout"],
+        "antonyms": ["sale", "disposal"]
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "the process of learning or developing a skill",
+        "definition_vi": "sự tiếp thu, quá trình học hỏi",
+        "grammar_note": "[uncountable]",
+        "domain": "education",
+        "register": null,
+        "examples": [
+          { "en": "Language acquisition begins at birth.", "vi": "Sự tiếp thu ngôn ngữ bắt đầu từ khi sinh ra." }
+        ],
+        "synonyms": ["learning", "gaining", "obtaining"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "acquisitions" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "language acquisition", "pattern": "noun+noun", "example_en": "Language acquisition is a complex process.", "example_vi": "Tiếp thu ngôn ngữ là một quá trình phức tạp." },
+      { "collocation": "data acquisition", "pattern": "noun+noun", "example_en": "Data acquisition requires proper tools.", "example_vi": "Thu thập dữ liệu cần công cụ phù hợp." }
+    ]
+  },
+  {
+    "headword": "acre",
+    "meaning_vi": "mẫu Anh (đơn vị diện tích)",
+    "pos": ["noun"],
+    "cefr_level": "C1",
+    "ipa_uk": "/ˈeɪkə(r)/",
+    "ipa_us": "/ˈeɪkər/",
+    "etymology": "From Old English æcer ('field, cultivated land')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a unit of land area equal to 4,047 square metres",
+        "definition_vi": "đơn vị đo diện tích đất bằng 4.047 m²",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The farm covers 500 acres.", "vi": "Nông trại rộng 500 mẫu Anh." },
+          { "en": "They bought 10 acres of land.", "vi": "Họ mua 10 mẫu đất." }
+        ],
+        "synonyms": [],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "acres" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "acres of land", "pattern": "noun+of+noun", "example_en": "The park has hundreds of acres of land.", "example_vi": "Công viên có hàng trăm mẫu đất." }
+    ]
+  },
+  {
+    "headword": "across",
+    "meaning_vi": "ngang qua, bên kia",
+    "pos": ["preposition", "adverb"],
+    "cefr_level": "A2",
+    "ipa_uk": "/əˈkrɒs/",
+    "ipa_us": "/əˈkrɔːs/",
+    "etymology": "From Middle English a-cross, from Old French a croix ('in a cross')",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "preposition",
+        "sense_order": 0,
+        "definition_en": "from one side to the other side of something",
+        "definition_vi": "qua, ngang qua (từ bên này sang bên kia)",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She walked across the street.", "vi": "Cô ấy đi bộ qua đường." },
+          { "en": "The bridge across the river is very old.", "vi": "Cây cầu bắc qua sông rất cũ." }
+        ],
+        "synonyms": ["over", "through"],
+        "antonyms": []
+      },
+      {
+        "pos": "preposition",
+        "sense_order": 1,
+        "definition_en": "on the other side of something",
+        "definition_vi": "ở bên kia, phía bên kia",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The store is across the road.", "vi": "Cửa hàng ở bên kia đường." }
+        ],
+        "synonyms": ["opposite"],
+        "antonyms": []
+      },
+      {
+        "pos": "adverb",
+        "sense_order": 0,
+        "definition_en": "from one side to the other",
+        "definition_vi": "ngang qua, sang bên kia",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The river is 2 km across.", "vi": "Con sông rộng 2 km." }
+        ],
+        "synonyms": ["over", "crosswise"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [
+      { "phrasal_verb": "come across", "particle": "across", "is_separable": false, "definition_en": "to meet or find something by chance", "definition_vi": "tình cờ gặp, tình cờ tìm thấy", "example_en": "I came across an old photo.", "example_vi": "Tôi tình cờ tìm thấy một bức ảnh cũ." },
+      { "phrasal_verb": "get across", "particle": "across", "is_separable": true, "definition_en": "to make someone understand something", "definition_vi": "truyền đạt, làm cho hiểu", "example_en": "I couldn't get my point across.", "example_vi": "Tôi không thể truyền đạt ý kiến của mình." }
+    ],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "across the country", "pattern": "prep+noun", "example_en": "The news spread across the country.", "example_vi": "Tin tức lan truyền khắp cả nước." },
+      { "collocation": "across the world", "pattern": "prep+noun", "example_en": "The brand is known across the world.", "example_vi": "Thương hiệu được biết đến khắp thế giới." }
+    ]
+  },
+  {
+    "headword": "act",
+    "meaning_vi": "hành động, diễn xuất, đạo luật",
+    "pos": ["verb", "noun"],
+    "cefr_level": "A2",
+    "ipa_uk": "/ækt/",
+    "ipa_us": "/ækt/",
+    "etymology": "From Latin actus ('a doing'), from agere ('to do, drive')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to do something; to take action",
+        "definition_vi": "hành động, làm",
+        "grammar_note": "[intransitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "We must act quickly.", "vi": "Chúng ta phải hành động nhanh." },
+          { "en": "The government needs to act on this issue.", "vi": "Chính phủ cần hành động về vấn đề này." }
+        ],
+        "synonyms": ["behave", "perform", "do"],
+        "antonyms": ["hesitate", "wait"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to perform a role in a play or film",
+        "definition_vi": "diễn xuất, đóng vai",
+        "grammar_note": "[intransitive, transitive]",
+        "domain": "entertainment",
+        "register": null,
+        "examples": [
+          { "en": "She acts in movies and TV shows.", "vi": "Cô ấy đóng phim và chương trình truyền hình." }
+        ],
+        "synonyms": ["perform", "play", "portray"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a thing that somebody does",
+        "definition_vi": "hành vi, hành động",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "It was an act of kindness.", "vi": "Đó là một hành động tử tế." }
+        ],
+        "synonyms": ["deed", "action", "gesture"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "a law passed by a parliament",
+        "definition_vi": "đạo luật, luật",
+        "grammar_note": "[countable]",
+        "domain": "law",
+        "register": "formal",
+        "examples": [
+          { "en": "The Act was passed in 2020.", "vi": "Đạo luật được thông qua năm 2020." }
+        ],
+        "synonyms": ["law", "statute", "legislation"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "acts" },
+      { "form_type": "past_simple", "form_value": "acted" },
+      { "form_type": "past_participle", "form_value": "acted" },
+      { "form_type": "present_participle", "form_value": "acting" },
+      { "form_type": "plural", "form_value": "acts" }
+    ],
+    "phrasal_verbs": [
+      { "phrasal_verb": "act on", "particle": "on", "is_separable": false, "definition_en": "to take action based on advice or information", "definition_vi": "hành động dựa trên (lời khuyên, thông tin)", "example_en": "She acted on the doctor's advice.", "example_vi": "Cô ấy làm theo lời khuyên của bác sĩ." },
+      { "phrasal_verb": "act up", "particle": "up", "is_separable": false, "definition_en": "to behave badly; to not work properly", "definition_vi": "hư, nghịch ngợm; trục trặc", "example_en": "The children are acting up again.", "example_vi": "Bọn trẻ lại nghịch nữa rồi." }
+    ],
+    "idioms": [
+      { "idiom_text": "act of God", "definition_en": "a natural event beyond human control", "definition_vi": "thiên tai, sự kiện bất khả kháng", "example_en": "The flood was considered an act of God.", "example_vi": "Trận lũ được coi là thiên tai." },
+      { "idiom_text": "get your act together", "definition_en": "to organize yourself and behave properly", "definition_vi": "chấn chỉnh bản thân, nghiêm túc lại", "example_en": "You need to get your act together.", "example_vi": "Bạn cần phải chấn chỉnh lại bản thân." }
+    ],
+    "collocations": [
+      { "collocation": "act of violence", "pattern": "noun+of+noun", "example_en": "Acts of violence will not be tolerated.", "example_vi": "Các hành vi bạo lực sẽ không được dung thứ." },
+      { "collocation": "act as", "pattern": "verb+prep", "example_en": "She acts as a translator.", "example_vi": "Cô ấy đóng vai trò phiên dịch." }
+    ]
+  },
+  {
+    "headword": "action",
+    "meaning_vi": "hành động, hoạt động",
+    "pos": ["noun"],
+    "cefr_level": "A2",
+    "ipa_uk": "/ˈækʃn/",
+    "ipa_us": "/ˈækʃn/",
+    "etymology": "From Latin actionem, from agere ('to do')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "the process of doing something in order to achieve a result",
+        "definition_vi": "hành động, việc làm để đạt kết quả",
+        "grammar_note": "[uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The government must take action.", "vi": "Chính phủ phải hành động." },
+          { "en": "What is the best course of action?", "vi": "Hướng hành động nào là tốt nhất?" }
+        ],
+        "synonyms": ["activity", "operation", "step", "measure"],
+        "antonyms": ["inaction", "inactivity"]
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "exciting events in a story, film, or game",
+        "definition_vi": "hành động (trong phim, truyện, trò chơi)",
+        "grammar_note": "[uncountable]",
+        "domain": "entertainment",
+        "register": null,
+        "examples": [
+          { "en": "The film is full of action.", "vi": "Bộ phim đầy hành động." }
+        ],
+        "synonyms": ["excitement", "drama"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "actions" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "actions speak louder than words", "definition_en": "what you do is more important than what you say", "definition_vi": "hành động nói lên nhiều hơn lời nói", "example_en": "Don't just promise — actions speak louder than words.", "example_vi": "Đừng chỉ hứa — hành động nói lên nhiều hơn lời nói." },
+      { "idiom_text": "in action", "definition_en": "doing a particular activity", "definition_vi": "đang hoạt động, đang hành động", "example_en": "I'd love to see the machine in action.", "example_vi": "Tôi muốn xem máy hoạt động." }
+    ],
+    "collocations": [
+      { "collocation": "take action", "pattern": "verb+noun", "example_en": "We need to take action immediately.", "example_vi": "Chúng ta cần hành động ngay." },
+      { "collocation": "course of action", "pattern": "noun+of+noun", "example_en": "What is the best course of action?", "example_vi": "Hướng hành động nào là tốt nhất?" },
+      { "collocation": "action plan", "pattern": "noun+noun", "example_en": "We developed an action plan.", "example_vi": "Chúng tôi đã xây dựng kế hoạch hành động." }
+    ]
+  },
+  {
+    "headword": "activate",
+    "meaning_vi": "kích hoạt, khởi động",
+    "pos": ["verb"],
+    "cefr_level": "C1",
+    "ipa_uk": "/ˈæktɪveɪt/",
+    "ipa_us": "/ˈæktɪveɪt/",
+    "etymology": "From Latin activare, from activus ('active')",
+    "is_countable": null,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to make something start working; to switch on",
+        "definition_vi": "kích hoạt, bật, làm cho hoạt động",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Press this button to activate the alarm.", "vi": "Nhấn nút này để kích hoạt chuông báo." },
+          { "en": "The account will be activated within 24 hours.", "vi": "Tài khoản sẽ được kích hoạt trong 24 giờ." }
+        ],
+        "synonyms": ["start", "trigger", "switch on", "enable"],
+        "antonyms": ["deactivate", "disable", "turn off"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "activates" },
+      { "form_type": "past_simple", "form_value": "activated" },
+      { "form_type": "past_participle", "form_value": "activated" },
+      { "form_type": "present_participle", "form_value": "activating" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "activate an account", "pattern": "verb+noun", "example_en": "Please activate your account online.", "example_vi": "Vui lòng kích hoạt tài khoản trực tuyến." },
+      { "collocation": "activate a device", "pattern": "verb+noun", "example_en": "You need to activate the device first.", "example_vi": "Bạn cần kích hoạt thiết bị trước." }
+    ]
+  }
+]

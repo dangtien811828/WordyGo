@@ -1,0 +1,968 @@
+[
+  {
+    "headword": "accelerate",
+    "meaning_vi": "tăng tốc, đẩy nhanh",
+    "pos": ["verb"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əkˈseləreɪt/",
+    "ipa_us": "/əkˈseləreɪt/",
+    "etymology": "From Latin accelerare, from ad- + celerare ('to hasten')",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to go faster; to make something go faster",
+        "definition_vi": "tăng tốc, đi nhanh hơn",
+        "grammar_note": "[intransitive, transitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The car accelerated smoothly.", "vi": "Chiếc xe tăng tốc mượt mà." },
+          { "en": "She accelerated away from the traffic lights.", "vi": "Cô ấy tăng tốc rời khỏi đèn giao thông." }
+        ],
+        "synonyms": ["speed up", "quicken", "hasten"],
+        "antonyms": ["decelerate", "slow down"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to make something happen faster or earlier",
+        "definition_vi": "đẩy nhanh, thúc đẩy (tiến trình)",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The government wants to accelerate economic growth.", "vi": "Chính phủ muốn đẩy nhanh tăng trưởng kinh tế." }
+        ],
+        "synonyms": ["speed up", "advance", "expedite"],
+        "antonyms": ["hinder", "delay"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "accelerates" },
+      { "form_type": "past_simple", "form_value": "accelerated" },
+      { "form_type": "past_participle", "form_value": "accelerated" },
+      { "form_type": "present_participle", "form_value": "accelerating" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "accelerate growth", "pattern": "verb+noun", "example_en": "Policies to accelerate growth.", "example_vi": "Chính sách đẩy nhanh tăng trưởng." },
+      { "collocation": "accelerate the process", "pattern": "verb+noun", "example_en": "Technology can accelerate the process.", "example_vi": "Công nghệ có thể đẩy nhanh quá trình." }
+    ]
+  },
+  {
+    "headword": "accent",
+    "meaning_vi": "giọng, trọng âm",
+    "pos": ["noun"],
+    "cefr_level": "B1",
+    "ipa_uk": "/ˈæksent/",
+    "ipa_us": "/ˈæksent/",
+    "etymology": "From Latin accentus ('tone, signal'), from ad- + cantus ('song')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a way of pronouncing words that shows which country or area a person comes from",
+        "definition_vi": "giọng nói (đặc trưng vùng miền)",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She speaks with a French accent.", "vi": "Cô ấy nói với giọng Pháp." },
+          { "en": "He has a strong regional accent.", "vi": "Anh ấy có giọng địa phương rất đậm." }
+        ],
+        "synonyms": ["pronunciation", "intonation", "brogue"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "special importance given to something",
+        "definition_vi": "sự nhấn mạnh, trọng tâm",
+        "grammar_note": "[singular] accent on something",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The accent is on quality rather than quantity.", "vi": "Trọng tâm là chất lượng chứ không phải số lượng." }
+        ],
+        "synonyms": ["emphasis", "stress", "focus"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "accents" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "strong accent", "pattern": "adj+noun", "example_en": "He has a strong accent.", "example_vi": "Anh ấy có giọng rất đậm." },
+      { "collocation": "foreign accent", "pattern": "adj+noun", "example_en": "I detected a foreign accent.", "example_vi": "Tôi nhận ra giọng nước ngoài." }
+    ]
+  },
+  {
+    "headword": "accept",
+    "meaning_vi": "chấp nhận, đồng ý",
+    "pos": ["verb"],
+    "cefr_level": "A2",
+    "ipa_uk": "/əkˈsept/",
+    "ipa_us": "/əkˈsept/",
+    "etymology": "From Latin acceptare, from accipere ('to receive')",
+    "is_countable": null,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to take willingly something that is offered",
+        "definition_vi": "chấp nhận, nhận lấy",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She accepted the job offer.", "vi": "Cô ấy chấp nhận lời mời làm việc." },
+          { "en": "Please accept my apology.", "vi": "Xin hãy chấp nhận lời xin lỗi của tôi." }
+        ],
+        "synonyms": ["receive", "take", "agree to"],
+        "antonyms": ["refuse", "reject", "decline"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to believe that something is true",
+        "definition_vi": "thừa nhận, công nhận",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "He accepted that he was wrong.", "vi": "Anh ấy thừa nhận rằng mình sai." }
+        ],
+        "synonyms": ["acknowledge", "recognize", "admit"],
+        "antonyms": ["deny", "reject"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "accepts" },
+      { "form_type": "past_simple", "form_value": "accepted" },
+      { "form_type": "past_participle", "form_value": "accepted" },
+      { "form_type": "present_participle", "form_value": "accepting" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "accept something at face value", "definition_en": "to believe something without questioning it", "definition_vi": "tin ngay mà không nghi ngờ", "example_en": "Don't accept everything at face value.", "example_vi": "Đừng tin mọi thứ mà không suy xét." }
+    ],
+    "collocations": [
+      { "collocation": "accept responsibility", "pattern": "verb+noun", "example_en": "He accepted responsibility for the mistake.", "example_vi": "Anh ấy nhận trách nhiệm về sai lầm." },
+      { "collocation": "widely accepted", "pattern": "adv+verb", "example_en": "The theory is widely accepted.", "example_vi": "Lý thuyết này được công nhận rộng rãi." },
+      { "collocation": "accept an invitation", "pattern": "verb+noun", "example_en": "She accepted the invitation to dinner.", "example_vi": "Cô ấy nhận lời mời ăn tối." }
+    ]
+  },
+  {
+    "headword": "acceptable",
+    "meaning_vi": "chấp nhận được",
+    "pos": ["adjective"],
+    "cefr_level": "B1",
+    "ipa_uk": "/əkˈseptəbl/",
+    "ipa_us": "/əkˈseptəbl/",
+    "etymology": "From accept + -able",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "agreed or approved of by most people; satisfactory",
+        "definition_vi": "chấp nhận được, có thể chấp thuận",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "This behaviour is not acceptable.", "vi": "Hành vi này không thể chấp nhận được." },
+          { "en": "The food was acceptable but not great.", "vi": "Đồ ăn chấp nhận được nhưng không xuất sắc." }
+        ],
+        "synonyms": ["satisfactory", "adequate", "reasonable", "tolerable"],
+        "antonyms": ["unacceptable", "intolerable"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "comparative", "form_value": "more acceptable" },
+      { "form_type": "superlative", "form_value": "most acceptable" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "socially acceptable", "pattern": "adv+adj", "example_en": "Is this socially acceptable?", "example_vi": "Điều này có được xã hội chấp nhận không?" },
+      { "collocation": "perfectly acceptable", "pattern": "adv+adj", "example_en": "It's perfectly acceptable to say no.", "example_vi": "Nói không là hoàn toàn chấp nhận được." }
+    ]
+  },
+  {
+    "headword": "acceptance",
+    "meaning_vi": "sự chấp nhận",
+    "pos": ["noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əkˈseptəns/",
+    "ipa_us": "/əkˈseptəns/",
+    "etymology": "From accept + -ance",
+    "is_countable": false,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "the act of agreeing to receive or take something offered",
+        "definition_vi": "sự chấp nhận, sự đồng ý nhận",
+        "grammar_note": "[uncountable, countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Her acceptance of the award was a surprise.", "vi": "Việc cô ấy chấp nhận giải thưởng là một bất ngờ." }
+        ],
+        "synonyms": ["agreement", "approval", "consent"],
+        "antonyms": ["refusal", "rejection"]
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "willingness to accept an unpleasant situation",
+        "definition_vi": "sự chấp nhận (thực tế khó khăn)",
+        "grammar_note": "[uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Acceptance of the situation helped him move on.", "vi": "Việc chấp nhận tình huống giúp anh ấy bước tiếp." }
+        ],
+        "synonyms": ["resignation", "acknowledgement"],
+        "antonyms": ["denial", "resistance"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "gain acceptance", "pattern": "verb+noun", "example_en": "The idea gradually gained acceptance.", "example_vi": "Ý tưởng dần được chấp nhận." },
+      { "collocation": "widespread acceptance", "pattern": "adj+noun", "example_en": "The policy has widespread acceptance.", "example_vi": "Chính sách được chấp nhận rộng rãi." }
+    ]
+  },
+  {
+    "headword": "access",
+    "meaning_vi": "quyền truy cập, sự tiếp cận",
+    "pos": ["noun", "verb"],
+    "cefr_level": "A2",
+    "ipa_uk": "/ˈækses/",
+    "ipa_us": "/ˈækses/",
+    "etymology": "From Latin accessus ('an approach'), from accedere ('to approach')",
+    "is_countable": false,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a way of entering or reaching a place",
+        "definition_vi": "lối vào, đường vào",
+        "grammar_note": "[uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The only access to the village is by boat.", "vi": "Lối vào duy nhất đến làng là bằng thuyền." }
+        ],
+        "synonyms": ["entry", "entrance", "way in"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "the right or opportunity to use something",
+        "definition_vi": "quyền truy cập, quyền sử dụng",
+        "grammar_note": "[uncountable] access to something",
+        "domain": "computing",
+        "register": null,
+        "examples": [
+          { "en": "Students have free access to the library.", "vi": "Sinh viên được tự do sử dụng thư viện." },
+          { "en": "You need a password to get access.", "vi": "Bạn cần mật khẩu để truy cập." }
+        ],
+        "synonyms": ["permission", "right", "authorization"],
+        "antonyms": []
+      },
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to open or use something, especially on a computer",
+        "definition_vi": "truy cập (dữ liệu, hệ thống)",
+        "grammar_note": "[transitive]",
+        "domain": "computing",
+        "register": null,
+        "examples": [
+          { "en": "You can access your files from any device.", "vi": "Bạn có thể truy cập tệp từ bất kỳ thiết bị nào." }
+        ],
+        "synonyms": ["enter", "retrieve", "reach"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "accesses" },
+      { "form_type": "past_simple", "form_value": "accessed" },
+      { "form_type": "past_participle", "form_value": "accessed" },
+      { "form_type": "present_participle", "form_value": "accessing" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "have access to", "pattern": "verb+noun", "example_en": "Everyone should have access to education.", "example_vi": "Mọi người nên được tiếp cận giáo dục." },
+      { "collocation": "gain access", "pattern": "verb+noun", "example_en": "Hackers gained access to the system.", "example_vi": "Tin tặc đã truy cập được vào hệ thống." },
+      { "collocation": "internet access", "pattern": "noun+noun", "example_en": "The hotel provides free internet access.", "example_vi": "Khách sạn cung cấp truy cập internet miễn phí." }
+    ]
+  },
+  {
+    "headword": "accessible",
+    "meaning_vi": "dễ tiếp cận, dễ truy cập",
+    "pos": ["adjective"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əkˈsesəbl/",
+    "ipa_us": "/əkˈsesəbl/",
+    "etymology": "From access + -ible",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "easy to reach, enter, or use",
+        "definition_vi": "dễ tiếp cận, dễ đến",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The building is accessible to wheelchair users.", "vi": "Tòa nhà dễ tiếp cận cho người dùng xe lăn." }
+        ],
+        "synonyms": ["reachable", "available", "approachable"],
+        "antonyms": ["inaccessible", "unreachable"]
+      },
+      {
+        "pos": "adjective",
+        "sense_order": 1,
+        "definition_en": "easy to understand",
+        "definition_vi": "dễ hiểu, dễ tiếp thu",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The book is written in accessible language.", "vi": "Cuốn sách được viết bằng ngôn ngữ dễ hiểu." }
+        ],
+        "synonyms": ["understandable", "clear", "simple"],
+        "antonyms": ["complex", "obscure"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "easily accessible", "pattern": "adv+adj", "example_en": "The park is easily accessible by bus.", "example_vi": "Công viên dễ dàng đến bằng xe buýt." },
+      { "collocation": "publicly accessible", "pattern": "adv+adj", "example_en": "The data is publicly accessible.", "example_vi": "Dữ liệu được công khai." }
+    ]
+  },
+  {
+    "headword": "accident",
+    "meaning_vi": "tai nạn, sự cố",
+    "pos": ["noun"],
+    "cefr_level": "A2",
+    "ipa_uk": "/ˈæksɪdənt/",
+    "ipa_us": "/ˈæksɪdənt/",
+    "etymology": "From Latin accidentem ('happening'), from accidere ('to fall upon')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "an unpleasant event that happens unexpectedly and causes damage or injury",
+        "definition_vi": "tai nạn, sự cố",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "He was killed in a car accident.", "vi": "Anh ấy thiệt mạng trong một vụ tai nạn xe hơi." },
+          { "en": "She had an accident at work.", "vi": "Cô ấy bị tai nạn ở nơi làm việc." }
+        ],
+        "synonyms": ["crash", "collision", "mishap"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "something that happens by chance, without being planned",
+        "definition_vi": "sự tình cờ, ngẫu nhiên",
+        "grammar_note": "[countable, uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "I found it by accident.", "vi": "Tôi tìm thấy nó một cách tình cờ." }
+        ],
+        "synonyms": ["chance", "coincidence", "fluke"],
+        "antonyms": ["intention", "design"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "accidents" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "by accident", "definition_en": "without being planned; by chance", "definition_vi": "tình cờ, ngẫu nhiên", "example_en": "I discovered it by accident.", "example_vi": "Tôi phát hiện ra nó một cách tình cờ." },
+      { "idiom_text": "an accident waiting to happen", "definition_en": "a situation likely to cause problems", "definition_vi": "tai nạn chờ xảy ra (tình huống nguy hiểm)", "example_en": "That old bridge is an accident waiting to happen.", "example_vi": "Cây cầu cũ đó là tai nạn chờ xảy ra." }
+    ],
+    "collocations": [
+      { "collocation": "car accident", "pattern": "noun+noun", "example_en": "She was injured in a car accident.", "example_vi": "Cô ấy bị thương trong tai nạn xe hơi." },
+      { "collocation": "serious accident", "pattern": "adj+noun", "example_en": "A serious accident blocked the highway.", "example_vi": "Một tai nạn nghiêm trọng chặn đường cao tốc." },
+      { "collocation": "have an accident", "pattern": "verb+noun", "example_en": "He had an accident on his bike.", "example_vi": "Anh ấy bị tai nạn khi đi xe đạp." }
+    ]
+  },
+  {
+    "headword": "accidentally",
+    "meaning_vi": "vô tình, tình cờ",
+    "pos": ["adverb"],
+    "cefr_level": "B1",
+    "ipa_uk": "/ˌæksɪˈdentəli/",
+    "ipa_us": "/ˌæksɪˈdentəli/",
+    "etymology": "From accident + -ally",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adverb",
+        "sense_order": 0,
+        "definition_en": "by chance; without being planned or intended",
+        "definition_vi": "vô tình, không cố ý",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "I accidentally deleted the file.", "vi": "Tôi vô tình xóa mất tệp." },
+          { "en": "She accidentally spilled coffee on her laptop.", "vi": "Cô ấy vô tình đổ cà phê lên laptop." }
+        ],
+        "synonyms": ["unintentionally", "by chance", "by mistake"],
+        "antonyms": ["deliberately", "intentionally", "on purpose"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": []
+  },
+  {
+    "headword": "accommodate",
+    "meaning_vi": "chứa, cung cấp chỗ ở, đáp ứng",
+    "pos": ["verb"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˈkɒmədeɪt/",
+    "ipa_us": "/əˈkɑːmədeɪt/",
+    "etymology": "From Latin accommodare ('to fit, adapt'), from ad- + commodus ('suitable')",
+    "is_countable": null,
+    "is_transitive": true,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to provide someone with a room or place to stay",
+        "definition_vi": "cung cấp chỗ ở cho",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "The hotel can accommodate up to 500 guests.", "vi": "Khách sạn có thể chứa đến 500 khách." }
+        ],
+        "synonyms": ["house", "lodge", "shelter"],
+        "antonyms": []
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to consider and adjust to someone's needs or wishes",
+        "definition_vi": "đáp ứng, chiều theo (nhu cầu)",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "We will try to accommodate your request.", "vi": "Chúng tôi sẽ cố gắng đáp ứng yêu cầu của bạn." }
+        ],
+        "synonyms": ["cater for", "satisfy", "meet"],
+        "antonyms": ["refuse", "ignore"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "accommodates" },
+      { "form_type": "past_simple", "form_value": "accommodated" },
+      { "form_type": "past_participle", "form_value": "accommodated" },
+      { "form_type": "present_participle", "form_value": "accommodating" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "accommodate needs", "pattern": "verb+noun", "example_en": "The school accommodates special needs students.", "example_vi": "Trường đáp ứng nhu cầu của học sinh đặc biệt." }
+    ]
+  },
+  {
+    "headword": "accommodation",
+    "meaning_vi": "chỗ ở, nơi ở",
+    "pos": ["noun"],
+    "cefr_level": "B1",
+    "ipa_uk": "/əˌkɒməˈdeɪʃn/",
+    "ipa_us": "/əˌkɑːməˈdeɪʃn/",
+    "etymology": "From accommodate + -tion",
+    "is_countable": false,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a place to live, work, or stay in",
+        "definition_vi": "chỗ ở, nơi ở",
+        "grammar_note": "[uncountable] (BrE); [countable, usually plural] (AmE: accommodations)",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "We need to find accommodation for the night.", "vi": "Chúng tôi cần tìm chỗ ở qua đêm." },
+          { "en": "Hotel accommodation is expensive in this city.", "vi": "Chỗ ở khách sạn rất đắt ở thành phố này." }
+        ],
+        "synonyms": ["housing", "lodging", "shelter"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "accommodations" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "find accommodation", "pattern": "verb+noun", "example_en": "It's hard to find affordable accommodation.", "example_vi": "Rất khó tìm chỗ ở giá rẻ." },
+      { "collocation": "student accommodation", "pattern": "noun+noun", "example_en": "The university provides student accommodation.", "example_vi": "Trường đại học cung cấp chỗ ở cho sinh viên." }
+    ]
+  },
+  {
+    "headword": "accompany",
+    "meaning_vi": "đi cùng, kèm theo",
+    "pos": ["verb"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈkʌmpəni/",
+    "ipa_us": "/əˈkʌmpəni/",
+    "etymology": "From Old French acompanier, from a- + compaing ('companion')",
+    "is_countable": null,
+    "is_transitive": true,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to go somewhere with someone",
+        "definition_vi": "đi cùng, tháp tùng",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "She accompanied her father to the hospital.", "vi": "Cô ấy đi cùng bố đến bệnh viện." }
+        ],
+        "synonyms": ["escort", "go with", "join"],
+        "antonyms": ["leave", "abandon"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to happen or exist at the same time as something else",
+        "definition_vi": "kèm theo, đi kèm với",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The text is accompanied by illustrations.", "vi": "Văn bản đi kèm với hình minh họa." }
+        ],
+        "synonyms": ["come with", "go along with"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "accompanies" },
+      { "form_type": "past_simple", "form_value": "accompanied" },
+      { "form_type": "past_participle", "form_value": "accompanied" },
+      { "form_type": "present_participle", "form_value": "accompanying" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "be accompanied by", "pattern": "verb+preposition", "example_en": "Children must be accompanied by an adult.", "example_vi": "Trẻ em phải có người lớn đi cùng." }
+    ]
+  },
+  {
+    "headword": "accomplish",
+    "meaning_vi": "hoàn thành, đạt được",
+    "pos": ["verb"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈkʌmplɪʃ/",
+    "ipa_us": "/əˈkɑːmplɪʃ/",
+    "etymology": "From Old French acomplir, from Latin complere ('to fill up, complete')",
+    "is_countable": null,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to succeed in doing something; to achieve",
+        "definition_vi": "hoàn thành, đạt được (mục tiêu)",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She accomplished everything she set out to do.", "vi": "Cô ấy hoàn thành mọi thứ đã đặt ra." },
+          { "en": "What do you hope to accomplish?", "vi": "Bạn hy vọng đạt được gì?" }
+        ],
+        "synonyms": ["achieve", "complete", "fulfil", "attain"],
+        "antonyms": ["fail", "abandon"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "accomplishes" },
+      { "form_type": "past_simple", "form_value": "accomplished" },
+      { "form_type": "past_participle", "form_value": "accomplished" },
+      { "form_type": "present_participle", "form_value": "accomplishing" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "accomplish a goal", "pattern": "verb+noun", "example_en": "She accomplished her goal of running a marathon.", "example_vi": "Cô ấy đạt được mục tiêu chạy marathon." },
+      { "collocation": "accomplish a task", "pattern": "verb+noun", "example_en": "We accomplished the task ahead of schedule.", "example_vi": "Chúng tôi hoàn thành nhiệm vụ trước thời hạn." }
+    ]
+  },
+  {
+    "headword": "accomplishment",
+    "meaning_vi": "thành tựu, thành tích",
+    "pos": ["noun"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˈkʌmplɪʃmənt/",
+    "ipa_us": "/əˈkɑːmplɪʃmənt/",
+    "etymology": "From accomplish + -ment",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "something impressive that has been achieved",
+        "definition_vi": "thành tựu, thành tích",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Winning the prize was a great accomplishment.", "vi": "Giành giải thưởng là một thành tựu lớn." }
+        ],
+        "synonyms": ["achievement", "feat", "triumph"],
+        "antonyms": ["failure"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "accomplishments" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "great accomplishment", "pattern": "adj+noun", "example_en": "It was a great accomplishment for the team.", "example_vi": "Đó là thành tích lớn của đội." },
+      { "collocation": "sense of accomplishment", "pattern": "noun+of+noun", "example_en": "I felt a real sense of accomplishment.", "example_vi": "Tôi cảm thấy thực sự có thành tựu." }
+    ]
+  },
+  {
+    "headword": "accordance",
+    "meaning_vi": "sự phù hợp, sự tuân theo",
+    "pos": ["noun"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˈkɔːdns/",
+    "ipa_us": "/əˈkɔːrdns/",
+    "etymology": "From Old French acordance, from acorder ('to agree')",
+    "is_countable": false,
+    "is_transitive": null,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "agreement with a rule, law, or wish",
+        "definition_vi": "sự phù hợp, sự tuân thủ",
+        "grammar_note": "[uncountable] in accordance with",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "Everything was done in accordance with the law.", "vi": "Mọi thứ được thực hiện theo đúng luật." }
+        ],
+        "synonyms": ["agreement", "conformity", "compliance"],
+        "antonyms": ["violation", "breach"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "in accordance with", "definition_en": "following or obeying a rule or law", "definition_vi": "theo đúng, phù hợp với", "example_en": "We acted in accordance with the regulations.", "example_vi": "Chúng tôi hành động theo đúng quy định." }
+    ],
+    "collocations": [
+      { "collocation": "in accordance with the law", "pattern": "phrase", "example_en": "They operated in accordance with the law.", "example_vi": "Họ hoạt động theo đúng pháp luật." }
+    ]
+  },
+  {
+    "headword": "according to",
+    "meaning_vi": "theo, dựa theo",
+    "pos": ["preposition"],
+    "cefr_level": "A2",
+    "ipa_uk": "/əˈkɔːdɪŋ tuː/",
+    "ipa_us": "/əˈkɔːrdɪŋ tuː/",
+    "etymology": "From accord + -ing + to",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "preposition",
+        "sense_order": 0,
+        "definition_en": "as stated by someone or something",
+        "definition_vi": "theo lời (ai đó), theo (nguồn tin)",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "According to the report, sales increased by 20%.", "vi": "Theo báo cáo, doanh số tăng 20%." },
+          { "en": "According to my teacher, the exam will be easy.", "vi": "Theo cô giáo tôi, bài thi sẽ dễ." }
+        ],
+        "synonyms": ["as stated by", "as reported by"],
+        "antonyms": []
+      },
+      {
+        "pos": "preposition",
+        "sense_order": 1,
+        "definition_en": "in a way that agrees with something",
+        "definition_vi": "theo, dựa theo (quy tắc, kế hoạch)",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Everything went according to plan.", "vi": "Mọi thứ diễn ra theo kế hoạch." }
+        ],
+        "synonyms": ["in line with", "in keeping with"],
+        "antonyms": ["contrary to"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "according to plan", "definition_en": "as expected or intended", "definition_vi": "theo kế hoạch", "example_en": "Everything went according to plan.", "example_vi": "Mọi thứ diễn ra theo kế hoạch." }
+    ],
+    "collocations": []
+  },
+  {
+    "headword": "accordingly",
+    "meaning_vi": "theo đó, vì vậy",
+    "pos": ["adverb"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˈkɔːdɪŋli/",
+    "ipa_us": "/əˈkɔːrdɪŋli/",
+    "etymology": "From according + -ly",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "adverb",
+        "sense_order": 0,
+        "definition_en": "in a way that is appropriate to what has been said or done",
+        "definition_vi": "theo đó, tương ứng",
+        "grammar_note": null,
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "We received the information and acted accordingly.", "vi": "Chúng tôi nhận thông tin và hành động theo đó." }
+        ],
+        "synonyms": ["therefore", "consequently", "thus"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "act accordingly", "pattern": "verb+adverb", "example_en": "Please be informed and act accordingly.", "example_vi": "Xin hãy nắm thông tin và hành động theo đó." },
+      { "collocation": "plan accordingly", "pattern": "verb+adverb", "example_en": "The weather may change, so plan accordingly.", "example_vi": "Thời tiết có thể thay đổi, nên hãy lên kế hoạch phù hợp." }
+    ]
+  },
+  {
+    "headword": "account",
+    "meaning_vi": "tài khoản, lời kể",
+    "pos": ["noun", "verb"],
+    "cefr_level": "A1",
+    "ipa_uk": "/əˈkaʊnt/",
+    "ipa_us": "/əˈkaʊnt/",
+    "etymology": "From Old French acont ('account, reckoning'), from a- + conter ('to count')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "an arrangement with a bank to keep money",
+        "definition_vi": "tài khoản (ngân hàng)",
+        "grammar_note": "[countable]",
+        "domain": "finance",
+        "register": null,
+        "examples": [
+          { "en": "I opened a bank account.", "vi": "Tôi mở một tài khoản ngân hàng." },
+          { "en": "She transferred money to my account.", "vi": "Cô ấy chuyển tiền vào tài khoản của tôi." }
+        ],
+        "synonyms": [],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "an arrangement to use a service online",
+        "definition_vi": "tài khoản (trực tuyến)",
+        "grammar_note": "[countable]",
+        "domain": "computing",
+        "register": null,
+        "examples": [
+          { "en": "Create an account to get started.", "vi": "Tạo tài khoản để bắt đầu." }
+        ],
+        "synonyms": ["profile", "login"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 2,
+        "definition_en": "a written or spoken report of something that has happened",
+        "definition_vi": "lời kể, bài tường thuật",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She gave a detailed account of what happened.", "vi": "Cô ấy kể lại chi tiết chuyện đã xảy ra." }
+        ],
+        "synonyms": ["report", "description", "narrative"],
+        "antonyms": []
+      },
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to be considered as something",
+        "definition_vi": "được coi là",
+        "grammar_note": "[transitive] be accounted + noun/adjective",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "He was accounted a genius.", "vi": "Anh ấy được coi là thiên tài." }
+        ],
+        "synonyms": ["consider", "regard"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "accounts" },
+      { "form_type": "third_person_singular", "form_value": "accounts" },
+      { "form_type": "past_simple", "form_value": "accounted" },
+      { "form_type": "past_participle", "form_value": "accounted" },
+      { "form_type": "present_participle", "form_value": "accounting" }
+    ],
+    "phrasal_verbs": [
+      { "phrasal_verb": "account for", "particle": "for", "is_separable": false, "definition_en": "to explain the reason for something; to form a part of something", "definition_vi": "giải thích; chiếm (tỷ lệ)", "example_en": "How do you account for the difference?", "example_vi": "Bạn giải thích sự khác biệt như thế nào?" }
+    ],
+    "idioms": [
+      { "idiom_text": "take into account", "definition_en": "to consider something when making a decision", "definition_vi": "tính đến, xem xét", "example_en": "You must take his age into account.", "example_vi": "Bạn phải tính đến tuổi của anh ấy." },
+      { "idiom_text": "on account of", "definition_en": "because of", "definition_vi": "vì, do", "example_en": "The game was cancelled on account of rain.", "example_vi": "Trận đấu bị hủy vì mưa." }
+    ],
+    "collocations": [
+      { "collocation": "bank account", "pattern": "noun+noun", "example_en": "Open a bank account.", "example_vi": "Mở tài khoản ngân hàng." },
+      { "collocation": "take into account", "pattern": "verb+preposition", "example_en": "We took all factors into account.", "example_vi": "Chúng tôi đã xem xét mọi yếu tố." },
+      { "collocation": "account for", "pattern": "verb+preposition", "example_en": "Exports account for 60% of revenue.", "example_vi": "Xuất khẩu chiếm 60% doanh thu." }
+    ]
+  },
+  {
+    "headword": "accountability",
+    "meaning_vi": "trách nhiệm giải trình",
+    "pos": ["noun"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˌkaʊntəˈbɪləti/",
+    "ipa_us": "/əˌkaʊntəˈbɪləti/",
+    "etymology": "From accountable + -ity",
+    "is_countable": false,
+    "is_transitive": null,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "the fact of being responsible for decisions and expected to explain them",
+        "definition_vi": "trách nhiệm giải trình",
+        "grammar_note": "[uncountable]",
+        "domain": "business",
+        "register": "formal",
+        "examples": [
+          { "en": "There needs to be greater accountability in government.", "vi": "Cần có trách nhiệm giải trình cao hơn trong chính phủ." }
+        ],
+        "synonyms": ["responsibility", "answerability", "liability"],
+        "antonyms": ["irresponsibility"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "public accountability", "pattern": "adj+noun", "example_en": "The law ensures public accountability.", "example_vi": "Luật đảm bảo trách nhiệm giải trình công khai." },
+      { "collocation": "lack of accountability", "pattern": "noun+of+noun", "example_en": "There is a lack of accountability.", "example_vi": "Thiếu trách nhiệm giải trình." }
+    ]
+  },
+  {
+    "headword": "accountable",
+    "meaning_vi": "chịu trách nhiệm",
+    "pos": ["adjective"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˈkaʊntəbl/",
+    "ipa_us": "/əˈkaʊntəbl/",
+    "etymology": "From account + -able",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "responsible for your decisions and expected to explain them",
+        "definition_vi": "chịu trách nhiệm, phải giải trình",
+        "grammar_note": "accountable (to somebody) (for something)",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "Politicians should be accountable to the public.", "vi": "Chính trị gia phải chịu trách nhiệm trước công chúng." },
+          { "en": "Who is accountable for this decision?", "vi": "Ai chịu trách nhiệm về quyết định này?" }
+        ],
+        "synonyms": ["responsible", "answerable", "liable"],
+        "antonyms": ["unaccountable"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "hold somebody accountable", "definition_en": "to consider someone responsible", "definition_vi": "buộc ai chịu trách nhiệm", "example_en": "We will hold you accountable for any damage.", "example_vi": "Chúng tôi sẽ buộc bạn chịu trách nhiệm về mọi thiệt hại." }
+    ],
+    "collocations": [
+      { "collocation": "hold accountable", "pattern": "verb+adj", "example_en": "They must be held accountable.", "example_vi": "Họ phải chịu trách nhiệm." },
+      { "collocation": "accountable for", "pattern": "adj+preposition", "example_en": "You are accountable for your actions.", "example_vi": "Bạn phải chịu trách nhiệm về hành động của mình." }
+    ]
+  }
+]

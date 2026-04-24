@@ -1,0 +1,1016 @@
+[
+  {
+    "headword": "airport",
+    "meaning_vi": "sân bay",
+    "pos": ["noun"],
+    "cefr_level": "A1",
+    "ipa_uk": "/ˈeəpɔːt/",
+    "ipa_us": "/ˈerpɔːrt/",
+    "etymology": "From air + port",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a place where planes land and take off, with buildings for passengers",
+        "definition_vi": "sân bay, nơi máy bay cất cánh và hạ cánh",
+        "grammar_note": "[countable]",
+        "domain": "travel",
+        "register": null,
+        "examples": [
+          { "en": "We arrived at the airport two hours early.", "vi": "Chúng tôi đến sân bay sớm hai tiếng." },
+          { "en": "The airport was crowded with tourists.", "vi": "Sân bay đông nghẹt du khách." }
+        ],
+        "synonyms": ["airfield", "aerodrome"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "airports" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "international airport", "pattern": "adj+noun", "example_en": "Hanoi has a large international airport.", "example_vi": "Hà Nội có một sân bay quốc tế lớn." },
+      { "collocation": "airport security", "pattern": "noun+noun", "example_en": "Airport security has been tightened.", "example_vi": "An ninh sân bay đã được thắt chặt." },
+      { "collocation": "arrive at the airport", "pattern": "verb+noun", "example_en": "Please arrive at the airport early.", "example_vi": "Xin hãy đến sân bay sớm." }
+    ]
+  },
+  {
+    "headword": "alarm",
+    "meaning_vi": "báo động, chuông báo thức",
+    "pos": ["noun", "verb"],
+    "cefr_level": "B1",
+    "ipa_uk": "/əˈlɑːm/",
+    "ipa_us": "/əˈlɑːrm/",
+    "etymology": "From Italian all'arme ('to arms')",
+    "is_countable": true,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a loud noise or signal that warns people of danger",
+        "definition_vi": "chuông báo động, còi báo động",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The fire alarm went off in the middle of the night.", "vi": "Chuông báo cháy kêu giữa đêm." },
+          { "en": "Someone set off the alarm.", "vi": "Ai đó đã kích hoạt chuông báo động." }
+        ],
+        "synonyms": ["warning", "siren", "alert"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "a clock that wakes you up at a set time",
+        "definition_vi": "đồng hồ báo thức",
+        "grammar_note": "[countable] — also alarm clock",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "I set my alarm for 6 a.m.", "vi": "Tôi đặt chuông báo thức lúc 6 giờ sáng." }
+        ],
+        "synonyms": ["alarm clock"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 2,
+        "definition_en": "a feeling of fear or worry caused by danger",
+        "definition_vi": "sự lo lắng, sự hoảng sợ",
+        "grammar_note": "[uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "There is no cause for alarm.", "vi": "Không có lý do gì để lo lắng." }
+        ],
+        "synonyms": ["fear", "anxiety", "worry"],
+        "antonyms": ["calm", "composure"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to make someone feel frightened or worried",
+        "definition_vi": "làm hoảng sợ, làm lo lắng",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The news alarmed everybody.", "vi": "Tin tức làm mọi người lo lắng." }
+        ],
+        "synonyms": ["frighten", "scare", "worry"],
+        "antonyms": ["reassure", "calm"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "alarms" },
+      { "form_type": "third_person_singular", "form_value": "alarms" },
+      { "form_type": "past_simple", "form_value": "alarmed" },
+      { "form_type": "past_participle", "form_value": "alarmed" },
+      { "form_type": "present_participle", "form_value": "alarming" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "raise the alarm", "definition_en": "to warn people about danger", "definition_vi": "báo động, cảnh báo mọi người", "example_en": "A neighbour raised the alarm when she saw smoke.", "example_vi": "Một người hàng xóm đã báo động khi thấy khói." },
+      { "idiom_text": "alarm bells ring", "definition_en": "to feel that something is wrong", "definition_vi": "cảm thấy có điều không ổn", "example_en": "Alarm bells started ringing when he didn't come home.", "example_vi": "Cảm giác bất an xuất hiện khi anh ấy không về nhà." }
+    ],
+    "collocations": [
+      { "collocation": "fire alarm", "pattern": "noun+noun", "example_en": "The fire alarm is tested every week.", "example_vi": "Chuông báo cháy được kiểm tra hàng tuần." },
+      { "collocation": "set the alarm", "pattern": "verb+noun", "example_en": "Don't forget to set the alarm.", "example_vi": "Đừng quên đặt chuông báo thức." },
+      { "collocation": "false alarm", "pattern": "adj+noun", "example_en": "It turned out to be a false alarm.", "example_vi": "Hóa ra đó chỉ là báo động giả." }
+    ]
+  },
+  {
+    "headword": "albeit",
+    "meaning_vi": "mặc dù, tuy rằng",
+    "pos": ["conjunction"],
+    "cefr_level": "C1",
+    "ipa_uk": "/ˌɔːlˈbiːɪt/",
+    "ipa_us": "/ˌɔːlˈbiːɪt/",
+    "etymology": "From Middle English 'al be it' (although it be)",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "conjunction",
+        "sense_order": 0,
+        "definition_en": "although; even though",
+        "definition_vi": "mặc dù, tuy rằng",
+        "grammar_note": "[formal, usually followed by adjective/adverb/phrase, NOT a clause]",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "He accepted the job, albeit reluctantly.", "vi": "Anh ấy nhận công việc, mặc dù miễn cưỡng." },
+          { "en": "It was a good idea, albeit an expensive one.", "vi": "Đó là ý tưởng hay, tuy rằng tốn kém." }
+        ],
+        "synonyms": ["although", "though", "even though"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": []
+  },
+  {
+    "headword": "album",
+    "meaning_vi": "album, tuyển tập",
+    "pos": ["noun"],
+    "cefr_level": "B1",
+    "ipa_uk": "/ˈælbəm/",
+    "ipa_us": "/ˈælbəm/",
+    "etymology": "From Latin album ('white tablet for notices')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a collection of songs or pieces of music released together",
+        "definition_vi": "album nhạc",
+        "grammar_note": "[countable]",
+        "domain": "music",
+        "register": null,
+        "examples": [
+          { "en": "Her new album was released last week.", "vi": "Album mới của cô ấy được phát hành tuần trước." },
+          { "en": "This is one of the best-selling albums of all time.", "vi": "Đây là một trong những album bán chạy nhất mọi thời đại." }
+        ],
+        "synonyms": ["record", "LP", "CD"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "a book for keeping photographs, stamps, etc.",
+        "definition_vi": "album ảnh, sổ lưu niệm",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She keeps all her childhood photos in an album.", "vi": "Cô ấy giữ tất cả ảnh thời thơ ấu trong album." }
+        ],
+        "synonyms": ["scrapbook"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "albums" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "debut album", "pattern": "adj+noun", "example_en": "Their debut album was a huge success.", "example_vi": "Album đầu tay của họ thành công vang dội." },
+      { "collocation": "photo album", "pattern": "noun+noun", "example_en": "I was looking through an old photo album.", "example_vi": "Tôi đang lật xem một cuốn album ảnh cũ." },
+      { "collocation": "release an album", "pattern": "verb+noun", "example_en": "The band released a new album.", "example_vi": "Ban nhạc phát hành album mới." }
+    ]
+  },
+  {
+    "headword": "alcohol",
+    "meaning_vi": "rượu, cồn",
+    "pos": ["noun"],
+    "cefr_level": "B1",
+    "ipa_uk": "/ˈælkəhɒl/",
+    "ipa_us": "/ˈælkəhɔːl/",
+    "etymology": "From Arabic al-kuḥl ('the kohl, fine powder')",
+    "is_countable": false,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "drinks such as beer, wine, etc. that can make people drunk",
+        "definition_vi": "rượu, đồ uống có cồn",
+        "grammar_note": "[uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "He never drinks alcohol.", "vi": "Anh ấy không bao giờ uống rượu." },
+          { "en": "Alcohol is not allowed in the stadium.", "vi": "Rượu bia không được phép mang vào sân vận động." }
+        ],
+        "synonyms": ["liquor", "booze", "spirits"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "a chemical substance used in cleaning products, fuel, etc.",
+        "definition_vi": "cồn (dùng trong y tế, nhiên liệu)",
+        "grammar_note": "[uncountable, countable]",
+        "domain": "chemistry",
+        "register": null,
+        "examples": [
+          { "en": "Clean the wound with alcohol.", "vi": "Sát trùng vết thương bằng cồn." }
+        ],
+        "synonyms": ["ethanol", "spirit"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "drink alcohol", "pattern": "verb+noun", "example_en": "She doesn't drink alcohol.", "example_vi": "Cô ấy không uống rượu." },
+      { "collocation": "alcohol consumption", "pattern": "noun+noun", "example_en": "Alcohol consumption has decreased.", "example_vi": "Mức tiêu thụ rượu đã giảm." },
+      { "collocation": "alcohol abuse", "pattern": "noun+noun", "example_en": "Alcohol abuse can damage your health.", "example_vi": "Lạm dụng rượu có thể hại sức khỏe." }
+    ]
+  },
+  {
+    "headword": "alcoholic",
+    "meaning_vi": "có cồn; người nghiện rượu",
+    "pos": ["adjective", "noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ˌælkəˈhɒlɪk/",
+    "ipa_us": "/ˌælkəˈhɔːlɪk/",
+    "etymology": null,
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "containing alcohol",
+        "definition_vi": "có cồn, có chất cồn",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Alcoholic drinks are not served here.", "vi": "Đồ uống có cồn không được phục vụ ở đây." }
+        ],
+        "synonyms": ["intoxicating"],
+        "antonyms": ["non-alcoholic", "soft"]
+      },
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a person who regularly drinks too much alcohol and cannot stop",
+        "definition_vi": "người nghiện rượu",
+        "grammar_note": "[countable]",
+        "domain": "health",
+        "register": null,
+        "examples": [
+          { "en": "He became an alcoholic after losing his job.", "vi": "Anh ấy trở thành người nghiện rượu sau khi mất việc." }
+        ],
+        "synonyms": ["drunk", "addict"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "alcoholics" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "alcoholic drink", "pattern": "adj+noun", "example_en": "Would you like an alcoholic drink?", "example_vi": "Bạn muốn uống đồ có cồn không?" },
+      { "collocation": "alcoholic beverage", "pattern": "adj+noun", "example_en": "The sale of alcoholic beverages is prohibited.", "example_vi": "Việc bán đồ uống có cồn bị cấm." }
+    ]
+  },
+  {
+    "headword": "alert",
+    "meaning_vi": "cảnh giác, tỉnh táo; cảnh báo",
+    "pos": ["adjective", "noun", "verb"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈlɜːt/",
+    "ipa_us": "/əˈlɜːrt/",
+    "etymology": "From Italian all'erta ('on the watch')",
+    "is_countable": true,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "aware and paying attention; quick to notice things",
+        "definition_vi": "cảnh giác, tỉnh táo, nhanh nhạy",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "You should stay alert while driving.", "vi": "Bạn nên luôn tỉnh táo khi lái xe." },
+          { "en": "The dog was alert to every sound.", "vi": "Con chó cảnh giác với mọi tiếng động." }
+        ],
+        "synonyms": ["watchful", "vigilant", "attentive"],
+        "antonyms": ["unaware", "inattentive"]
+      },
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a warning of danger or a problem",
+        "definition_vi": "cảnh báo, tín hiệu báo động",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "A flood alert has been issued.", "vi": "Cảnh báo lũ lụt đã được phát đi." }
+        ],
+        "synonyms": ["warning", "alarm", "notification"],
+        "antonyms": []
+      },
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to warn someone about a danger or problem",
+        "definition_vi": "cảnh báo, thông báo",
+        "grammar_note": "[transitive] alert somebody (to something)",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Neighbours alerted the police.", "vi": "Hàng xóm đã báo cảnh sát." },
+          { "en": "We were alerted to the problem early.", "vi": "Chúng tôi đã được cảnh báo về vấn đề này sớm." }
+        ],
+        "synonyms": ["warn", "notify", "inform"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "alerts" },
+      { "form_type": "past_simple", "form_value": "alerted" },
+      { "form_type": "past_participle", "form_value": "alerted" },
+      { "form_type": "present_participle", "form_value": "alerting" },
+      { "form_type": "plural", "form_value": "alerts" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "on the alert", "definition_en": "watching carefully for something", "definition_vi": "cảnh giác, đề phòng", "example_en": "Police are on the alert for suspicious activity.", "example_vi": "Cảnh sát đang đề phòng hoạt động đáng ngờ." },
+      { "idiom_text": "red alert", "definition_en": "a situation of extreme danger", "definition_vi": "báo động đỏ, tình trạng nguy hiểm cao", "example_en": "The hospital was put on red alert.", "example_vi": "Bệnh viện được đặt trong tình trạng báo động đỏ." }
+    ],
+    "collocations": [
+      { "collocation": "stay alert", "pattern": "verb+adj", "example_en": "Stay alert at all times.", "example_vi": "Hãy luôn luôn cảnh giác." },
+      { "collocation": "alert the authorities", "pattern": "verb+noun", "example_en": "She immediately alerted the authorities.", "example_vi": "Cô ấy lập tức báo cho chính quyền." }
+    ]
+  },
+  {
+    "headword": "alien",
+    "meaning_vi": "người ngoài hành tinh; ngoại lai",
+    "pos": ["noun", "adjective"],
+    "cefr_level": "C1",
+    "ipa_uk": "/ˈeɪliən/",
+    "ipa_us": "/ˈeɪliən/",
+    "etymology": "From Latin alienus ('belonging to another')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a creature from another planet",
+        "definition_vi": "người ngoài hành tinh",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Do you believe in aliens?", "vi": "Bạn có tin vào người ngoài hành tinh không?" }
+        ],
+        "synonyms": ["extraterrestrial"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "a foreigner, especially one who is not a citizen",
+        "definition_vi": "người nước ngoài, ngoại kiều",
+        "grammar_note": "[countable]",
+        "domain": "law",
+        "register": "formal",
+        "examples": [
+          { "en": "Illegal aliens face deportation.", "vi": "Người nước ngoài bất hợp pháp đối mặt với trục xuất." }
+        ],
+        "synonyms": ["foreigner", "immigrant", "non-citizen"],
+        "antonyms": ["citizen", "native"]
+      },
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "strange and unfamiliar; from another country or world",
+        "definition_vi": "xa lạ, ngoại lai",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The concept was completely alien to her.", "vi": "Khái niệm đó hoàn toàn xa lạ với cô ấy." }
+        ],
+        "synonyms": ["foreign", "strange", "unfamiliar"],
+        "antonyms": ["familiar", "native"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "aliens" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "illegal alien", "pattern": "adj+noun", "example_en": "The term 'illegal alien' is controversial.", "example_vi": "Thuật ngữ 'người nước ngoài bất hợp pháp' gây tranh cãi." },
+      { "collocation": "alien to", "pattern": "adj+prep", "example_en": "Violence was alien to his nature.", "example_vi": "Bạo lực hoàn toàn xa lạ với bản tính anh ấy." }
+    ]
+  },
+  {
+    "headword": "align",
+    "meaning_vi": "căn chỉnh, sắp thẳng hàng",
+    "pos": ["verb"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˈlaɪn/",
+    "ipa_us": "/əˈlaɪn/",
+    "etymology": "From French aligner ('to line up')",
+    "is_countable": null,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to arrange things in a straight line or correct position",
+        "definition_vi": "căn chỉnh, sắp thẳng hàng",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Make sure the text is aligned to the left.", "vi": "Hãy đảm bảo văn bản được căn lề trái." },
+          { "en": "The wheels need to be aligned.", "vi": "Bánh xe cần được căn chỉnh lại." }
+        ],
+        "synonyms": ["adjust", "line up", "straighten"],
+        "antonyms": []
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to support or agree with a person, group, or idea",
+        "definition_vi": "liên kết, đồng thuận, ủng hộ",
+        "grammar_note": "[intransitive, transitive] align (yourself) with somebody/something",
+        "domain": "politics",
+        "register": null,
+        "examples": [
+          { "en": "The company aligned itself with environmental groups.", "vi": "Công ty liên kết với các nhóm môi trường." },
+          { "en": "Our goals align with theirs.", "vi": "Mục tiêu của chúng tôi phù hợp với mục tiêu của họ." }
+        ],
+        "synonyms": ["ally", "associate", "side with"],
+        "antonyms": ["oppose", "conflict"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "aligns" },
+      { "form_type": "past_simple", "form_value": "aligned" },
+      { "form_type": "past_participle", "form_value": "aligned" },
+      { "form_type": "present_participle", "form_value": "aligning" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "closely aligned", "pattern": "adv+adj", "example_en": "The two policies are closely aligned.", "example_vi": "Hai chính sách này rất gần nhau." },
+      { "collocation": "align with", "pattern": "verb+prep", "example_en": "Our values align with theirs.", "example_vi": "Giá trị của chúng tôi phù hợp với giá trị của họ." }
+    ]
+  },
+  {
+    "headword": "alignment",
+    "meaning_vi": "sự căn chỉnh, sự liên kết",
+    "pos": ["noun"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˈlaɪnmənt/",
+    "ipa_us": "/əˈlaɪnmənt/",
+    "etymology": null,
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "the arrangement of something in a straight line or correct position",
+        "definition_vi": "sự căn chỉnh, sự sắp thẳng hàng",
+        "grammar_note": "[uncountable, countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Check the alignment of the wheels.", "vi": "Kiểm tra việc căn chỉnh bánh xe." }
+        ],
+        "synonyms": ["adjustment", "positioning"],
+        "antonyms": ["misalignment"]
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "agreement or alliance with a group, idea, or country",
+        "definition_vi": "sự liên kết, sự đồng thuận",
+        "grammar_note": "[uncountable, countable]",
+        "domain": "politics",
+        "register": null,
+        "examples": [
+          { "en": "The alignment of the two parties surprised many.", "vi": "Sự liên kết giữa hai đảng khiến nhiều người ngạc nhiên." }
+        ],
+        "synonyms": ["alliance", "agreement", "partnership"],
+        "antonyms": ["opposition", "conflict"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "alignments" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "in alignment with", "pattern": "prep+noun", "example_en": "Our plan is in alignment with the company's goals.", "example_vi": "Kế hoạch của chúng tôi phù hợp với mục tiêu công ty." },
+      { "collocation": "political alignment", "pattern": "adj+noun", "example_en": "His political alignment shifted.", "example_vi": "Xu hướng chính trị của anh ấy đã thay đổi." }
+    ]
+  },
+  {
+    "headword": "alike",
+    "meaning_vi": "giống nhau, tương tự",
+    "pos": ["adjective", "adverb"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈlaɪk/",
+    "ipa_us": "/əˈlaɪk/",
+    "etymology": "From Old English gelīc ('like, similar')",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "very similar; not different",
+        "definition_vi": "giống nhau, tương tự",
+        "grammar_note": "[not before noun]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The two sisters look very much alike.", "vi": "Hai chị em trông rất giống nhau." },
+          { "en": "No two fingerprints are exactly alike.", "vi": "Không có hai dấu vân tay nào giống hệt nhau." }
+        ],
+        "synonyms": ["similar", "identical", "comparable"],
+        "antonyms": ["different", "unlike", "distinct"]
+      },
+      {
+        "pos": "adverb",
+        "sense_order": 0,
+        "definition_en": "in the same way; equally",
+        "definition_vi": "như nhau, đều, giống nhau",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The rule applies to adults and children alike.", "vi": "Quy tắc áp dụng cho cả người lớn và trẻ em như nhau." }
+        ],
+        "synonyms": ["equally", "similarly"],
+        "antonyms": ["differently"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "great minds think alike", "definition_en": "said when two people have the same idea at the same time", "definition_vi": "những bộ óc lớn nghĩ giống nhau", "example_en": "\"I was thinking the same thing!\" \"Great minds think alike.\"", "example_vi": "\"Tôi cũng đang nghĩ vậy!\" \"Người tài nghĩ giống nhau.\"" }
+    ],
+    "collocations": [
+      { "collocation": "look alike", "pattern": "verb+adj", "example_en": "They look so alike.", "example_vi": "Họ trông giống nhau quá." }
+    ]
+  },
+  {
+    "headword": "alive",
+    "meaning_vi": "sống, còn sống",
+    "pos": ["adjective"],
+    "cefr_level": "A2",
+    "ipa_uk": "/əˈlaɪv/",
+    "ipa_us": "/əˈlaɪv/",
+    "etymology": "From Old English on līfe ('in life')",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "living; not dead",
+        "definition_vi": "sống, còn sống",
+        "grammar_note": "[not before noun]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Is he still alive?", "vi": "Anh ấy còn sống không?" },
+          { "en": "She was found alive after three days.", "vi": "Cô ấy được tìm thấy còn sống sau ba ngày." }
+        ],
+        "synonyms": ["living", "breathing", "surviving"],
+        "antonyms": ["dead", "lifeless"]
+      },
+      {
+        "pos": "adjective",
+        "sense_order": 1,
+        "definition_en": "full of energy, excitement, or activity",
+        "definition_vi": "tràn đầy sức sống, nhộn nhịp",
+        "grammar_note": "[not before noun]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The city comes alive at night.", "vi": "Thành phố nhộn nhịp về đêm." },
+          { "en": "She felt truly alive for the first time.", "vi": "Lần đầu tiên cô ấy cảm thấy thực sự sống." }
+        ],
+        "synonyms": ["vibrant", "lively", "energetic"],
+        "antonyms": ["dull", "lifeless"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "alive and well", "definition_en": "still living and healthy", "definition_vi": "vẫn sống khỏe mạnh", "example_en": "The tradition is alive and well.", "example_vi": "Truyền thống vẫn còn sống mãi." },
+      { "idiom_text": "alive and kicking", "definition_en": "very active and healthy", "definition_vi": "vẫn khỏe mạnh và hoạt động", "example_en": "At 90, she is still alive and kicking.", "example_vi": "Ở tuổi 90, bà vẫn khỏe mạnh và năng động." }
+    ],
+    "collocations": [
+      { "collocation": "stay alive", "pattern": "verb+adj", "example_en": "They struggled to stay alive.", "example_vi": "Họ vật lộn để sống sót." },
+      { "collocation": "keep alive", "pattern": "verb+adj", "example_en": "We must keep the tradition alive.", "example_vi": "Chúng ta phải giữ gìn truyền thống." },
+      { "collocation": "come alive", "pattern": "verb+adj", "example_en": "The garden comes alive in spring.", "example_vi": "Khu vườn bừng sáng vào mùa xuân." }
+    ]
+  },
+  {
+    "headword": "all",
+    "meaning_vi": "tất cả, toàn bộ",
+    "pos": ["determiner", "pronoun", "adverb"],
+    "cefr_level": "A1",
+    "ipa_uk": "/ɔːl/",
+    "ipa_us": "/ɔːl/",
+    "etymology": "From Old English eall ('all, every, entire')",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "determiner",
+        "sense_order": 0,
+        "definition_en": "the whole amount or every one of",
+        "definition_vi": "tất cả, toàn bộ, mọi",
+        "grammar_note": "[+ noun]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "All students must attend.", "vi": "Tất cả học sinh phải tham dự." },
+          { "en": "I spent all my money.", "vi": "Tôi tiêu hết toàn bộ tiền." }
+        ],
+        "synonyms": ["every", "each", "entire", "whole"],
+        "antonyms": ["none", "no"]
+      },
+      {
+        "pos": "pronoun",
+        "sense_order": 0,
+        "definition_en": "everything or everyone",
+        "definition_vi": "tất cả, mọi thứ, mọi người",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "All are welcome.", "vi": "Tất cả đều được chào đón." },
+          { "en": "That's all I know.", "vi": "Đó là tất cả những gì tôi biết." }
+        ],
+        "synonyms": ["everything", "everyone"],
+        "antonyms": ["nothing", "nobody"]
+      },
+      {
+        "pos": "adverb",
+        "sense_order": 0,
+        "definition_en": "completely; entirely",
+        "definition_vi": "hoàn toàn",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She was dressed all in black.", "vi": "Cô ấy mặc toàn đồ đen." }
+        ],
+        "synonyms": ["completely", "entirely", "totally"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [
+      { "idiom_text": "all in all", "definition_en": "considering everything", "definition_vi": "nhìn chung, xét cho cùng", "example_en": "All in all, it was a great trip.", "example_vi": "Nhìn chung, đó là một chuyến đi tuyệt vời." },
+      { "idiom_text": "after all", "definition_en": "in spite of what was expected", "definition_vi": "rốt cuộc, suy cho cùng", "example_en": "He decided to come after all.", "example_vi": "Rốt cuộc anh ấy quyết định đến." },
+      { "idiom_text": "once and for all", "definition_en": "now and for the last time; finally", "definition_vi": "một lần và mãi mãi, dứt khoát", "example_en": "Let's settle this once and for all.", "example_vi": "Hãy giải quyết chuyện này một lần cho xong." }
+    ],
+    "collocations": [
+      { "collocation": "all the time", "pattern": "det+noun", "example_en": "He complains all the time.", "example_vi": "Anh ấy phàn nàn suốt ngày." },
+      { "collocation": "above all", "pattern": "prep+det", "example_en": "Above all, be honest.", "example_vi": "Trên hết, hãy trung thực." }
+    ]
+  },
+  {
+    "headword": "all right",
+    "meaning_vi": "ổn, được, tốt",
+    "pos": ["adjective", "adverb", "exclamation"],
+    "cefr_level": "A2",
+    "ipa_uk": "/ˌɔːl ˈraɪt/",
+    "ipa_us": "/ˌɔːl ˈraɪt/",
+    "etymology": null,
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "safe, well, or acceptable",
+        "definition_vi": "ổn, không sao, chấp nhận được",
+        "grammar_note": "[not before noun]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Are you all right?", "vi": "Bạn có ổn không?" },
+          { "en": "The food was all right, nothing special.", "vi": "Đồ ăn thì ổn, không có gì đặc biệt." }
+        ],
+        "synonyms": ["okay", "fine", "acceptable"],
+        "antonyms": ["bad", "terrible"]
+      },
+      {
+        "pos": "exclamation",
+        "sense_order": 0,
+        "definition_en": "used to agree, accept, or show understanding",
+        "definition_vi": "được rồi, đồng ý",
+        "grammar_note": null,
+        "domain": null,
+        "register": "informal",
+        "examples": [
+          { "en": "\"Can I borrow this?\" \"All right.\"", "vi": "\"Tôi mượn cái này được không?\" \"Được thôi.\"" }
+        ],
+        "synonyms": ["okay", "sure", "fine"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": []
+  },
+  {
+    "headword": "allegation",
+    "meaning_vi": "cáo buộc, lời buộc tội",
+    "pos": ["noun"],
+    "cefr_level": "C1",
+    "ipa_uk": "/ˌælɪˈɡeɪʃn/",
+    "ipa_us": "/ˌælɪˈɡeɪʃn/",
+    "etymology": "From Latin allegatio ('a sending, dispatching')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a public statement that someone has done something wrong or illegal, without proof",
+        "definition_vi": "cáo buộc, lời buộc tội (chưa được chứng minh)",
+        "grammar_note": "[countable]",
+        "domain": "law",
+        "register": "formal",
+        "examples": [
+          { "en": "He denied the allegations of corruption.", "vi": "Ông ấy phủ nhận các cáo buộc tham nhũng." },
+          { "en": "Serious allegations were made against the company.", "vi": "Những cáo buộc nghiêm trọng được đưa ra nhắm vào công ty." }
+        ],
+        "synonyms": ["accusation", "claim", "charge"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "allegations" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "make an allegation", "pattern": "verb+noun", "example_en": "She made allegations of fraud.", "example_vi": "Cô ấy đưa ra cáo buộc gian lận." },
+      { "collocation": "deny allegations", "pattern": "verb+noun", "example_en": "He strongly denied the allegations.", "example_vi": "Ông ấy mạnh mẽ phủ nhận các cáo buộc." },
+      { "collocation": "serious allegation", "pattern": "adj+noun", "example_en": "These are very serious allegations.", "example_vi": "Đây là những cáo buộc rất nghiêm trọng." }
+    ]
+  },
+  {
+    "headword": "allege",
+    "meaning_vi": "cáo buộc, cho rằng",
+    "pos": ["verb"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˈledʒ/",
+    "ipa_us": "/əˈledʒ/",
+    "etymology": null,
+    "is_countable": null,
+    "is_transitive": true,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to state something as a fact without proof, especially about wrongdoing",
+        "definition_vi": "cáo buộc, khẳng định (chưa chứng minh)",
+        "grammar_note": "[transitive, often passive]",
+        "domain": "law",
+        "register": "formal",
+        "examples": [
+          { "en": "He is alleged to have stolen the money.", "vi": "Anh ta bị cáo buộc đã trộm tiền." },
+          { "en": "The prosecution alleged that he lied.", "vi": "Bên công tố cáo buộc rằng anh ta đã nói dối." }
+        ],
+        "synonyms": ["claim", "assert", "accuse"],
+        "antonyms": ["deny"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "alleges" },
+      { "form_type": "past_simple", "form_value": "alleged" },
+      { "form_type": "past_participle", "form_value": "alleged" },
+      { "form_type": "present_participle", "form_value": "alleging" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "alleged to have", "pattern": "verb+infinitive", "example_en": "He was alleged to have taken bribes.", "example_vi": "Anh ta bị cáo buộc đã nhận hối lộ." }
+    ]
+  },
+  {
+    "headword": "allegedly",
+    "meaning_vi": "được cho là, bị cáo buộc là",
+    "pos": ["adverb"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˈledʒɪdli/",
+    "ipa_us": "/əˈledʒɪdli/",
+    "etymology": null,
+    "is_countable": null,
+    "is_transitive": null,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "adverb",
+        "sense_order": 0,
+        "definition_en": "used to say that something is stated to be true but has not been proved",
+        "definition_vi": "được cho là, theo cáo buộc",
+        "grammar_note": "[sentence adverb]",
+        "domain": "law",
+        "register": "formal",
+        "examples": [
+          { "en": "He allegedly assaulted a police officer.", "vi": "Anh ta được cho là đã tấn công cảnh sát." },
+          { "en": "The money was allegedly used for personal expenses.", "vi": "Số tiền được cho là đã bị dùng cho chi tiêu cá nhân." }
+        ],
+        "synonyms": ["supposedly", "reportedly", "purportedly"],
+        "antonyms": ["definitely", "certainly"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": []
+  },
+  {
+    "headword": "alliance",
+    "meaning_vi": "liên minh, đồng minh",
+    "pos": ["noun"],
+    "cefr_level": "C1",
+    "ipa_uk": "/əˈlaɪəns/",
+    "ipa_us": "/əˈlaɪəns/",
+    "etymology": "From Old French aliance ('alliance, marriage')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "an agreement between countries, groups, or people to work together",
+        "definition_vi": "liên minh, sự liên kết",
+        "grammar_note": "[countable, uncountable]",
+        "domain": "politics",
+        "register": null,
+        "examples": [
+          { "en": "The two countries formed a military alliance.", "vi": "Hai nước thành lập liên minh quân sự." },
+          { "en": "They entered into an alliance with a larger company.", "vi": "Họ gia nhập liên minh với một công ty lớn hơn." }
+        ],
+        "synonyms": ["partnership", "coalition", "union", "pact"],
+        "antonyms": ["rivalry", "opposition"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "alliances" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "form an alliance", "pattern": "verb+noun", "example_en": "They formed an alliance against the enemy.", "example_vi": "Họ thành lập liên minh chống lại kẻ thù." },
+      { "collocation": "military alliance", "pattern": "adj+noun", "example_en": "NATO is a military alliance.", "example_vi": "NATO là một liên minh quân sự." },
+      { "collocation": "strategic alliance", "pattern": "adj+noun", "example_en": "The firms entered a strategic alliance.", "example_vi": "Các công ty tham gia liên minh chiến lược." }
+    ]
+  },
+  {
+    "headword": "allocate",
+    "meaning_vi": "phân bổ, phân phối",
+    "pos": ["verb"],
+    "cefr_level": "C1",
+    "ipa_uk": "/ˈæləkeɪt/",
+    "ipa_us": "/ˈæləkeɪt/",
+    "etymology": "From Medieval Latin allocare ('to place, allot')",
+    "is_countable": null,
+    "is_transitive": true,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to give something officially for a particular purpose",
+        "definition_vi": "phân bổ, cấp, phân phối",
+        "grammar_note": "[transitive] allocate something (to somebody/something)",
+        "domain": "business",
+        "register": "formal",
+        "examples": [
+          { "en": "The government allocated funds for education.", "vi": "Chính phủ phân bổ ngân sách cho giáo dục." },
+          { "en": "Each team was allocated a budget of $10,000.", "vi": "Mỗi nhóm được phân bổ ngân sách 10.000 đô la." }
+        ],
+        "synonyms": ["assign", "distribute", "allot", "devote"],
+        "antonyms": ["withhold"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "allocates" },
+      { "form_type": "past_simple", "form_value": "allocated" },
+      { "form_type": "past_participle", "form_value": "allocated" },
+      { "form_type": "present_participle", "form_value": "allocating" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "allocate resources", "pattern": "verb+noun", "example_en": "We need to allocate resources more efficiently.", "example_vi": "Chúng ta cần phân bổ nguồn lực hiệu quả hơn." },
+      { "collocation": "allocate funds", "pattern": "verb+noun", "example_en": "The city allocated funds for repairs.", "example_vi": "Thành phố phân bổ kinh phí cho việc sửa chữa." },
+      { "collocation": "allocate time", "pattern": "verb+noun", "example_en": "Allocate enough time for each task.", "example_vi": "Phân bổ đủ thời gian cho mỗi nhiệm vụ." }
+    ]
+  },
+  {
+    "headword": "allocation",
+    "meaning_vi": "sự phân bổ, phần được phân",
+    "pos": ["noun"],
+    "cefr_level": "C1",
+    "ipa_uk": "/ˌæləˈkeɪʃn/",
+    "ipa_us": "/ˌæləˈkeɪʃn/",
+    "etymology": null,
+    "is_countable": true,
+    "is_transitive": null,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "the act of giving something for a particular purpose; the amount given",
+        "definition_vi": "sự phân bổ; phần được phân bổ",
+        "grammar_note": "[countable, uncountable]",
+        "domain": "business",
+        "register": "formal",
+        "examples": [
+          { "en": "The allocation of resources is unfair.", "vi": "Sự phân bổ nguồn lực không công bằng." },
+          { "en": "Each department received its budget allocation.", "vi": "Mỗi phòng ban nhận được phần ngân sách được phân bổ." }
+        ],
+        "synonyms": ["distribution", "allotment", "assignment"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "allocations" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "resource allocation", "pattern": "noun+noun", "example_en": "Resource allocation is a key management skill.", "example_vi": "Phân bổ nguồn lực là kỹ năng quản lý quan trọng." },
+      { "collocation": "budget allocation", "pattern": "noun+noun", "example_en": "The budget allocation was approved.", "example_vi": "Phân bổ ngân sách đã được phê duyệt." }
+    ]
+  }
+]

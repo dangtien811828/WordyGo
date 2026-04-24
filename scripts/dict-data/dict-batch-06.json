@@ -1,0 +1,1122 @@
+[
+  {
+    "headword": "advertise",
+    "meaning_vi": "quảng cáo, rao bán",
+    "pos": ["verb"],
+    "cefr_level": "A2",
+    "ipa_uk": "/ˈædvətaɪz/",
+    "ipa_us": "/ˈædvərtaɪz/",
+    "audio_uk": "advertise_uk.mp3",
+    "audio_us": "advertise_us.mp3",
+    "etymology": "From Old French advertir, from Latin advertere ('to turn towards')",
+    "is_countable": null,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to tell the public about a product or service to encourage them to buy it",
+        "definition_vi": "quảng cáo sản phẩm hoặc dịch vụ",
+        "grammar_note": "[transitive, intransitive]",
+        "domain": "business",
+        "register": null,
+        "examples": [
+          { "en": "The company advertises its products on TV.", "vi": "Công ty quảng cáo sản phẩm trên TV." },
+          { "en": "If you want to sell your car, why not advertise it online?", "vi": "Nếu muốn bán xe, sao không rao bán trực tuyến?" }
+        ],
+        "synonyms": ["promote", "market", "publicize"],
+        "antonyms": ["conceal", "hide"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to make a public announcement that a job is available",
+        "definition_vi": "đăng tuyển, thông báo tuyển dụng",
+        "grammar_note": "[transitive, intransitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The position was advertised in the local newspaper.", "vi": "Vị trí đó được đăng tuyển trên báo địa phương." }
+        ],
+        "synonyms": ["announce", "post"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "advertises" },
+      { "form_type": "past_simple", "form_value": "advertised" },
+      { "form_type": "past_participle", "form_value": "advertised" },
+      { "form_type": "present_participle", "form_value": "advertising" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "widely advertised", "pattern": "adv+verb", "example_en": "The event was widely advertised.", "example_vi": "Sự kiện được quảng cáo rộng rãi." },
+      { "collocation": "advertise a product", "pattern": "verb+noun", "example_en": "They advertise their products on social media.", "example_vi": "Họ quảng cáo sản phẩm trên mạng xã hội." }
+    ]
+  },
+  {
+    "headword": "advertisement",
+    "meaning_vi": "quảng cáo, mẩu quảng cáo",
+    "pos": ["noun"],
+    "cefr_level": "A2",
+    "ipa_uk": "/ədˈvɜːtɪsmənt/",
+    "ipa_us": "/ˌædvərˈtaɪzmənt/",
+    "audio_uk": "advertisement_uk.mp3",
+    "audio_us": "advertisement_us.mp3",
+    "etymology": null,
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a notice, picture, or short film telling people about a product, job, or service",
+        "definition_vi": "mẩu quảng cáo, bài quảng cáo",
+        "grammar_note": "[countable]",
+        "domain": "business",
+        "register": null,
+        "examples": [
+          { "en": "I saw an advertisement for the job in the paper.", "vi": "Tôi thấy mẩu quảng cáo tuyển dụng trên báo." },
+          { "en": "She answered an advertisement for a secretary.", "vi": "Cô ấy phản hồi một mẩu quảng cáo tuyển thư ký." }
+        ],
+        "synonyms": ["ad", "advert", "commercial"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "advertisements" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "place an advertisement", "pattern": "verb+noun", "example_en": "She placed an advertisement in the newspaper.", "example_vi": "Cô ấy đăng một mẩu quảng cáo trên báo." },
+      { "collocation": "full-page advertisement", "pattern": "adj+noun", "example_en": "They took out a full-page advertisement.", "example_vi": "Họ mua một quảng cáo trang đầy đủ." }
+    ]
+  },
+  {
+    "headword": "advertising",
+    "meaning_vi": "ngành quảng cáo, việc quảng cáo",
+    "pos": ["noun"],
+    "cefr_level": "A2",
+    "ipa_uk": "/ˈædvətaɪzɪŋ/",
+    "ipa_us": "/ˈædvərtaɪzɪŋ/",
+    "audio_uk": "advertising_uk.mp3",
+    "audio_us": "advertising_us.mp3",
+    "etymology": null,
+    "is_countable": false,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "the activity and industry of producing advertisements",
+        "definition_vi": "ngành quảng cáo, hoạt động quảng cáo",
+        "grammar_note": "[uncountable]",
+        "domain": "business",
+        "register": null,
+        "examples": [
+          { "en": "He works in advertising.", "vi": "Anh ấy làm trong ngành quảng cáo." },
+          { "en": "The company spends a lot on advertising.", "vi": "Công ty chi nhiều tiền cho quảng cáo." }
+        ],
+        "synonyms": ["marketing", "promotion", "publicity"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "advertising campaign", "pattern": "noun+noun", "example_en": "They launched a new advertising campaign.", "example_vi": "Họ phát động chiến dịch quảng cáo mới." },
+      { "collocation": "advertising agency", "pattern": "noun+noun", "example_en": "She works for an advertising agency.", "example_vi": "Cô ấy làm việc cho một công ty quảng cáo." }
+    ]
+  },
+  {
+    "headword": "advice",
+    "meaning_vi": "lời khuyên",
+    "pos": ["noun"],
+    "cefr_level": "A2",
+    "ipa_uk": "/ədˈvaɪs/",
+    "ipa_us": "/ədˈvaɪs/",
+    "audio_uk": "advice_uk.mp3",
+    "audio_us": "advice_us.mp3",
+    "etymology": "From Old French avis ('opinion')",
+    "is_countable": false,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "an opinion or suggestion about what someone should do",
+        "definition_vi": "lời khuyên, ý kiến đề xuất",
+        "grammar_note": "[uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Can I give you some advice?", "vi": "Tôi có thể cho bạn lời khuyên được không?" },
+          { "en": "She took her doctor's advice.", "vi": "Cô ấy nghe theo lời khuyên của bác sĩ." }
+        ],
+        "synonyms": ["guidance", "suggestion", "recommendation", "counsel"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [
+      {
+        "idiom_text": "take someone's advice",
+        "definition_en": "to do what someone suggests",
+        "definition_vi": "nghe theo lời khuyên của ai",
+        "example_en": "I wish I had taken your advice.",
+        "example_vi": "Giá mà tôi đã nghe theo lời khuyên của bạn."
+      },
+      {
+        "idiom_text": "a piece of advice",
+        "definition_en": "a single suggestion",
+        "definition_vi": "một lời khuyên",
+        "example_en": "Let me give you a piece of advice.",
+        "example_vi": "Để tôi cho bạn một lời khuyên."
+      }
+    ],
+    "collocations": [
+      { "collocation": "give advice", "pattern": "verb+noun", "example_en": "He always gives good advice.", "example_vi": "Anh ấy luôn cho lời khuyên hay." },
+      { "collocation": "follow advice", "pattern": "verb+noun", "example_en": "You should follow the doctor's advice.", "example_vi": "Bạn nên nghe theo lời khuyên của bác sĩ." },
+      { "collocation": "seek advice", "pattern": "verb+noun", "example_en": "You should seek legal advice.", "example_vi": "Bạn nên tìm kiếm tư vấn pháp lý." }
+    ]
+  },
+  {
+    "headword": "advise",
+    "meaning_vi": "khuyên, tư vấn",
+    "pos": ["verb"],
+    "cefr_level": "B1",
+    "ipa_uk": "/ədˈvaɪz/",
+    "ipa_us": "/ədˈvaɪz/",
+    "audio_uk": "advise_uk.mp3",
+    "audio_us": "advise_us.mp3",
+    "etymology": "From Old French aviser",
+    "is_countable": null,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to tell someone what you think they should do",
+        "definition_vi": "khuyên, khuyên bảo",
+        "grammar_note": "[transitive + object + to infinitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "I advise you to be careful.", "vi": "Tôi khuyên bạn hãy cẩn thận." },
+          { "en": "The doctor advised him to rest.", "vi": "Bác sĩ khuyên anh ấy nghỉ ngơi." }
+        ],
+        "synonyms": ["recommend", "suggest", "counsel", "urge"],
+        "antonyms": ["discourage"]
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to give professional help and information on a subject",
+        "definition_vi": "tư vấn (chuyên môn)",
+        "grammar_note": "[transitive, intransitive + on]",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "She advises the government on economic policy.", "vi": "Bà ấy tư vấn cho chính phủ về chính sách kinh tế." }
+        ],
+        "synonyms": ["consult", "guide"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "advises" },
+      { "form_type": "past_simple", "form_value": "advised" },
+      { "form_type": "past_participle", "form_value": "advised" },
+      { "form_type": "present_participle", "form_value": "advising" }
+    ],
+    "phrasal_verbs": [
+      {
+        "phrasal_verb": "advise against",
+        "particle": "against",
+        "is_separable": false,
+        "definition_en": "to tell someone not to do something",
+        "definition_vi": "khuyên không nên làm gì",
+        "example_en": "The lawyer advised against signing the contract.",
+        "example_vi": "Luật sư khuyên không nên ký hợp đồng."
+      }
+    ],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "strongly advise", "pattern": "adv+verb", "example_en": "I would strongly advise you to apply.", "example_vi": "Tôi rất khuyên bạn nên nộp đơn." },
+      { "collocation": "advise caution", "pattern": "verb+noun", "example_en": "Experts advise caution when investing.", "example_vi": "Chuyên gia khuyên thận trọng khi đầu tư." }
+    ]
+  },
+  {
+    "headword": "advocate",
+    "meaning_vi": "ủng hộ, người ủng hộ",
+    "pos": ["verb", "noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/ˈædvəkeɪt/",
+    "ipa_us": "/ˈædvəkeɪt/",
+    "audio_uk": "advocate_uk.mp3",
+    "audio_us": "advocate_us.mp3",
+    "etymology": "From Latin advocatus ('one called to aid')",
+    "is_countable": true,
+    "is_transitive": true,
+    "register": "formal",
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to publicly support or recommend a particular cause or policy",
+        "definition_vi": "ủng hộ, tán thành công khai",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "She advocates equal rights for all.", "vi": "Cô ấy ủng hộ quyền bình đẳng cho tất cả mọi người." }
+        ],
+        "synonyms": ["support", "promote", "champion", "endorse"],
+        "antonyms": ["oppose", "reject"]
+      },
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a person who publicly supports or recommends something",
+        "definition_vi": "người ủng hộ, người vận động",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "He is a strong advocate for education reform.", "vi": "Ông ấy là người ủng hộ mạnh mẽ cải cách giáo dục." }
+        ],
+        "synonyms": ["supporter", "champion", "proponent"],
+        "antonyms": ["opponent", "critic"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "advocates" },
+      { "form_type": "past_simple", "form_value": "advocated" },
+      { "form_type": "past_participle", "form_value": "advocated" },
+      { "form_type": "present_participle", "form_value": "advocating" },
+      { "form_type": "plural", "form_value": "advocates" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "advocate for change", "pattern": "verb+prep+noun", "example_en": "They advocate for change in the system.", "example_vi": "Họ vận động thay đổi trong hệ thống." }
+    ]
+  },
+  {
+    "headword": "aesthetic",
+    "meaning_vi": "thẩm mỹ, mỹ thuật",
+    "pos": ["adjective", "noun"],
+    "cefr_level": "C1",
+    "ipa_uk": "/iːsˈθetɪk/",
+    "ipa_us": "/esˈθetɪk/",
+    "audio_uk": "aesthetic_uk.mp3",
+    "audio_us": "aesthetic_us.mp3",
+    "etymology": "From Greek aisthetikos ('of sense perception')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "relating to beauty or the appreciation of beauty",
+        "definition_vi": "thuộc về thẩm mỹ, đẹp",
+        "grammar_note": null,
+        "domain": "art",
+        "register": null,
+        "examples": [
+          { "en": "The building has great aesthetic appeal.", "vi": "Tòa nhà có sức hấp dẫn thẩm mỹ tuyệt vời." }
+        ],
+        "synonyms": ["artistic", "visual", "decorative"],
+        "antonyms": ["ugly", "unattractive"]
+      },
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a set of principles about beauty and art",
+        "definition_vi": "quan điểm thẩm mỹ, phong cách",
+        "grammar_note": "[countable, usually singular]",
+        "domain": "art",
+        "register": null,
+        "examples": [
+          { "en": "The minimalist aesthetic is very popular now.", "vi": "Phong cách thẩm mỹ tối giản rất phổ biến hiện nay." }
+        ],
+        "synonyms": ["style", "look", "design"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "aesthetics" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "aesthetic appeal", "pattern": "adj+noun", "example_en": "The garden has real aesthetic appeal.", "example_vi": "Khu vườn có sức hấp dẫn thẩm mỹ thật sự." },
+      { "collocation": "aesthetic value", "pattern": "adj+noun", "example_en": "The painting has great aesthetic value.", "example_vi": "Bức tranh có giá trị thẩm mỹ cao." }
+    ]
+  },
+  {
+    "headword": "affair",
+    "meaning_vi": "vụ việc, mối tình vụng trộm",
+    "pos": ["noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈfeə(r)/",
+    "ipa_us": "/əˈfer/",
+    "audio_uk": "affair_uk.mp3",
+    "audio_us": "affair_us.mp3",
+    "etymology": "From Old French afaire ('business, matter')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "events and activities relating to government, politics, or public life",
+        "definition_vi": "công việc, vấn đề (chính trị, công cộng)",
+        "grammar_note": "[plural: affairs]",
+        "domain": "politics",
+        "register": null,
+        "examples": [
+          { "en": "He doesn't want to get involved in world affairs.", "vi": "Anh ấy không muốn dính líu đến các vấn đề thế giới." },
+          { "en": "The government must manage its financial affairs better.", "vi": "Chính phủ phải quản lý tài chính tốt hơn." }
+        ],
+        "synonyms": ["matter", "business", "issue"],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "a secret sexual relationship, especially when one person is married",
+        "definition_vi": "mối tình vụng trộm, ngoại tình",
+        "grammar_note": "[countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "He was having an affair with his colleague.", "vi": "Anh ấy ngoại tình với đồng nghiệp." }
+        ],
+        "synonyms": ["relationship", "fling", "liaison"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "affairs" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "current affairs", "pattern": "adj+noun", "example_en": "She's very interested in current affairs.", "example_vi": "Cô ấy rất quan tâm đến thời sự." },
+      { "collocation": "have an affair", "pattern": "verb+noun", "example_en": "He was having an affair.", "example_vi": "Anh ấy đang ngoại tình." },
+      { "collocation": "foreign affairs", "pattern": "adj+noun", "example_en": "The Ministry of Foreign Affairs issued a statement.", "example_vi": "Bộ Ngoại giao ra tuyên bố." }
+    ]
+  },
+  {
+    "headword": "affect",
+    "meaning_vi": "ảnh hưởng, tác động",
+    "pos": ["verb"],
+    "cefr_level": "B1",
+    "ipa_uk": "/əˈfekt/",
+    "ipa_us": "/əˈfekt/",
+    "audio_uk": "affect_uk.mp3",
+    "audio_us": "affect_us.mp3",
+    "etymology": "From Latin afficere ('to do something to, to influence')",
+    "is_countable": null,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to produce a change in someone or something",
+        "definition_vi": "ảnh hưởng đến, tác động đến",
+        "grammar_note": "[transitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The disease affects millions of people.", "vi": "Căn bệnh ảnh hưởng đến hàng triệu người." },
+          { "en": "How will this decision affect us?", "vi": "Quyết định này sẽ ảnh hưởng đến chúng ta thế nào?" }
+        ],
+        "synonyms": ["influence", "impact", "change", "alter"],
+        "antonyms": []
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to make someone feel sad or sympathetic",
+        "definition_vi": "làm xúc động, tác động (tình cảm)",
+        "grammar_note": "[transitive, often passive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She was deeply affected by the news.", "vi": "Cô ấy bị xúc động sâu sắc bởi tin đó." }
+        ],
+        "synonyms": ["move", "touch", "stir"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "affects" },
+      { "form_type": "past_simple", "form_value": "affected" },
+      { "form_type": "past_participle", "form_value": "affected" },
+      { "form_type": "present_participle", "form_value": "affecting" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "seriously affect", "pattern": "adv+verb", "example_en": "Pollution seriously affects public health.", "example_vi": "Ô nhiễm ảnh hưởng nghiêm trọng đến sức khỏe cộng đồng." },
+      { "collocation": "adversely affect", "pattern": "adv+verb", "example_en": "Stress can adversely affect your health.", "example_vi": "Căng thẳng có thể ảnh hưởng xấu đến sức khỏe." },
+      { "collocation": "directly affect", "pattern": "adv+verb", "example_en": "This law directly affects small businesses.", "example_vi": "Luật này ảnh hưởng trực tiếp đến doanh nghiệp nhỏ." }
+    ]
+  },
+  {
+    "headword": "affection",
+    "meaning_vi": "tình cảm, sự yêu mến",
+    "pos": ["noun"],
+    "cefr_level": "B2",
+    "ipa_uk": "/əˈfekʃn/",
+    "ipa_us": "/əˈfekʃn/",
+    "audio_uk": "affection_uk.mp3",
+    "audio_us": "affection_us.mp3",
+    "etymology": "From Latin affectio ('a disposition, mood')",
+    "is_countable": false,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "a gentle feeling of fondness or liking",
+        "definition_vi": "tình cảm, sự yêu mến, sự thương yêu",
+        "grammar_note": "[uncountable, countable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "He felt great affection for his sister.", "vi": "Anh ấy rất yêu mến chị gái." },
+          { "en": "Children need love and affection.", "vi": "Trẻ em cần tình yêu và sự yêu thương." }
+        ],
+        "synonyms": ["love", "fondness", "tenderness", "warmth"],
+        "antonyms": ["hatred", "dislike", "hostility"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "affections" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "show affection", "pattern": "verb+noun", "example_en": "He finds it hard to show affection.", "example_vi": "Anh ấy khó bày tỏ tình cảm." },
+      { "collocation": "deep affection", "pattern": "adj+noun", "example_en": "She has a deep affection for animals.", "example_vi": "Cô ấy có tình cảm sâu sắc với động vật." }
+    ]
+  },
+  {
+    "headword": "afford",
+    "meaning_vi": "có khả năng (mua/chi trả)",
+    "pos": ["verb"],
+    "cefr_level": "A2",
+    "ipa_uk": "/əˈfɔːd/",
+    "ipa_us": "/əˈfɔːrd/",
+    "audio_uk": "afford_uk.mp3",
+    "audio_us": "afford_us.mp3",
+    "etymology": "From Old English geforðian ('to carry out, accomplish')",
+    "is_countable": null,
+    "is_transitive": true,
+    "register": null,
+    "senses": [
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to have enough money to pay for something",
+        "definition_vi": "có đủ tiền mua, có khả năng chi trả",
+        "grammar_note": "[transitive, usually with can/could + afford]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "I can't afford a new car.", "vi": "Tôi không đủ tiền mua xe mới." },
+          { "en": "Can we afford to eat out tonight?", "vi": "Tối nay chúng ta có đủ tiền ăn ngoài không?" }
+        ],
+        "synonyms": ["pay for", "manage"],
+        "antonyms": []
+      },
+      {
+        "pos": "verb",
+        "sense_order": 1,
+        "definition_en": "to have enough time or resources to do something",
+        "definition_vi": "có đủ khả năng, có thể (làm gì)",
+        "grammar_note": "[transitive + to infinitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "We can't afford to wait any longer.", "vi": "Chúng ta không thể chờ thêm nữa." },
+          { "en": "He can't afford to make any mistakes.", "vi": "Anh ấy không thể phạm bất kỳ sai lầm nào." }
+        ],
+        "synonyms": ["manage", "bear"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [
+      { "form_type": "third_person_singular", "form_value": "affords" },
+      { "form_type": "past_simple", "form_value": "afforded" },
+      { "form_type": "past_participle", "form_value": "afforded" },
+      { "form_type": "present_participle", "form_value": "affording" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "can't afford", "pattern": "modal+verb", "example_en": "I can't afford it.", "example_vi": "Tôi không có khả năng mua." },
+      { "collocation": "easily afford", "pattern": "adv+verb", "example_en": "She can easily afford the rent.", "example_vi": "Cô ấy dễ dàng trả được tiền thuê nhà." }
+    ]
+  },
+  {
+    "headword": "affordable",
+    "meaning_vi": "phải chăng, vừa túi tiền",
+    "pos": ["adjective"],
+    "cefr_level": "B1",
+    "ipa_uk": "/əˈfɔːdəbl/",
+    "ipa_us": "/əˈfɔːrdəbl/",
+    "audio_uk": "affordable_uk.mp3",
+    "audio_us": "affordable_us.mp3",
+    "etymology": null,
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "cheap enough that most people can pay for it",
+        "definition_vi": "giá phải chăng, hợp túi tiền",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "We need more affordable housing.", "vi": "Chúng ta cần thêm nhà ở giá phải chăng." },
+          { "en": "The restaurant is affordable and delicious.", "vi": "Nhà hàng giá phải chăng và ngon." }
+        ],
+        "synonyms": ["cheap", "inexpensive", "reasonable", "budget-friendly"],
+        "antonyms": ["expensive", "costly", "unaffordable"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "comparative", "form_value": "more affordable" },
+      { "form_type": "superlative", "form_value": "most affordable" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "affordable housing", "pattern": "adj+noun", "example_en": "The city needs more affordable housing.", "example_vi": "Thành phố cần thêm nhà ở giá phải chăng." },
+      { "collocation": "affordable price", "pattern": "adj+noun", "example_en": "Quality food at an affordable price.", "example_vi": "Thức ăn chất lượng với giá phải chăng." }
+    ]
+  },
+  {
+    "headword": "afraid",
+    "meaning_vi": "sợ, lo sợ",
+    "pos": ["adjective"],
+    "cefr_level": "A2",
+    "ipa_uk": "/əˈfreɪd/",
+    "ipa_us": "/əˈfreɪd/",
+    "audio_uk": "afraid_uk.mp3",
+    "audio_us": "afraid_us.mp3",
+    "etymology": "From past participle of Middle English afrayen ('to frighten')",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adjective",
+        "sense_order": 0,
+        "definition_en": "feeling fear; frightened",
+        "definition_vi": "sợ hãi, lo sợ",
+        "grammar_note": "[not before noun]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She's afraid of the dark.", "vi": "Cô ấy sợ bóng tối." },
+          { "en": "Don't be afraid — I'm here.", "vi": "Đừng sợ — tôi ở đây." }
+        ],
+        "synonyms": ["scared", "frightened", "terrified", "fearful"],
+        "antonyms": ["brave", "confident", "fearless"]
+      },
+      {
+        "pos": "adjective",
+        "sense_order": 1,
+        "definition_en": "used to politely say something that may upset someone",
+        "definition_vi": "e rằng, tiếc rằng (lịch sự)",
+        "grammar_note": "[+ that clause / so / not]",
+        "domain": null,
+        "register": "formal",
+        "examples": [
+          { "en": "I'm afraid I can't come to the party.", "vi": "Tiếc rằng tôi không thể đến bữa tiệc." },
+          { "en": "I'm afraid so.", "vi": "Tôi e là vậy." }
+        ],
+        "synonyms": ["sorry", "regretful"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [
+      {
+        "idiom_text": "afraid of one's own shadow",
+        "definition_en": "to be very easily frightened",
+        "definition_vi": "nhát gan, sợ cả bóng mình",
+        "example_en": "He's afraid of his own shadow.",
+        "example_vi": "Anh ấy nhát gan đến mức sợ cả bóng mình."
+      }
+    ],
+    "collocations": [
+      { "collocation": "afraid of", "pattern": "adj+prep", "example_en": "Are you afraid of spiders?", "example_vi": "Bạn có sợ nhện không?" },
+      { "collocation": "deeply afraid", "pattern": "adv+adj", "example_en": "She was deeply afraid of losing her job.", "example_vi": "Cô ấy rất lo sợ mất việc." }
+    ]
+  },
+  {
+    "headword": "after",
+    "meaning_vi": "sau, sau khi",
+    "pos": ["preposition", "conjunction", "adverb"],
+    "cefr_level": "A1",
+    "ipa_uk": "/ˈɑːftə(r)/",
+    "ipa_us": "/ˈæftər/",
+    "audio_uk": "after_uk.mp3",
+    "audio_us": "after_us.mp3",
+    "etymology": "From Old English æfter",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "preposition",
+        "sense_order": 0,
+        "definition_en": "later than something; following something in time",
+        "definition_vi": "sau (thời gian)",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "We'll meet after lunch.", "vi": "Chúng ta sẽ gặp sau bữa trưa." },
+          { "en": "After the movie, we went for ice cream.", "vi": "Sau phim, chúng tôi đi ăn kem." }
+        ],
+        "synonyms": ["following", "subsequent to"],
+        "antonyms": ["before", "prior to"]
+      },
+      {
+        "pos": "conjunction",
+        "sense_order": 0,
+        "definition_en": "at a later time than",
+        "definition_vi": "sau khi",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "I'll call you after I arrive.", "vi": "Tôi sẽ gọi cho bạn sau khi tôi đến." }
+        ],
+        "synonyms": ["once", "when"],
+        "antonyms": ["before"]
+      },
+      {
+        "pos": "adverb",
+        "sense_order": 0,
+        "definition_en": "later; afterwards",
+        "definition_vi": "sau đó",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "He came soon after.", "vi": "Anh ấy đến ngay sau đó." }
+        ],
+        "synonyms": ["afterwards", "later", "subsequently"],
+        "antonyms": ["before"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [
+      {
+        "idiom_text": "after all",
+        "definition_en": "despite what was expected; used to add a reason",
+        "definition_vi": "rốt cuộc, suy cho cùng",
+        "example_en": "She decided to go after all.",
+        "example_vi": "Cô ấy quyết định đi rốt cuộc."
+      },
+      {
+        "idiom_text": "one after another",
+        "definition_en": "one following the other continuously",
+        "definition_vi": "lần lượt, liên tiếp",
+        "example_en": "Problems came one after another.",
+        "example_vi": "Vấn đề đến liên tiếp."
+      }
+    ],
+    "collocations": [
+      { "collocation": "shortly after", "pattern": "adv+prep", "example_en": "He arrived shortly after midnight.", "example_vi": "Anh ấy đến ngay sau nửa đêm." },
+      { "collocation": "day after day", "pattern": "noun+prep+noun", "example_en": "She practiced day after day.", "example_vi": "Cô ấy luyện tập ngày này qua ngày khác." }
+    ]
+  },
+  {
+    "headword": "aftermath",
+    "meaning_vi": "hậu quả, kết quả sau",
+    "pos": ["noun"],
+    "cefr_level": "C1",
+    "ipa_uk": "/ˈɑːftəmæθ/",
+    "ipa_us": "/ˈæftərmæθ/",
+    "audio_uk": "aftermath_uk.mp3",
+    "audio_us": "aftermath_us.mp3",
+    "etymology": "From after + math (an archaic word for 'mowing')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "the period of time after a bad event and its effects",
+        "definition_vi": "hậu quả, thời kỳ sau sự kiện xấu",
+        "grammar_note": "[usually singular: the aftermath of]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "In the aftermath of the war, many people were homeless.", "vi": "Hậu quả chiến tranh, nhiều người mất nhà." },
+          { "en": "The aftermath of the earthquake was devastating.", "vi": "Hậu quả của trận động đất rất tàn khốc." }
+        ],
+        "synonyms": ["consequences", "repercussions", "fallout"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "in the aftermath of", "pattern": "prep+noun+prep", "example_en": "In the aftermath of the crisis, reforms were introduced.", "example_vi": "Sau cuộc khủng hoảng, các cải cách được đưa ra." }
+    ]
+  },
+  {
+    "headword": "afternoon",
+    "meaning_vi": "buổi chiều",
+    "pos": ["noun"],
+    "cefr_level": "A1",
+    "ipa_uk": "/ˌɑːftəˈnuːn/",
+    "ipa_us": "/ˌæftərˈnuːn/",
+    "audio_uk": "afternoon_uk.mp3",
+    "audio_us": "afternoon_us.mp3",
+    "etymology": "From after + noon",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "the part of the day from 12 midday until about 6 p.m.",
+        "definition_vi": "buổi chiều (từ 12 giờ trưa đến khoảng 6 giờ tối)",
+        "grammar_note": "[countable, uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "I'll see you tomorrow afternoon.", "vi": "Tôi sẽ gặp bạn chiều mai." },
+          { "en": "She spent the afternoon reading.", "vi": "Cô ấy dành buổi chiều để đọc sách." }
+        ],
+        "synonyms": [],
+        "antonyms": ["morning"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "afternoons" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      {
+        "idiom_text": "good afternoon",
+        "definition_en": "a polite greeting used in the afternoon",
+        "definition_vi": "xin chào (buổi chiều)",
+        "example_en": "Good afternoon, how can I help you?",
+        "example_vi": "Xin chào, tôi có thể giúp gì cho bạn?"
+      }
+    ],
+    "collocations": [
+      { "collocation": "this afternoon", "pattern": "det+noun", "example_en": "I have a meeting this afternoon.", "example_vi": "Chiều nay tôi có cuộc họp." },
+      { "collocation": "spend the afternoon", "pattern": "verb+noun", "example_en": "We spent the afternoon at the beach.", "example_vi": "Chúng tôi dành buổi chiều ở bãi biển." }
+    ]
+  },
+  {
+    "headword": "afterwards",
+    "meaning_vi": "sau đó",
+    "pos": ["adverb"],
+    "cefr_level": "A2",
+    "ipa_uk": "/ˈɑːftəwədz/",
+    "ipa_us": "/ˈæftərwərdz/",
+    "audio_uk": "afterwards_uk.mp3",
+    "audio_us": "afterwards_us.mp3",
+    "etymology": null,
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adverb",
+        "sense_order": 0,
+        "definition_en": "at a later time; then",
+        "definition_vi": "sau đó, sau này",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "We had dinner and went to the cinema afterwards.", "vi": "Chúng tôi ăn tối rồi sau đó đi xem phim." },
+          { "en": "I realized my mistake long afterwards.", "vi": "Mãi sau này tôi mới nhận ra sai lầm." }
+        ],
+        "synonyms": ["later", "subsequently", "then", "after that"],
+        "antonyms": ["before", "previously", "beforehand"]
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [],
+    "collocations": [
+      { "collocation": "shortly afterwards", "pattern": "adv+adv", "example_en": "He left, and she followed shortly afterwards.", "example_vi": "Anh ấy đi, và cô ấy theo ngay sau đó." },
+      { "collocation": "long afterwards", "pattern": "adv+adv", "example_en": "He remembered it long afterwards.", "example_vi": "Anh ấy nhớ chuyện đó mãi sau này." }
+    ]
+  },
+  {
+    "headword": "again",
+    "meaning_vi": "lại, một lần nữa",
+    "pos": ["adverb"],
+    "cefr_level": "A1",
+    "ipa_uk": "/əˈɡen/",
+    "ipa_us": "/əˈɡen/",
+    "audio_uk": "again_uk.mp3",
+    "audio_us": "again_us.mp3",
+    "etymology": "From Old English ongēan ('towards, opposite, back')",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "adverb",
+        "sense_order": 0,
+        "definition_en": "one more time; another time",
+        "definition_vi": "lại, lần nữa, một lần nữa",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Can you say that again?", "vi": "Bạn nói lại được không?" },
+          { "en": "I'll never do that again.", "vi": "Tôi sẽ không bao giờ làm vậy nữa." }
+        ],
+        "synonyms": ["once more", "another time", "anew"],
+        "antonyms": []
+      },
+      {
+        "pos": "adverb",
+        "sense_order": 1,
+        "definition_en": "back to the original place or condition",
+        "definition_vi": "trở lại (trạng thái/vị trí ban đầu)",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "He's home again after the trip.", "vi": "Anh ấy đã về nhà lại sau chuyến đi." }
+        ],
+        "synonyms": ["back"],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [
+      {
+        "idiom_text": "again and again",
+        "definition_en": "many times; repeatedly",
+        "definition_vi": "lặp đi lặp lại, nhiều lần",
+        "example_en": "She asked the same question again and again.",
+        "example_vi": "Cô ấy hỏi cùng câu hỏi lặp đi lặp lại."
+      },
+      {
+        "idiom_text": "then again",
+        "definition_en": "used to introduce a different point of view",
+        "definition_vi": "nhưng mà, tuy nhiên (xét lại)",
+        "example_en": "It's expensive. Then again, it's good quality.",
+        "example_vi": "Nó đắt. Nhưng mà, chất lượng tốt."
+      }
+    ],
+    "collocations": [
+      { "collocation": "once again", "pattern": "adv+adv", "example_en": "Once again, thank you for your help.", "example_vi": "Một lần nữa, cảm ơn sự giúp đỡ của bạn." },
+      { "collocation": "try again", "pattern": "verb+adv", "example_en": "If you fail, try again.", "example_vi": "Nếu thất bại, hãy thử lại." }
+    ]
+  },
+  {
+    "headword": "against",
+    "meaning_vi": "chống lại, ngược lại",
+    "pos": ["preposition"],
+    "cefr_level": "A2",
+    "ipa_uk": "/əˈɡenst/",
+    "ipa_us": "/əˈɡenst/",
+    "audio_uk": "against_uk.mp3",
+    "audio_us": "against_us.mp3",
+    "etymology": "From Middle English ageynes, from Old English ongegn",
+    "is_countable": null,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "preposition",
+        "sense_order": 0,
+        "definition_en": "opposing or disagreeing with someone or something",
+        "definition_vi": "chống lại, phản đối",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "Are you for or against the plan?", "vi": "Bạn ủng hộ hay phản đối kế hoạch?" },
+          { "en": "They fought against injustice.", "vi": "Họ đấu tranh chống lại bất công." }
+        ],
+        "synonyms": ["opposing", "versus", "counter to"],
+        "antonyms": ["for", "in favor of"]
+      },
+      {
+        "pos": "preposition",
+        "sense_order": 1,
+        "definition_en": "touching or leaning on something for support",
+        "definition_vi": "tựa vào, dựa vào",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She leaned against the wall.", "vi": "Cô ấy tựa vào tường." }
+        ],
+        "synonyms": ["on", "upon"],
+        "antonyms": []
+      },
+      {
+        "pos": "preposition",
+        "sense_order": 2,
+        "definition_en": "in contrast to something",
+        "definition_vi": "so với, đối lập với",
+        "grammar_note": null,
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "The trees looked dark against the sky.", "vi": "Cây trông tối so với bầu trời." }
+        ],
+        "synonyms": [],
+        "antonyms": []
+      }
+    ],
+    "word_forms": [],
+    "phrasal_verbs": [],
+    "idioms": [
+      {
+        "idiom_text": "against the clock",
+        "definition_en": "in a hurry because there is not much time",
+        "definition_vi": "chạy đua với thời gian",
+        "example_en": "We're working against the clock to finish.",
+        "example_vi": "Chúng tôi đang chạy đua với thời gian để hoàn thành."
+      },
+      {
+        "idiom_text": "against all odds",
+        "definition_en": "despite difficulties or low chances of success",
+        "definition_vi": "bất chấp mọi khó khăn",
+        "example_en": "Against all odds, she won the competition.",
+        "example_vi": "Bất chấp mọi khó khăn, cô ấy đã thắng cuộc thi."
+      }
+    ],
+    "collocations": [
+      { "collocation": "against the law", "pattern": "prep+noun", "example_en": "Driving without a license is against the law.", "example_vi": "Lái xe không bằng lái là vi phạm pháp luật." },
+      { "collocation": "fight against", "pattern": "verb+prep", "example_en": "We must fight against corruption.", "example_vi": "Chúng ta phải chống lại tham nhũng." }
+    ]
+  },
+  {
+    "headword": "age",
+    "meaning_vi": "tuổi, thời đại",
+    "pos": ["noun", "verb"],
+    "cefr_level": "A1",
+    "ipa_uk": "/eɪdʒ/",
+    "ipa_us": "/eɪdʒ/",
+    "audio_uk": "age_uk.mp3",
+    "audio_us": "age_us.mp3",
+    "etymology": "From Old French aage, from Latin aetas ('period of life, age, era')",
+    "is_countable": true,
+    "is_transitive": null,
+    "register": null,
+    "senses": [
+      {
+        "pos": "noun",
+        "sense_order": 0,
+        "definition_en": "the number of years that a person has lived",
+        "definition_vi": "tuổi, độ tuổi",
+        "grammar_note": "[countable, uncountable]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "What's your age?", "vi": "Bạn bao nhiêu tuổi?" },
+          { "en": "Children start school at the age of six.", "vi": "Trẻ em bắt đầu đi học lúc sáu tuổi." }
+        ],
+        "synonyms": [],
+        "antonyms": []
+      },
+      {
+        "pos": "noun",
+        "sense_order": 1,
+        "definition_en": "a particular period of history",
+        "definition_vi": "thời đại, kỷ nguyên",
+        "grammar_note": "[countable]",
+        "domain": "history",
+        "register": null,
+        "examples": [
+          { "en": "We live in the digital age.", "vi": "Chúng ta sống trong thời đại số." },
+          { "en": "The Ice Age lasted thousands of years.", "vi": "Kỷ Băng Hà kéo dài hàng ngàn năm." }
+        ],
+        "synonyms": ["era", "epoch", "period"],
+        "antonyms": []
+      },
+      {
+        "pos": "verb",
+        "sense_order": 0,
+        "definition_en": "to become or look older",
+        "definition_vi": "già đi, lão hóa",
+        "grammar_note": "[intransitive, transitive]",
+        "domain": null,
+        "register": null,
+        "examples": [
+          { "en": "She has aged a lot since I last saw her.", "vi": "Cô ấy già đi nhiều từ lần cuối tôi gặp." },
+          { "en": "Stress can age you quickly.", "vi": "Căng thẳng có thể khiến bạn già nhanh." }
+        ],
+        "synonyms": ["grow old", "mature"],
+        "antonyms": ["rejuvenate"]
+      }
+    ],
+    "word_forms": [
+      { "form_type": "plural", "form_value": "ages" },
+      { "form_type": "third_person_singular", "form_value": "ages" },
+      { "form_type": "past_simple", "form_value": "aged" },
+      { "form_type": "past_participle", "form_value": "aged" },
+      { "form_type": "present_participle", "form_value": "ageing" }
+    ],
+    "phrasal_verbs": [],
+    "idioms": [
+      {
+        "idiom_text": "act your age",
+        "definition_en": "to behave in a way appropriate for your age",
+        "definition_vi": "cư xử đúng tuổi",
+        "example_en": "Stop being silly and act your age!",
+        "example_vi": "Đừng ngớ ngẩn nữa, cư xử đúng tuổi đi!"
+      },
+      {
+        "idiom_text": "for ages",
+        "definition_en": "for a very long time",
+        "definition_vi": "rất lâu, lâu lắm",
+        "example_en": "I haven't seen him for ages.",
+        "example_vi": "Tôi không gặp anh ấy rất lâu rồi."
+      }
+    ],
+    "collocations": [
+      { "collocation": "at the age of", "pattern": "prep+noun+prep", "example_en": "She got married at the age of 25.", "example_vi": "Cô ấy kết hôn ở tuổi 25." },
+      { "collocation": "old age", "pattern": "adj+noun", "example_en": "He lived to a ripe old age.", "example_vi": "Ông ấy sống đến tuổi già." },
+      { "collocation": "digital age", "pattern": "adj+noun", "example_en": "Education is changing in the digital age.", "example_vi": "Giáo dục đang thay đổi trong thời đại số." }
+    ]
+  }
+]
