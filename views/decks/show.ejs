@@ -144,7 +144,8 @@
     <div id="entryDropdown"
          style="display:none;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-white);max-height:220px;overflow-y:auto;margin-bottom:12px;box-shadow:var(--shadow-md)"></div>
 
-    <form action="/decks/<%= deck.id %>/cards/add" method="POST" id="addCardsForm">
+    <form action="/decks/<%= deck.id %>/cards/add" method="POST" id="addCardsForm"
+          data-existing-ids="<%= JSON.stringify(cards.map(function(c){ return c.entry_id; })) %>">
       <div id="selectedEntries" style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px">
         <p id="noEntriesMsg" style="color:var(--text-secondary);font-size:13px">Chưa chọn từ nào.</p>
       </div>
@@ -184,10 +185,8 @@
   var debounceTimer;
   var selected     = {};
 
-  // IDs already in the deck (prevent re-adding)
-  var existingEntryIds = new Set([
-    <% cards.forEach(function(c, i) { %>'<%= c.entry_id %>'<%= i < cards.length - 1 ? ',' : '' %><% }); %>
-  ]);
+  // IDs already in the deck (prevent re-adding) — đọc từ data-existing-ids
+  var existingEntryIds = new Set(JSON.parse(document.getElementById('addCardsForm').dataset.existingIds || '[]'));
 
   function escHtml(str) {
     return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');

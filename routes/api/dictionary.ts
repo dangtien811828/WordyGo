@@ -1,4 +1,6 @@
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
+import rateLimit, { Options } from 'express-rate-limit';
+import { z } from 'zod';
 import pool from '../../config/db';
 import {
   requireApiAuth,
@@ -8,6 +10,8 @@ import {
 import { asyncHandler } from '../../utils/asyncHandler';
 import { apiSuccess, apiError } from '../../utils/apiResponse';
 import { parsePagination } from '../../utils/pagination';
+import { validateBody } from '../../middlewares/validateBody';
+import { generateAudio } from '../../services/ttsService';
 
 const router = Router();
 
@@ -372,6 +376,91 @@ router.get(
     }
 
     return apiSuccess(res, entry);
+  })
+);
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  POST /api/v1/dictionary/entries/:id/tts
+//  Generate TTS audio for a headword. Per-user 30 req/min rate limit.
+// ─────────────────────────────────────────────────────────────────────────────
+const ttsBodySchema = z.object({
+  accent: z.enum(['us', 'uk']),
+});
+
+const ttsLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  limit: 30,
+  standardHeaders: true,
+  legacyHeaders: false,
+  keyGenerator: (req: Request) => (req as ApiRequest).user?.id ?? req.ip ?? 'anon',
+  handler: (_req: Request, res: Response, _next: NextFunction, options: Options) => {
+    apiError(
+      res,
+      options.statusCode,
+      'TOO_MANY_REQUESTS',
+      'Quá nhiều yêu cầu TTS, vui lòng thử lại sau 1 phút'
+    );
+  },
+  skip: () => process.env.NODE_ENV === 'test',
+});
+
+router.post(
+  '/entries/:id/tts',
+  requireApiAuth,
+  ttsLimiter,
+  validateBody(ttsBodySchema),
+  asyncHandler(async (req: ApiRequest, res: Response) => {
+    const { accent } = req.body as z.infer<typeof ttsBodySchema>;
+
+    const { rows } = await pool.query(
+      `SELECT id, headword, audio_us_url, audio_uk_url
+         FROM dictionary_entries
+        WHERE id = $1
+        LIMIT 1`,
+      [req.params.id]
+    );
+    if (rows.length === 0) {
+      return apiError(res, 404, 'NOT_FOUND', 'Không tìm thấy từ');
+    }
+
+    const entry = rows[0];
+    const existingUrl = accent === 'us' ? entry.audio_us_url : entry.audio_uk_url;
+    if (existingUrl) {
+      return apiSuccess(res, { audio_url: existingUrl, cached: true });
+    }
+
+    let result;
+    try {
+      result = await generateAudio({
+        text: entry.headword,
+        accent,
+        source_type: 'dictionary_headword',
+        source_id: entry.id,
+      });
+    } catch (err: any) {
+      console.error('[dict] TTS generation failed', {
+        entry_id: entry.id,
+        accent,
+        error: err?.message ?? String(err),
+      });
+      return apiError(
+        res,
+        500,
+        'TTS_GENERATION_FAILED',
+        'Không thể tạo audio cho từ này, vui lòng thử lại sau'
+      );
+    }
+
+    const updateColumn = accent === 'us' ? 'audio_us_url' : 'audio_uk_url';
+    await pool.query(
+      `UPDATE dictionary_entries SET ${updateColumn} = $1 WHERE id = $2`,
+      [result.audio_url, entry.id]
+    );
+
+    return apiSuccess(res, {
+      audio_url: result.audio_url,
+      cached: result.cached,
+    });
   })
 );
 
