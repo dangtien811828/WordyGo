@@ -51,8 +51,10 @@ const migration = async (client: PoolClient): Promise<void> => {
     'CREATE INDEX IF NOT EXISTS idx_retrieval_user ON retrieval_sessions(user_id, created_at)',
 
     // Domain 5: Ebook
+    // idx_tts_chapter is handled separately below — tts_cache.chapter_id was
+    // removed by migration 22_tts_cache_recreate, so the index only makes sense
+    // on the legacy schema.
     'CREATE INDEX IF NOT EXISTS idx_chapters_ebook ON chapters(ebook_id)',
-    'CREATE INDEX IF NOT EXISTS idx_tts_chapter ON tts_cache(chapter_id)',
     'CREATE INDEX IF NOT EXISTS idx_reading_user ON user_reading_progress(user_id)',
     'CREATE INDEX IF NOT EXISTS idx_lookups_entry ON word_lookups(entry_id, created_at)',
     'CREATE INDEX IF NOT EXISTS idx_lookups_user ON word_lookups(user_id, created_at)',
@@ -99,7 +101,23 @@ const migration = async (client: PoolClient): Promise<void> => {
     END $$
   `);
 
-  console.log(`  [✓] ${indexes.length} indexes (+ conditional idx_ucp_user_due)`);
+  // idx_tts_chapter: only create while the legacy tts_cache.chapter_id column
+  // exists. Migration 22_tts_cache_recreate drops it; this guard keeps 08
+  // rerun-safe on every deploy.
+  await client.query(`
+    DO $$
+    BEGIN
+      IF EXISTS (
+        SELECT 1 FROM information_schema.columns
+        WHERE table_name = 'tts_cache' AND column_name = 'chapter_id'
+      ) THEN
+        CREATE INDEX IF NOT EXISTS idx_tts_chapter
+          ON tts_cache(chapter_id);
+      END IF;
+    END $$
+  `);
+
+  console.log(`  [✓] ${indexes.length} indexes (+ conditional idx_ucp_user_due, idx_tts_chapter)`);
 };
 
 export = migration;

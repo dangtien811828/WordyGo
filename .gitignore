@@ -7,4 +7,5 @@ CLAUDE.md
 /public/uploads/
 dist/
 *.tsbuildinfo
-/docs   
+/docs
+/scripts/precompute-checkpoint.json

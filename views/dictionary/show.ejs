@@ -44,7 +44,25 @@
             <tr style="border-bottom:1px solid var(--border)">
               <td style="padding:10px 0;color:var(--text-secondary);font-size:13px">IPA (US / UK)</td>
               <td style="padding:10px 0;font-family:monospace">
-                <%= entry.ipa_us || '—' %> / <%= entry.ipa_uk || '—' %>
+                <span style="display:inline-flex;align-items:center;gap:6px">
+                  <%= entry.ipa_us || '—' %>
+                  <button type="button" class="btn-audio"
+                          <%= entry.audio_us_url ? '' : 'disabled' %>
+                          data-url="<%= entry.audio_us_url || '' %>"
+                          title="<%= entry.audio_us_url ? 'Phát âm US' : 'Chưa có audio US' %>"
+                          aria-label="Phát âm US"
+                          onclick="playEntryAudio(this.dataset.url)">🔊</button>
+                </span>
+                <span style="margin:0 6px;color:var(--text-secondary)">/</span>
+                <span style="display:inline-flex;align-items:center;gap:6px">
+                  <%= entry.ipa_uk || '—' %>
+                  <button type="button" class="btn-audio"
+                          <%= entry.audio_uk_url ? '' : 'disabled' %>
+                          data-url="<%= entry.audio_uk_url || '' %>"
+                          title="<%= entry.audio_uk_url ? 'Phát âm UK' : 'Chưa có audio UK' %>"
+                          aria-label="Phát âm UK"
+                          onclick="playEntryAudio(this.dataset.url)">🔊</button>
+                </span>
               </td>
             </tr>
             <tr style="border-bottom:1px solid var(--border)">
@@ -190,3 +208,32 @@
     </div>
   </form>
 </dialog>
+
+<style>
+  .btn-audio {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2px 6px;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+  }
+  .btn-audio:hover:not(:disabled) {
+    background: var(--bg);
+  }
+  .btn-audio:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+</style>
+
+<script>
+  let __dictAudio = null;
+  function playEntryAudio(url) {
+    if (!url) return;
+    if (__dictAudio) { __dictAudio.pause(); __dictAudio = null; }
+    __dictAudio = new Audio(url);
+    __dictAudio.play().catch(err => console.error('Audio play failed:', err));
+  }
+</script>

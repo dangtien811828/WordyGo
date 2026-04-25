@@ -15,6 +15,7 @@
     "db:fresh": "tsx database/reset.ts && tsx scripts/seed.ts",
     "db:backup": "tsx database/backup.ts",
     "db:restore": "tsx database/restore.ts",
+    "precompute-audio": "tsx scripts/precompute-dictionary-audio.ts",
     "test": "jest",
     "test:watch": "jest --watch"
   },
