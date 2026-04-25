@@ -84,10 +84,6 @@
       <tbody>
         <% if (users && users.length > 0) { %>
           <% users.forEach(function(u) { %>
-            <%
-              const confirmTarget = u.full_name && u.full_name.trim()
-                ? u.full_name.trim() : u.email;
-            %>
             <tr>
               <td>
                 <div class="user-cell">
@@ -129,28 +125,12 @@
                       <button class="btn btn-sm btn-secondary">Kích hoạt</button>
                     <% } %>
                   </form>
-                  <% if (admin.role === 'super_admin') { %>
-                    <button type="button" class="btn btn-sm btn-danger"
-                            onclick="document.getElementById('del-<%= u.id %>').showModal()">Xóa</button>
-                    <dialog id="del-<%= u.id %>"
-                            style="border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;max-width:400px;width:100%;box-shadow:var(--shadow-md)">
-                      <h3 style="margin-bottom:8px;color:var(--danger)">Xóa người dùng</h3>
-                      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">
-                        Hành động này không thể hoàn tác. Hãy nhập:<br>
-                        <code style="background:var(--bg);padding:2px 6px;border-radius:4px;font-size:13px">DELETE <%= confirmTarget %></code>
-                      </p>
-                      <form action="/users/<%= u.id %>/delete" method="POST">
-                        <div class="form-group" style="margin-bottom:16px">
-                          <input type="text" name="confirm_text" autocomplete="off"
-                                 placeholder="DELETE <%= confirmTarget %>" style="width:100%">
-                        </div>
-                        <div style="display:flex;gap:8px;justify-content:flex-end">
-                          <button type="button" class="btn btn-secondary"
-                                  onclick="document.getElementById('del-<%= u.id %>').close()">Hủy</button>
-                          <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
-                        </div>
-                      </form>
-                    </dialog>
+                  <% if (u.status !== 'banned') { %>
+                    <form action="/users/<%= u.id %>/toggle-status" method="POST" style="margin:0"
+                          onsubmit="return confirm('Cấm tài khoản này? Người dùng sẽ không thể đăng nhập.')">
+                      <input type="hidden" name="new_status" value="banned">
+                      <button class="btn btn-sm btn-danger">Cấm</button>
+                    </form>
                   <% } %>
                 </div>
               </td>

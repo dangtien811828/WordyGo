@@ -171,40 +171,6 @@ const userController = {
     }
   },
 
-  // POST /users/:id/delete  (super_admin only — enforced in controller)
-  async postDelete(req: Request, res: Response) {
-    try {
-      if (req.session.admin.role !== 'super_admin') {
-        req.flash('error', 'Chỉ Super Admin mới có thể xóa người dùng');
-        return res.redirect('/users');
-      }
-
-      const { id } = req.params as { id: string };
-      const { confirm_text } = req.body;
-
-      const user = await User.findById(id);
-      if (!user) {
-        req.flash('error', 'Không tìm thấy người dùng');
-        return res.redirect('/users');
-      }
-
-      const confirmTarget = user.full_name && user.full_name.trim()
-        ? user.full_name.trim()
-        : user.email;
-      if (confirm_text !== `DELETE ${confirmTarget}`) {
-        req.flash('error', 'Xác nhận không đúng. Vui lòng thử lại.');
-        return res.redirect(`/users/${id}`);
-      }
-
-      await User.delete(id);
-      req.flash('success', `Đã xóa người dùng ${confirmTarget}`);
-      return res.redirect('/users');
-    } catch (err) {
-      console.error('[Users] postDelete error:', err);
-      req.flash('error', 'Đã xảy ra lỗi. Vui lòng thử lại.');
-      return res.redirect('/users');
-    }
-  },
 };
 
 export = userController;
