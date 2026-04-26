@@ -317,7 +317,7 @@ describe('POST /api/v1/ebooks/:id/chapters/:chapter_id/progress', () => {
 //  POST /api/v1/ebooks/:id/lookup
 // ─────────────────────────────────────────────────────────────────────────────
 describe('POST /api/v1/ebooks/:id/lookup', () => {
-  it('finds word and inserts word_lookups row', async () => {
+  it('returns EntryDetail flat at data level (no nested "entry" wrapper)', async () => {
     const word = `testword-${TS}`;
     const res = await request(app)
       .post(`/api/v1/ebooks/${testEbookId}/lookup`)
@@ -325,7 +325,18 @@ describe('POST /api/v1/ebooks/:id/lookup', () => {
       .send({ word });
 
     expect(res.status).toBe(200);
-    expect(res.body.data.entry.headword).toBe(word);
+
+    // Flat shape — matches GET /dictionary/entries/:id
+    expect(res.body.data.headword).toBe(word);
+    expect(res.body.data.id).toBe(testEntryId);
+    expect(res.body.data).not.toHaveProperty('entry');
+
+    // Lookup context lives in its own sub-object — never inside the entry.
+    expect(res.body.data.lookup_context).toEqual({
+      source: 'ebook',
+      ebook_id: testEbookId,
+      paragraph_id: null,
+    });
 
     // Allow async insert to settle
     await new Promise((r) => setTimeout(r, 200));
@@ -334,6 +345,43 @@ describe('POST /api/v1/ebooks/:id/lookup', () => {
       [userId, testEntryId]
     );
     expect(rows.length).toBeGreaterThan(0);
+  });
+
+  it('shape parity with /dictionary/entries/:id (no wrapping; subset of fields)', async () => {
+    const word = `testword-${TS}`;
+
+    const [lookupRes, dictRes] = await Promise.all([
+      request(app)
+        .post(`/api/v1/ebooks/${testEbookId}/lookup`)
+        .set('Authorization', `Bearer ${access_token}`)
+        .send({ word }),
+      request(app)
+        .get(`/api/v1/dictionary/entries/${testEntryId}`)
+        .set('Authorization', `Bearer ${access_token}`),
+    ]);
+
+    expect(lookupRes.status).toBe(200);
+    expect(dictRes.status).toBe(200);
+
+    // Same primary entity: id, headword, and lemma must match.
+    expect(lookupRes.body.data.id).toBe(dictRes.body.data.id);
+    expect(lookupRes.body.data.headword).toBe(dictRes.body.data.headword);
+
+    // Every key the lookup endpoint returns (besides lookup_context) MUST also
+    // exist on the dictionary endpoint — guarantees no wrapping/renamed fields.
+    // (Dict may legitimately have additional fields like legacy_synonyms because
+    // the underlying FULL_ENTRY_SQL queries differ; that's out of scope here.)
+    const dictKeys = new Set(Object.keys(dictRes.body.data));
+    const lookupKeys = Object.keys(lookupRes.body.data).filter((k) => k !== 'lookup_context');
+    for (const k of lookupKeys) {
+      expect(dictKeys.has(k)).toBe(true);
+    }
+
+    // Core EntryDetail fields the mobile model relies on must be present at top level.
+    const REQUIRED = ['id', 'headword', 'pos', 'senses'];
+    for (const k of REQUIRED) {
+      expect(lookupRes.body.data).toHaveProperty(k);
+    }
   });
 
   it('returns 404 for unknown word', async () => {

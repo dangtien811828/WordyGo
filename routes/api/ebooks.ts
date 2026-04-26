@@ -737,7 +737,17 @@ router.post(
       [userId, ebookId]
     ).catch((err) => console.error('[ebooks] words_looked_up update failed:', err));
 
-    return apiSuccess(res, { entry, paragraph_id: verifiedParagraphId });
+    // Response shape MUST match GET /dictionary/entries/:id — entry fields at the
+    // top level of `data`, NOT nested under `data.entry`. Mobile parses EntryDetail
+    // straight from `data`. Lookup-specific context goes in `lookup_context`.
+    return apiSuccess(res, {
+      ...entry,
+      lookup_context: {
+        source: 'ebook',
+        ebook_id: ebookId,
+        paragraph_id: verifiedParagraphId,
+      },
+    });
   })
 );
 
