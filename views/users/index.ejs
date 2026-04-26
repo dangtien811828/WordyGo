@@ -1,6 +1,11 @@
 <%
   const levelBadge  = { beginner: 'badge-success', intermediate: 'badge-warning', advanced: 'badge-info' };
   const statusBadge = { active: 'badge-success', inactive: 'badge-warning', banned: 'badge-danger' };
+  const tierStyle   = {
+    FREE:    'background:#F1F5F9;color:#475569',
+    PREMIUM: 'background:#FEF3C7;color:#92400E',
+    PRO:     'background:#E0E7FF;color:#3730A3',
+  };
   const total = statusCounts.active + statusCounts.inactive + statusCounts.banned;
 %>
 
@@ -75,7 +80,7 @@
         <tr>
           <th>Người dùng</th>
           <th>Cấp độ</th>
-          <th>Streak</th>
+          <th>Gói</th>
           <th>Trạng thái</th>
           <th>Ngày đăng ký</th>
           <th>Hành động</th>
@@ -100,11 +105,7 @@
                 </div>
               </td>
               <td><span class="badge <%= levelBadge[u.level] || '' %>"><%= u.level %></span></td>
-              <td>
-                <span style="display:inline-flex;align-items:center;gap:3px;font-size:13px">
-                  🔥 <%= u.streak_current %>
-                </span>
-              </td>
+              <td><span class="badge" style="<%= tierStyle[u.subscription_tier] || tierStyle.FREE %>"><%= u.subscription_tier %></span></td>
               <td><span class="badge <%= statusBadge[u.status] || '' %>"><%= u.status %></span></td>
               <td style="font-size:13px;color:var(--text-secondary)">
                 <%= new Date(u.created_at).toLocaleDateString('vi-VN') %>

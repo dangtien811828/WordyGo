@@ -9,29 +9,35 @@ const User = {
     if (search) {
       params.push(`%${search}%`);
       params.push(`%${search}%`);
-      conditions.push(`(full_name ILIKE $${params.length - 1} OR email ILIKE $${params.length})`);
+      conditions.push(`(u.full_name ILIKE $${params.length - 1} OR u.email ILIKE $${params.length})`);
     }
     if (status) {
       params.push(status);
-      conditions.push(`status = $${params.length}`);
+      conditions.push(`u.status = $${params.length}`);
     }
     if (level) {
       params.push(level);
-      conditions.push(`level = $${params.length}`);
+      conditions.push(`u.level = $${params.length}`);
     }
 
     const where = conditions.length > 0 ? `WHERE ${conditions.join(' AND ')}` : '';
     const n = params.length;
 
     const query = `
-      SELECT id, email, full_name, phone, avatar_url, level, status,
-             streak_current, streak_longest, last_active_at, last_login_at, created_at
-      FROM users
+      SELECT u.id, u.email, u.full_name, u.phone, u.avatar_url, u.level, u.status,
+             u.streak_current, u.streak_longest, u.last_active_at, u.last_login_at, u.created_at,
+             COALESCE(UPPER(sp.name), 'FREE') AS subscription_tier
+      FROM users u
+      LEFT JOIN user_subscriptions us
+        ON us.user_id = u.id
+       AND us.status IN ('active', 'trial')
+       AND us.current_period_end > NOW()
+      LEFT JOIN subscription_plans sp ON sp.id = us.plan_id
       ${where}
-      ORDER BY created_at DESC
+      ORDER BY u.created_at DESC
       LIMIT $${n + 1} OFFSET $${n + 2}
     `;
-    const countQuery = `SELECT COUNT(*)::int AS count FROM users ${where}`;
+    const countQuery = `SELECT COUNT(*)::int AS count FROM users u ${where}`;
 
     return paginate(query, countQuery, params, params, page, limit);
   },
