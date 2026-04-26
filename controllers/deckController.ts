@@ -16,14 +16,16 @@ const deckController = {
   // GET /decks
   async getIndex(req: Request, res: Response) {
     try {
-      const { search = '', level = '', status = '', page = 1 } = req.query as any;
-      const result = await Deck.getAll({ search, level, status, page, limit: 20 });
+      const { search = '', level = '', status = '', type = 'all', page = 1 } = req.query as any;
+      const safeType: 'all' | 'system' | 'user' =
+        type === 'system' || type === 'user' ? type : 'all';
+      const result = await Deck.getAll({ search, level, status, type: safeType, page, limit: 20 });
       res.render('decks/index', {
         title: 'Flashcard Decks',
         active: 'flashcards',
         decks: result.rows,
         pagination: result,
-        filters: { search, level, status },
+        filters: { search, level, status, type: safeType },
       });
     } catch (err) {
       console.error('[Decks] getIndex error:', err);
@@ -54,9 +56,15 @@ const deckController = {
   // POST /decks/create
   async postCreate(req: Request, res: Response) {
     try {
-      const { title } = req.body;
+      const { title, deck_type } = req.body;
       if (!title || !title.trim()) {
         req.flash('error', 'Tiêu đề không được để trống');
+        return res.redirect('/decks/create');
+      }
+      // Reject deck_type='user_created' from admin website — would create
+      // an orphan (NULL user_id) deck invisible to mobile system + mine lists.
+      if (deck_type && !VALID_TYPES.includes(deck_type)) {
+        req.flash('error', `Loại deck phải là một trong: ${VALID_TYPES.join(', ')}`);
         return res.redirect('/decks/create');
       }
       const tagIds = parseTagIds(req.body);
@@ -121,9 +129,13 @@ const deckController = {
   async postEdit(req: Request, res: Response) {
     try {
       const { id } = req.params as { id: string };
-      const { title } = req.body;
+      const { title, deck_type } = req.body;
       if (!title || !title.trim()) {
         req.flash('error', 'Tiêu đề không được để trống');
+        return res.redirect(`/decks/${id}/edit`);
+      }
+      if (deck_type && !VALID_TYPES.includes(deck_type)) {
+        req.flash('error', `Loại deck phải là một trong: ${VALID_TYPES.join(', ')}`);
         return res.redirect(`/decks/${id}/edit`);
       }
       const tagIds = parseTagIds(req.body);
@@ -181,6 +193,39 @@ const deckController = {
       console.error('[Decks] postAddCards error:', err);
       req.flash('error', 'Đã xảy ra lỗi. Vui lòng thử lại.');
       return res.redirect(`/decks/${req.params.id}`);
+    }
+  },
+
+  // POST /decks/:id/reorder  (AJAX — JSON in, JSON/204 out)
+  async postReorder(req: Request, res: Response) {
+    try {
+      const { id } = req.params as { id: string };
+      const direction = (req.body || {}).direction;
+      if (direction !== 'up' && direction !== 'down') {
+        return res.status(400).json({
+          success: false,
+          error: { code: 'VALIDATION_ERROR', message: "direction must be 'up' or 'down'" },
+        });
+      }
+      const result = await Deck.reorder(id, direction);
+      if (result.ok === false) {
+        const map = {
+          NOT_FOUND: { status: 404, code: 'NOT_FOUND', message: 'Deck không tồn tại' },
+          NOT_SYSTEM: { status: 400, code: 'NOT_SYSTEM', message: 'Chỉ system deck mới reorder được' },
+        } as const;
+        const e = map[result.reason];
+        return res.status(e.status).json({
+          success: false,
+          error: { code: e.code, message: e.message },
+        });
+      }
+      return res.status(204).end();
+    } catch (err) {
+      console.error('[Decks] postReorder error:', err);
+      return res.status(500).json({
+        success: false,
+        error: { code: 'INTERNAL_ERROR', message: 'Reorder thất bại' },
+      });
     }
   },
 

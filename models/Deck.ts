@@ -2,7 +2,7 @@ import pool from '../config/db';
 import { paginate } from '../helpers/pagination';
 
 const Deck = {
-  async getAll({ search = '', level = '', status = '', page = 1, limit = 20 }: { search?: string; level?: string; status?: string; page?: number; limit?: number } = {}) {
+  async getAll({ search = '', level = '', status = '', type = 'all', page = 1, limit = 20 }: { search?: string; level?: string; status?: string; type?: 'all' | 'system' | 'user'; page?: number; limit?: number } = {}) {
     const conditions: string[] = [];
     const params: any[] = [];
 
@@ -18,18 +18,31 @@ const Deck = {
       params.push(status);
       conditions.push(`d.status = $${params.length}`);
     }
+    if (type === 'system') {
+      conditions.push(`d.is_system = true`);
+    } else if (type === 'user') {
+      conditions.push(`d.is_system = false`);
+    }
 
     const where = conditions.length > 0 ? `WHERE ${conditions.join(' AND ')}` : '';
     const n = params.length;
 
+    // System decks always sort by sort_order; user decks irrelevant to that ordering.
+    // For 'all' / 'system' views, surface system decks first (is_system DESC) so admins can manage their order.
+    const orderBy =
+      type === 'user'
+        ? 'd.created_at DESC'
+        : 'd.is_system DESC, d.sort_order ASC, d.created_at DESC';
+
     const query = `
-      SELECT d.id, d.title, d.level, d.deck_type, d.status, d.min_cards_to_study, d.created_at,
+      SELECT d.id, d.title, d.level, d.deck_type, d.status, d.min_cards_to_study,
+             d.is_system, d.sort_order, d.created_at,
              a.full_name AS creator_name,
              (SELECT COUNT(*)::int FROM cards c WHERE c.deck_id = d.id) AS card_count
       FROM decks d
       LEFT JOIN admin_accounts a ON a.id = d.created_by
       ${where}
-      ORDER BY d.created_at DESC
+      ORDER BY ${orderBy}
       LIMIT $${n + 1} OFFSET $${n + 2}`;
     const countQuery = `SELECT COUNT(*)::int AS count FROM decks d ${where}`;
 
@@ -74,8 +87,8 @@ const Deck = {
       await client.query('BEGIN');
       const { rows } = await client.query(`
         INSERT INTO decks
-          (title, description, level, thumbnail_url, deck_type, min_cards_to_study, status, created_by)
-        VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
+          (title, description, level, thumbnail_url, deck_type, min_cards_to_study, status, sort_order, created_by)
+        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)
         RETURNING *`,
         [
           data.title.trim(),
@@ -85,6 +98,7 @@ const Deck = {
           data.deck_type || 'premade',
           data.min_cards_to_study ? parseInt(data.min_cards_to_study) : 5,
           data.status || 'draft',
+          Number.isFinite(parseInt(data.sort_order)) ? parseInt(data.sort_order) : 0,
           data.created_by || null,
         ]
       );
@@ -118,8 +132,9 @@ const Deck = {
           deck_type          = $5,
           min_cards_to_study = $6,
           status             = $7,
+          sort_order         = $8,
           updated_at         = NOW()
-        WHERE id = $8`,
+        WHERE id = $9`,
         [
           data.title.trim(),
           data.description || null,
@@ -128,6 +143,7 @@ const Deck = {
           data.deck_type || 'premade',
           data.min_cards_to_study ? parseInt(data.min_cards_to_study) : 5,
           data.status || 'draft',
+          Number.isFinite(parseInt(data.sort_order)) ? parseInt(data.sort_order) : 0,
           id,
         ]
       );
@@ -179,6 +195,114 @@ const Deck = {
       'DELETE FROM cards WHERE deck_id = $1 AND entry_id = $2',
       [deckId, entryId]
     );
+  },
+
+  /**
+   * Move a system deck up or down in the admin-controlled display order.
+   *
+   * Display order on mobile /decks/system: ORDER BY sort_order ASC, created_at DESC.
+   * "Up" = appear earlier (smaller sort_order, or same sort_order with newer created_at).
+   *
+   * Returns:
+   *   { ok: true, swapped: true }  → swap succeeded
+   *   { ok: true, swapped: false } → already at top/bottom (no neighbor)
+   *   { ok: false, reason: 'NOT_FOUND' | 'NOT_SYSTEM' }
+   */
+  async reorder(deckId: string, direction: 'up' | 'down'): Promise<
+    | { ok: true; swapped: boolean }
+    | { ok: false; reason: 'NOT_FOUND' | 'NOT_SYSTEM' }
+  > {
+    const client = await pool.connect();
+    try {
+      await client.query('BEGIN');
+
+      const { rows: curRows } = await client.query(
+        `SELECT id, is_system, sort_order, created_at FROM decks WHERE id = $1 FOR UPDATE`,
+        [deckId]
+      );
+      if (!curRows[0]) {
+        await client.query('ROLLBACK');
+        return { ok: false, reason: 'NOT_FOUND' };
+      }
+      const current = curRows[0];
+      if (!current.is_system) {
+        await client.query('ROLLBACK');
+        return { ok: false, reason: 'NOT_SYSTEM' };
+      }
+
+      // Find the neighbor in the requested direction.
+      // Up   = (sort_order < current) OR (sort_order = current AND created_at > current.created_at)
+      // Down = (sort_order > current) OR (sort_order = current AND created_at < current.created_at)
+      const targetSql =
+        direction === 'up'
+          ? `SELECT id, sort_order FROM decks
+              WHERE is_system = true
+                AND id <> $1
+                AND (
+                  sort_order < $2
+                  OR (sort_order = $2 AND created_at > $3)
+                )
+              ORDER BY sort_order DESC, created_at ASC
+              LIMIT 1
+              FOR UPDATE`
+          : `SELECT id, sort_order FROM decks
+              WHERE is_system = true
+                AND id <> $1
+                AND (
+                  sort_order > $2
+                  OR (sort_order = $2 AND created_at < $3)
+                )
+              ORDER BY sort_order ASC, created_at DESC
+              LIMIT 1
+              FOR UPDATE`;
+
+      const { rows: tgtRows } = await client.query(targetSql, [
+        current.id,
+        current.sort_order,
+        current.created_at,
+      ]);
+
+      if (!tgtRows[0]) {
+        await client.query('COMMIT');
+        return { ok: true, swapped: false };
+      }
+      const target = tgtRows[0];
+
+      if (current.sort_order === target.sort_order) {
+        // Tie-broken by created_at — push the OTHER side to differentiate.
+        // Up:   bump target to current+1 so current floats above it.
+        // Down: bump current to target+1 so current sinks below it.
+        if (direction === 'up') {
+          await client.query(
+            `UPDATE decks SET sort_order = $1 WHERE id = $2`,
+            [current.sort_order + 1, target.id]
+          );
+        } else {
+          await client.query(
+            `UPDATE decks SET sort_order = $1 WHERE id = $2`,
+            [current.sort_order + 1, current.id]
+          );
+        }
+      } else {
+        // Different sort_order — clean swap.
+        await client.query(
+          `UPDATE decks SET sort_order = $1 WHERE id = $2`,
+          [target.sort_order, current.id]
+        );
+        await client.query(
+          `UPDATE decks SET sort_order = $1 WHERE id = $2`,
+          [current.sort_order, target.id]
+        );
+      }
+
+      await client.query('COMMIT');
+      return { ok: true, swapped: true };
+    } catch (err) {
+      await client.query('ROLLBACK');
+      throw err;
+    } finally {
+      client.release();
+    }
   },
 };
 

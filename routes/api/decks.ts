@@ -67,6 +67,7 @@ const shapeDeckRow = (row: any) => ({
   description: row.description,
   thumbnail_url: row.thumbnail_url,
   level: row.level,
+  deck_type: row.deck_type,
   total_cards: row.total_cards,
   is_favorite: row.is_favorite,
   is_system: row.is_system,
@@ -119,7 +120,7 @@ router.get(
 
     const [listResult, countResult] = await Promise.all([
       pool.query(
-        `SELECT d.id, d.title, d.description, d.thumbnail_url, d.level, d.is_system,
+        `SELECT d.id, d.title, d.description, d.thumbnail_url, d.level, d.deck_type, d.is_system,
            (SELECT COUNT(*)::int FROM cards WHERE deck_id = d.id) AS total_cards,
            (SELECT COUNT(*)::int FROM cards c
               JOIN leitner_cards lc ON lc.entry_id = c.entry_id AND lc.user_id = $1
@@ -173,7 +174,7 @@ router.get(
 
     const [listResult, countResult] = await Promise.all([
       pool.query(
-        `SELECT d.id, d.title, d.description, d.thumbnail_url, d.level, d.is_system,
+        `SELECT d.id, d.title, d.description, d.thumbnail_url, d.level, d.deck_type, d.is_system,
            (SELECT COUNT(*)::int FROM cards WHERE deck_id = d.id) AS total_cards,
            (SELECT COUNT(*)::int FROM cards c
               JOIN leitner_cards lc ON lc.entry_id = c.entry_id AND lc.user_id = $1

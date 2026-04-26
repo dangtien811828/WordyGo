@@ -1,7 +1,18 @@
 <%
   const levelBadge  = { beginner:'badge-success', intermediate:'badge-warning', advanced:'badge-info' };
   const statusBadge = { draft:'badge-warning', published:'badge-success', archived:'badge-secondary' };
-  const typeBadge   = { premade:'badge-primary', system_generated:'badge-info' };
+
+  // Build href for the type filter chips, preserving other filters.
+  const typeChipHref = function(t) {
+    const params = new URLSearchParams();
+    if (t && t !== 'all') params.set('type', t);
+    if (filters.search) params.set('search', filters.search);
+    if (filters.level)  params.set('level',  filters.level);
+    if (filters.status) params.set('status', filters.status);
+    const qs = params.toString();
+    return '/decks' + (qs ? '?' + qs : '');
+  };
+  const activeType = filters.type || 'all';
 %>
 
 <div class="page-header" style="display:flex;align-items:center;justify-content:space-between">
@@ -12,9 +23,20 @@
   <a href="/decks/create" class="btn btn-primary">+ Tạo Deck</a>
 </div>
 
+<!-- Type filter chips -->
+<div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">
+  <a href="<%= typeChipHref('all') %>"
+     class="btn btn-sm <%= activeType === 'all'    ? 'btn-primary' : 'btn-secondary' %>">All</a>
+  <a href="<%= typeChipHref('system') %>"
+     class="btn btn-sm <%= activeType === 'system' ? 'btn-primary' : 'btn-secondary' %>">System</a>
+  <a href="<%= typeChipHref('user') %>"
+     class="btn btn-sm <%= activeType === 'user'   ? 'btn-primary' : 'btn-secondary' %>">User</a>
+</div>
+
 <!-- Filter bar -->
 <div class="card" style="padding:16px;margin-bottom:20px">
   <form method="GET" action="/decks" style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
+    <input type="hidden" name="type" value="<%= activeType %>">
     <div class="form-group" style="margin:0;flex:1;min-width:180px">
       <label style="font-size:12px">Tìm kiếm</label>
       <input type="text" name="search" value="<%= filters.search %>" placeholder="Tên deck...">
@@ -54,7 +76,8 @@
       <thead>
         <tr>
           <th>Tiêu đề</th>
-          <th>Loại</th>
+          <th>Type</th>
+          <th style="text-align:center">Order</th>
           <th>Cấp độ</th>
           <th style="text-align:center">Số cards</th>
           <th>Trạng thái</th>
@@ -70,9 +93,20 @@
                 <div style="font-weight:500"><%= d.title %></div>
               </td>
               <td>
-                <span class="badge <%= typeBadge[d.deck_type] || '' %>" style="font-size:11px">
-                  <%= d.deck_type === 'system_generated' ? 'System' : 'Premade' %>
-                </span>
+                <% if (d.is_system) { %>
+                  <span class="badge badge-info" style="font-size:11px">SYSTEM</span>
+                  <div style="font-size:11px;color:var(--text-secondary);margin-top:2px"><%= d.deck_type %></div>
+                <% } else { %>
+                  <span class="badge badge-secondary" style="font-size:11px"
+                        title="Created by <%= d.creator_name || 'unknown' %>">USER</span>
+                <% } %>
+              </td>
+              <td style="text-align:center;font-size:13px">
+                <% if (d.is_system) { %>
+                  <%= d.sort_order %>
+                <% } else { %>
+                  <span style="color:var(--text-secondary)">—</span>
+                <% } %>
               </td>
               <td>
                 <span class="badge <%= levelBadge[d.level] || '' %>"><%= d.level %></span>
@@ -84,6 +118,12 @@
               <td style="font-size:13px;color:var(--text-secondary)"><%= d.creator_name || '—' %></td>
               <td>
                 <div style="display:flex;gap:4px;flex-wrap:nowrap;align-items:center">
+                  <% if (d.is_system) { %>
+                    <button type="button" class="btn btn-sm btn-secondary"
+                            title="Move up" onclick="moveDeck('<%= d.id %>', 'up')">↑</button>
+                    <button type="button" class="btn btn-sm btn-secondary"
+                            title="Move down" onclick="moveDeck('<%= d.id %>', 'down')">↓</button>
+                  <% } %>
                   <a href="/decks/<%= d.id %>" class="btn btn-sm btn-secondary">Xem</a>
                   <a href="/decks/<%= d.id %>/edit" class="btn btn-sm btn-secondary">Sửa</a>
                   <button type="button" class="btn btn-sm btn-danger"
@@ -113,7 +153,7 @@
           <% }) %>
         <% } else { %>
           <tr>
-            <td colspan="7" class="text-center" style="padding:40px;color:var(--text-secondary)">
+            <td colspan="8" class="text-center" style="padding:40px;color:var(--text-secondary)">
               Không có deck nào
             </td>
           </tr>
@@ -123,3 +163,27 @@
   </div>
   <%- include('../partials/pagination', { pagination }) %>
 </div>
+
+<script>
+async function moveDeck(id, direction) {
+  try {
+    const resp = await fetch('/decks/' + id + '/reorder', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ direction: direction }),
+    });
+    if (resp.status === 204) {
+      window.location.reload();
+      return;
+    }
+    let msg = 'Reorder failed (HTTP ' + resp.status + ')';
+    try {
+      const body = await resp.json();
+      if (body && body.error && body.error.message) msg = body.error.message;
+    } catch (_) { /* not JSON */ }
+    alert(msg);
+  } catch (err) {
+    alert('Reorder failed: ' + (err && err.message ? err.message : err));
+  }
+}
+</script>

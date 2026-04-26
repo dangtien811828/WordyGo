@@ -4,7 +4,8 @@
       "Bash(npx tsc *)",
       "Bash(echo \"EXIT: $?\")",
       "Bash(npm test *)",
-      "Bash(git stash *)"
+      "Bash(git stash *)",
+      "Bash(npm run *)"
     ]
   }
 }
