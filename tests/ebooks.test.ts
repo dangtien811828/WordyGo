@@ -4,6 +4,8 @@ import pool from '../config/db';
 
 const TS = Date.now();
 const EMAIL = `ebooks-test-${TS}@example.com`;
+// Digit-free unique suffix for seeded words — normalizeWord rejects digits.
+const WORD_SUFFIX = TS.toString(36).replace(/\d/g, 'a');
 
 let access_token = '';
 let userId = '';
@@ -69,7 +71,7 @@ beforeAll(async () => {
     `INSERT INTO dictionary_entries (headword, lemma, pos, meaning_vi, published, source)
      VALUES ($1, $1, $2, 'từ kiểm tra', TRUE, 'manual')
      RETURNING id`,
-    [`testword-${TS}`, ['noun']]
+    [`testword${WORD_SUFFIX}`, ['noun']]
   );
   testEntryId = ent.id;
 });
@@ -318,7 +320,7 @@ describe('POST /api/v1/ebooks/:id/chapters/:chapter_id/progress', () => {
 // ─────────────────────────────────────────────────────────────────────────────
 describe('POST /api/v1/ebooks/:id/lookup', () => {
   it('returns EntryDetail flat at data level (no nested "entry" wrapper)', async () => {
-    const word = `testword-${TS}`;
+    const word = `testword${WORD_SUFFIX}`;
     const res = await request(app)
       .post(`/api/v1/ebooks/${testEbookId}/lookup`)
       .set('Authorization', `Bearer ${access_token}`)
@@ -348,7 +350,7 @@ describe('POST /api/v1/ebooks/:id/lookup', () => {
   });
 
   it('shape parity with /dictionary/entries/:id (no wrapping; subset of fields)', async () => {
-    const word = `testword-${TS}`;
+    const word = `testword${WORD_SUFFIX}`;
 
     const [lookupRes, dictRes] = await Promise.all([
       request(app)
@@ -367,12 +369,15 @@ describe('POST /api/v1/ebooks/:id/lookup', () => {
     expect(lookupRes.body.data.id).toBe(dictRes.body.data.id);
     expect(lookupRes.body.data.headword).toBe(dictRes.body.data.headword);
 
-    // Every key the lookup endpoint returns (besides lookup_context) MUST also
-    // exist on the dictionary endpoint — guarantees no wrapping/renamed fields.
+    // Every key the lookup endpoint returns (besides lookup_context and the
+    // `source` discriminator added in Phase 9.6) MUST also exist on the dictionary
+    // endpoint — guarantees no wrapping/renamed fields.
     // (Dict may legitimately have additional fields like legacy_synonyms because
     // the underlying FULL_ENTRY_SQL queries differ; that's out of scope here.)
     const dictKeys = new Set(Object.keys(dictRes.body.data));
-    const lookupKeys = Object.keys(lookupRes.body.data).filter((k) => k !== 'lookup_context');
+    const lookupKeys = Object.keys(lookupRes.body.data).filter(
+      (k) => k !== 'lookup_context' && k !== 'source'
+    );
     for (const k of lookupKeys) {
       expect(dictKeys.has(k)).toBe(true);
     }
@@ -384,14 +389,23 @@ describe('POST /api/v1/ebooks/:id/lookup', () => {
     }
   });
 
-  it('returns 404 for unknown word', async () => {
-    const res = await request(app)
-      .post(`/api/v1/ebooks/${testEbookId}/lookup`)
-      .set('Authorization', `Bearer ${access_token}`)
-      .send({ word: 'xyzzy-no-such-word-99999' });
+  it('returns 404 for unknown word (with TRANSLATION_FALLBACK_ENABLED off)', async () => {
+    // Make sure the translation fallback path isn't exercised by this test —
+    // we only want to verify the dict-miss path returns 404.
+    const orig = process.env.TRANSLATION_FALLBACK_ENABLED;
+    process.env.TRANSLATION_FALLBACK_ENABLED = 'false';
+    try {
+      const res = await request(app)
+        .post(`/api/v1/ebooks/${testEbookId}/lookup`)
+        .set('Authorization', `Bearer ${access_token}`)
+        .send({ word: 'xyzzynosuchword' });
 
-    expect(res.status).toBe(404);
-    expect(res.body.error.code).toBe('ENTRY_NOT_FOUND');
+      expect(res.status).toBe(404);
+      expect(res.body.error.code).toBe('ENTRY_NOT_FOUND');
+    } finally {
+      if (orig === undefined) delete process.env.TRANSLATION_FALLBACK_ENABLED;
+      else process.env.TRANSLATION_FALLBACK_ENABLED = orig;
+    }
   });
 
   it('requires word field', async () => {
@@ -401,7 +415,7 @@ describe('POST /api/v1/ebooks/:id/lookup', () => {
       .send({});
 
     expect(res.status).toBe(400);
-    expect(res.body.error.code).toBe('VALIDATION_ERROR');
+    expect(res.body.error.code).toBe('INVALID_WORD');
   });
 });
 

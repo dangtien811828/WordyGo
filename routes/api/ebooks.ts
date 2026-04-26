@@ -8,6 +8,11 @@ import { s, n, b, a } from '../../utils/safeResponse';
 import { parsePagination } from '../../utils/pagination';
 import { getActiveSubscription } from '../../utils/subscriptionHelper';
 import { translateText } from '../../services/translationService';
+import {
+  normalizeWord,
+  translateWord,
+  TranslationFailedError,
+} from '../../services/wordTranslationService';
 
 const router = Router();
 
@@ -418,10 +423,11 @@ router.get(
 // ─────────────────────────────────────────────────────────────────────────────
 //  GET /api/v1/ebooks/:id/chapters/:chapter_id
 //
-//  Response shape (snake_case JSON, non-null primitives via safeResponse helpers):
+//  Response shape (snake_case JSON, contract field name is `index` — not
+//  `chapter_index` / `paragraph_index`; those are DB column names only):
 //    {
-//      chapter:    { id, chapter_index, title, word_count, tts_status, tts_progress },
-//      paragraphs: [{ id, paragraph_index, text, word_count, translation_vi,
+//      chapter:    { id, index, title, word_count, tts_status, tts_progress },
+//      paragraphs: [{ id, index, text, word_count, translation_vi,
 //                     audio_url, audio_status, duration_ms }, ...],
 //      progress:   { current_paragraph_index, total_time_sec }
 //    }
@@ -498,7 +504,7 @@ router.get(
     return apiSuccess(res, {
       chapter: {
         id: s(chapter.id),
-        chapter_index: n(chapter.chapter_index),
+        index: n(chapter.chapter_index),
         title: s(chapter.title),
         word_count: n(chapter.word_count),
         tts_status: s(chapter.tts_status) || 'none',
@@ -506,11 +512,11 @@ router.get(
       },
       paragraphs: paragraphRows.rows.map((p: any) => ({
         id: s(p.id),
-        paragraph_index: n(p.paragraph_index),
+        index: n(p.paragraph_index),
         text: s(p.text),
         word_count: n(p.word_count),
         translation_vi: s(p.translation_vi),
-        audio_url: s(p.audio_url),
+        audio_url: p.audio_url ?? null,
         audio_status: s(p.audio_status) || 'none',
         duration_ms: n(p.duration_ms),
       })),
@@ -686,30 +692,17 @@ router.post(
     const ebookId = req.params.id;
     const { word, paragraph_id } = req.body as { word: string; paragraph_id?: string };
 
-    if (!word || typeof word !== 'string' || word.trim().length === 0) {
-      return apiError(res, 400, 'VALIDATION_ERROR', 'word là bắt buộc');
+    if (!word || typeof word !== 'string') {
+      return apiError(res, 400, 'INVALID_WORD', 'word là bắt buộc');
     }
 
-    const cleanWord = word.trim().toLowerCase();
-
-    // Exact headword match first, then lemma match
-    const { rows } = await pool.query(
-      `${FULL_ENTRY_SQL}
-       WHERE e.published = TRUE
-         AND (LOWER(e.headword) = $1 OR LOWER(e.lemma) = $1)
-       ORDER BY
-         CASE WHEN LOWER(e.headword) = $1 THEN 0 ELSE 1 END
-       LIMIT 1`,
-      [cleanWord]
-    );
-
-    if (rows.length === 0) {
-      return apiError(res, 404, 'ENTRY_NOT_FOUND', `Không tìm thấy từ "${word}" trong từ điển`);
+    // Normalize: strip surrounding punctuation, validate, lowercase for cache key.
+    const normalized = normalizeWord(word);
+    if (!normalized.isValid) {
+      return apiError(res, 400, 'INVALID_WORD', `Invalid word: ${normalized.reason}`);
     }
 
-    const entry = rows[0];
-
-    // Verify paragraph belongs to this ebook (optional validation)
+    // Verify paragraph belongs to this ebook (optional context validation).
     let verifiedParagraphId: string | null = null;
     if (paragraph_id) {
       const { rows: pRows } = await pool.query(
@@ -721,14 +714,13 @@ router.post(
       verifiedParagraphId = pRows.length > 0 ? paragraph_id : null;
     }
 
-    // Fire-and-forget lookup log
-    void pool.query(
-      `INSERT INTO word_lookups (user_id, entry_id, source, ebook_id)
-       VALUES ($1, $2, 'ebook', $3)`,
-      [userId, entry.id, ebookId]
-    ).catch((err) => console.error('[ebooks] word_lookups insert failed:', err));
+    const lookupContext = {
+      source: 'ebook' as const,
+      ebook_id: ebookId,
+      paragraph_id: verifiedParagraphId,
+    };
 
-    // Update words_looked_up counter
+    // Fire-and-forget: bump words_looked_up counter regardless of dict/translation path.
     void pool.query(
       `INSERT INTO user_reading_progress (user_id, ebook_id, words_looked_up, started_at)
        VALUES ($1, $2, 1, NOW())
@@ -737,17 +729,83 @@ router.post(
       [userId, ebookId]
     ).catch((err) => console.error('[ebooks] words_looked_up update failed:', err));
 
-    // Response shape MUST match GET /dictionary/entries/:id — entry fields at the
-    // top level of `data`, NOT nested under `data.entry`. Mobile parses EntryDetail
-    // straight from `data`. Lookup-specific context goes in `lookup_context`.
-    return apiSuccess(res, {
-      ...entry,
-      lookup_context: {
-        source: 'ebook',
-        ebook_id: ebookId,
-        paragraph_id: verifiedParagraphId,
-      },
-    });
+    // Step 1 — try dictionary.
+    const { rows } = await pool.query(
+      `${FULL_ENTRY_SQL}
+       WHERE e.published = TRUE
+         AND (LOWER(e.headword) = $1 OR LOWER(e.lemma) = $1)
+       ORDER BY
+         CASE WHEN LOWER(e.headword) = $1 THEN 0 ELSE 1 END
+       LIMIT 1`,
+      [normalized.normalized]
+    );
+
+    if (rows.length > 0) {
+      const entry = rows[0];
+
+      void pool.query(
+        `INSERT INTO word_lookups
+           (user_id, entry_id, word_text, source, lookup_result, ebook_id, paragraph_id)
+         VALUES ($1, $2, $3, 'ebook', 'dictionary', $4, $5)`,
+        [userId, entry.id, normalized.display, ebookId, verifiedParagraphId]
+      ).catch((err) => console.error('[ebooks] word_lookups insert failed:', err));
+
+      // Flat shape with `source` discriminator at top level (no entry wrapper).
+      // Note: spread entry first then assign `source` so the discriminator wins
+      // over the dictionary entry's own `source` column ('manual', 'oxford', ...).
+      return apiSuccess(res, {
+        ...entry,
+        source: 'dictionary',
+        lookup_context: lookupContext,
+      });
+    }
+
+    // Step 2 — fallback to translation if enabled.
+    if (process.env.TRANSLATION_FALLBACK_ENABLED !== 'true') {
+      return apiError(res, 404, 'ENTRY_NOT_FOUND', `Không tìm thấy từ "${normalized.display}" trong từ điển`);
+    }
+
+    try {
+      const translation = await translateWord(normalized.normalized, normalized.display);
+
+      void pool.query(
+        `INSERT INTO word_lookups
+           (user_id, entry_id, word_text, source, lookup_result, ebook_id, paragraph_id)
+         VALUES ($1, NULL, $2, 'ebook', 'translation', $3, $4)`,
+        [userId, normalized.display, ebookId, verifiedParagraphId]
+      ).catch((err) => console.error('[ebooks] word_lookups insert failed:', err));
+
+      return apiSuccess(res, {
+        source: 'translation',
+        word: translation.word,
+        translation_vi: translation.translation_vi,
+        phonetic: translation.phonetic,
+        audio_url: translation.audio_url,
+        pos: translation.pos,
+        definitions_en: translation.definitions_en,
+        examples: translation.examples,
+        providers: translation.providers,
+        cached: translation.cached,
+        lookup_context: lookupContext,
+      });
+    } catch (err) {
+      if (err instanceof TranslationFailedError) {
+        void pool.query(
+          `INSERT INTO word_lookups
+             (user_id, entry_id, word_text, source, lookup_result, ebook_id, paragraph_id)
+           VALUES ($1, NULL, $2, 'ebook', 'not_found', $3, $4)`,
+          [userId, normalized.display, ebookId, verifiedParagraphId]
+        ).catch((logErr) => console.error('[ebooks] word_lookups insert failed:', logErr));
+
+        return apiError(
+          res,
+          503,
+          'TRANSLATION_UNAVAILABLE',
+          'Cannot translate this word right now. Please try again later.'
+        );
+      }
+      throw err;
+    }
   })
 );
 

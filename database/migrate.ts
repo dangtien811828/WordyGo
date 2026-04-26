@@ -55,6 +55,7 @@ const migrations: MigrationDef[] = [
   { key: '23_decks_system_flag',      name: 'Phase 10.5: decks.is_system + sort_order',                file: './migrations/23_decks_system_flag' },
   { key: '24_user_deck_favorites',    name: 'Phase 10.5: user_deck_favorites table',                   file: './migrations/24_user_deck_favorites' },
   { key: '25_chapter_tts_progress',   name: 'Phase 9.5: chapter TTS progress tracking',                file: './migrations/25_chapter_tts_progress' },
+  { key: '26_word_translation_cache', name: 'Phase 9.6: word_translation_cache + word_lookups fallback fields', file: './migrations/26_word_translation_cache' },
 ];
 
 /**

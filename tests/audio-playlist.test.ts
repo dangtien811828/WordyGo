@@ -195,7 +195,7 @@ describe('GET /api/v1/ebooks/:id/chapters/:chapter_id/audio-playlist', () => {
 //  Re-verify chapter detail nullability contract
 // ─────────────────────────────────────────────────────────────────────────────
 describe('GET /api/v1/ebooks/:id/chapters/:chapter_id — null-safety', () => {
-  it('all primitive fields are non-null and use new snake_case shape', async () => {
+  it('uses contract field names (`index` not `chapter_index`/`paragraph_index`)', async () => {
     const res = await request(app)
       .get(`/api/v1/ebooks/${ebookId}/chapters/${chapterEmptyId}`)
       .set('Authorization', `Bearer ${access_token}`);
@@ -203,25 +203,27 @@ describe('GET /api/v1/ebooks/:id/chapters/:chapter_id — null-safety', () => {
     expect(res.status).toBe(200);
     const { chapter, paragraphs, progress } = res.body.data;
 
-    // Chapter shape — note new field name `chapter_index` (was `index`)
+    // Chapter shape — contract field name is `index`
     expect(typeof chapter.id).toBe('string');
-    expect(typeof chapter.chapter_index).toBe('number');
+    expect(typeof chapter.index).toBe('number');
+    expect(chapter).not.toHaveProperty('chapter_index');
     expect(typeof chapter.title).toBe('string');
     expect(typeof chapter.word_count).toBe('number');
     expect(typeof chapter.tts_status).toBe('string');
     expect(typeof chapter.tts_progress).toBe('number');
 
-    // Paragraphs — new field name `paragraph_index` (was `index`),
-    // and audio_url is '' (not null) when audio not generated yet.
+    // Paragraphs — contract field name is `index`. audio_url is string|null
+    // (null when audio not generated yet — matches contract).
     expect(Array.isArray(paragraphs)).toBe(true);
     expect(paragraphs.length).toBeGreaterThan(0);
     for (const p of paragraphs) {
       expect(typeof p.id).toBe('string');
-      expect(typeof p.paragraph_index).toBe('number');
+      expect(typeof p.index).toBe('number');
+      expect(p).not.toHaveProperty('paragraph_index');
       expect(typeof p.text).toBe('string');
       expect(typeof p.word_count).toBe('number');
       expect(typeof p.translation_vi).toBe('string'); // '' allowed, never null
-      expect(typeof p.audio_url).toBe('string');      // '' allowed, never null
+      expect(p.audio_url === null || typeof p.audio_url === 'string').toBe(true);
       expect(typeof p.audio_status).toBe('string');
       expect(typeof p.duration_ms).toBe('number');    // 0 allowed, never null
     }

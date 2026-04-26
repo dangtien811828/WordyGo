@@ -16,6 +16,7 @@
     "db:backup": "tsx database/backup.ts",
     "db:restore": "tsx database/restore.ts",
     "precompute-audio": "tsx scripts/precompute-dictionary-audio.ts",
+    "re-segment": "tsx scripts/re-segment-paragraphs.ts",
     "test": "jest",
     "test:watch": "jest --watch"
   },
@@ -40,6 +41,7 @@
     "openai": "^6.34.0",
     "p-limit": "^3.1.0",
     "pg": "^8.20.0",
+    "sbd": "^1.0.19",
     "uuid": "^13.0.0",
     "zod": "^4.3.6"
   },
@@ -55,6 +57,7 @@
     "@types/multer": "^2.1.0",
     "@types/node": "^25.6.0",
     "@types/pg": "^8.20.0",
+    "@types/sbd": "^1.0.5",
     "@types/supertest": "^7.2.0",
     "@types/uuid": "^10.0.0",
     "jest": "^30.3.0",

@@ -4,6 +4,11 @@ import { segmentParagraphs, countWords, splitSentences } from '../utils/paragrap
 //  Helpers
 // ─────────────────────────────────────────────────────────────────────────────
 
+function endsWithSentenceTerminator(s: string): boolean {
+  // Accept any of: . ! ? … plus optional closing quotes/brackets.
+  return /[.!?…]['"’”\)\]]?\s*$/.test(s);
+}
+
 let _wordIdx = 0;
 function makeWords(n: number): string {
   return Array.from({ length: n }, () => `word${++_wordIdx}`).join(' ');
@@ -11,23 +16,7 @@ function makeWords(n: number): string {
 
 function makeSentence(n: number): string {
   const raw = makeWords(n) + '.';
-  // Capitalize first letter so splitSentences can detect sentence boundaries.
   return raw.charAt(0).toUpperCase() + raw.slice(1);
-}
-
-// Build a text with natural paragraphs. Each paragraph is one sentence of
-// `wordsPerSentence` words, repeated `sentencesPerParagraph` times.
-function buildText(opts: { blocks: number; sentencesPerBlock: number; wordsPerSentence: number }) {
-  _wordIdx = 0; // reset counter for reproducibility
-  const blocks: string[] = [];
-  for (let b = 0; b < opts.blocks; b++) {
-    const sentences: string[] = [];
-    for (let s = 0; s < opts.sentencesPerBlock; s++) {
-      sentences.push(makeSentence(opts.wordsPerSentence));
-    }
-    blocks.push(sentences.join(' '));
-  }
-  return blocks.join('\n\n');
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -49,103 +38,142 @@ describe('countWords', () => {
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
-//  splitSentences
+//  splitSentences (sbd-backed)
 // ─────────────────────────────────────────────────────────────────────────────
 describe('splitSentences', () => {
   test('splits at period + space + uppercase', () => {
     const result = splitSentences('Hello world. This is a test. Another sentence.');
     expect(result).toHaveLength(3);
-    expect(result[0]).toBe('Hello world.');
-    expect(result[1]).toBe('This is a test.');
   });
 
-  test('splits at question mark', () => {
-    const result = splitSentences('What is this? It is a test.');
+  test('does NOT split on common abbreviations', () => {
+    const result = splitSentences('Mr. Smith met Dr. Jones at 8 a.m. They discussed the case.');
+    // "Mr.", "Dr.", "a.m." should NOT be split.
     expect(result).toHaveLength(2);
+    expect(result[0]).toMatch(/Mr\. Smith met Dr\. Jones at 8 a\.m\./);
   });
 
-  test('splits at exclamation mark', () => {
-    const result = splitSentences('Amazing! This works well.');
+  test('does NOT split on initials like J.K. Rowling', () => {
+    const result = splitSentences('I love J.K. Rowling books. She is an amazing author.');
     expect(result).toHaveLength(2);
+    expect(result[0]).toContain('J.K. Rowling');
   });
 
-  test('single sentence returns one element', () => {
-    expect(splitSentences('Just one sentence.')).toHaveLength(1);
+  test('does NOT split on i.e. / e.g. / etc.', () => {
+    const result = splitSentences('Use a fast language, e.g. C++. Avoid bloat, i.e. unused libs.');
+    expect(result).toHaveLength(2);
+    expect(result[0]).toContain('e.g.');
+    expect(result[1]).toContain('i.e.');
+  });
+
+  test('does NOT split decimal numbers like 1.5', () => {
+    const result = splitSentences('The version is 1.5 and stable. We will ship soon.');
+    expect(result).toHaveLength(2);
+    expect(result[0]).toContain('1.5');
+  });
+
+  test('handles question marks and exclamation', () => {
+    const result = splitSentences('Are you ready? I am! Let us go.');
+    expect(result).toHaveLength(3);
   });
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  segmentParagraphs — core contract
 // ─────────────────────────────────────────────────────────────────────────────
-describe('segmentParagraphs', () => {
-  test('all paragraphs have 20–40 words for a 1000-word text', () => {
-    // 1000 words: 10 blocks × 5 sentences × 20 words/sentence
-    const text = buildText({ blocks: 10, sentencesPerBlock: 5, wordsPerSentence: 20 });
-    const paragraphs = segmentParagraphs(text);
-
-    expect(paragraphs.length).toBeGreaterThan(0);
-
-    for (const para of paragraphs) {
-      const wc = countWords(para);
-      // Allow the very last paragraph to be slightly under (tail merge may still leave one short)
-      const isLast = para === paragraphs[paragraphs.length - 1];
-      if (!isLast) {
-        expect(wc).toBeGreaterThanOrEqual(20);
-      }
-      expect(wc).toBeLessThanOrEqual(44); // small tolerance for split edge cases
-    }
-  });
-
-  test('returns non-empty array for non-empty input', () => {
-    const text = 'This is a short paragraph with some words.';
-    const result = segmentParagraphs(text);
-    expect(result.length).toBeGreaterThan(0);
-    expect(result[0].length).toBeGreaterThan(0);
-  });
-
+describe('segmentParagraphs — author boundary respect', () => {
   test('returns empty array for blank input', () => {
     expect(segmentParagraphs('')).toHaveLength(0);
     expect(segmentParagraphs('   \n\n   ')).toHaveLength(0);
   });
 
-  test('handles single very long sentence (> 40 words) by splitting at comma', () => {
-    _wordIdx = 0;
-    // 60-word sentence with a comma in the middle
-    const part1 = makeWords(30);
-    const part2 = makeWords(30);
-    const text = `${part1}, ${part2}.`;
+  test('a short author block becomes exactly one paragraph', () => {
+    const text = 'A small paragraph with a few words.';
+    expect(segmentParagraphs(text)).toEqual([text]);
+  });
+
+  test('two author blocks (separated by \\n\\n) never merge', () => {
+    const text = 'First block has several words here.\n\nSecond block is also separate from first.';
     const result = segmentParagraphs(text);
-    for (const para of result) {
-      expect(countWords(para)).toBeLessThanOrEqual(44);
+    expect(result).toHaveLength(2);
+    expect(result[0]).toBe('First block has several words here.');
+    expect(result[1]).toBe('Second block is also separate from first.');
+  });
+
+  test('every paragraph ends at a sentence boundary (incl. abbreviations)', () => {
+    // Long block intentionally containing abbreviations that would trip a naive splitter.
+    _wordIdx = 0;
+    const block =
+      'Mr. Smith said hello to Dr. Jones at 9 a.m. ' +
+      'They discussed J.K. Rowling at length, e.g. her early works. ' +
+      'After lunch, i.e. around 1 p.m., they walked to St. Paul Street. ' +
+      'Version 1.5 of the report was due, but Mrs. Lee had concerns. ' +
+      'Eventually, the U.S. team approved it. ' +
+      'They celebrated with cake.';
+
+    const paragraphs = segmentParagraphs(block);
+    expect(paragraphs.length).toBeGreaterThan(0);
+    for (const p of paragraphs) {
+      expect(endsWithSentenceTerminator(p)).toBe(true);
     }
   });
 
-  test('merges a small tail chunk (< 20 words) into the previous if combined ≤ 40', () => {
-    // 3 sentences of 15 words each (45 total), first letter capitalized so splitSentences fires.
+  test('a 5000-word block of long sentences with abbreviations splits only at sentence ends', () => {
     _wordIdx = 0;
-    const text = `${makeSentence(15)} ${makeSentence(15)} ${makeSentence(15)}`;
-    const result = segmentParagraphs(text);
-    // Total words should be preserved
-    const total = result.reduce((sum, p) => sum + countWords(p), 0);
-    expect(total).toBeGreaterThanOrEqual(43); // 45 - small tolerance for punctuation splitting
+    const sentences: string[] = [];
+    for (let i = 0; i < 100; i++) {
+      // Mix sentences of varying lengths and abbreviations.
+      const filler = makeWords(50);
+      sentences.push(`Mr. Smith and Dr. Jones, e.g. at 8 a.m., discussed ${filler} in detail.`);
+    }
+    const block = sentences.join(' ');
+    const paragraphs = segmentParagraphs(block);
+
+    expect(paragraphs.length).toBeGreaterThan(0);
+    for (const p of paragraphs) {
+      expect(endsWithSentenceTerminator(p)).toBe(true);
+    }
+  });
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  Regression: the "Hunger Games" Even/though bug
+// ─────────────────────────────────────────────────────────────────────────────
+describe('regression — never split mid-word or mid-sentence', () => {
+  test('the reported "Even" / "though" split must not happen', () => {
+    // The original passage from the bug report. Even after considering author
+    // paragraph breaks were lost, the splitter must NOT cut between "Even" and
+    // "though" — both lie inside the same sentence.
+    const passage =
+      'It must have looked particularly funny since Buttercup was struggling to hold on to me. ' +
+      'Or at least distrusts me. ' +
+      'Even though it was years ago, I think he still remembers how I tried to drown him in a bucket when Prim brought him home.';
+
+    const paragraphs = segmentParagraphs(passage);
+
+    for (const p of paragraphs) {
+      // No paragraph should END with the bare word "Even" (or even "Even." which
+      // wasn't a real sentence in the source) — that would mean we cut the
+      // following sentence in half.
+      expect(p.trimEnd().endsWith('Even')).toBe(false);
+      // No paragraph should START mid-sentence with lowercase "though".
+      expect(/^though\b/.test(p)).toBe(false);
+      // Every paragraph must end at a real sentence boundary.
+      expect(endsWithSentenceTerminator(p)).toBe(true);
+    }
   });
 
-  test('handles text with multiple natural paragraph breaks', () => {
-    const block1 = buildText({ blocks: 1, sentencesPerBlock: 3, wordsPerSentence: 12 });
-    const block2 = buildText({ blocks: 1, sentencesPerBlock: 3, wordsPerSentence: 12 });
-    const text = block1 + '\n\n' + block2;
-    const result = segmentParagraphs(text);
-    expect(result.length).toBeGreaterThan(0);
-    const total = result.reduce((sum, p) => sum + countWords(p), 0);
-    expect(total).toBeGreaterThan(0);
-  });
+  test('a single sentence longer than MAX_WORDS is kept whole, not chopped at commas', () => {
+    // 80-word sentence with several commas — must stay as one paragraph.
+    const longSentence =
+      'Although the rain had been falling steadily for hours, soaking the streets and gutters, ' +
+      'the children kept playing in the park, laughing and shouting and running between puddles, ' +
+      'their coats heavy with water, their boots squelching with every step, ' +
+      'while their parents watched anxiously from doorways, sipping coffee, glancing at their watches, ' +
+      'wondering when the storm would finally pass and the sun would once again return to dry the world.';
 
-  test('total word count is approximately preserved after segmentation', () => {
-    const text = buildText({ blocks: 5, sentencesPerBlock: 4, wordsPerSentence: 15 });
-    const originalWords = countWords(text.replace(/\n\n/g, ' '));
-    const segments = segmentParagraphs(text);
-    const segmentedWords = segments.reduce((sum, p) => sum + countWords(p), 0);
-    // Allow small difference due to punctuation/period handling at split points
-    expect(Math.abs(originalWords - segmentedWords)).toBeLessThan(originalWords * 0.05);
+    const result = segmentParagraphs(longSentence);
+    expect(result).toHaveLength(1);
+    expect(result[0]).toBe(longSentence);
   });
 });
