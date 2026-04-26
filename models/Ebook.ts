@@ -48,7 +48,9 @@ const Ebook = {
     if (!rows[0]) return null;
 
     const { rows: chapters } = await pool.query(`
-      SELECT id, chapter_index, title, word_count, has_tts
+      SELECT id, chapter_index, title, word_count, has_tts,
+             COALESCE(tts_status, 'none') AS tts_status,
+             COALESCE(tts_progress, 0)    AS tts_progress
       FROM chapters
       WHERE ebook_id = $1
       ORDER BY chapter_index ASC`,

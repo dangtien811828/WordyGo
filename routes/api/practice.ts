@@ -1,4 +1,5 @@
 import { Router, Response } from 'express';
+import { z } from 'zod';
 import pool from '../../config/db';
 import { ApiRequest } from '../../middlewares/apiAuth';
 import { asyncHandler } from '../../utils/asyncHandler';
@@ -54,27 +55,41 @@ type PracticeMode = (typeof VALID_MODES)[number];
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  POST /api/v1/practice/session/start
-//  body: { deck_id, mode, limit? }
+//
+//  Two selection modes:
+//    1. Random:  body has `limit` only          → ORDER BY RANDOM(), excludes mastered
+//    2. Manual:  body has `card_ids`            → exact ids (must all belong to deck)
+//  If both provided, `card_ids` wins and `limit` is ignored.
 // ─────────────────────────────────────────────────────────────────────────────
+const sessionStartSchema = z.object({
+  deck_id: z.string().uuid({ message: 'deck_id phải là UUID hợp lệ' }),
+  mode: z.enum(VALID_MODES, {
+    message: `mode phải là một trong: ${VALID_MODES.join(', ')}`,
+  }),
+  limit: z.number().int().min(1).max(100).optional(),
+  card_ids: z
+    .array(z.string().uuid())
+    .min(1, { message: 'card_ids phải có ít nhất 1 phần tử' })
+    .max(200, { message: 'card_ids tối đa 200 phần tử' })
+    .optional(),
+});
+
 router.post(
   '/session/start',
   asyncHandler(async (req: ApiRequest, res: Response) => {
     const userId = req.user!.id;
-    const { deck_id, mode, limit = 20 } = req.body as {
-      deck_id: string;
-      mode: PracticeMode;
-      limit?: number;
-    };
 
-    if (!deck_id) {
-      return apiError(res, 400, 'VALIDATION_ERROR', 'deck_id là bắt buộc');
-    }
-    if (!mode || !(VALID_MODES as readonly string[]).includes(mode)) {
+    const parsed = sessionStartSchema.safeParse(req.body);
+    if (!parsed.success) {
       return apiError(
-        res, 400, 'VALIDATION_ERROR',
-        `mode phải là một trong: ${VALID_MODES.join(', ')}`
+        res,
+        400,
+        'VALIDATION_ERROR',
+        'Dữ liệu không hợp lệ',
+        parsed.error.issues
       );
     }
+    const { deck_id, mode, limit, card_ids } = parsed.data;
 
     // Verify deck access
     const { rows: deckRows } = await pool.query(
@@ -86,33 +101,79 @@ router.post(
       return apiError(res, 404, 'DECK_NOT_FOUND', 'Deck không tồn tại');
     }
 
-    const safeLimit = Math.min(100, Math.max(1, limit || 20));
+    // ── Card selection ────────────────────────────────────────────────────────
+    // Manual selection wins over random when both provided.
+    let cards: any[];
 
-    // Priority 1: cards not yet in Leitner (new vocab)
-    // Priority 2: cards in Leitner with box < 5 (still mastering)
-    const { rows: cards } = await pool.query(
-      `SELECT
-         c.id            AS card_id,
-         c.entry_id,
-         c.note_html,
-         de.headword,
-         de.ipa_us,
-         de.audio_us_url,
-         ${VI_COALESCE} AS meaning_vi,
-         ucp.times_seen,
-         ucp.times_correct,
-         lc.box_number   AS leitner_box_number,
-         CASE WHEN lc.id IS NULL THEN 1 ELSE 2 END AS _prio
-       FROM cards c
-       JOIN dictionary_entries de ON de.id = c.entry_id
-       LEFT JOIN user_card_progress ucp ON ucp.card_id = c.id AND ucp.user_id = $2
-       LEFT JOIN leitner_cards lc ON lc.entry_id = c.entry_id AND lc.user_id = $2
-       WHERE c.deck_id = $1
-         AND (lc.id IS NULL OR lc.box_number < 5)
-       ORDER BY CASE WHEN lc.id IS NULL THEN 1 ELSE 2 END ASC, c.sort_order ASC
-       LIMIT $3`,
-      [deck_id, userId, safeLimit]
-    );
+    if (card_ids && card_ids.length > 0) {
+      // Dedupe silently (per spec — duplicates are not an error).
+      const uniqueIds = Array.from(new Set(card_ids));
+
+      // Cross-check: all ids must belong to this deck.
+      const { rows: validRows } = await pool.query(
+        `SELECT id FROM cards WHERE deck_id = $1 AND id = ANY($2::uuid[])`,
+        [deck_id, uniqueIds]
+      );
+      const validSet = new Set(validRows.map((r: any) => r.id as string));
+      const invalidIds = uniqueIds.filter((id) => !validSet.has(id));
+      if (invalidIds.length > 0) {
+        return apiError(
+          res,
+          400,
+          'INVALID_CARDS',
+          'Một số thẻ không thuộc bộ thẻ này',
+          { invalid_card_ids: invalidIds }
+        );
+      }
+
+      // Manual selection bypasses the mastered filter — user explicitly picked these.
+      ({ rows: cards } = await pool.query(
+        `SELECT
+           c.id            AS card_id,
+           c.entry_id,
+           c.note_html,
+           de.headword,
+           de.ipa_us,
+           de.audio_us_url,
+           ${VI_COALESCE} AS meaning_vi,
+           ucp.times_seen,
+           ucp.times_correct,
+           lc.box_number   AS leitner_box_number
+         FROM cards c
+         JOIN dictionary_entries de ON de.id = c.entry_id
+         LEFT JOIN user_card_progress ucp ON ucp.card_id = c.id AND ucp.user_id = $2
+         LEFT JOIN leitner_cards lc ON lc.entry_id = c.entry_id AND lc.user_id = $2
+         WHERE c.deck_id = $1 AND c.id = ANY($3::uuid[])`,
+        [deck_id, userId, uniqueIds]
+      ));
+    } else {
+      // Random selection: exclude mastered (box=5), ORDER BY RANDOM().
+      // If deck has fewer than `limit` non-mastered cards, return all of them
+      // (no error — mobile shows snackbar with the actual count).
+      const safeLimit = Math.min(100, Math.max(1, limit ?? 20));
+      ({ rows: cards } = await pool.query(
+        `SELECT
+           c.id            AS card_id,
+           c.entry_id,
+           c.note_html,
+           de.headword,
+           de.ipa_us,
+           de.audio_us_url,
+           ${VI_COALESCE} AS meaning_vi,
+           ucp.times_seen,
+           ucp.times_correct,
+           lc.box_number   AS leitner_box_number
+         FROM cards c
+         JOIN dictionary_entries de ON de.id = c.entry_id
+         LEFT JOIN user_card_progress ucp ON ucp.card_id = c.id AND ucp.user_id = $2
+         LEFT JOIN leitner_cards lc ON lc.entry_id = c.entry_id AND lc.user_id = $2
+         WHERE c.deck_id = $1
+           AND (lc.id IS NULL OR lc.box_number < 5)
+         ORDER BY RANDOM()
+         LIMIT $3`,
+        [deck_id, userId, safeLimit]
+      ));
+    }
 
     // Create DB session
     const { rows: sessionRows } = await pool.query(
@@ -126,7 +187,7 @@ router.post(
     return apiSuccess(res, {
       session_id,
       mode,
-      cards: cards.map(c => ({
+      cards: cards.map((c) => ({
         card_id: c.card_id,
         entry_id: c.entry_id,
         note_html: c.note_html,

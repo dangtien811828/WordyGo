@@ -6,6 +6,8 @@
   const chapters = Array.isArray(ebook.chapters) ? ebook.chapters : [];
 %>
 
+<link rel="stylesheet" href="/css/admin-ebook-tts.css">
+
 <div class="page-header" style="display:flex;align-items:center;justify-content:space-between">
   <div>
     <h1><%= ebook.title %></h1>
@@ -124,17 +126,20 @@
   </div>
   <% if (chapters.length > 0) { %>
   <div class="table-wrapper">
-    <table>
+    <table data-ebook-id="<%= ebook.id %>" id="chapters-table">
       <thead>
         <tr>
           <th style="width:60px">#</th>
           <th>Tiêu đề chương</th>
-          <th style="text-align:center">Số từ</th>
-          <th style="text-align:center">TTS</th>
+          <th style="text-align:center;width:90px">Số từ</th>
+          <th style="text-align:center;width:240px">TTS</th>
         </tr>
       </thead>
       <tbody>
-        <% chapters.forEach(function(c) { %>
+        <% chapters.forEach(function(c) {
+             const ttsStatus   = c.tts_status   || 'none';
+             const ttsProgress = c.tts_progress || 0;
+        %>
           <tr>
             <td style="color:var(--text-secondary);font-size:13px"><%= c.chapter_index %></td>
             <td style="font-size:14px"><%= c.title || `Chapter ${c.chapter_index}` %></td>
@@ -142,11 +147,29 @@
               <%= c.word_count ? c.word_count.toLocaleString() : '—' %>
             </td>
             <td style="text-align:center">
-              <% if (c.has_tts) { %>
-                <span style="color:var(--success)">✓</span>
-              <% } else { %>
-                <span style="color:var(--text-light)">—</span>
-              <% } %>
+              <div class="tts-cell" data-chapter-id="<%= c.id %>">
+                <% if (ttsStatus === 'ready') { %>
+                  <a href="/ebooks/<%= ebook.id %>/chapters/<%= c.id %>/audio-preview" class="tts-done">
+                    ✅ Audio ready
+                  </a>
+                <% } else if (ttsStatus === 'generating') { %>
+                  <div class="tts-progress" data-chapter-id="<%= c.id %>">
+                    <div class="progress-track">
+                      <div class="progress-bar" style="width: <%= ttsProgress %>%"></div>
+                    </div>
+                    <span class="progress-text"><%= ttsProgress %>%</span>
+                  </div>
+                <% } else if (ttsStatus === 'failed') { %>
+                  <div class="tts-failed">
+                    <span class="tts-error">⚠️ Failed (<%= ttsProgress %>%)</span>
+                    <button type="button" class="btn-generate-tts btn btn-secondary"
+                            data-chapter-id="<%= c.id %>">Retry</button>
+                  </div>
+                <% } else { %>
+                  <button type="button" class="btn-generate-tts btn btn-primary"
+                          data-chapter-id="<%= c.id %>">Generate TTS</button>
+                <% } %>
+              </div>
             </td>
           </tr>
         <% }); %>
@@ -159,6 +182,8 @@
     </div>
   <% } %>
 </div>
+
+<script src="/js/admin-ebook-tts.js" defer></script>
 
 <!-- Delete dialog (chỉ hiện với admin hoặc content_editor sở hữu sách) -->
 <% if (canDelete) { %>

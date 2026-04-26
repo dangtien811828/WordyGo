@@ -1,0 +1,90 @@
+<%
+  const TEXT_PREVIEW_LEN = 100;
+  function truncate(s, n) {
+    if (!s) return '';
+    s = String(s);
+    return s.length > n ? s.slice(0, n).trim() + '…' : s;
+  }
+  function statusLabel(s) {
+    switch (s) {
+      case 'ready':      return { icon: '✅', label: 'Ready',      color: 'var(--success)' };
+      case 'failed':     return { icon: '⚠️', label: 'Failed',     color: '#E74C3C' };
+      case 'generating': return { icon: '⏳', label: 'Generating', color: 'var(--text-secondary)' };
+      default:           return { icon: '—',  label: 'Pending',    color: 'var(--text-secondary)' };
+    }
+  }
+  const readyCount  = paragraphs.filter(p => p.audio_status === 'ready').length;
+  const failedCount = paragraphs.filter(p => p.audio_status === 'failed').length;
+%>
+
+<link rel="stylesheet" href="/css/admin-ebook-tts.css">
+
+<div class="page-header" style="display:flex;align-items:center;justify-content:space-between">
+  <div>
+    <h1>Audio preview — <%= chapter.title || `Chapter ${chapter.chapter_index}` %></h1>
+    <p>
+      <a href="/ebooks/<%= ebook.id %>" style="color:var(--text-secondary)">← <%= ebook.title %></a>
+    </p>
+  </div>
+  <div style="display:flex;gap:10px;align-items:center">
+    <span class="badge badge-success"><%= readyCount %> ready</span>
+    <% if (failedCount > 0) { %>
+      <span class="badge badge-warning"><%= failedCount %> failed</span>
+    <% } %>
+    <span class="badge"><%= paragraphs.length %> total</span>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h2>Paragraphs (<%= paragraphs.length %>)</h2>
+  </div>
+
+  <% if (paragraphs.length === 0) { %>
+    <div style="padding:40px;text-align:center;color:var(--text-secondary)">
+      Chapter này chưa có paragraph nào.
+    </div>
+  <% } else { %>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:60px">#</th>
+            <th>Text preview</th>
+            <th style="width:130px">Status</th>
+            <th style="width:340px">Audio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% paragraphs.forEach(function(p) {
+               const st = statusLabel(p.audio_status);
+          %>
+            <tr>
+              <td style="color:var(--text-secondary);font-size:13px"><%= p.paragraph_index + 1 %></td>
+              <td style="font-size:13px;line-height:1.5">
+                <%= truncate(p.text, TEXT_PREVIEW_LEN) %>
+                <% if (p.audio_status === 'failed' && p.audio_error) { %>
+                  <div style="margin-top:4px;color:#E74C3C;font-size:12px">
+                    <%= truncate(p.audio_error, 200) %>
+                  </div>
+                <% } %>
+              </td>
+              <td style="font-size:13px;color:<%= st.color %>">
+                <%= st.icon %> <%= st.label %>
+              </td>
+              <td>
+                <% if (p.audio_url) { %>
+                  <audio controls preload="none" style="width:320px;height:32px">
+                    <source src="<%= p.audio_url %>" type="audio/mpeg">
+                  </audio>
+                <% } else { %>
+                  <span style="color:var(--text-secondary);font-size:12px">(no audio)</span>
+                <% } %>
+              </td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  <% } %>
+</div>
