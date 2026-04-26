@@ -82,24 +82,30 @@ const shapeDeckRow = (row: any) => ({
 // ─────────────────────────────────────────────────────────────────────────────
 //  GET /api/v1/decks/system  (NEW)
 // ─────────────────────────────────────────────────────────────────────────────
+const systemDecksQuerySchema = z.object({
+  search: z.string().trim().min(1).max(100).optional(),
+  level: z.enum(VALID_LEVELS).optional(),
+});
+
 router.get(
   '/system',
   asyncHandler(async (req: ApiRequest, res: Response) => {
     const userId = req.user!.id;
     const { page, limit, offset } = parsePagination(req);
 
-    const level = req.query.level ? String(req.query.level) : null;
-    const search = req.query.search ? `%${String(req.query.search)}%` : null;
-    const tagIds = toArray(req.query.tag);
-
-    if (level && !VALID_LEVELS.includes(level as any)) {
+    const parsed = systemDecksQuerySchema.safeParse(req.query);
+    if (!parsed.success) {
       return apiError(
         res,
         400,
         'VALIDATION_ERROR',
-        `level phải là: ${VALID_LEVELS.join(', ')}`
+        'Dữ liệu không hợp lệ',
+        parsed.error.issues
       );
     }
+    const level = parsed.data.level ?? null;
+    const search = parsed.data.search ? `%${parsed.data.search}%` : null;
+    const tagIds = toArray(req.query.tag);
 
     // List query: $1 userId, $2 level, $3 search, $4 tagIds (uuid[]), $5 limit, $6 offset.
     // Count query: $1 level, $2 search, $3 tagIds — separate numbering avoids
@@ -108,7 +114,7 @@ router.get(
       WHERE d.is_system = true
         AND d.status = 'published'
         AND ($${n.level}::text IS NULL OR d.level = $${n.level})
-        AND ($${n.search}::text IS NULL OR d.title ILIKE $${n.search} OR d.description ILIKE $${n.search})
+        AND ($${n.search}::text IS NULL OR d.title ILIKE $${n.search})
         AND (
           COALESCE(array_length($${n.tagIds}::uuid[], 1), 0) = 0
           OR EXISTS (
