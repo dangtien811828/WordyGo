@@ -4,6 +4,7 @@ import { ApiRequest } from '../../middlewares/apiAuth';
 import { requireFeature } from '../../middlewares/requireFeature';
 import { asyncHandler } from '../../utils/asyncHandler';
 import { apiSuccess, apiError } from '../../utils/apiResponse';
+import { s, n, b, a } from '../../utils/safeResponse';
 import { parsePagination } from '../../utils/pagination';
 import { getActiveSubscription } from '../../utils/subscriptionHelper';
 import { translateText } from '../../services/translationService';
@@ -416,13 +417,20 @@ router.get(
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  GET /api/v1/ebooks/:id/chapters/:chapter_id
+//
+//  Response shape (snake_case JSON, non-null primitives via safeResponse helpers):
+//    {
+//      chapter:    { id, chapter_index, title, word_count, tts_status, tts_progress },
+//      paragraphs: [{ id, paragraph_index, text, word_count, translation_vi,
+//                     audio_url, audio_status, duration_ms }, ...],
+//      progress:   { current_paragraph_index, total_time_sec }
+//    }
 // ─────────────────────────────────────────────────────────────────────────────
 router.get(
   '/:id/chapters/:chapter_id',
   asyncHandler(async (req: ApiRequest, res: Response) => {
     const userId = req.user!.id;
     const { id: ebookId, chapter_id: chapterId } = req.params;
-    const includeTranslations = req.query.include_translations === 'true';
 
     // Fetch ebook + chapter in parallel
     const [ebookRows, chapterRows] = await Promise.all([
@@ -431,7 +439,9 @@ router.get(
         [ebookId]
       ),
       pool.query(
-        `SELECT id, chapter_index, title, word_count, has_tts
+        `SELECT id, chapter_index, title, word_count,
+                COALESCE(tts_status, 'none') AS tts_status,
+                COALESCE(tts_progress, 0)    AS tts_progress
          FROM chapters WHERE id = $1 AND ebook_id = $2`,
         [chapterId, ebookId]
       ),
@@ -458,20 +468,18 @@ router.get(
       );
     }
 
-    // Paragraphs + progress
-    const paragraphCols = includeTranslations
-      ? 'id, paragraph_index, text, word_count, translation_vi, audio_url, duration_ms'
-      : 'id, paragraph_index, text, word_count, audio_url, duration_ms';
-
     const [paragraphRows, progressRows] = await Promise.all([
       pool.query(
-        `SELECT ${paragraphCols}
+        `SELECT id, paragraph_index, text, word_count, translation_vi,
+                audio_url,
+                COALESCE(audio_status, 'none') AS audio_status,
+                duration_ms
          FROM paragraphs WHERE chapter_id = $1
          ORDER BY paragraph_index ASC`,
         [chapterId]
       ),
       pool.query(
-        `SELECT current_paragraph_index
+        `SELECT current_paragraph_index, total_time_sec
          FROM user_reading_progress WHERE ebook_id = $1 AND user_id = $2`,
         [ebookId, userId]
       ),
@@ -485,26 +493,121 @@ router.get(
       [userId, ebookId]
     ).catch((err) => console.error('[ebooks] last_read_at update failed:', err));
 
+    const progressRow = progressRows.rows[0] ?? {};
+
     return apiSuccess(res, {
       chapter: {
-        id: chapter.id,
-        index: chapter.chapter_index,
-        title: chapter.title,
-        word_count: chapter.word_count,
-        has_tts: chapter.has_tts,
+        id: s(chapter.id),
+        chapter_index: n(chapter.chapter_index),
+        title: s(chapter.title),
+        word_count: n(chapter.word_count),
+        tts_status: s(chapter.tts_status) || 'none',
+        tts_progress: n(chapter.tts_progress),
       },
       paragraphs: paragraphRows.rows.map((p: any) => ({
-        id: p.id,
-        index: p.paragraph_index,
-        text: p.text,
-        word_count: p.word_count,
-        ...(includeTranslations ? { translation_vi: p.translation_vi ?? null } : {}),
-        audio_url: p.audio_url ?? null,
-        duration_ms: p.duration_ms ?? null,
+        id: s(p.id),
+        paragraph_index: n(p.paragraph_index),
+        text: s(p.text),
+        word_count: n(p.word_count),
+        translation_vi: s(p.translation_vi),
+        audio_url: s(p.audio_url),
+        audio_status: s(p.audio_status) || 'none',
+        duration_ms: n(p.duration_ms),
       })),
       progress: {
-        current_paragraph_index: progressRows.rows[0]?.current_paragraph_index ?? 0,
+        current_paragraph_index: n(progressRow.current_paragraph_index),
+        total_time_sec: n(progressRow.total_time_sec),
       },
+    });
+  })
+);
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  GET /api/v1/ebooks/:id/chapters/:chapter_id/audio-playlist
+//
+//  Optimized for continuous audio playback. Returns only paragraphs whose audio
+//  is ready, plus aggregate playlist metadata. Mobile decides UX based on
+//  `is_fully_ready` and `playable_paragraphs_count`.
+// ─────────────────────────────────────────────────────────────────────────────
+router.get(
+  '/:id/chapters/:chapter_id/audio-playlist',
+  asyncHandler(async (req: ApiRequest, res: Response) => {
+    const userId = req.user!.id;
+    const { id: ebookId, chapter_id: chapterId } = req.params;
+
+    const [ebookRows, chapterRows] = await Promise.all([
+      pool.query(
+        `SELECT id, required_plan, status FROM ebooks WHERE id = $1`,
+        [ebookId]
+      ),
+      pool.query(
+        `SELECT id, chapter_index, title
+         FROM chapters WHERE id = $1 AND ebook_id = $2`,
+        [chapterId, ebookId]
+      ),
+    ]);
+
+    if (ebookRows.rows.length === 0 || ebookRows.rows[0].status !== 'published') {
+      return apiError(res, 404, 'NOT_FOUND', 'Ebook không tồn tại');
+    }
+    if (chapterRows.rows.length === 0) {
+      return apiError(res, 404, 'NOT_FOUND', 'Chapter không tồn tại');
+    }
+
+    const ebook = ebookRows.rows[0];
+    const chapter = chapterRows.rows[0];
+
+    // Access check: same rule as chapter detail — preview chapter is free.
+    const requiredTier = PLAN_TIER[ebook.required_plan] ?? 0;
+    const userTier = await getUserPlanTier(userId);
+    if (userTier < requiredTier && chapter.chapter_index > 0) {
+      return apiError(
+        res, 403, 'FEATURE_NOT_AVAILABLE',
+        'Upgrade required to listen to this chapter'
+      );
+    }
+
+    const [totalRows, playableRows] = await Promise.all([
+      pool.query<{ total: number }>(
+        `SELECT COUNT(*)::int AS total
+           FROM paragraphs WHERE chapter_id = $1`,
+        [chapterId]
+      ),
+      pool.query(
+        `SELECT id, paragraph_index, text, audio_url, duration_ms
+           FROM paragraphs
+          WHERE chapter_id = $1
+            AND audio_status = 'ready'
+            AND audio_url IS NOT NULL
+            AND audio_url <> ''
+          ORDER BY paragraph_index ASC`,
+        [chapterId]
+      ),
+    ]);
+
+    const totalParagraphs = n(totalRows.rows[0]?.total);
+    const playableCount = playableRows.rows.length;
+    const totalDurationMs = playableRows.rows.reduce(
+      (sum: number, row: any) => sum + n(row.duration_ms),
+      0
+    );
+
+    const playlist = a<any>(playableRows.rows).map((p: any) => ({
+      paragraph_id: s(p.id),
+      paragraph_index: n(p.paragraph_index),
+      audio_url: s(p.audio_url),
+      duration_ms: n(p.duration_ms),
+      text_preview: s(p.text).slice(0, 100),
+    }));
+
+    return apiSuccess(res, {
+      chapter_id: s(chapter.id),
+      chapter_title: s(chapter.title),
+      total_paragraphs_in_chapter: totalParagraphs,
+      playable_paragraphs_count: n(playableCount),
+      is_fully_ready: b(totalParagraphs > 0 && playableCount === totalParagraphs),
+      total_duration_ms: n(totalDurationMs),
+      playlist,
     });
   })
 );
