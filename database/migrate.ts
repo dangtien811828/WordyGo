@@ -40,6 +40,8 @@ const migrations: MigrationDef[] = [
   { name: 'Phase 8: retrieval_practice_daily feature quotas', file: './migrations/22_retrieval_feature_quotas' },
   { name: 'TTS cache update (Section A snake_case schema)', file: './migrations/21_tts_cache_update' },
   { name: 'TTS cache recreate (drop legacy chapter_id schema)', file: './migrations/22_tts_cache_recreate' },
+  { name: 'Phase 10.5: decks.is_system (GENERATED) + sort_order',  file: './migrations/23_decks_system_flag' },
+  { name: 'Phase 10.5: user_deck_favorites table',                 file: './migrations/24_user_deck_favorites' },
 ];
 
 export const migrate = async (): Promise<void> => {
