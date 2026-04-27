@@ -23,6 +23,8 @@ import apiSubscriptionsRoutes from './routes/api/subscriptions';
 import apiEbooksRoutes from './routes/api/ebooks';
 import apiGamesRoutes from './routes/api/games';
 import apiRetrievalRoutes from './routes/api/retrieval';
+import apiHomeRoutes from './routes/api/home';
+import apiNotificationsRoutes from './routes/api/notifications';
 
 import authRoutes from './routes/auth';
 import dashboardRoutes from './routes/dashboard';
@@ -132,6 +134,10 @@ app.use('/api/v1/retrieval', requireApiAuth, apiRetrievalRoutes);
 app.use('/api/v1/ebooks', requireApiAuth, apiEbooksRoutes);
 //Phase 10: games (levels/word-lists/semantic-sets public; runs/leaderboard/stats auth handled per-route)
 app.use('/api/v1/games', apiGamesRoutes);
+//Phase 11: home (dashboard auth, word-of-the-day public — handled per-route)
+app.use('/api/v1/home', apiHomeRoutes);
+//Phase 11: notifications (all endpoints auth)
+app.use('/api/v1/notifications', requireApiAuth, apiNotificationsRoutes);
 // Cards routes use broad /api/v1 prefix — must come after all specific /api/v1/* mounts
 app.use('/api/v1', requireApiAuth, apiCardsRoutes);
 

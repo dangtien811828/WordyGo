@@ -56,6 +56,8 @@ const migrations: MigrationDef[] = [
   { key: '24_user_deck_favorites',    name: 'Phase 10.5: user_deck_favorites table',                   file: './migrations/24_user_deck_favorites' },
   { key: '25_chapter_tts_progress',   name: 'Phase 9.5: chapter TTS progress tracking',                file: './migrations/25_chapter_tts_progress' },
   { key: '26_word_translation_cache', name: 'Phase 9.6: word_translation_cache + word_lookups fallback fields', file: './migrations/26_word_translation_cache' },
+  { key: '27_rename_plan_features',   name: 'Rename plan_features keys to mobile convention + translation_daily quotas', file: './migrations/27_rename_plan_features' },
+  { key: '28_user_notifications',     name: 'Phase 11: user_notifications + user_fcm_tokens',          file: './migrations/28_user_notifications' },
 ];
 
 /**

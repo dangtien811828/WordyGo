@@ -1,6 +1,7 @@
 import pool from '../config/db';
 import { paginate } from '../helpers/pagination';
 import type { PoolClient } from 'pg';
+import { fireNotification } from '../services/notificationService';
 
 const Subscription = {
   /**
@@ -401,9 +402,10 @@ const Subscription = {
       await client.query('BEGIN');
 
       const { rows: txRows } = await client.query(
-        `SELECT t.*, us.billing_cycle
+        `SELECT t.*, us.billing_cycle, us.user_id, us.plan_id, sp.name AS plan_name
            FROM transactions t
            LEFT JOIN user_subscriptions us ON us.id = t.subscription_id
+           LEFT JOIN subscription_plans sp ON sp.id = us.plan_id
           WHERE t.id = $1`,
         [id]
       );
@@ -435,6 +437,19 @@ const Subscription = {
       );
 
       await client.query('COMMIT');
+
+      // Notify user — fire-and-forget, post-commit so we never roll back the
+      // approval just because notification insert fails.
+      if (tx.user_id) {
+        fireNotification({
+          userId: tx.user_id,
+          type: 'subscription_activated',
+          title: 'Đăng ký thành công',
+          message: `Gói ${tx.plan_name ?? ''} đã được kích hoạt.`.trim(),
+          linkUrl: '/subscription/me',
+        });
+      }
+
       return tx;
     } catch (err) {
       await client.query('ROLLBACK');
@@ -453,7 +468,11 @@ const Subscription = {
       await client.query('BEGIN');
 
       const { rows: txRows } = await client.query(
-        `SELECT * FROM transactions WHERE id = $1`,
+        `SELECT t.*, us.user_id, us.plan_id, sp.name AS plan_name
+           FROM transactions t
+           LEFT JOIN user_subscriptions us ON us.id = t.subscription_id
+           LEFT JOIN subscription_plans sp ON sp.id = us.plan_id
+          WHERE t.id = $1`,
         [id]
       );
       if (!txRows[0]) throw Object.assign(new Error('Transaction not found'), { code: 'NOT_FOUND' });
@@ -475,6 +494,20 @@ const Subscription = {
       );
 
       await client.query('COMMIT');
+
+      // Notify user — include reason so they understand the rejection.
+      if (tx.user_id) {
+        const planLabel = tx.plan_name ? ` cho gói ${tx.plan_name}` : '';
+        const reasonSuffix = reason ? ` Lý do: ${reason}` : '';
+        fireNotification({
+          userId: tx.user_id,
+          type: 'subscription_rejected',
+          title: 'Giao dịch bị từ chối',
+          message: `Giao dịch${planLabel} đã bị từ chối.${reasonSuffix}`,
+          linkUrl: '/subscription/transactions',
+        });
+      }
+
       return tx;
     } catch (err) {
       await client.query('ROLLBACK');

@@ -6,6 +6,7 @@ import { asyncHandler } from '../../utils/asyncHandler';
 import { apiSuccess, apiError } from '../../utils/apiResponse';
 import { addBatchToBox1 } from '../../utils/leitnerManager';
 import { updateStreak } from '../../utils/streakCalculator';
+import { createNotification } from '../../services/notificationService';
 
 const router = Router();
 
@@ -409,12 +410,58 @@ router.post(
     // Clear cache so next leaderboard request reflects the new run
     leaderboardCache.flushAll();
 
+    // Fire-and-forget: emit `achievement_unlocked` when this run pushes the
+    // user into the monthly top-50. Dedupe against the last 7 days so a user
+    // hovering near rank 50 doesn't get spammed on every new best.
+    void detectTop50Achievement(userId, game_type).catch((err) =>
+      console.error('[games] top50 detection failed:', err),
+    );
+
     const response: Record<string, any> = { run_id: runId, xp_earned: xpEarned };
     if (leitnerAdded !== null) response.leitner_added = leitnerAdded;
 
     return apiSuccess(res, response);
   })
 );
+
+async function detectTop50Achievement(userId: string, gameType: string): Promise<void> {
+  const { rows } = await pool.query<{ rank: number }>(
+    `WITH ranked AS (
+       SELECT user_id, RANK() OVER (ORDER BY MAX(score) DESC)::int AS rank
+         FROM game_runs
+        WHERE game_type = $1 AND completed = TRUE
+          AND created_at >= NOW() - INTERVAL '30 days'
+        GROUP BY user_id
+     )
+     SELECT rank FROM ranked WHERE user_id = $2 LIMIT 1`,
+    [gameType, userId],
+  );
+  const rank = rows[0]?.rank;
+  if (!rank || rank > 50) return;
+
+  // Dedupe by source_type tag inside title — keep the implementation simple
+  // (no separate "achievement_log" table). 7-day window mirrors the milestone
+  // cadence used elsewhere.
+  const titleTag = `Top 50 — ${gameType}`;
+  const { rows: dupes } = await pool.query(
+    `SELECT id FROM user_notifications
+      WHERE user_id = $1
+        AND type = 'achievement_unlocked'
+        AND title = $2
+        AND created_at >= NOW() - INTERVAL '7 days'
+      LIMIT 1`,
+    [userId, titleTag],
+  );
+  if (dupes.length > 0) return;
+
+  await createNotification({
+    userId,
+    type: 'achievement_unlocked',
+    title: titleTag,
+    message: `Chúc mừng! Bạn đang xếp hạng #${rank} trong tháng ở game ${gameType}.`,
+    linkUrl: `/games/leaderboard?game_type=${gameType}`,
+  });
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  GET /api/v1/games/leaderboard  (auth)

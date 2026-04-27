@@ -18,7 +18,9 @@
       "Bash(node -e \"const j=JSON.parse\\(require\\('fs'\\).readFileSync\\(0,'utf8'\\)\\); console.log\\(JSON.stringify\\(j.error||j.data&&{total:j.data.total}\\)\\)\")",
       "Bash(npx tsx *)",
       "Bash(npm install *)",
-      "Bash(node -e ' *)"
+      "Bash(node -e ' *)",
+      "Bash(grep -E \"\\\\.ts$\")",
+      "Bash(cat C:\\\\\\\\Users\\\\\\\\Admin\\\\\\\\.claude\\\\\\\\projects\\\\\\\\p--english-admin-websites\\\\\\\\f1202dc6-25e2-4492-a4fb-0833ad3d90ae\\\\\\\\tool-results\\\\\\\\bugg18i5o.txt)"
     ]
   }
 }

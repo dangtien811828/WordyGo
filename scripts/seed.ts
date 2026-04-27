@@ -198,12 +198,15 @@ const seed = async () => {
     // Plan features — only insert if plans were created
     if (fp && pp && pro) {
       const features = [
-        [fp,'flashcard_max_decks','2'], [fp,'review_modes','swift_choice'], [fp,'ebook_max','3'],
-        [fp,'ads','true'], [fp,'offline','limited'], [fp,'retrieval_practice_daily','false'],
+        // Free: 'no_ads' intentionally absent → mobile treats missing key as "ads shown".
+        [fp,'flashcard_max_decks','2'], [fp,'review_modes','swift_choice'], [fp,'premium_ebooks','3'],
+        [fp,'offline_access','limited'], [fp,'retrieval_practice_daily','false'], [fp,'translation_daily','5'],
         [pp,'flashcard_max_decks','20'], [pp,'review_modes','swift_choice,cloze_craft,pair_link'],
-        [pp,'ebook_max','50'], [pp,'ads','false'], [pp,'offline','full'], [pp,'retrieval_practice_daily','10'],
+        [pp,'premium_ebooks','50'], [pp,'no_ads','true'], [pp,'offline_access','full'],
+        [pp,'retrieval_practice_daily','10'], [pp,'translation_daily','50'],
         [pro,'flashcard_max_decks','unlimited'], [pro,'review_modes','swift_choice,cloze_craft,pair_link'],
-        [pro,'ebook_max','unlimited'], [pro,'ads','false'], [pro,'offline','full'], [pro,'retrieval_practice_daily','100'],
+        [pro,'premium_ebooks','unlimited'], [pro,'no_ads','true'], [pro,'offline_access','full'],
+        [pro,'retrieval_practice_daily','100'], [pro,'translation_daily','unlimited'],
       ];
       for (const [p,k,v] of features as [string,string,string][])
         await client.query('INSERT INTO plan_features (plan_id,feature_key,feature_value) VALUES ($1,$2,$3) ON CONFLICT DO NOTHING',[p,k,v]);

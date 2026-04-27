@@ -1,6 +1,9 @@
 import pool from '../config/db';
+import { fireNotification } from '../services/notificationService';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
+
+const STREAK_MILESTONES = [7, 30, 100] as const;
 
 export interface StreakResult {
   current: number;
@@ -60,9 +63,21 @@ export async function calculateStreak(userId: string): Promise<StreakResult> {
 /**
  * Recalculate + persist streak vào bảng users + cập nhật last_active_at.
  * Dùng từ trackActivity middleware; an toàn khi gọi sai (best-effort).
+ *
+ * Side effect: fires an `achievement_unlocked` notification when the new
+ * `streak_current` crosses a milestone (7/30/100) that was not crossed before.
+ * The pre-update read uses the row's old value as the "previous" baseline so
+ * repeated calls within the same day do NOT re-emit (current stays equal).
  */
 export async function updateStreak(userId: string): Promise<void> {
   const { current, longest } = await calculateStreak(userId);
+
+  const { rows: prevRows } = await pool.query<{ streak_current: number | null }>(
+    `SELECT streak_current FROM users WHERE id = $1`,
+    [userId]
+  );
+  const previous = Number(prevRows[0]?.streak_current ?? 0);
+
   await pool.query(
     `UPDATE users SET
        streak_current = $1,
@@ -71,4 +86,16 @@ export async function updateStreak(userId: string): Promise<void> {
      WHERE id = $3`,
     [current, longest, userId]
   );
+
+  for (const milestone of STREAK_MILESTONES) {
+    if (previous < milestone && current >= milestone) {
+      fireNotification({
+        userId,
+        type: 'achievement_unlocked',
+        title: `Streak ${milestone} ngày!`,
+        message: `Bạn đã học liên tục ${milestone} ngày. Tiếp tục giữ phong độ nhé!`,
+        linkUrl: '/profile/achievements',
+      });
+    }
+  }
 }
