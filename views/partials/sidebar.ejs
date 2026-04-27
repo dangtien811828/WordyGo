@@ -20,10 +20,7 @@
       <span class="nav-icon">📖</span>
       <span class="nav-label">Từ điển</span>
     </a>
-    <a href="/lessons" class="nav-item <%= typeof active !== 'undefined' && active === 'lessons' ? 'active' : '' %>">
-      <span class="nav-icon">📚</span>
-      <span class="nav-label">Bài học</span>
-    </a>
+    <%# Bài học (lessons) — đã ẩn khỏi sidebar; route /lessons vẫn hoạt động qua URL %>
     <a href="/decks" class="nav-item <%= typeof active !== 'undefined' && active === 'flashcards' ? 'active' : '' %>">
       <span class="nav-icon">🃏</span>
       <span class="nav-label">Flashcard Decks</span>

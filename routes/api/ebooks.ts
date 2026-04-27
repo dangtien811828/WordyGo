@@ -176,7 +176,7 @@ router.get(
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  GET /api/v1/ebooks — list published ebooks
-//  query: filter=reading|finished|favorites, genre, level, page, limit
+//  query: search, filter=reading|finished|favorites, genre, level, page, limit
 // ─────────────────────────────────────────────────────────────────────────────
 router.get(
   '/',
@@ -187,11 +187,23 @@ router.get(
     const genre  = req.query.genre  ? String(req.query.genre)  : null;
     const level  = req.query.level  ? String(req.query.level)  : null;
 
+    // Search: free-text against title + author (ILIKE, case-insensitive).
+    // Empty/whitespace → no search filter. Escape SQL LIKE wildcards (% _ \) so
+    // a user typing "100%" doesn't accidentally match everything.
+    const searchRaw = req.query.search ? String(req.query.search).trim() : '';
+    const search = searchRaw.length > 0
+      ? `%${searchRaw.replace(/[\\%_]/g, '\\$&')}%`
+      : null;
+
     // ── Generic column filters (no userId dependency in WHERE) ────────────────
     // Each entry: condition template with $IDX replaced per-query, and value.
     const colFilters: Array<{ tpl: string; value: unknown }> = [];
-    if (genre) colFilters.push({ tpl: `$IDX = ANY(e.genre)`, value: genre });
-    if (level) colFilters.push({ tpl: `e.level = $IDX`,      value: level });
+    if (genre)  colFilters.push({ tpl: `$IDX = ANY(e.genre)`, value: genre });
+    if (level)  colFilters.push({ tpl: `e.level = $IDX`,      value: level });
+    if (search) colFilters.push({
+      tpl: `(e.title ILIKE $IDX ESCAPE '\\' OR e.author ILIKE $IDX ESCAPE '\\')`,
+      value: search,
+    });
 
     // ── Items query ───────────────────────────────────────────────────────────
     // $1 = userId (LEFT JOIN conditions), filter params start at $2.

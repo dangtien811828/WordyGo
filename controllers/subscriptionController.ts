@@ -19,6 +19,31 @@ function parseMethodIds(body: any): string[] {
   return ([] as string[]).concat(raw).filter(Boolean);
 }
 
+// Returns the safe set of method IDs to persist for a plan.
+// Strict for new ticks (must be active), but preserves existing legacy links
+// to methods that were active when linked but later deactivated.
+async function filterMethodIds(
+  requestedIds: string[],
+  existingPlanId: string | null,
+): Promise<string[]> {
+  const allMethods = await PaymentMethod.findAll();
+  const activeIds = new Set<string>(
+    allMethods.filter((m: any) => m.is_active).map((m: any) => m.id)
+  );
+
+  const activeRequested = requestedIds.filter(rid => activeIds.has(rid));
+
+  let legacyInactive: string[] = [];
+  if (existingPlanId) {
+    const existing = await PaymentMethod.getByPlan(existingPlanId);
+    legacyInactive = existing
+      .filter((m: any) => !activeIds.has(m.id))
+      .map((m: any) => m.id);
+  }
+
+  return Array.from(new Set([...activeRequested, ...legacyInactive]));
+}
+
 function parsePlanData(body: any) {
   return {
     name:           (body.name || '').trim(),
@@ -107,7 +132,8 @@ const subscriptionController = {
         return res.redirect('/subscriptions/plans/new');
       }
 
-      const plan = await Subscription.createPlan(data, features, methodIds);
+      const safeIds = await filterMethodIds(methodIds, null);
+      const plan = await Subscription.createPlan(data, features, safeIds);
       req.flash('success', `Đã tạo gói "${plan.name}" thành công`);
       return res.redirect('/subscriptions/plans');
     } catch (err) {
@@ -155,7 +181,8 @@ const subscriptionController = {
         return res.redirect(`/subscriptions/plans/${id}/edit`);
       }
 
-      const plan = await Subscription.updatePlan(id, data, features, methodIds);
+      const safeIds = await filterMethodIds(methodIds, id);
+      const plan = await Subscription.updatePlan(id, data, features, safeIds);
       if (!plan) {
         req.flash('error', 'Gói đăng ký không tồn tại');
         return res.redirect('/subscriptions/plans');
@@ -290,6 +317,7 @@ const subscriptionController = {
           : null;
 
         const accountInfo = buildAccountInfo(req.body);
+        const finalLogoUrl = logo_url || req.body.logo_url_manual || null;
 
         // Validate code format
         if (!/^[a-z_]+$/.test((req.body.code || '').trim())) {
@@ -297,21 +325,38 @@ const subscriptionController = {
           return res.redirect('/subscriptions/payment-methods/new');
         }
 
+        let isActive = req.body.is_active === 'on' || req.body.is_active === 'true';
+        let autoDeactivated = false;
+        if (isActive) {
+          const validation = validatePaymentMethodConfig({
+            method_type:     req.body.method_type,
+            account_info:    accountInfo,
+            logo_url:        finalLogoUrl,
+            instructions_vi: req.body.instructions_vi || null,
+          });
+          if (!validation.is_valid) {
+            isActive = false;
+            autoDeactivated = true;
+            req.flash('warning',
+              `Đã tạo nhưng tự động deactivate vì thiếu: ${validation.missing_fields.join(', ')}`);
+          }
+        }
+
         await PaymentMethod.create({
           code:            (req.body.code || '').trim(),
           display_name:    (req.body.display_name || '').trim(),
           description:     req.body.description || null,
-          logo_url:        logo_url || req.body.logo_url_manual || null,
+          logo_url:        finalLogoUrl,
           method_type:     req.body.method_type,
           account_info:    accountInfo,
           instructions_vi: req.body.instructions_vi || null,
           instructions_en: req.body.instructions_en || null,
           fee_percent:     req.body.fee_percent || 0,
-          is_active:       req.body.is_active === 'on' || req.body.is_active === 'true',
+          is_active:       isActive,
           sort_order:      req.body.sort_order || 0,
         });
 
-        req.flash('success', 'Đã thêm phương thức thanh toán');
+        if (!autoDeactivated) req.flash('success', 'Đã thêm phương thức thanh toán');
         return res.redirect('/subscriptions/payment-methods');
       } catch (e: any) {
         console.error('[Subscriptions] postCreatePaymentMethod error:', e);

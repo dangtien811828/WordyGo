@@ -179,6 +179,82 @@ describe('GET /api/v1/ebooks', () => {
     const res = await request(app).get('/api/v1/ebooks');
     expect(res.status).toBe(401);
   });
+
+  // ── search ───────────────────────────────────────────────────────────────
+  it('search by partial title narrows to matching ebooks', async () => {
+    // Seeded titles include `Test Ebook ${TS}` and `Premium Ebook ${TS}`.
+    const res = await request(app)
+      .get(`/api/v1/ebooks?search=Premium`)
+      .set('Authorization', `Bearer ${access_token}`);
+
+    expect(res.status).toBe(200);
+    const { items } = res.body.data;
+    expect(items.find((e: any) => e.id === testEbook2Id)).toBeDefined();
+    expect(items.find((e: any) => e.id === testEbookId)).toBeUndefined();
+  });
+
+  it('search by author works', async () => {
+    const res = await request(app)
+      .get(`/api/v1/ebooks?search=Premium%20Author`)
+      .set('Authorization', `Bearer ${access_token}`);
+
+    expect(res.status).toBe(200);
+    expect(res.body.data.items.find((e: any) => e.id === testEbook2Id)).toBeDefined();
+  });
+
+  it('search is case-insensitive', async () => {
+    const res = await request(app)
+      .get(`/api/v1/ebooks?search=premium`)
+      .set('Authorization', `Bearer ${access_token}`);
+
+    expect(res.status).toBe(200);
+    expect(res.body.data.items.find((e: any) => e.id === testEbook2Id)).toBeDefined();
+  });
+
+  it('search combines with level filter', async () => {
+    const res = await request(app)
+      .get(`/api/v1/ebooks?search=Ebook&level=advanced`)
+      .set('Authorization', `Bearer ${access_token}`);
+
+    expect(res.status).toBe(200);
+    const { items } = res.body.data;
+    // Only the advanced/premium ebook should match (title contains "Ebook" + level=advanced).
+    expect(items.find((e: any) => e.id === testEbook2Id)).toBeDefined();
+    expect(items.find((e: any) => e.id === testEbookId)).toBeUndefined();
+  });
+
+  it('empty/whitespace search behaves like no filter', async () => {
+    const res = await request(app)
+      .get(`/api/v1/ebooks?search=%20%20`)
+      .set('Authorization', `Bearer ${access_token}`);
+
+    expect(res.status).toBe(200);
+    // Both seeded ebooks should be present.
+    const ids = res.body.data.items.map((e: any) => e.id);
+    expect(ids).toEqual(expect.arrayContaining([testEbookId, testEbook2Id]));
+  });
+
+  it('search escapes SQL LIKE wildcards (% _) so they match literally', async () => {
+    // None of our seeded titles contain literal '%' or '_'.
+    const res = await request(app)
+      .get(`/api/v1/ebooks?search=%25`) // %25 → '%'
+      .set('Authorization', `Bearer ${access_token}`);
+
+    expect(res.status).toBe(200);
+    // Should match nothing (no title actually contains a percent sign).
+    expect(res.body.data.items.find((e: any) => e.id === testEbookId)).toBeUndefined();
+    expect(res.body.data.items.find((e: any) => e.id === testEbook2Id)).toBeUndefined();
+  });
+
+  it('search with no matches returns empty list', async () => {
+    const res = await request(app)
+      .get(`/api/v1/ebooks?search=zzzzznosuchbookever${TS}`)
+      .set('Authorization', `Bearer ${access_token}`);
+
+    expect(res.status).toBe(200);
+    expect(res.body.data.items).toHaveLength(0);
+    expect(res.body.data.total).toBe(0);
+  });
 });
 
 // ─────────────────────────────────────────────────────────────────────────────

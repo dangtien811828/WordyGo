@@ -238,44 +238,44 @@ const seed = async () => {
       console.log('  [!] Plans already exist — skipped features & subscriptions');
     }
 
-    // ── 4. EBOOKS (2 mẫu) ──
-    console.log('\n── 4. Sample Ebooks ──');
-    const b1 = await ins(client,
-      `INSERT INTO ebooks (title,author,description,epub_file_url,level,genre,total_chapters,total_words,required_plan,status,created_by)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
-       ON CONFLICT DO NOTHING RETURNING id`,
-      ['The Little Prince','Antoine de Saint-Exupéry','Câu chuyện triết lý về tình bạn, tình yêu và cuộc sống qua hành trình của chàng hoàng tử nhỏ.',
-       '/uploads/ebooks/little-prince.epub','beginner',['fiction'],5,15200,'free','published',mainEditor]);
-    const b2 = await ins(client,
-      `INSERT INTO ebooks (title,author,description,epub_file_url,level,genre,total_chapters,total_words,required_plan,status,created_by)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
-       ON CONFLICT DO NOTHING RETURNING id`,
-      ['Atomic Habits','James Clear','Phương pháp xây dựng thói quen tốt, loại bỏ thói quen xấu. Cuốn sách best-seller toàn cầu.',
-       '/uploads/ebooks/atomic-habits.epub','intermediate',['non_fiction','self_help'],8,52000,'premium','published',mainEditor]);
+    // // ── 4. EBOOKS (2 mẫu) ──
+    // console.log('\n── 4. Sample Ebooks ──');
+    // const b1 = await ins(client,
+    //   `INSERT INTO ebooks (title,author,description,epub_file_url,level,genre,total_chapters,total_words,required_plan,status,created_by)
+    //    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
+    //    ON CONFLICT DO NOTHING RETURNING id`,
+    //   ['The Little Prince','Antoine de Saint-Exupéry','Câu chuyện triết lý về tình bạn, tình yêu và cuộc sống qua hành trình của chàng hoàng tử nhỏ.',
+    //    '/uploads/ebooks/little-prince.epub','beginner',['fiction'],5,15200,'free','published',mainEditor]);
+    // const b2 = await ins(client,
+    //   `INSERT INTO ebooks (title,author,description,epub_file_url,level,genre,total_chapters,total_words,required_plan,status,created_by)
+    //    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
+    //    ON CONFLICT DO NOTHING RETURNING id`,
+    //   ['Atomic Habits','James Clear','Phương pháp xây dựng thói quen tốt, loại bỏ thói quen xấu. Cuốn sách best-seller toàn cầu.',
+    //    '/uploads/ebooks/atomic-habits.epub','intermediate',['non_fiction','self_help'],8,52000,'premium','published',mainEditor]);
 
-    if (b1) {
-      for (const [idx, title, wc] of [[1,'The Pilot',2800],[2,'The Asteroid',3100],[3,'The Rose',2500],[4,'The Fox',3400],[5,'The Journey Home',3200]] as [number,string,number][])
-        await client.query('INSERT INTO chapters (ebook_id,chapter_index,title,word_count) VALUES ($1,$2,$3,$4)', [b1,idx,title,wc]);
-    }
-    if (b2) {
-      for (const [idx, title, wc] of [[1,'The Surprising Power of Atomic Habits',6200],[2,'How Your Habits Shape Your Identity',5800],[3,'How to Build Better Habits in 4 Steps',7100],[4,'Make It Obvious',6500],[5,'Make It Attractive',5900],[6,'Make It Easy',6100],[7,'Make It Satisfying',5500],[8,'Advanced Tactics',4900]] as [number,string,number][])
-        await client.query('INSERT INTO chapters (ebook_id,chapter_index,title,word_count) VALUES ($1,$2,$3,$4)', [b2,idx,title,wc]);
-    }
-    console.log('  [✓] 2 ebooks + 13 chapters');
+    // if (b1) {
+    //   for (const [idx, title, wc] of [[1,'The Pilot',2800],[2,'The Asteroid',3100],[3,'The Rose',2500],[4,'The Fox',3400],[5,'The Journey Home',3200]] as [number,string,number][])
+    //     await client.query('INSERT INTO chapters (ebook_id,chapter_index,title,word_count) VALUES ($1,$2,$3,$4)', [b1,idx,title,wc]);
+    // }
+    // if (b2) {
+    //   for (const [idx, title, wc] of [[1,'The Surprising Power of Atomic Habits',6200],[2,'How Your Habits Shape Your Identity',5800],[3,'How to Build Better Habits in 4 Steps',7100],[4,'Make It Obvious',6500],[5,'Make It Attractive',5900],[6,'Make It Easy',6100],[7,'Make It Satisfying',5500],[8,'Advanced Tactics',4900]] as [number,string,number][])
+    //     await client.query('INSERT INTO chapters (ebook_id,chapter_index,title,word_count) VALUES ($1,$2,$3,$4)', [b2,idx,title,wc]);
+    // }
+    // console.log('  [✓] 2 ebooks + 13 chapters');
 
-    // Reading progress for some users
-    if (b1 && b2) {
-      for (let i = 0; i < 15; i++) {
-        const ebook = i < 10 ? b1 : b2;
-        const maxCh = i < 10 ? 5 : 8;
-        const ch = randInt(1, maxCh);
-        await client.query(
-          `INSERT INTO user_reading_progress (user_id,ebook_id,current_chapter,progress,total_time_sec,words_looked_up,started_at,last_read_at)
-           VALUES ($1,$2,$3,$4,$5,$6,$7,$8) ON CONFLICT DO NOTHING`,
-          [userIds[i], ebook, ch, +(ch/maxCh).toFixed(2), randInt(1200,9000), randInt(5,80), daysAgo(randInt(3,20)), hoursAgo(randInt(1,72))]);
-      }
-      console.log('  [✓] 15 reading progress records');
-    }
+    // // Reading progress for some users
+    // if (b1 && b2) {
+    //   for (let i = 0; i < 15; i++) {
+    //     const ebook = i < 10 ? b1 : b2;
+    //     const maxCh = i < 10 ? 5 : 8;
+    //     const ch = randInt(1, maxCh);
+    //     await client.query(
+    //       `INSERT INTO user_reading_progress (user_id,ebook_id,current_chapter,progress,total_time_sec,words_looked_up,started_at,last_read_at)
+    //        VALUES ($1,$2,$3,$4,$5,$6,$7,$8) ON CONFLICT DO NOTHING`,
+    //       [userIds[i], ebook, ch, +(ch/maxCh).toFixed(2), randInt(1200,9000), randInt(5,80), daysAgo(randInt(3,20)), hoursAgo(randInt(1,72))]);
+    //   }
+    //   console.log('  [✓] 15 reading progress records');
+    // }
 
     // ── 5. SYSTEM CONFIGS ──
     console.log('\n── 5. System Configs ──');

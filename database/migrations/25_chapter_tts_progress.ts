@@ -13,7 +13,7 @@ import { Pool } from 'pg';
  * Note: paragraphs.audio_url already exists from migration 18.
  */
 
-export async function up(pool: Pool): Promise<void> {
+const migration = async (pool: Pool): Promise<void> => {
   // 1. Add TTS tracking columns to paragraphs table
   await pool.query(`
     ALTER TABLE paragraphs
@@ -44,29 +44,7 @@ export async function up(pool: Pool): Promise<void> {
       ON paragraphs(audio_status);
   `);
 
-  console.log('✓ Migration 21: Chapter TTS progress tracking added');
-}
+  console.log('✓ Migration 25: Chapter TTS progress tracking added');
+};
 
-export async function down(pool: Pool): Promise<void> {
-  // Drop indexes first
-  await pool.query(`DROP INDEX IF EXISTS idx_paragraphs_audio_status;`);
-  await pool.query(`DROP INDEX IF EXISTS idx_chapters_tts_status;`);
-
-  // Remove columns from chapters
-  await pool.query(`
-    ALTER TABLE chapters
-      DROP COLUMN IF EXISTS tts_completed_at,
-      DROP COLUMN IF EXISTS tts_started_at,
-      DROP COLUMN IF EXISTS tts_status,
-      DROP COLUMN IF EXISTS tts_progress;
-  `);
-
-  // Remove columns from paragraphs
-  await pool.query(`
-    ALTER TABLE paragraphs
-      DROP COLUMN IF EXISTS audio_error,
-      DROP COLUMN IF EXISTS audio_status;
-  `);
-
-  console.log('✓ Migration 21 rolled back');
-}
+export = migration;

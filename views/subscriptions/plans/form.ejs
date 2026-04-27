@@ -105,11 +105,24 @@ function fmtDate(ts) {
         <p style="margin:0 0 14px;font-size:13px;color:#718096">Chọn các phương thức thanh toán được chấp nhận cho gói này</p>
         <% if (allMethods.length > 0) { %>
           <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">
-            <% allMethods.forEach(function(m) { %>
-              <label style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;cursor:pointer;background:<%= planMethodIds.includes(m.id) ? '#ebf8ff' : '#fff' %>">
+            <%
+              // Inactive methods cannot be ticked. Existing legacy links
+              // (already-linked-but-now-inactive) are preserved server-side
+              // — see filterMethodIds() in subscriptionController.ts.
+            %>
+            <% allMethods.forEach(function(m) {
+                 const isLinked = planMethodIds.includes(m.id);
+                 const isDisabled = !m.is_active;
+                 const bg = isLinked ? '#ebf8ff' : '#fff';
+                 const cursor = isDisabled ? 'not-allowed' : 'pointer';
+                 const opacity = isDisabled ? 0.55 : 1;
+            %>
+              <label style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;cursor:<%= cursor %>;background:<%= bg %>;opacity:<%= opacity %>"
+                     <% if (isDisabled) { %>title="Method này đang inactive — cần activate trước khi gán cho plan"<% } %>>
                 <input type="checkbox" name="payment_method_ids[]" value="<%= m.id %>"
-                       <%= planMethodIds.includes(m.id) ? 'checked' : '' %>
-                       onchange="this.closest('label').style.background=this.checked?'#ebf8ff':'#fff'">
+                       <%= isLinked ? 'checked' : '' %>
+                       <%= isDisabled ? 'disabled' : '' %>
+                       <% if (!isDisabled) { %>onchange="this.closest('label').style.background=this.checked?'#ebf8ff':'#fff'"<% } %>>
                 <% if (m.logo_url) { %>
                   <img src="<%= m.logo_url %>" alt="" style="width:24px;height:24px;object-fit:contain">
                 <% } %>
@@ -117,8 +130,10 @@ function fmtDate(ts) {
                   <div style="font-size:13px;font-weight:500"><%= m.display_name %></div>
                   <div style="font-size:11px;color:#718096"><%= m.method_type %><%= m.fee_percent > 0 ? ' · ' + m.fee_percent + '%' : '' %></div>
                 </div>
-                <% if (!m.is_active) { %>
-                  <span class="badge badge-secondary" style="font-size:10px;margin-left:auto">inactive</span>
+                <% if (isDisabled && isLinked) { %>
+                  <span class="badge badge-warning" style="font-size:10px;margin-left:auto" title="Link cũ được giữ lại — reactivate method để chỉnh sửa">Inactive (legacy link)</span>
+                <% } else if (isDisabled) { %>
+                  <span class="badge badge-secondary" style="font-size:10px;margin-left:auto">Inactive</span>
                 <% } %>
               </label>
             <% }) %>
