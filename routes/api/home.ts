@@ -6,6 +6,7 @@ import { asyncHandler } from '../../utils/asyncHandler';
 import { apiSuccess, apiError } from '../../utils/apiResponse';
 import { computeSubscriptionBadge } from '../../utils/subscriptionHelper';
 import { FULL_ENTRY_SQL } from '../../utils/entryQueries';
+import { calculateStreak } from '../../utils/streakCalculator';
 
 const router = Router();
 
@@ -43,9 +44,16 @@ router.get(
     const sevenStartKey = new Date(midnightMs - 6 * DAY_MS).toISOString().slice(0, 10);
 
     // Fan out: 10 independent queries + the WOD lookup in parallel.
+    //
+    // Streak is computed live (not read from users.streak_current) because
+    // that column only gets refreshed via trackActivity on study endpoints
+    // (flashcard/review/game/lookup). A user who only opens the home tab
+    // would otherwise see a value frozen at their last study session — even
+    // if that was weeks ago — while last_7_days correctly shows the gaps.
     const [
       userR,
       badge,
+      streakLive,
       sevenR,
       leitnerR,
       practiceR,
@@ -57,13 +65,13 @@ router.get(
       wodEntry,
     ] = await Promise.all([
       pool.query(
-        `SELECT id, full_name, avatar_url, level,
-                streak_current, streak_longest
+        `SELECT id, full_name, avatar_url, level, streak_longest
            FROM users
           WHERE id = $1`,
         [userId],
       ),
       computeSubscriptionBadge(userId),
+      calculateStreak(userId),
       pool.query<{ d: string }>(
         `SELECT DISTINCT TO_CHAR(created_at AT TIME ZONE 'UTC', 'YYYY-MM-DD') AS d
            FROM user_activity_log
@@ -216,8 +224,10 @@ router.get(
         subscription_badge: badge,
       },
       streak: {
-        current: Number(userRow.streak_current ?? 0),
-        longest: Number(userRow.streak_longest ?? 0),
+        current: streakLive.current,
+        // Stored longest is monotonic — keep whichever is greater so a
+        // historical peak isn't lost if user_activity_log was ever pruned.
+        longest: Math.max(streakLive.longest, Number(userRow.streak_longest ?? 0)),
         last_7_days: lastSevenDays,
       },
       due_review: {

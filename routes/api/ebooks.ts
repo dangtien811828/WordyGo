@@ -212,7 +212,8 @@ router.get(
 
     for (const f of colFilters) {
       itemsParams.push(f.value);
-      itemsConditions.push(f.tpl.replace('$IDX', `$${itemsParams.length}`));
+      // Use replaceAll-style regex — search tpl repeats $IDX (title + author).
+      itemsConditions.push(f.tpl.replace(/\$IDX/g, `$${itemsParams.length}`));
     }
 
     if (filter === 'favorites') {
@@ -249,12 +250,12 @@ router.get(
     const countOnlyParams: unknown[] = [];
     const countOnlyConditions = colFilters.map((f) => {
       countOnlyParams.push(f.value);
-      return f.tpl.replace('$IDX', `$${countOnlyParams.length}`);
+      return f.tpl.replace(/\$IDX/g, `$${countOnlyParams.length}`);
     });
 
     // col filter conditions shifted by +1 (when userId occupies $1)
     const countShiftedConditions = colFilters.map((f, i) =>
-      f.tpl.replace('$IDX', `$${i + 2}`)
+      f.tpl.replace(/\$IDX/g, `$${i + 2}`)
     );
 
     let countQuery: string;

@@ -100,6 +100,43 @@ describe('GET /api/v1/home/dashboard', () => {
     expect(res.status).toBe(401);
     expect(res.body.error.code).toBe('NO_TOKEN');
   });
+
+  it('streak.current is computed fresh, not the stale users.streak_current value', async () => {
+    // Regression: trackActivity middleware only fires on study endpoints,
+    // so users.streak_current can hold a value from weeks ago. Dashboard must
+    // recompute from user_activity_log so the number matches last_7_days.
+    const stale = await registerUser(`${SUFFIX}-stale`);
+
+    // Forge a stale "30-day streak" with no actual activity rows.
+    await pool.query(
+      `UPDATE users SET streak_current = 30, streak_longest = 30 WHERE id = $1`,
+      [stale.userId],
+    );
+
+    const res = await request(app)
+      .get('/api/v1/home/dashboard')
+      .set(auth(stale.accessToken));
+
+    expect(res.status).toBe(200);
+    expect(res.body.data.streak.current).toBe(0);
+    // last_7_days must agree — no had_activity:true anywhere.
+    expect(
+      res.body.data.streak.last_7_days.every((d: any) => d.had_activity === false),
+    ).toBe(true);
+  });
+
+  it('streak.current counts today when activity exists today', async () => {
+    const active = await registerUser(`${SUFFIX}-active`);
+    await pool.query(
+      `INSERT INTO user_activity_log (user_id, action) VALUES ($1, 'flashcard')`,
+      [active.userId],
+    );
+    const res = await request(app)
+      .get('/api/v1/home/dashboard')
+      .set(auth(active.accessToken));
+    expect(res.status).toBe(200);
+    expect(res.body.data.streak.current).toBe(1);
+  });
 });
 
 describe('GET /api/v1/home/word-of-the-day', () => {

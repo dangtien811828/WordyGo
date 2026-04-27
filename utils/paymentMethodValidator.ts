@@ -11,9 +11,8 @@ export function validatePaymentMethodConfig(method: {
 }): ValidationResult {
   const missing: string[] = [];
 
-  if (!method.logo_url)       missing.push('logo_url');
-  if (!method.instructions_vi) missing.push('instructions_vi');
-
+  // logo_url and instructions_vi are optional — admin can activate without them.
+  // Only account_info fields specific to method_type are required.
   const info = method.account_info ?? {};
 
   switch (method.method_type) {
