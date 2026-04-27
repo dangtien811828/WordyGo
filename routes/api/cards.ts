@@ -71,12 +71,26 @@ router.get(
     const deck = await getDeckForRead(deckId, userId, res);
     if (!deck) return;
 
+    // Per-user SRS state lives in `leitner_cards` (renamed from "leitner_progress"
+    // in user prompt). LEFT JOIN on (user_id, entry_id) — the table's UNIQUE
+    // index covers this lookup.
+    //
+    // Field rename for canonical card shape:
+    //   leitner_box_number → leitner_box
+    //   leitner_due_at     → due_at
+    // Plus new fields surfaced for mobile SRS UI: last_reviewed_at,
+    // correct_streak, total_reviews. Cards not yet in Leitner: leitner_box +
+    // due_at + last_reviewed_at = null; correct_streak + total_reviews = 0.
     const { rows } = await pool.query(
       `SELECT c.id AS card_id, c.entry_id, c.note_html, c.sort_order,
          de.headword, de.ipa_us, de.pos,
          LEFT(SPLIT_PART(de.meaning_vi, E'\\n', 1), 200) AS meaning_preview,
          ucp.times_seen, ucp.times_correct, ucp.first_seen_at, ucp.last_review,
-         lc.box_number AS leitner_box_number, lc.due_at AS leitner_due_at,
+         lc.box_number             AS leitner_box,
+         lc.due_at                 AS due_at,
+         lc.last_reviewed_at       AS last_reviewed_at,
+         COALESCE(lc.correct_streak, 0) AS correct_streak,
+         COALESCE(lc.total_reviews, 0)  AS total_reviews,
          CASE WHEN ucp.card_id IS NULL THEN TRUE ELSE FALSE END AS is_new
        FROM cards c
        JOIN dictionary_entries de ON de.id = c.entry_id

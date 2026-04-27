@@ -11,7 +11,14 @@ import 'dotenv/config';
 import fs   from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { createRequire } from 'module';
 import pg   from 'pg';
+
+// utils/paragraphSegmenter.ts compiles as CJS (main tsconfig module: commonjs).
+// ESM named imports from CJS are flaky under Node's loader → use createRequire.
+const require = createRequire(import.meta.url);
+const { segmentParagraphs, countWords: countWordsUtil } =
+  require('../utils/paragraphSegmenter') as typeof import('../utils/paragraphSegmenter');
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR  = path.join(__dirname, 'ebook-data');
@@ -48,8 +55,40 @@ interface EbookJson {
   chapters?: ChapterJson[];
 }
 
-function countWords(text: string): number {
-  return text.split(/\s+/).filter(w => w.length > 0).length;
+// Use the shared segmenter's word counter so import-time and re-segment-time agree.
+const countWords = countWordsUtil;
+
+/** A paragraph row text ends at a real sentence boundary. */
+function endsAtSentence(text: string): boolean {
+  return /[.!?…]['"’”\)\]]?\s*$/.test(text.trim());
+}
+
+/**
+ * Re-segment paragraphs from the source JSON using the canonical splitter.
+ *
+ * The JSON files in scripts/ebook-data/ were produced by the older naive
+ * extractor (extract-pdf-ebook.mts), which can leave broken splits like
+ *   ["...Or at least distrusts me. Even", "though it was years ago, ..."].
+ * Before INSERT, we:
+ *   1. Walk the raw paragraphs in order; merge any row that does NOT end at
+ *      a sentence boundary into the next row (broken-split repair). Insert
+ *      `\n\n` only between rows that DO end cleanly (real author break).
+ *   2. Run segmentParagraphs() on the joined text — this respects author
+ *      blocks, never cuts mid-sentence, and uses sbd to handle abbreviations
+ *      like "Mr.", "i.e.", "U.S.", initials, and decimals.
+ */
+function reconstructAndSegment(rawParas: string[]): string[] {
+  const blocks: string[] = [];
+  let buffer = '';
+  for (const p of rawParas) {
+    const text = (p ?? '').trim();
+    if (!text) continue;
+    if (!buffer) { buffer = text; continue; }
+    if (!endsAtSentence(buffer)) buffer = `${buffer} ${text}`;
+    else { blocks.push(buffer); buffer = text; }
+  }
+  if (buffer) blocks.push(buffer);
+  return segmentParagraphs(blocks.join('\n\n'));
 }
 
 async function main() {
@@ -126,7 +165,14 @@ async function main() {
       // ── 2. Insert chapters + paragraphs ──
       if (data.chapters?.length) {
         for (const chapter of data.chapters) {
-          const paragraphs: string[] = chapter.paragraphs ?? [];
+          const rawParas: string[] = chapter.paragraphs ?? [];
+
+          // Re-run paragraphs through the canonical splitter so DB rows always
+          // end at sentence boundaries — repairs broken splits inherited from
+          // the JSON (older extract-pdf-ebook.mts had a naive sentence regex).
+          const paragraphs = reconstructAndSegment(rawParas);
+          const repaired = paragraphs.length !== rawParas.length;
+
           const contentHtml = paragraphs.map(p => `<p>${p}</p>`).join('\n');
           const chapterWordCount = paragraphs.reduce((sum, p) => sum + countWords(p), 0);
 
@@ -146,7 +192,7 @@ async function main() {
           if (!ch) continue;
           totalChapters++;
 
-          // Insert paragraphs
+          // Insert paragraphs (re-segmented)
           for (let pi = 0; pi < paragraphs.length; pi++) {
             await client.query(`
               INSERT INTO paragraphs (chapter_id, paragraph_index, text, word_count)
@@ -156,7 +202,8 @@ async function main() {
             totalParagraphs++;
           }
 
-          console.log(`  ✓ Ch ${chapter.chapter_index}: "${chapter.title}" — ${paragraphs.length} đoạn, ${chapterWordCount} words`);
+          const tag = repaired ? `${rawParas.length} → ${paragraphs.length} đoạn (re-segmented)` : `${paragraphs.length} đoạn`;
+          console.log(`  ✓ Ch ${chapter.chapter_index}: "${chapter.title}" — ${tag}, ${chapterWordCount} words`);
         }
       }
 

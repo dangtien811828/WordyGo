@@ -17,7 +17,8 @@
       "Bash(curl -s -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyNzc1MTA0Yy0xZWNmLTRmZDAtOTgzZC0zMGY1MmQxYzUzNDAiLCJlbWFpbCI6InJlcG9ydC1kZWNrcy0xNzc3MjE2Nzg2QGV4YW1wbGUuY29tIiwiaWF0IjoxNzc3MjE2Nzg4LCJleHAiOjE3Nzc4MjE1ODh9.sABFvgrP7PRjZbgeXhJ3rLqiIDO57Cjy9nByJuwUecs' 'http://localhost:3000/api/v1/decks/system?search=_')",
       "Bash(node -e \"const j=JSON.parse\\(require\\('fs'\\).readFileSync\\(0,'utf8'\\)\\); console.log\\(JSON.stringify\\(j.error||j.data&&{total:j.data.total}\\)\\)\")",
       "Bash(npx tsx *)",
-      "Bash(npm install *)"
+      "Bash(npm install *)",
+      "Bash(node -e ' *)"
     ]
   }
 }
