@@ -78,7 +78,7 @@ const subscriptionController = {
       });
     } catch (err) {
       console.error('[Subscriptions] getIndex error:', err);
-      req.flash('error', 'Không thể tải trang subscriptions');
+      req.flash('error', 'Failed to load subscriptions page');
       return res.redirect('/dashboard');
     }
   },
@@ -99,7 +99,7 @@ const subscriptionController = {
       });
     } catch (err) {
       console.error('[Subscriptions] getPlansList error:', err);
-      req.flash('error', 'Không thể tải danh sách plans');
+      req.flash('error', 'Failed to load plan list');
       return res.redirect('/subscriptions');
     }
   },
@@ -108,7 +108,7 @@ const subscriptionController = {
     try {
       const allMethods = await PaymentMethod.findAll();
       res.render('subscriptions/plans/form', {
-        title: 'Tạo gói mới',
+        title: 'Create New Plan',
         active: 'subscriptions',
         plan: null,
         allMethods,
@@ -116,7 +116,7 @@ const subscriptionController = {
       });
     } catch (err) {
       console.error('[Subscriptions] getCreatePlan error:', err);
-      req.flash('error', 'Không thể tải form');
+      req.flash('error', 'Failed to load form');
       return res.redirect('/subscriptions/plans');
     }
   },
@@ -128,17 +128,17 @@ const subscriptionController = {
       const methodIds = parseMethodIds(req.body);
 
       if (!data.name) {
-        req.flash('error', 'Tên gói không được để trống');
+        req.flash('error', 'Plan name is required');
         return res.redirect('/subscriptions/plans/new');
       }
 
       const safeIds = await filterMethodIds(methodIds, null);
       const plan = await Subscription.createPlan(data, features, safeIds);
-      req.flash('success', `Đã tạo gói "${plan.name}" thành công`);
+      req.flash('success', `Plan "${plan.name}" created successfully`);
       return res.redirect('/subscriptions/plans');
     } catch (err) {
       console.error('[Subscriptions] postCreatePlan error:', err);
-      req.flash('error', 'Không thể tạo gói. Vui lòng thử lại.');
+      req.flash('error', 'Failed to create plan. Please try again.');
       return res.redirect('/subscriptions/plans/new');
     }
   },
@@ -151,12 +151,12 @@ const subscriptionController = {
         PaymentMethod.getByPlan(req.params.id as string),
       ]);
       if (!plan) {
-        req.flash('error', 'Gói đăng ký không tồn tại');
+        req.flash('error', 'Subscription plan not found');
         return res.redirect('/subscriptions/plans');
       }
       const planMethodIds = planMethods.map((m: any) => m.id);
       res.render('subscriptions/plans/form', {
-        title: `Sửa gói: ${plan.name}`,
+        title: `Edit Plan: ${plan.name}`,
         active: 'subscriptions',
         plan,
         allMethods,
@@ -164,7 +164,7 @@ const subscriptionController = {
       });
     } catch (err) {
       console.error('[Subscriptions] getEditPlan error:', err);
-      req.flash('error', 'Không thể tải thông tin gói');
+      req.flash('error', 'Failed to load plan information');
       return res.redirect('/subscriptions/plans');
     }
   },
@@ -177,21 +177,21 @@ const subscriptionController = {
       const methodIds = parseMethodIds(req.body);
 
       if (!data.name) {
-        req.flash('error', 'Tên gói không được để trống');
+        req.flash('error', 'Plan name is required');
         return res.redirect(`/subscriptions/plans/${id}/edit`);
       }
 
       const safeIds = await filterMethodIds(methodIds, id);
       const plan = await Subscription.updatePlan(id, data, features, safeIds);
       if (!plan) {
-        req.flash('error', 'Gói đăng ký không tồn tại');
+        req.flash('error', 'Subscription plan not found');
         return res.redirect('/subscriptions/plans');
       }
-      req.flash('success', `Đã cập nhật gói "${plan.name}"`);
+      req.flash('success', `Plan "${plan.name}" updated successfully`);
       return res.redirect('/subscriptions/plans');
     } catch (err) {
       console.error('[Subscriptions] postEditPlan error:', err);
-      req.flash('error', 'Không thể cập nhật gói. Vui lòng thử lại.');
+      req.flash('error', 'Failed to update plan. Please try again.');
       return res.redirect(`/subscriptions/plans/${id}/edit`);
     }
   },
@@ -200,14 +200,14 @@ const subscriptionController = {
     const { id } = req.params as { id: string };
     try {
       await Subscription.deletePlan(id);
-      req.flash('success', 'Đã xóa gói đăng ký');
+      req.flash('success', 'Subscription plan deleted');
     } catch (err) {
       const error = err as { code?: string; message?: string };
       if (error.code === 'HAS_ACTIVE_SUBSCRIBERS') {
-        req.flash('error', error.message || 'Không thể xóa gói đang có người đăng ký');
+        req.flash('error', error.message || 'Cannot delete a plan with active subscribers');
       } else {
         console.error('[Subscriptions] postDeletePlan error:', err);
-        req.flash('error', 'Không thể xóa gói. Vui lòng thử lại.');
+        req.flash('error', 'Failed to delete plan. Please try again.');
       }
     }
     return res.redirect('/subscriptions/plans');
@@ -218,7 +218,7 @@ const subscriptionController = {
     try {
       const plan = await Subscription.getPlanById(id);
       if (!plan) {
-        req.flash('error', 'Gói đăng ký không tồn tại');
+        req.flash('error', 'Subscription plan not found');
         return res.redirect('/subscriptions/plans');
       }
       res.render('subscriptions/plans/features', {
@@ -228,7 +228,7 @@ const subscriptionController = {
       });
     } catch (err) {
       console.error('[Subscriptions] getFeatures error:', err);
-      req.flash('error', 'Không thể tải features');
+      req.flash('error', 'Failed to load features');
       return res.redirect('/subscriptions/plans');
     }
   },
@@ -238,16 +238,16 @@ const subscriptionController = {
     try {
       const plan = await Subscription.getPlanById(id);
       if (!plan) {
-        req.flash('error', 'Gói đăng ký không tồn tại');
+        req.flash('error', 'Subscription plan not found');
         return res.redirect('/subscriptions/plans');
       }
       const features = parseFeatures(req.body);
       await Subscription.savePlanFeatures(id, features);
-      req.flash('success', `Đã lưu features cho gói "${plan.name}"`);
+      req.flash('success', `Features saved for plan "${plan.name}"`);
       return res.redirect(`/subscriptions/plans/${id}/features`);
     } catch (err) {
       console.error('[Subscriptions] postFeatures error:', err);
-      req.flash('error', 'Không thể lưu features');
+      req.flash('error', 'Failed to save features');
       return res.redirect(`/subscriptions/plans/${id}/features`);
     }
   },
@@ -257,7 +257,7 @@ const subscriptionController = {
     try {
       const plan = await Subscription.getPlanById(id);
       if (!plan) {
-        req.flash('error', 'Gói đăng ký không tồn tại');
+        req.flash('error', 'Subscription plan not found');
         return res.redirect('/subscriptions/plans');
       }
       const { page = 1 } = req.query as any;
@@ -271,7 +271,7 @@ const subscriptionController = {
       });
     } catch (err) {
       console.error('[Subscriptions] getSubscribers error:', err);
-      req.flash('error', 'Không thể tải danh sách subscribers');
+      req.flash('error', 'Failed to load subscriber list');
       return res.redirect('/subscriptions/plans');
     }
   },
@@ -292,14 +292,14 @@ const subscriptionController = {
       });
     } catch (err) {
       console.error('[Subscriptions] getPaymentMethods error:', err);
-      req.flash('error', 'Không thể tải payment methods');
+      req.flash('error', 'Failed to load payment methods');
       return res.redirect('/subscriptions');
     }
   },
 
   getCreatePaymentMethod(req: Request, res: Response) {
     res.render('subscriptions/payment-methods/form', {
-      title: 'Thêm phương thức thanh toán',
+      title: 'Add Payment Method',
       active: 'subscriptions',
       method: null,
     });
@@ -308,7 +308,7 @@ const subscriptionController = {
   postCreatePaymentMethod(req: Request, res: Response) {
     uploadPaymentLogo.single('logo')(req, res, async (err: any) => {
       if (err) {
-        req.flash('error', err.message || 'Lỗi upload logo');
+        req.flash('error', err.message || 'Logo upload error');
         return res.redirect('/subscriptions/payment-methods/new');
       }
       try {
@@ -321,7 +321,7 @@ const subscriptionController = {
 
         // Validate code format
         if (!/^[a-z_]+$/.test((req.body.code || '').trim())) {
-          req.flash('error', 'Code chỉ được chứa chữ thường và dấu gạch dưới (a-z_)');
+          req.flash('error', 'Code may only contain lowercase letters and underscores (a-z_)');
           return res.redirect('/subscriptions/payment-methods/new');
         }
 
@@ -338,7 +338,7 @@ const subscriptionController = {
             isActive = false;
             autoDeactivated = true;
             req.flash('warning',
-              `Đã tạo nhưng tự động deactivate vì thiếu: ${validation.missing_fields.join(', ')}`);
+              `Created but auto-deactivated due to missing: ${validation.missing_fields.join(', ')}`);
           }
         }
 
@@ -356,13 +356,13 @@ const subscriptionController = {
           sort_order:      req.body.sort_order || 0,
         });
 
-        if (!autoDeactivated) req.flash('success', 'Đã thêm phương thức thanh toán');
+        if (!autoDeactivated) req.flash('success', 'Payment method added successfully');
         return res.redirect('/subscriptions/payment-methods');
       } catch (e: any) {
         console.error('[Subscriptions] postCreatePaymentMethod error:', e);
         const msg = e.code === '23505'
-          ? 'Code này đã tồn tại, vui lòng dùng code khác'
-          : 'Không thể tạo. Vui lòng thử lại.';
+          ? 'This code already exists, please use a different one'
+          : 'Failed to create. Please try again.';
         req.flash('error', msg);
         return res.redirect('/subscriptions/payment-methods/new');
       }
@@ -373,17 +373,17 @@ const subscriptionController = {
     try {
       const method = await PaymentMethod.findById(req.params.id as string);
       if (!method) {
-        req.flash('error', 'Phương thức thanh toán không tồn tại');
+        req.flash('error', 'Payment method not found');
         return res.redirect('/subscriptions/payment-methods');
       }
       res.render('subscriptions/payment-methods/form', {
-        title: `Sửa: ${method.display_name}`,
+        title: `Edit: ${method.display_name}`,
         active: 'subscriptions',
         method,
       });
     } catch (err) {
       console.error('[Subscriptions] getEditPaymentMethod error:', err);
-      req.flash('error', 'Không thể tải thông tin');
+      req.flash('error', 'Failed to load information');
       return res.redirect('/subscriptions/payment-methods');
     }
   },
@@ -392,13 +392,13 @@ const subscriptionController = {
     const { id } = req.params as { id: string };
     uploadPaymentLogo.single('logo')(req, res, async (err: any) => {
       if (err) {
-        req.flash('error', err.message || 'Lỗi upload logo');
+        req.flash('error', err.message || 'Logo upload error');
         return res.redirect(`/subscriptions/payment-methods/${id}/edit`);
       }
       try {
         const existing = await PaymentMethod.findById(id);
         if (!existing) {
-          req.flash('error', 'Phương thức thanh toán không tồn tại');
+          req.flash('error', 'Payment method not found');
           return res.redirect('/subscriptions/payment-methods');
         }
 
@@ -424,7 +424,7 @@ const subscriptionController = {
             isActive = false;
             autoDeactivated = true;
             req.flash('warning',
-              `Đã lưu nhưng tự động deactivate vì thiếu: ${validation.missing_fields.join(', ')}`);
+              `Saved but auto-deactivated due to missing: ${validation.missing_fields.join(', ')}`);
           }
         }
 
@@ -441,11 +441,11 @@ const subscriptionController = {
           sort_order:      req.body.sort_order || 0,
         });
 
-        if (!autoDeactivated) req.flash('success', 'Đã cập nhật phương thức thanh toán');
+        if (!autoDeactivated) req.flash('success', 'Payment method updated successfully');
         return res.redirect('/subscriptions/payment-methods');
       } catch (e) {
         console.error('[Subscriptions] postEditPaymentMethod error:', e);
-        req.flash('error', 'Không thể cập nhật. Vui lòng thử lại.');
+        req.flash('error', 'Failed to update. Please try again.');
         return res.redirect(`/subscriptions/payment-methods/${id}/edit`);
       }
     });
@@ -455,10 +455,10 @@ const subscriptionController = {
     const { id } = req.params as { id: string };
     try {
       await PaymentMethod.delete(id);
-      req.flash('success', 'Đã xóa phương thức thanh toán');
+      req.flash('success', 'Payment method deleted');
     } catch (err) {
       console.error('[Subscriptions] postDeletePaymentMethod error:', err);
-      req.flash('error', 'Không thể xóa. Vui lòng thử lại.');
+      req.flash('error', 'Failed to delete. Please try again.');
     }
     return res.redirect('/subscriptions/payment-methods');
   },
@@ -468,7 +468,7 @@ const subscriptionController = {
     try {
       const method = await PaymentMethod.findById(id);
       if (!method) {
-        req.flash('error', 'Phương thức thanh toán không tồn tại');
+        req.flash('error', 'Payment method not found');
         return res.redirect('/subscriptions/payment-methods');
       }
 
@@ -477,16 +477,16 @@ const subscriptionController = {
         const validation = validatePaymentMethodConfig(method);
         if (!validation.is_valid) {
           req.flash('error',
-            `Không thể activate: thiếu ${validation.missing_fields.join(', ')}. Vui lòng edit và điền đầy đủ trước.`);
+            `Cannot activate: missing ${validation.missing_fields.join(', ')}. Please edit and complete the required fields first.`);
           return res.redirect('/subscriptions/payment-methods');
         }
       }
 
       await PaymentMethod.update(id, { ...method, is_active: newActiveState });
-      req.flash('success', newActiveState ? 'Đã bật phương thức thanh toán' : 'Đã tắt phương thức thanh toán');
+      req.flash('success', newActiveState ? 'Payment method enabled' : 'Payment method disabled');
     } catch (err) {
       console.error('[Subscriptions] postTogglePaymentMethod error:', err);
-      req.flash('error', 'Không thể thay đổi trạng thái');
+      req.flash('error', 'Failed to change status');
     }
     return res.redirect('/subscriptions/payment-methods');
   },
@@ -520,7 +520,7 @@ const subscriptionController = {
       });
     } catch (err) {
       console.error('[Subscriptions] getTransactions error:', err);
-      req.flash('error', 'Không thể tải danh sách giao dịch');
+      req.flash('error', 'Failed to load transaction list');
       return res.redirect('/subscriptions');
     }
   },
@@ -529,12 +529,12 @@ const subscriptionController = {
     const { id } = req.params as { id: string };
     try {
       await Subscription.approveTransaction(id);
-      req.flash('success', 'Giao dịch đã được duyệt, subscription kích hoạt thành công');
+      req.flash('success', 'Transaction approved, subscription activated successfully');
     } catch (err: any) {
       console.error('[Subscriptions] postApproveTransaction error:', err);
       req.flash('error', err.code === 'NOT_FOUND'
-        ? 'Giao dịch không tồn tại'
-        : 'Không thể duyệt giao dịch. Vui lòng thử lại.'
+        ? 'Transaction not found'
+        : 'Failed to approve transaction. Please try again.'
       );
     }
     return res.redirect('/subscriptions/transactions');
@@ -545,12 +545,12 @@ const subscriptionController = {
     const reason = (req.body.reason || '').trim();
     try {
       await Subscription.rejectTransaction(id, reason);
-      req.flash('success', 'Giao dịch đã bị từ chối');
+      req.flash('success', 'Transaction rejected');
     } catch (err: any) {
       console.error('[Subscriptions] postRejectTransaction error:', err);
       req.flash('error', err.code === 'NOT_FOUND'
-        ? 'Giao dịch không tồn tại'
-        : 'Không thể từ chối giao dịch. Vui lòng thử lại.'
+        ? 'Transaction not found'
+        : 'Failed to reject transaction. Please try again.'
       );
     }
     return res.redirect('/subscriptions/transactions');

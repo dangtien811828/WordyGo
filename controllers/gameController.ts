@@ -83,7 +83,7 @@ const gameController = {
       });
     } catch (err) {
       console.error('[Games] getIndex error:', err);
-      req.flash('error', 'Không thể tải trang Mini-games');
+      req.flash('error', 'Failed to load Mini-games page');
       return res.redirect('/dashboard');
     }
   },
@@ -102,7 +102,7 @@ const gameController = {
       });
     } catch (err) {
       console.error('[Games] getWordLists error:', err);
-      req.flash('error', 'Không thể tải danh sách word lists');
+      req.flash('error', 'Failed to load word list');
       return res.redirect('/games');
     }
   },
@@ -110,7 +110,7 @@ const gameController = {
   // GET /games/word-lists/create
   getWordListsCreate(req: Request, res: Response) {
     res.render('games/word-lists-form', {
-      title: 'Tạo Word List',
+      title: 'Create Word List',
       active: 'games',
       list: null,
       formAction: '/games/word-lists/create',
@@ -122,18 +122,18 @@ const gameController = {
     try {
       const list = await Game.getWordListById(req.params.id as string);
       if (!list) {
-        req.flash('error', 'Word list không tồn tại');
+        req.flash('error', 'Word list not found');
         return res.redirect('/games/word-lists');
       }
       res.render('games/word-lists-form', {
-        title: `Sửa: ${list.name}`,
+        title: `Edit: ${list.name}`,
         active: 'games',
         list,
         formAction: `/games/word-lists/${list.id}/edit`,
       });
     } catch (err) {
       console.error('[Games] getWordListsEdit error:', err);
-      req.flash('error', 'Không thể tải word list');
+      req.flash('error', 'Failed to load word list');
       return res.redirect('/games/word-lists');
     }
   },
@@ -144,7 +144,7 @@ const gameController = {
       const data = parseWordListData(req.body, req.session.admin.id);
       const entryIds = parseEntryIds(req.body);
       if (!data.name) {
-        req.flash('error', 'Tên word list không được để trống');
+        req.flash('error', 'Word list name is required');
         return res.redirect('/games/word-lists/create');
       }
 
@@ -157,16 +157,16 @@ const gameController = {
           targetId: null,
           payload: { data, entryIds },
         });
-        req.flash('success', 'Yêu cầu tạo word list đã được gửi, chờ Super Admin duyệt.');
+        req.flash('success', 'Word list creation request submitted, pending Super Admin approval.');
         return res.redirect('/games/word-lists');
       }
 
       const list = await Game.createWordList(data, entryIds);
-      req.flash('success', `Đã tạo word list "${list.name}"`);
+      req.flash('success', `Word list "${list.name}" created successfully`);
       return res.redirect('/games/word-lists');
     } catch (err) {
       console.error('[Games] postWordListsCreate error:', err);
-      req.flash('error', 'Không thể tạo word list');
+      req.flash('error', 'Failed to create word list');
       return res.redirect('/games/word-lists/create');
     }
   },
@@ -178,7 +178,7 @@ const gameController = {
       const data = parseWordListData(req.body, req.session.admin.id);
       const entryIds = parseEntryIds(req.body);
       if (!data.name) {
-        req.flash('error', 'Tên word list không được để trống');
+        req.flash('error', 'Word list name is required');
         return res.redirect(`/games/word-lists/${id}/edit`);
       }
 
@@ -191,20 +191,20 @@ const gameController = {
           targetId: id,
           payload: { data, entryIds, targetId: id },
         });
-        req.flash('success', 'Yêu cầu sửa word list đã được gửi, chờ Super Admin duyệt.');
+        req.flash('success', 'Word list update request submitted, pending Super Admin approval.');
         return res.redirect('/games/word-lists');
       }
 
       const list = await Game.updateWordList(id, data, entryIds);
       if (!list) {
-        req.flash('error', 'Word list không tồn tại');
+        req.flash('error', 'Word list not found');
         return res.redirect('/games/word-lists');
       }
-      req.flash('success', `Đã cập nhật word list "${list.name}"`);
+      req.flash('success', `Word list "${list.name}" updated successfully`);
       return res.redirect('/games/word-lists');
     } catch (err) {
       console.error('[Games] postWordListsEdit error:', err);
-      req.flash('error', 'Không thể cập nhật word list');
+      req.flash('error', 'Failed to update word list');
       return res.redirect(`/games/word-lists/${id}/edit`);
     }
   },
@@ -223,16 +223,16 @@ const gameController = {
           targetId: id,
           payload: { targetId: id, name: list ? list.name : id },
         });
-        req.flash('success', 'Yêu cầu xóa word list đã được gửi, chờ Super Admin duyệt.');
+        req.flash('success', 'Word list deletion request submitted, pending Super Admin approval.');
         return res.redirect('/games/word-lists');
       }
 
       await Game.deleteWordList(id);
-      req.flash('success', 'Đã xóa word list');
+      req.flash('success', 'Word list deleted');
       return res.redirect('/games/word-lists');
     } catch (err) {
       console.error('[Games] postWordListsDelete error:', err);
-      req.flash('error', 'Không thể xóa word list');
+      req.flash('error', 'Failed to delete word list');
       return res.redirect('/games/word-lists');
     }
   },
@@ -254,7 +254,7 @@ const gameController = {
       });
     } catch (err) {
       console.error('[Games] getLevels error:', err);
-      req.flash('error', 'Không thể tải levels');
+      req.flash('error', 'Failed to load levels');
       return res.redirect('/games');
     }
   },
@@ -266,7 +266,7 @@ const gameController = {
       const configStr = (req.body.config_json || '{}').trim();
       const parsed = tryParseJson(configStr);
       if (!parsed.ok) {
-        req.flash('error', 'Config JSON không hợp lệ');
+        req.flash('error', 'Invalid config JSON');
         return res.redirect(`/games/levels?tab=${gameType}`);
       }
 
@@ -286,20 +286,20 @@ const gameController = {
           targetId: null,
           payload: { data },
         });
-        req.flash('success', 'Yêu cầu tạo level đã được gửi, chờ Super Admin duyệt.');
+        req.flash('success', 'Level creation request submitted, pending Super Admin approval.');
         return res.redirect(`/games/levels?tab=${gameType}`);
       }
 
       await Game.createLevel(data);
-      req.flash('success', `Đã tạo level ${data.level_number} cho ${gameType}`);
+      req.flash('success', `Level ${data.level_number} created for ${gameType}`);
       return res.redirect(`/games/levels?tab=${gameType}`);
     } catch (err) {
       const error = err as { code?: string };
       if (error.code === '23505') {
-        req.flash('error', 'Level number đã tồn tại cho game type này');
+        req.flash('error', 'Level number already exists for this game type');
       } else {
         console.error('[Games] postLevelsCreate error:', err);
-        req.flash('error', 'Không thể tạo level');
+        req.flash('error', 'Failed to create level');
       }
       return res.redirect(`/games/levels?tab=${gameType}`);
     }
@@ -313,7 +313,7 @@ const gameController = {
       const configStr = (req.body.config_json || '{}').trim();
       const parsed = tryParseJson(configStr);
       if (!parsed.ok) {
-        req.flash('error', 'Config JSON không hợp lệ');
+        req.flash('error', 'Invalid config JSON');
         return res.redirect(`/games/levels?tab=${gameType}`);
       }
 
@@ -332,16 +332,16 @@ const gameController = {
           targetId: id,
           payload: { data, targetId: id },
         });
-        req.flash('success', 'Yêu cầu sửa level đã được gửi, chờ Super Admin duyệt.');
+        req.flash('success', 'Level update request submitted, pending Super Admin approval.');
         return res.redirect(`/games/levels?tab=${gameType}`);
       }
 
       await Game.updateLevel(id, data);
-      req.flash('success', 'Đã cập nhật level');
+      req.flash('success', 'Level updated successfully');
       return res.redirect(`/games/levels?tab=${gameType}`);
     } catch (err) {
       console.error('[Games] postLevelsEdit error:', err);
-      req.flash('error', 'Không thể cập nhật level');
+      req.flash('error', 'Failed to update level');
       return res.redirect(`/games/levels?tab=${gameType}`);
     }
   },
@@ -360,16 +360,16 @@ const gameController = {
           targetId: id,
           payload: { targetId: id },
         });
-        req.flash('success', 'Yêu cầu xóa level đã được gửi, chờ Super Admin duyệt.');
+        req.flash('success', 'Level deletion request submitted, pending Super Admin approval.');
         return res.redirect(`/games/levels?tab=${gameType}`);
       }
 
       await Game.deleteLevel(id);
-      req.flash('success', 'Đã xóa level');
+      req.flash('success', 'Level deleted');
       return res.redirect(`/games/levels?tab=${gameType}`);
     } catch (err) {
       console.error('[Games] postLevelsDelete error:', err);
-      req.flash('error', 'Không thể xóa level');
+      req.flash('error', 'Failed to delete level');
       return res.redirect(`/games/levels?tab=${gameType}`);
     }
   },
@@ -387,7 +387,7 @@ const gameController = {
       });
     } catch (err) {
       console.error('[Games] getSemanticSets error:', err);
-      req.flash('error', 'Không thể tải danh sách semantic sets');
+      req.flash('error', 'Failed to load semantic set list');
       return res.redirect('/games');
     }
   },
@@ -395,7 +395,7 @@ const gameController = {
   // GET /games/semantic-sets/create
   getSemanticSetsCreate(req: Request, res: Response) {
     res.render('games/semantic-sets-form', {
-      title: 'Tạo Semantic Set',
+      title: 'Create Semantic Set',
       active: 'games',
       set: null,
       formAction: '/games/semantic-sets/create',
@@ -407,18 +407,18 @@ const gameController = {
     try {
       const set = await Game.getSemanticSetById(req.params.id as string);
       if (!set) {
-        req.flash('error', 'Semantic set không tồn tại');
+        req.flash('error', 'Semantic set not found');
         return res.redirect('/games/semantic-sets');
       }
       res.render('games/semantic-sets-form', {
-        title: `Sửa: ${set.name}`,
+        title: `Edit: ${set.name}`,
         active: 'games',
         set,
         formAction: `/games/semantic-sets/${set.id}/edit`,
       });
     } catch (err) {
       console.error('[Games] getSemanticSetsEdit error:', err);
-      req.flash('error', 'Không thể tải semantic set');
+      req.flash('error', 'Failed to load semantic set');
       return res.redirect('/games/semantic-sets');
     }
   },
@@ -429,11 +429,11 @@ const gameController = {
       const data  = parseSemanticSetData(req.body, req.session.admin.id);
       const items = parseItems(req.body);
       if (!data.name) {
-        req.flash('error', 'Tên semantic set không được để trống');
+        req.flash('error', 'Semantic set name is required');
         return res.redirect('/games/semantic-sets/create');
       }
       if (!data.scale_description) {
-        req.flash('error', 'Scale description không được để trống');
+        req.flash('error', 'Scale description is required');
         return res.redirect('/games/semantic-sets/create');
       }
 
@@ -446,16 +446,16 @@ const gameController = {
           targetId: null,
           payload: { data, items },
         });
-        req.flash('success', 'Yêu cầu tạo semantic set đã được gửi, chờ Super Admin duyệt.');
+        req.flash('success', 'Semantic set creation request submitted, pending Super Admin approval.');
         return res.redirect('/games/semantic-sets');
       }
 
       const set = await Game.createSemanticSet(data, items);
-      req.flash('success', `Đã tạo semantic set "${set.name}"`);
+      req.flash('success', `Semantic set "${set.name}" created successfully`);
       return res.redirect('/games/semantic-sets');
     } catch (err) {
       console.error('[Games] postSemanticSetsCreate error:', err);
-      req.flash('error', 'Không thể tạo semantic set');
+      req.flash('error', 'Failed to create semantic set');
       return res.redirect('/games/semantic-sets/create');
     }
   },
@@ -467,7 +467,7 @@ const gameController = {
       const data  = parseSemanticSetData(req.body, req.session.admin.id);
       const items = parseItems(req.body);
       if (!data.name) {
-        req.flash('error', 'Tên semantic set không được để trống');
+        req.flash('error', 'Semantic set name is required');
         return res.redirect(`/games/semantic-sets/${id}/edit`);
       }
 
@@ -480,20 +480,20 @@ const gameController = {
           targetId: id,
           payload: { data, items, targetId: id },
         });
-        req.flash('success', 'Yêu cầu sửa semantic set đã được gửi, chờ Super Admin duyệt.');
+        req.flash('success', 'Semantic set update request submitted, pending Super Admin approval.');
         return res.redirect('/games/semantic-sets');
       }
 
       const set = await Game.updateSemanticSet(id, data, items);
       if (!set) {
-        req.flash('error', 'Semantic set không tồn tại');
+        req.flash('error', 'Semantic set not found');
         return res.redirect('/games/semantic-sets');
       }
-      req.flash('success', `Đã cập nhật semantic set "${set.name}"`);
+      req.flash('success', `Semantic set "${set.name}" updated successfully`);
       return res.redirect('/games/semantic-sets');
     } catch (err) {
       console.error('[Games] postSemanticSetsEdit error:', err);
-      req.flash('error', 'Không thể cập nhật semantic set');
+      req.flash('error', 'Failed to update semantic set');
       return res.redirect(`/games/semantic-sets/${id}/edit`);
     }
   },
@@ -512,16 +512,16 @@ const gameController = {
           targetId: id,
           payload: { targetId: id, name: set ? set.name : id },
         });
-        req.flash('success', 'Yêu cầu xóa semantic set đã được gửi, chờ Super Admin duyệt.');
+        req.flash('success', 'Semantic set deletion request submitted, pending Super Admin approval.');
         return res.redirect('/games/semantic-sets');
       }
 
       await Game.deleteSemanticSet(id);
-      req.flash('success', 'Đã xóa semantic set');
+      req.flash('success', 'Semantic set deleted');
       return res.redirect('/games/semantic-sets');
     } catch (err) {
       console.error('[Games] postSemanticSetsDelete error:', err);
-      req.flash('error', 'Không thể xóa semantic set');
+      req.flash('error', 'Failed to delete semantic set');
       return res.redirect('/games/semantic-sets');
     }
   },
@@ -540,7 +540,7 @@ const gameController = {
       });
     } catch (err) {
       console.error('[Games] getLeaderboard error:', err);
-      req.flash('error', 'Không thể tải leaderboard');
+      req.flash('error', 'Failed to load leaderboard');
       return res.redirect('/games');
     }
   },

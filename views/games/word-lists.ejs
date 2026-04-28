@@ -11,44 +11,44 @@ var statusBadge = { draft: 'badge-warning', published: 'badge-success', archived
       <a href="/games" style="color:var(--text-secondary)">Mini-games</a> / Word Lists
     </p>
   </div>
-  <a href="/games/word-lists/create" class="btn btn-primary">+ Tạo Word List</a>
+  <a href="/games/word-lists/create" class="btn btn-primary">+ Create Word List</a>
 </div>
 
 <!-- Filters -->
 <form method="GET" action="/games/word-lists" style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin-bottom:16px">
   <div class="form-group" style="flex:1;min-width:180px;margin:0">
-    <label style="font-size:12px;display:block;margin-bottom:4px">Tìm kiếm</label>
-    <input type="text" name="search" value="<%= filters.search %>" placeholder="Tên word list...">
+    <label style="font-size:12px;display:block;margin-bottom:4px">Search</label>
+    <input type="text" name="search" value="<%= filters.search %>" placeholder="Word list name...">
   </div>
   <div class="form-group" style="margin:0">
     <label style="font-size:12px;display:block;margin-bottom:4px">Game type</label>
     <select name="gameType">
-      <option value="">Tất cả</option>
+      <option value="">All</option>
       <option value="lexisweep" <%= filters.gameType === 'lexisweep' ? 'selected' : '' %>>LexiSweep</option>
       <option value="anagram"   <%= filters.gameType === 'anagram'   ? 'selected' : '' %>>Anagram</option>
     </select>
   </div>
-  <button type="submit" class="btn btn-primary">Lọc</button>
-  <a href="/games/word-lists" class="btn btn-secondary">Xóa lọc</a>
+  <button type="submit" class="btn btn-primary">Filter</button>
+  <a href="/games/word-lists" class="btn btn-secondary">Clear Filters</a>
 </form>
 
 <div class="card">
   <div class="card-header">
-    <h2 style="margin:0">Danh sách (<%= pagination.total %>)</h2>
+    <h2 style="margin:0">List (<%= pagination.total %>)</h2>
   </div>
   <% if (lists.length > 0) { %>
   <div class="table-wrapper">
     <table>
       <thead>
         <tr>
-          <th>Tên</th>
-          <th style="text-align:center">Loại</th>
+          <th>Name</th>
+          <th style="text-align:center">Type</th>
           <th>Topic</th>
-          <th style="text-align:center">Cấp độ</th>
-          <th style="text-align:center">Từ</th>
-          <th style="text-align:center">Trạng thái</th>
-          <th style="font-size:12px">Người tạo</th>
-          <th>Hành động</th>
+          <th style="text-align:center">Level</th>
+          <th style="text-align:center">Words</th>
+          <th style="text-align:center">Status</th>
+          <th style="font-size:12px">Creator</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -69,10 +69,10 @@ var statusBadge = { draft: 'badge-warning', published: 'badge-success', archived
           <td style="font-size:12px;color:var(--text-secondary)"><%= l.creator_name || '—' %></td>
           <td>
             <div style="display:flex;gap:6px">
-              <a href="/games/word-lists/<%= l.id %>/edit" class="btn btn-sm btn-secondary">Sửa</a>
+              <a href="/games/word-lists/<%= l.id %>/edit" class="btn btn-sm btn-secondary">Edit</a>
               <form method="POST" action="/games/word-lists/<%= l.id %>/delete" style="margin:0"
-                    onsubmit="return confirm('Xóa word list \'<%= l.name %>\'?')">
-                <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+                    onsubmit="return confirm('Delete word list \'<%= l.name %>\'?')">
+                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
               </form>
             </div>
           </td>
@@ -85,8 +85,8 @@ var statusBadge = { draft: 'badge-warning', published: 'badge-success', archived
   <% } else { %>
   <div style="padding:60px;text-align:center;color:var(--text-secondary)">
     <div style="font-size:36px;margin-bottom:12px">📋</div>
-    <p style="margin:0 0 16px">Chưa có word list nào</p>
-    <a href="/games/word-lists/create" class="btn btn-primary">+ Tạo word list đầu tiên</a>
+    <p style="margin:0 0 16px">No word lists yet</p>
+    <a href="/games/word-lists/create" class="btn btn-primary">+ Create your first word list</a>
   </div>
   <% } %>
 </div>

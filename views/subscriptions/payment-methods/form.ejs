@@ -13,9 +13,9 @@ const ai = (v.account_info && typeof v.account_info === 'object') ? v.account_in
   <div style="font-size:13px;color:#718096;margin-bottom:4px">
     <a href="/subscriptions" style="color:#718096">Subscriptions</a> /
     <a href="/subscriptions/payment-methods" style="color:#718096">Payment Methods</a> /
-    <%= isEdit ? 'Sửa' : 'Thêm mới' %>
+    <%= isEdit ? 'Edit' : 'Add New' %>
   </div>
-  <h1 style="margin:0;font-size:22px;font-weight:700"><%= isEdit ? 'Sửa: ' + method.display_name : 'Thêm phương thức thanh toán' %></h1>
+  <h1 style="margin:0;font-size:22px;font-weight:700"><%= isEdit ? 'Edit: ' + method.display_name : 'Add Payment Method' %></h1>
 </div>
 
 <form method="POST" action="<%= action %>" enctype="multipart/form-data">
@@ -26,42 +26,42 @@ const ai = (v.account_info && typeof v.account_info === 'object') ? v.account_in
 
       <!-- Basic info -->
       <div class="card" style="padding:20px">
-        <h2 style="margin:0 0 16px;font-size:15px;font-weight:600;border-bottom:1px solid #e2e8f0;padding-bottom:10px">Thông tin cơ bản</h2>
+        <h2 style="margin:0 0 16px;font-size:15px;font-weight:600;border-bottom:1px solid #e2e8f0;padding-bottom:10px">Basic Information</h2>
 
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
           <div class="form-group">
             <label>Code <span style="color:#e53e3e">*</span></label>
             <input type="text" name="code" value="<%= val('code') %>"
                    placeholder="VD: momo" pattern="[a-z_]+"
-                   title="Chỉ dùng chữ thường a-z và dấu _"
+                   title="Only lowercase letters a-z and underscore allowed"
                    <%= isEdit ? 'readonly style="background:#f7fafc;cursor:not-allowed"' : 'required' %>>
             <% if (!isEdit) { %>
-              <small style="color:#718096;font-size:12px">Chỉ dùng chữ thường và dấu _ (VD: bank_transfer)</small>
+              <small style="color:#718096;font-size:12px">Only lowercase letters and underscore (e.g. bank_transfer)</small>
             <% } %>
           </div>
           <div class="form-group">
-            <label>Tên hiển thị <span style="color:#e53e3e">*</span></label>
-            <input type="text" name="display_name" value="<%= val('display_name') %>" placeholder="VD: Ví Momo" required>
+            <label>Display Name <span style="color:#e53e3e">*</span></label>
+            <input type="text" name="display_name" value="<%= val('display_name') %>" placeholder="e.g. Momo Wallet" required>
           </div>
         </div>
 
         <div class="form-group">
-          <label>Mô tả</label>
-          <textarea name="description" rows="2" placeholder="Mô tả ngắn..."><%= val('description') %></textarea>
+          <label>Description</label>
+          <textarea name="description" rows="2" placeholder="Short description..."><%= val('description') %></textarea>
         </div>
 
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
           <div class="form-group">
-            <label>Loại <span style="color:#e53e3e">*</span></label>
+            <label>Type <span style="color:#e53e3e">*</span></label>
             <select name="method_type" id="method-type-select" required onchange="showAccountFields(this.value)">
-              <option value="">-- Chọn loại --</option>
+              <option value="">-- Select type --</option>
               <% ['ewallet','bank','card','international'].forEach(function(t) { %>
                 <option value="<%= t %>" <%= val('method_type') === t ? 'selected' : '' %>><%= t %></option>
               <% }) %>
             </select>
           </div>
           <div class="form-group">
-            <label>Phí giao dịch (%)</label>
+            <label>Transaction Fee (%)</label>
             <input type="number" name="fee_percent" value="<%= val('fee_percent', 0) %>" min="0" max="100" step="0.01">
           </div>
         </div>
@@ -73,14 +73,14 @@ const ai = (v.account_info && typeof v.account_info === 'object') ? v.account_in
             <% if (v.logo_url) { %>
               <div style="margin-top:8px;display:flex;align-items:center;gap:8px">
                 <img src="<%= v.logo_url %>" alt="logo" style="width:40px;height:40px;object-fit:contain;border:1px solid #e2e8f0;border-radius:6px;padding:3px">
-                <span style="font-size:12px;color:#718096">Hiện tại</span>
+                <span style="font-size:12px;color:#718096">Current</span>
               </div>
             <% } %>
           </div>
           <div class="form-group">
-            <label>Hoặc nhập logo URL</label>
+            <label>Or enter logo URL</label>
             <input type="url" name="logo_url_manual" value="" placeholder="https://...">
-            <small style="color:#718096;font-size:12px">Upload sẽ được ưu tiên hơn URL</small>
+            <small style="color:#718096;font-size:12px">Upload takes priority over URL</small>
           </div>
         </div>
 
@@ -92,21 +92,21 @@ const ai = (v.account_info && typeof v.account_info === 'object') ? v.account_in
 
       <!-- Account info (dynamic by type) -->
       <div class="card" style="padding:20px" id="account-info-card">
-        <h2 style="margin:0 0 16px;font-size:15px;font-weight:600;border-bottom:1px solid #e2e8f0;padding-bottom:10px">Thông tin tài khoản</h2>
+        <h2 style="margin:0 0 16px;font-size:15px;font-weight:600;border-bottom:1px solid #e2e8f0;padding-bottom:10px">Account Information</h2>
 
         <!-- Bank fields -->
         <div id="fields-bank" style="display:none">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
             <div class="form-group">
-              <label>Số tài khoản</label>
+              <label>Account Number</label>
               <input type="text" name="account_number" value="<%= ai.account_number || '' %>">
             </div>
             <div class="form-group">
-              <label>Tên tài khoản</label>
+              <label>Account Name</label>
               <input type="text" name="account_name" value="<%= ai.account_name || '' %>">
             </div>
             <div class="form-group">
-              <label>Tên ngân hàng</label>
+              <label>Bank Name</label>
               <input type="text" name="bank_name" value="<%= ai.bank_name || '' %>">
             </div>
             <div class="form-group">
@@ -114,7 +114,7 @@ const ai = (v.account_info && typeof v.account_info === 'object') ? v.account_in
               <input type="text" name="swift_code" value="<%= ai.swift_code || '' %>" style="font-family:monospace">
             </div>
             <div class="form-group" style="grid-column:1/-1">
-              <label>Chi nhánh</label>
+              <label>Branch</label>
               <input type="text" name="branch" value="<%= ai.branch || '' %>">
             </div>
           </div>
@@ -124,11 +124,11 @@ const ai = (v.account_info && typeof v.account_info === 'object') ? v.account_in
         <div id="fields-ewallet" style="display:none">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
             <div class="form-group">
-              <label>Số điện thoại</label>
+              <label>Phone Number</label>
               <input type="tel" name="phone_number" value="<%= ai.phone_number || '' %>">
             </div>
             <div class="form-group">
-              <label>Tên tài khoản</label>
+              <label>Account Name</label>
               <input type="text" name="account_name" value="<%= ai.account_name || '' %>">
             </div>
             <div class="form-group" style="grid-column:1/-1">
@@ -154,20 +154,20 @@ const ai = (v.account_info && typeof v.account_info === 'object') ? v.account_in
 
         <!-- International / empty -->
         <div id="fields-international" style="display:none">
-          <p style="color:#718096;font-size:13px;margin:0">Không cần thông tin tài khoản cho loại International.</p>
+          <p style="color:#718096;font-size:13px;margin:0">No account information required for International type.</p>
         </div>
 
         <div id="fields-empty">
-          <p style="color:#a0aec0;font-size:13px;margin:0">Chọn loại phương thức thanh toán để xem các trường cần điền.</p>
+          <p style="color:#a0aec0;font-size:13px;margin:0">Select a payment method type to see the required fields.</p>
         </div>
       </div>
 
       <!-- Instructions -->
       <div class="card" style="padding:20px">
-        <h2 style="margin:0 0 16px;font-size:15px;font-weight:600;border-bottom:1px solid #e2e8f0;padding-bottom:10px">Hướng dẫn thanh toán</h2>
+        <h2 style="margin:0 0 16px;font-size:15px;font-weight:600;border-bottom:1px solid #e2e8f0;padding-bottom:10px">Payment Instructions</h2>
         <div class="form-group">
-          <label>Tiếng Việt</label>
-          <textarea name="instructions_vi" rows="4" placeholder="Hướng dẫn thanh toán bằng tiếng Việt..."><%= val('instructions_vi') %></textarea>
+          <label>Vietnamese</label>
+          <textarea name="instructions_vi" rows="4" placeholder="Payment instructions in Vietnamese..."><%= val('instructions_vi') %></textarea>
         </div>
         <div class="form-group">
           <label>English</label>
@@ -180,18 +180,18 @@ const ai = (v.account_info && typeof v.account_info === 'object') ? v.account_in
     <!-- Right column -->
     <div style="display:flex;flex-direction:column;gap:16px">
       <div class="card" style="padding:20px">
-        <h2 style="margin:0 0 16px;font-size:15px;font-weight:600;border-bottom:1px solid #e2e8f0;padding-bottom:10px">Trạng thái</h2>
+        <h2 style="margin:0 0 16px;font-size:15px;font-weight:600;border-bottom:1px solid #e2e8f0;padding-bottom:10px">Status</h2>
         <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
           <input type="checkbox" name="is_active" value="on" <%= val('is_active', true) ? 'checked' : '' %>>
-          <span style="font-size:14px">Kích hoạt (active)</span>
+          <span style="font-size:14px">Activate (active)</span>
         </label>
       </div>
 
       <div class="card" style="padding:16px">
         <button type="submit" class="btn btn-primary" style="width:100%;margin-bottom:8px">
-          <%= isEdit ? '💾 Lưu thay đổi' : '✅ Thêm mới' %>
+          <%= isEdit ? '💾 Save Changes' : '✅ Add New' %>
         </button>
-        <a href="/subscriptions/payment-methods" class="btn btn-secondary" style="width:100%;display:block;text-align:center">Huỷ</a>
+        <a href="/subscriptions/payment-methods" class="btn btn-secondary" style="width:100%;display:block;text-align:center">Cancel</a>
       </div>
     </div>
 

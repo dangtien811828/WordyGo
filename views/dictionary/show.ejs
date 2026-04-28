@@ -9,12 +9,12 @@
 <div class="page-header" style="display:flex;align-items:center;justify-content:space-between">
   <div>
     <h1><%= entry.headword %></h1>
-    <p><a href="/dictionary" style="color:var(--text-secondary)">← Từ điển</a></p>
+    <p><a href="/dictionary" style="color:var(--text-secondary)">← Dictionary</a></p>
   </div>
   <div style="display:flex;gap:8px">
-    <a href="/dictionary/<%= entry.id %>/edit" class="btn btn-primary">Sửa</a>
+    <a href="/dictionary/<%= entry.id %>/edit" class="btn btn-primary">Edit</a>
     <button type="button" class="btn btn-danger"
-            onclick="document.getElementById('dlg-delete').showModal()">Xóa</button>
+            onclick="document.getElementById('dlg-delete').showModal()">Delete</button>
   </div>
 </div>
 
@@ -25,7 +25,7 @@
 
     <div class="card">
       <div class="card-header" style="display:flex;justify-content:space-between;align-items:center">
-        <h2>Thông tin từ</h2>
+        <h2>Word Information</h2>
         <span class="badge <%= entry.published ? 'badge-success' : 'badge-warning' %>">
           <%= entry.published ? 'Published' : 'Unpublished' %>
         </span>
@@ -49,8 +49,8 @@
                   <button type="button" class="btn-audio"
                           <%= entry.audio_us_url ? '' : 'disabled' %>
                           data-url="<%= entry.audio_us_url || '' %>"
-                          title="<%= entry.audio_us_url ? 'Phát âm US' : 'Chưa có audio US' %>"
-                          aria-label="Phát âm US"
+                          title="<%= entry.audio_us_url ? 'US Pronunciation' : 'No US audio' %>"
+                          aria-label="US Pronunciation"
                           onclick="playEntryAudio(this.dataset.url)">🔊</button>
                 </span>
                 <span style="margin:0 6px;color:var(--text-secondary)">/</span>
@@ -59,8 +59,8 @@
                   <button type="button" class="btn-audio"
                           <%= entry.audio_uk_url ? '' : 'disabled' %>
                           data-url="<%= entry.audio_uk_url || '' %>"
-                          title="<%= entry.audio_uk_url ? 'Phát âm UK' : 'Chưa có audio UK' %>"
-                          aria-label="Phát âm UK"
+                          title="<%= entry.audio_uk_url ? 'UK Pronunciation' : 'No UK audio' %>"
+                          aria-label="UK Pronunciation"
                           onclick="playEntryAudio(this.dataset.url)">🔊</button>
                 </span>
               </td>
@@ -91,41 +91,41 @@
               <td style="padding:10px 0"><%= entry.frequency_rank || '—' %></td>
             </tr>
             <tr style="border-bottom:1px solid var(--border)">
-              <td style="padding:10px 0;color:var(--text-secondary);font-size:13px">Nguồn</td>
+              <td style="padding:10px 0;color:var(--text-secondary);font-size:13px">Source</td>
               <td style="padding:10px 0"><%= entry.source %></td>
             </tr>
             <tr style="border-bottom:1px solid var(--border)">
-              <td style="padding:10px 0;color:var(--text-secondary);font-size:13px">Nghĩa VI</td>
+              <td style="padding:10px 0;color:var(--text-secondary);font-size:13px">VI Meaning</td>
               <td style="padding:10px 0"><%= entry.meaning_vi %></td>
             </tr>
             <% if (entry.meaning_en) { %>
             <tr style="border-bottom:1px solid var(--border)">
-              <td style="padding:10px 0;color:var(--text-secondary);font-size:13px">Nghĩa EN</td>
+              <td style="padding:10px 0;color:var(--text-secondary);font-size:13px">EN Meaning</td>
               <td style="padding:10px 0"><%= entry.meaning_en %></td>
             </tr>
             <% } %>
             <% if (entry.example_en) { %>
             <tr style="border-bottom:1px solid var(--border)">
-              <td style="padding:10px 0;color:var(--text-secondary);font-size:13px">Ví dụ EN</td>
+              <td style="padding:10px 0;color:var(--text-secondary);font-size:13px">EN Example</td>
               <td style="padding:10px 0;font-style:italic"><%= entry.example_en %></td>
             </tr>
             <% } %>
             <% if (entry.example_vi) { %>
             <tr style="border-bottom:1px solid var(--border)">
-              <td style="padding:10px 0;color:var(--text-secondary);font-size:13px">Ví dụ VI</td>
+              <td style="padding:10px 0;color:var(--text-secondary);font-size:13px">VI Example</td>
               <td style="padding:10px 0;font-style:italic"><%= entry.example_vi %></td>
             </tr>
             <% } %>
             <% if (entry.admin_note) { %>
             <tr style="border-bottom:1px solid var(--border)">
-              <td style="padding:10px 0;color:var(--text-secondary);font-size:13px">Ghi chú</td>
+              <td style="padding:10px 0;color:var(--text-secondary);font-size:13px">Notes</td>
               <td style="padding:10px 0;color:var(--text-secondary)"><%= entry.admin_note %></td>
             </tr>
             <% } %>
             <tr>
-              <td style="padding:10px 0;color:var(--text-secondary);font-size:13px">Ngày tạo</td>
+              <td style="padding:10px 0;color:var(--text-secondary);font-size:13px">Created</td>
               <td style="padding:10px 0;font-size:13px">
-                <%= new Date(entry.created_at).toLocaleString('vi-VN') %>
+                <%= new Date(entry.created_at).toLocaleString('en-US') %>
               </td>
             </tr>
           </tbody>
@@ -146,13 +146,13 @@
             <span class="badge badge-primary"><%= t.name %></span>
           <% }) %>
         <% } else { %>
-          <span style="color:var(--text-secondary);font-size:13px">Chưa có tag</span>
+          <span style="color:var(--text-secondary);font-size:13px">No tags</span>
         <% } %>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-header"><h2>Từ đồng nghĩa (<%= synonyms.length %>)</h2></div>
+      <div class="card-header"><h2>Synonyms (<%= synonyms.length %>)</h2></div>
       <div style="padding:16px">
         <% if (synonyms.length > 0) { %>
           <div style="display:flex;flex-wrap:wrap;gap:6px">
@@ -163,13 +163,13 @@
             <% }) %>
           </div>
         <% } else { %>
-          <span style="color:var(--text-secondary);font-size:13px">Chưa có</span>
+          <span style="color:var(--text-secondary);font-size:13px">None</span>
         <% } %>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-header"><h2>Từ trái nghĩa (<%= antonyms.length %>)</h2></div>
+      <div class="card-header"><h2>Antonyms (<%= antonyms.length %>)</h2></div>
       <div style="padding:16px">
         <% if (antonyms.length > 0) { %>
           <div style="display:flex;flex-wrap:wrap;gap:6px">
@@ -180,7 +180,7 @@
             <% }) %>
           </div>
         <% } else { %>
-          <span style="color:var(--text-secondary);font-size:13px">Chưa có</span>
+          <span style="color:var(--text-secondary);font-size:13px">None</span>
         <% } %>
       </div>
     </div>
@@ -191,9 +191,9 @@
 <!-- Delete dialog -->
 <dialog id="dlg-delete"
         style="border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;max-width:400px;width:100%;box-shadow:var(--shadow-md)">
-  <h3 style="margin-bottom:8px;color:var(--danger)">Xóa từ "<%= entry.headword %>"</h3>
+  <h3 style="margin-bottom:8px;color:var(--danger)">Delete Word "<%= entry.headword %>"</h3>
   <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">
-    Hành động này không thể hoàn tác. Nhập:<br>
+    This action cannot be undone. Type:<br>
     <code style="background:var(--bg);padding:2px 6px;border-radius:4px;font-size:13px">DELETE <%= entry.headword %></code>
   </p>
   <form action="/dictionary/<%= entry.id %>/delete" method="POST">
@@ -203,8 +203,8 @@
     </div>
     <div style="display:flex;gap:8px;justify-content:flex-end">
       <button type="button" class="btn btn-secondary"
-              onclick="document.getElementById('dlg-delete').close()">Hủy</button>
-      <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+              onclick="document.getElementById('dlg-delete').close()">Cancel</button>
+      <button type="submit" class="btn btn-danger">Confirm Delete</button>
     </div>
   </form>
 </dialog>

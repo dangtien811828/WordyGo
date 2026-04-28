@@ -34,7 +34,7 @@ const lessonController = {
       const { search = '', level = '', status = '', page = 1 } = req.query as any;
       const result = await Lesson.getAll({ search, level, status, page, limit: 20 });
       res.render('lessons/index', {
-        title: 'Bài học',
+        title: 'Lessons',
         active: 'lessons',
         lessons: result.rows,
         pagination: result,
@@ -42,7 +42,7 @@ const lessonController = {
       });
     } catch (err) {
       console.error('[Lessons] getIndex error:', err);
-      req.flash('error', 'Không thể tải danh sách bài học');
+      req.flash('error', 'Failed to load lesson list');
       return res.redirect('/dashboard');
     }
   },
@@ -52,7 +52,7 @@ const lessonController = {
     try {
       const tags = await DictionaryEntry.getAllTags();
       res.render('lessons/create', {
-        title: 'Tạo bài học',
+        title: 'Create Lesson',
         active: 'lessons',
         tags,
         VALID_LEVELS,
@@ -60,7 +60,7 @@ const lessonController = {
       });
     } catch (err) {
       console.error('[Lessons] getCreate error:', err);
-      req.flash('error', 'Không thể tải form');
+      req.flash('error', 'Failed to load form');
       return res.redirect('/lessons');
     }
   },
@@ -71,7 +71,7 @@ const lessonController = {
       const { data, entryIds, tagIds } = parseBody(req.body, req.session.admin.id);
 
       if (!data.title) {
-        req.flash('error', 'Tiêu đề không được để trống');
+        req.flash('error', 'Title is required');
         return res.redirect('/lessons/create');
       }
 
@@ -84,16 +84,16 @@ const lessonController = {
           targetId: null,
           payload: { data, entryIds, tagIds },
         });
-        req.flash('success', 'Yêu cầu tạo bài học đã được gửi, chờ Super Admin duyệt.');
+        req.flash('success', 'Lesson creation request submitted, pending Super Admin approval.');
         return res.redirect('/lessons');
       }
 
       const lesson = await Lesson.create(data, entryIds, tagIds);
-      req.flash('success', `Đã tạo bài học "${lesson.title}" thành công`);
+      req.flash('success', `Lesson "${lesson.title}" created successfully`);
       return res.redirect('/lessons');
     } catch (err) {
       console.error('[Lessons] postCreate error:', err);
-      req.flash('error', 'Đã xảy ra lỗi. Vui lòng thử lại.');
+      req.flash('error', 'An error occurred. Please try again.');
       return res.redirect('/lessons/create');
     }
   },
@@ -106,11 +106,11 @@ const lessonController = {
         DictionaryEntry.getAllTags(),
       ]);
       if (!lesson) {
-        req.flash('error', 'Không tìm thấy bài học');
+        req.flash('error', 'Lesson not found');
         return res.redirect('/lessons');
       }
       res.render('lessons/edit', {
-        title: `Sửa — ${lesson.title}`,
+        title: `Edit — ${lesson.title}`,
         active: 'lessons',
         lesson,
         tags,
@@ -120,7 +120,7 @@ const lessonController = {
       });
     } catch (err) {
       console.error('[Lessons] getEdit error:', err);
-      req.flash('error', 'Không thể tải form sửa');
+      req.flash('error', 'Failed to load edit form');
       return res.redirect('/lessons');
     }
   },
@@ -132,13 +132,13 @@ const lessonController = {
       const { data, entryIds, tagIds } = parseBody(req.body, req.session.admin.id);
 
       if (!data.title) {
-        req.flash('error', 'Tiêu đề không được để trống');
+        req.flash('error', 'Title is required');
         return res.redirect(`/lessons/${id}/edit`);
       }
 
       const lesson = await Lesson.findById(id);
       if (!lesson) {
-        req.flash('error', 'Không tìm thấy bài học');
+        req.flash('error', 'Lesson not found');
         return res.redirect('/lessons');
       }
 
@@ -151,16 +151,16 @@ const lessonController = {
           targetId: id,
           payload: { data, entryIds, tagIds, targetId: id },
         });
-        req.flash('success', 'Yêu cầu sửa bài học đã được gửi, chờ Super Admin duyệt.');
+        req.flash('success', 'Lesson update request submitted, pending Super Admin approval.');
         return res.redirect('/lessons');
       }
 
       await Lesson.update(id, data, entryIds, tagIds);
-      req.flash('success', 'Đã cập nhật bài học thành công');
+      req.flash('success', 'Lesson updated successfully');
       return res.redirect('/lessons');
     } catch (err) {
       console.error('[Lessons] postEdit error:', err);
-      req.flash('error', 'Đã xảy ra lỗi. Vui lòng thử lại.');
+      req.flash('error', 'An error occurred. Please try again.');
       return res.redirect(`/lessons/${req.params.id}/edit`);
     }
   },
@@ -171,7 +171,7 @@ const lessonController = {
       const { id } = req.params as { id: string };
       const lesson = await Lesson.findById(id);
       if (!lesson) {
-        req.flash('error', 'Không tìm thấy bài học');
+        req.flash('error', 'Lesson not found');
         return res.redirect('/lessons');
       }
 
@@ -184,22 +184,22 @@ const lessonController = {
           targetId: id,
           payload: { targetId: id, title: lesson.title },
         });
-        req.flash('success', 'Yêu cầu xóa bài học đã được gửi, chờ Super Admin duyệt.');
+        req.flash('success', 'Lesson deletion request submitted, pending Super Admin approval.');
         return res.redirect('/lessons');
       }
 
       const { confirm_text } = req.body;
       if (confirm_text !== `DELETE ${lesson.title}`) {
-        req.flash('error', 'Xác nhận không đúng. Vui lòng thử lại.');
+        req.flash('error', 'Confirmation text is incorrect. Please try again.');
         return res.redirect('/lessons');
       }
 
       await Lesson.delete(id);
-      req.flash('success', `Đã xóa bài học "${lesson.title}"`);
+      req.flash('success', `Lesson "${lesson.title}" deleted`);
       return res.redirect('/lessons');
     } catch (err) {
       console.error('[Lessons] postDelete error:', err);
-      req.flash('error', 'Đã xảy ra lỗi. Vui lòng thử lại.');
+      req.flash('error', 'An error occurred. Please try again.');
       return res.redirect('/lessons');
     }
   },
@@ -210,7 +210,7 @@ const lessonController = {
       const { id } = req.params as { id: string };
       const lesson = await Lesson.findById(id);
       if (!lesson) {
-        req.flash('error', 'Không tìm thấy bài học');
+        req.flash('error', 'Lesson not found');
         return res.redirect('/lessons');
       }
 
@@ -230,7 +230,7 @@ const lessonController = {
             targetId: id,
           },
         });
-        req.flash('success', 'Yêu cầu thay đổi trạng thái đã được gửi, chờ duyệt.');
+        req.flash('success', 'Status change request submitted, pending approval.');
         return res.redirect('/lessons');
       }
 
@@ -238,11 +238,11 @@ const lessonController = {
       const entryIds = (lesson.entries || []).map((e: any) => e.id);
       const tagIds   = (lesson.tags   || []).map((t: any) => t.id);
       await Lesson.update(id, { ...lesson, status: newStatus }, entryIds, tagIds);
-      req.flash('success', `Đã chuyển sang trạng thái ${newStatus}`);
+      req.flash('success', `Status changed to ${newStatus}`);
       return res.redirect('/lessons');
     } catch (err) {
       console.error('[Lessons] postToggleStatus error:', err);
-      req.flash('error', 'Đã xảy ra lỗi. Vui lòng thử lại.');
+      req.flash('error', 'An error occurred. Please try again.');
       return res.redirect('/lessons');
     }
   },

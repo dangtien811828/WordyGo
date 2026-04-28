@@ -15,16 +15,16 @@
   </div>
   <div style="display:flex;gap:8px">
     <% if (canEdit) { %>
-      <a href="/ebooks/<%= ebook.id %>/edit" class="btn btn-secondary">Sửa</a>
+      <a href="/ebooks/<%= ebook.id %>/edit" class="btn btn-secondary">Edit</a>
     <% } %>
     <% if (canDelete) { %>
       <button type="button" class="btn btn-danger"
-              onclick="document.getElementById('dlg-delete').showModal()">Xóa</button>
+              onclick="document.getElementById('dlg-delete').showModal()">Delete</button>
     <% } else if (isModerator) { %>
       <form action="/ebooks/<%= ebook.id %>/delete" method="POST" style="margin:0">
         <input type="hidden" name="confirm_text" value="DELETE <%= ebook.title %>">
         <button type="submit" class="btn btn-danger"
-                onclick="return confirm('Gửi yêu cầu xóa ebook này đến Super Admin?')">Yêu cầu xóa</button>
+                onclick="return confirm('Submit request to delete this ebook to Super Admin?')">Request Delete</button>
       </form>
     <% } %>
   </div>
@@ -35,7 +35,7 @@
   <!-- Main info -->
   <div class="card">
     <div class="card-header" style="display:flex;justify-content:space-between;align-items:center">
-      <h2>Thông tin sách</h2>
+      <h2>Book Information</h2>
       <div style="display:flex;gap:6px">
         <span class="badge <%= levelBadge[ebook.level] || '' %>"><%= ebook.level %></span>
         <span class="badge <%= statusBadge[ebook.status] || '' %>"><%= ebook.status %></span>
@@ -50,7 +50,7 @@
       <div style="flex:1">
         <table style="width:100%;border-collapse:collapse">
           <tr style="border-bottom:1px solid var(--border)">
-            <td style="padding:8px 0;color:var(--text-secondary);width:140px;font-size:13px">Tác giả</td>
+            <td style="padding:8px 0;color:var(--text-secondary);width:140px;font-size:13px">Author</td>
             <td style="padding:8px 0"><%= ebook.author || '—' %></td>
           </tr>
           <% if (ebook.isbn) { %>
@@ -64,7 +64,7 @@
             <td style="padding:8px 0"><%= ebook.total_chapters || chapters.length %></td>
           </tr>
           <tr style="border-bottom:1px solid var(--border)">
-            <td style="padding:8px 0;color:var(--text-secondary);font-size:13px">Tổng từ</td>
+            <td style="padding:8px 0;color:var(--text-secondary);font-size:13px">Total Words</td>
             <td style="padding:8px 0"><%= ebook.total_words ? ebook.total_words.toLocaleString() : '—' %></td>
           </tr>
           <tr style="border-bottom:1px solid var(--border)">
@@ -76,13 +76,13 @@
             <td style="padding:8px 0;color:var(--text-secondary);font-size:13px">File</td>
             <td style="padding:8px 0">
               <a href="<%= ebook.epub_file_url %>" target="_blank" style="color:var(--primary);font-size:13px">
-                Tải xuống
+                Download
               </a>
             </td>
           </tr>
           <% } %>
           <tr>
-            <td style="padding:8px 0;color:var(--text-secondary);font-size:13px">Người upload</td>
+            <td style="padding:8px 0;color:var(--text-secondary);font-size:13px">Uploaded By</td>
             <td style="padding:8px 0;font-size:13px"><%= ebook.creator_name || '—' %></td>
           </tr>
         </table>
@@ -96,14 +96,14 @@
   <!-- Sidebar -->
   <div style="display:flex;flex-direction:column;gap:16px">
     <div class="card">
-      <div class="card-header"><h2>Thể loại</h2></div>
+      <div class="card-header"><h2>Genre</h2></div>
       <div style="padding:16px;display:flex;flex-wrap:wrap;gap:6px">
         <% if (genre.length > 0) { %>
           <% genre.forEach(function(g) { %>
             <span class="badge badge-primary"><%= g %></span>
           <% }); %>
         <% } else { %>
-          <span style="color:var(--text-secondary);font-size:13px">Chưa có</span>
+          <span style="color:var(--text-secondary);font-size:13px">None</span>
         <% } %>
       </div>
     </div>
@@ -122,7 +122,7 @@
 <!-- Chapters list -->
 <div class="card">
   <div class="card-header">
-    <h2>Danh sách Chapters (<%= chapters.length %>)</h2>
+    <h2>Chapter List (<%= chapters.length %>)</h2>
   </div>
   <% if (chapters.length > 0) { %>
   <div class="table-wrapper">
@@ -130,8 +130,8 @@
       <thead>
         <tr>
           <th style="width:60px">#</th>
-          <th>Tiêu đề chương</th>
-          <th style="text-align:center;width:90px">Số từ</th>
+          <th>Chapter Title</th>
+          <th style="text-align:center;width:90px">Word Count</th>
           <th style="text-align:center;width:240px">TTS</th>
         </tr>
       </thead>
@@ -178,7 +178,7 @@
   </div>
   <% } else { %>
     <div style="padding:40px;text-align:center;color:var(--text-secondary)">
-      Chưa có chapter nào
+      No chapters yet
     </div>
   <% } %>
 </div>
@@ -189,9 +189,9 @@
 <% if (canDelete) { %>
 <dialog id="dlg-delete"
         style="border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;max-width:400px;width:100%;box-shadow:var(--shadow-md)">
-  <h3 style="margin-bottom:8px;color:var(--danger)">Xóa ebook "<%= ebook.title %>"</h3>
+  <h3 style="margin-bottom:8px;color:var(--danger)">Delete ebook "<%= ebook.title %>"</h3>
   <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">
-    Xóa sẽ xóa toàn bộ chapters và dữ liệu liên quan. Nhập:<br>
+    Deleting will remove all chapters and related data. Type:<br>
     <code style="background:var(--bg);padding:2px 6px;border-radius:4px;font-size:13px">DELETE <%= ebook.title %></code>
   </p>
   <form action="/ebooks/<%= ebook.id %>/delete" method="POST">
@@ -201,8 +201,8 @@
     </div>
     <div style="display:flex;gap:8px;justify-content:flex-end">
       <button type="button" class="btn btn-secondary"
-              onclick="document.getElementById('dlg-delete').close()">Hủy</button>
-      <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+              onclick="document.getElementById('dlg-delete').close()">Cancel</button>
+      <button type="submit" class="btn btn-danger">Confirm Delete</button>
     </div>
   </form>
 </dialog>

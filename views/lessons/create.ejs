@@ -1,13 +1,13 @@
 <div class="page-header" style="display:flex;align-items:center;justify-content:space-between">
   <div>
-    <h1>Tạo bài học</h1>
-    <p><a href="/lessons" style="color:var(--text-secondary)">← Bài học</a></p>
+    <h1>Create Lesson</h1>
+    <p><a href="/lessons" style="color:var(--text-secondary)">← Lessons</a></p>
   </div>
 </div>
 
 <% if (isModerator) { %>
   <div class="alert alert-error" style="background:#FEF3C7;border-color:#F59E0B;color:#92400E;margin-bottom:16px">
-    ⚠️ Bạn đang đăng nhập với vai trò <strong>Moderator</strong>. Bài học sẽ được gửi đến Super Admin để duyệt trước khi đăng.
+    ⚠️ You are logged in as <strong>Moderator</strong>. Lessons will be sent to Super Admin for approval before publishing.
   </div>
 <% } %>
 
@@ -18,19 +18,19 @@
     <div style="display:flex;flex-direction:column;gap:16px">
 
       <div class="card">
-        <div class="card-header"><h2>Thông tin bài học</h2></div>
+        <div class="card-header"><h2>Lesson Information</h2></div>
         <div style="padding:20px;display:flex;flex-direction:column;gap:14px">
           <div class="form-group" style="margin:0">
-            <label>Tiêu đề <span style="color:var(--danger)">*</span></label>
-            <input type="text" name="title" required placeholder="Tên bài học...">
+            <label>Title <span style="color:var(--danger)">*</span></label>
+            <input type="text" name="title" required placeholder="Lesson title...">
           </div>
           <div class="form-group" style="margin:0">
-            <label>Mô tả</label>
-            <textarea name="description" rows="3" placeholder="Mô tả ngắn về bài học..."></textarea>
+            <label>Description</label>
+            <textarea name="description" rows="3" placeholder="Short description..."></textarea>
           </div>
           <div class="form-group" style="margin:0">
-            <label>Nội dung HTML</label>
-            <textarea name="content_html" rows="8" placeholder="<p>Nội dung bài học...</p>"
+            <label>HTML Content</label>
+            <textarea name="content_html" rows="8" placeholder="<p>Lesson content...</p>"
                       style="font-family:monospace;font-size:13px"></textarea>
           </div>
         </div>
@@ -38,18 +38,18 @@
 
       <!-- Entry picker -->
       <div class="card">
-        <div class="card-header"><h2>Từ vựng trong bài</h2></div>
+        <div class="card-header"><h2>Vocabulary</h2></div>
         <div style="padding:20px">
           <div class="form-group" style="margin-bottom:12px">
-            <label>Tìm từ để thêm</label>
-            <input type="text" id="entrySearch" placeholder="Nhập headword..." autocomplete="off"
+            <label>Search for words to add</label>
+            <input type="text" id="entrySearch" placeholder="Enter headword..." autocomplete="off"
                    style="position:relative">
           </div>
           <!-- Dropdown results -->
           <div id="entryDropdown" style="display:none;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-white);max-height:200px;overflow-y:auto;margin-bottom:12px;box-shadow:var(--shadow-md)"></div>
           <!-- Selected entries -->
           <div id="selectedEntries" style="display:flex;flex-direction:column;gap:6px">
-            <p id="noEntriesMsg" style="color:var(--text-secondary);font-size:13px">Chưa có từ nào được chọn.</p>
+            <p id="noEntriesMsg" style="color:var(--text-secondary);font-size:13px">No words selected yet.</p>
           </div>
         </div>
       </div>
@@ -60,10 +60,10 @@
     <div style="display:flex;flex-direction:column;gap:16px">
 
       <div class="card">
-        <div class="card-header"><h2>Cài đặt</h2></div>
+        <div class="card-header"><h2>Settings</h2></div>
         <div style="padding:16px;display:flex;flex-direction:column;gap:14px">
           <div class="form-group" style="margin:0">
-            <label>Cấp độ</label>
+            <label>Level</label>
             <select name="level">
               <% VALID_LEVELS.forEach(l => { %>
                 <option value="<%= l %>"><%= l %></option>
@@ -72,7 +72,7 @@
           </div>
           <% if (!isModerator) { %>
           <div class="form-group" style="margin:0">
-            <label>Trạng thái</label>
+            <label>Status</label>
             <select name="status">
               <option value="draft" selected>Draft</option>
               <option value="published">Published</option>
@@ -103,15 +103,15 @@
               <option value="<%= t.id %>"><%= t.name %></option>
             <% }) %>
           </select>
-          <p style="font-size:11px;color:var(--text-secondary);margin-top:6px">Ctrl+Click để chọn nhiều</p>
+          <p style="font-size:11px;color:var(--text-secondary);margin-top:6px">Ctrl+Click to select multiple</p>
         </div>
       </div>
 
       <div style="display:flex;flex-direction:column;gap:8px">
         <button type="submit" class="btn btn-primary" style="width:100%">
-          <%= isModerator ? 'Gửi yêu cầu duyệt' : 'Tạo bài học' %>
+          <%= isModerator ? 'Submit for Approval' : 'Create Lesson' %>
         </button>
-        <a href="/lessons" class="btn btn-secondary" style="width:100%;text-align:center">Hủy</a>
+        <a href="/lessons" class="btn btn-secondary" style="width:100%;text-align:center">Cancel</a>
       </div>
 
     </div>
@@ -153,7 +153,7 @@
       pill.style = 'display:flex;align-items:center;justify-content:space-between;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:6px 10px;font-size:13px';
       pill.innerHTML =
         '<span><strong>' + escHtml(entry.headword) + '</strong> — ' + escHtml(entry.meaning_vi) + '</span>' +
-        '<button type="button" data-id="' + id + '" style="background:none;border:none;cursor:pointer;color:var(--danger);font-size:16px;padding:0 0 0 8px" title="Bỏ chọn">×</button>';
+        '<button type="button" data-id="' + id + '" style="background:none;border:none;cursor:pointer;color:var(--danger);font-size:16px;padding:0 0 0 8px" title="Remove">×</button>';
       pill.querySelector('button').addEventListener('click', function() {
         delete selected[this.dataset.id];
         renderSelected();
@@ -169,7 +169,7 @@
   function showDropdown(entries) {
     dropdown.innerHTML = '';
     if (!entries.length) {
-      dropdown.innerHTML = '<div style="padding:10px 14px;color:var(--text-secondary);font-size:13px">Không tìm thấy từ nào</div>';
+      dropdown.innerHTML = '<div style="padding:10px 14px;color:var(--text-secondary);font-size:13px">No words found</div>';
       dropdown.style.display = 'block';
       return;
     }

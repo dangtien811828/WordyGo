@@ -8,17 +8,17 @@ const profileController = {
     try {
       const admin = await Admin.findById(req.session.admin.id);
       if (!admin) {
-        req.flash('error', 'Không tìm thấy tài khoản');
+        req.flash('error', 'Account not found');
         return res.redirect('/dashboard');
       }
       res.render('profile/index', {
-        title: 'Hồ sơ cá nhân',
+        title: 'My Profile',
         active: 'profile',
         profileAdmin: admin,
       });
     } catch (err) {
       console.error('[Profile] getProfile error:', err);
-      req.flash('error', 'Không thể tải thông tin');
+      req.flash('error', 'Failed to load profile information');
       return res.redirect('/dashboard');
     }
   },
@@ -30,7 +30,7 @@ const profileController = {
       const adminId = req.session.admin.id;
 
       if (!full_name || full_name.trim().length < 2) {
-        req.flash('error', 'Họ tên phải có ít nhất 2 ký tự');
+        req.flash('error', 'Full name must be at least 2 characters');
         return res.redirect('/profile');
       }
 
@@ -43,11 +43,11 @@ const profileController = {
       req.session.admin.full_name = full_name.trim();
       req.session.admin.avatar_url = avatarUrl;
 
-      req.flash('success', 'Đã cập nhật thông tin');
+      req.flash('success', 'Profile updated successfully');
       return res.redirect('/profile');
     } catch (err) {
       console.error('[Profile] postUpdate error:', err);
-      req.flash('error', 'Đã xảy ra lỗi. Vui lòng thử lại.');
+      req.flash('error', 'An error occurred. Please try again.');
       return res.redirect('/profile');
     }
   },
@@ -59,29 +59,29 @@ const profileController = {
       const adminId = req.session.admin.id;
 
       if (!new_password || new_password.length < 6) {
-        req.flash('error', 'Mật khẩu mới phải có ít nhất 6 ký tự');
+        req.flash('error', 'New password must be at least 6 characters');
         return res.redirect('/profile');
       }
       if (new_password !== confirm_password) {
-        req.flash('error', 'Xác nhận mật khẩu không khớp');
+        req.flash('error', 'Password confirmation does not match');
         return res.redirect('/profile');
       }
 
       const admin = await Admin.findByEmail(req.session.admin.email);
       const isMatch = await bcrypt.compare(old_password, admin.password_hash);
       if (!isMatch) {
-        req.flash('error', 'Mật khẩu cũ không đúng');
+        req.flash('error', 'Current password is incorrect');
         return res.redirect('/profile');
       }
 
       const newHash = await bcrypt.hash(new_password, 10);
       await Admin.updatePassword(adminId, newHash);
 
-      req.flash('success', 'Đã đổi mật khẩu thành công');
+      req.flash('success', 'Password changed successfully');
       return res.redirect('/profile');
     } catch (err) {
       console.error('[Profile] postPassword error:', err);
-      req.flash('error', 'Đã xảy ra lỗi. Vui lòng thử lại.');
+      req.flash('error', 'An error occurred. Please try again.');
       return res.redirect('/profile');
     }
   },
@@ -93,7 +93,7 @@ const profileController = {
       const expected = `DELETE ${req.session.admin.email}`;
 
       if (confirm_text !== expected) {
-        req.flash('error', 'Xác nhận không đúng. Vui lòng nhập đúng cú pháp.');
+        req.flash('error', 'Confirmation text is incorrect. Please enter the exact text shown.');
         return res.redirect('/profile');
       }
 
@@ -105,7 +105,7 @@ const profileController = {
       });
     } catch (err) {
       console.error('[Profile] postDelete error:', err);
-      req.flash('error', 'Đã xảy ra lỗi. Vui lòng thử lại.');
+      req.flash('error', 'An error occurred. Please try again.');
       return res.redirect('/profile');
     }
   },

@@ -36,7 +36,7 @@ const ebookController = {
       });
     } catch (err) {
       console.error('[Ebooks] getIndex error:', err);
-      req.flash('error', 'Không thể tải danh sách ebook');
+      req.flash('error', 'Failed to load ebook list');
       return res.redirect('/dashboard');
     }
   },
@@ -57,13 +57,13 @@ const ebookController = {
   postCreate(req: Request, res: Response) {
     uploadEbook.single('ebookFile')(req, res, async (err: any) => {
       if (err) {
-        req.flash('error', err.message || 'Lỗi upload file');
+        req.flash('error', err.message || 'File upload error');
         return res.redirect('/ebooks/create');
       }
       try {
         const { title } = req.body;
         if (!title || !title.trim()) {
-          req.flash('error', 'Tiêu đề không được để trống');
+          req.flash('error', 'Title is required');
           return res.redirect('/ebooks/create');
         }
 
@@ -77,11 +77,11 @@ const ebookController = {
           { ...req.body, genre, epub_file_url },
           req.session.admin.id
         );
-        req.flash('success', `Đã upload ebook "${ebook.title}"`);
+        req.flash('success', `Ebook "${ebook.title}" uploaded successfully`);
         return res.redirect(`/ebooks/${ebook.id}`);
       } catch (createErr) {
         console.error('[Ebooks] postCreate error:', createErr);
-        req.flash('error', 'Đã xảy ra lỗi. Vui lòng thử lại.');
+        req.flash('error', 'An error occurred. Please try again.');
         return res.redirect('/ebooks/create');
       }
     });
@@ -92,7 +92,7 @@ const ebookController = {
     try {
       const ebook = await Ebook.findById(req.params.id as string);
       if (!ebook) {
-        req.flash('error', 'Không tìm thấy ebook');
+        req.flash('error', 'Ebook not found');
         return res.redirect('/ebooks');
       }
       const admin = req.session.admin;
@@ -106,7 +106,7 @@ const ebookController = {
       });
     } catch (err) {
       console.error('[Ebooks] getShow error:', err);
-      req.flash('error', 'Không thể tải thông tin ebook');
+      req.flash('error', 'Failed to load ebook information');
       return res.redirect('/ebooks');
     }
   },
@@ -116,15 +116,15 @@ const ebookController = {
     try {
       const ebook = await Ebook.findById(req.params.id as string);
       if (!ebook) {
-        req.flash('error', 'Không tìm thấy ebook');
+        req.flash('error', 'Ebook not found');
         return res.redirect('/ebooks');
       }
       if (!canEdit(req.session.admin, ebook)) {
-        req.flash('error', 'Bạn không có quyền sửa ebook này');
+        req.flash('error', 'You do not have permission to edit this ebook');
         return res.redirect('/ebooks');
       }
       res.render('ebooks/edit', {
-        title: `Sửa — ${ebook.title}`,
+        title: `Edit — ${ebook.title}`,
         active: 'ebooks',
         ebook,
         VALID_LEVELS,
@@ -134,7 +134,7 @@ const ebookController = {
       });
     } catch (err) {
       console.error('[Ebooks] getEdit error:', err);
-      req.flash('error', 'Không thể tải form sửa');
+      req.flash('error', 'Failed to load edit form');
       return res.redirect('/ebooks');
     }
   },
@@ -145,11 +145,11 @@ const ebookController = {
       const { id } = req.params as { id: string };
       const ebook = await Ebook.findById(id);
       if (!ebook) {
-        req.flash('error', 'Không tìm thấy ebook');
+        req.flash('error', 'Ebook not found');
         return res.redirect('/ebooks');
       }
       if (!canEdit(req.session.admin, ebook)) {
-        req.flash('error', 'Bạn không có quyền sửa ebook này');
+        req.flash('error', 'You do not have permission to edit this ebook');
         return res.redirect('/ebooks');
       }
 
@@ -164,7 +164,7 @@ const ebookController = {
         : req.body.genre ? [req.body.genre] : [];
 
       await Ebook.update(id, { ...req.body, genre });
-      req.flash('success', 'Đã cập nhật ebook');
+      req.flash('success', 'Ebook updated successfully');
       return res.redirect(`/ebooks/${id}`);
     } catch (err) {
       console.error('[Ebooks] postEdit error:', err);
@@ -179,7 +179,7 @@ const ebookController = {
       const { id } = req.params as { id: string };
       const ebook = await Ebook.findById(id);
       if (!ebook) {
-        req.flash('error', 'Không tìm thấy ebook');
+        req.flash('error', 'Ebook not found');
         return res.redirect('/ebooks');
       }
 
@@ -195,23 +195,23 @@ const ebookController = {
           targetId: id,
           payload: { targetId: id, title: ebook.title },
         });
-        req.flash('success', 'Yêu cầu xóa ebook đã được gửi, chờ Super Admin duyệt.');
+        req.flash('success', 'Ebook deletion request submitted, pending Super Admin approval.');
         return res.redirect('/ebooks');
       }
 
       if (!canDelete(admin, ebook)) {
-        req.flash('error', 'Bạn không có quyền xóa ebook này');
+        req.flash('error', 'You do not have permission to delete this ebook');
         return res.redirect(`/ebooks/${id}`);
       }
 
       const { confirm_text } = req.body;
       if (confirm_text !== `DELETE ${ebook.title}`) {
-        req.flash('error', 'Xác nhận không đúng. Vui lòng thử lại.');
+        req.flash('error', 'Confirmation text is incorrect. Please try again.');
         return res.redirect(`/ebooks/${id}`);
       }
 
       await Ebook.delete(id);
-      req.flash('success', `Đã xóa ebook "${ebook.title}"`);
+      req.flash('success', `Ebook "${ebook.title}" deleted`);
       return res.redirect('/ebooks');
     } catch (err) {
       console.error('[Ebooks] postDelete error:', err);

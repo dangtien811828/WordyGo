@@ -1,24 +1,24 @@
 <div class="page-header" style="margin-bottom:24px">
-  <h1 style="margin:0">Cài đặt</h1>
-  <p style="margin:4px 0 0;color:var(--text-secondary)">Tuỳ chỉnh giao diện và tài khoản</p>
+  <h1 style="margin:0">Settings</h1>
+  <p style="margin:4px 0 0;color:var(--text-secondary)">Customize appearance and account settings</p>
 </div>
 
 <div style="display:flex;flex-direction:column;gap:16px;max-width:560px">
 
   <!-- Giao diện -->
   <div class="card">
-    <div class="card-header"><h2>Giao diện</h2></div>
+    <div class="card-header"><h2>Appearance</h2></div>
     <div style="padding:20px;display:flex;flex-direction:column;gap:16px">
       <div>
         <label style="display:block;font-size:13px;font-weight:500;margin-bottom:10px;color:var(--text-secondary)">Theme</label>
         <div style="display:flex;gap:10px">
           <button id="themeLight" type="button" class="btn btn-secondary" onclick="setTheme('light')"
                   style="display:flex;align-items:center;gap:8px;flex:1;justify-content:center">
-            ☀️ Sáng
+            ☀️ Light
           </button>
           <button id="themeDark" type="button" class="btn btn-secondary" onclick="setTheme('dark')"
                   style="display:flex;align-items:center;gap:8px;flex:1;justify-content:center">
-            🌙 Tối
+            🌙 Dark
           </button>
         </div>
       </div>
@@ -27,13 +27,13 @@
 
   <!-- Tài khoản -->
   <div class="card">
-    <div class="card-header"><h2>Tài khoản</h2></div>
+    <div class="card-header"><h2>Account</h2></div>
     <div style="padding:20px;display:flex;flex-direction:column;gap:12px">
       <a href="/profile" class="btn btn-secondary" style="display:flex;align-items:center;gap:8px">
-        👤 Trang cá nhân
+        👤 My Profile
       </a>
       <a href="/profile#change-password" class="btn btn-secondary" style="display:flex;align-items:center;gap:8px">
-        🔑 Đổi mật khẩu
+        🔑 Change Password
       </a>
     </div>
   </div>

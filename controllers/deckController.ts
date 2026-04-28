@@ -29,7 +29,7 @@ const deckController = {
       });
     } catch (err) {
       console.error('[Decks] getIndex error:', err);
-      req.flash('error', 'Không thể tải danh sách decks');
+      req.flash('error', 'Failed to load deck list');
       return res.redirect('/dashboard');
     }
   },
@@ -39,7 +39,7 @@ const deckController = {
     try {
       const tags = await DictionaryEntry.getAllTags();
       res.render('decks/create', {
-        title: 'Tạo Deck',
+        title: 'Create Deck',
         active: 'flashcards',
         tags,
         VALID_LEVELS,
@@ -48,7 +48,7 @@ const deckController = {
       });
     } catch (err) {
       console.error('[Decks] getCreate error:', err);
-      req.flash('error', 'Không thể tải form');
+      req.flash('error', 'Failed to load form');
       return res.redirect('/decks');
     }
   },
@@ -58,22 +58,22 @@ const deckController = {
     try {
       const { title, deck_type } = req.body;
       if (!title || !title.trim()) {
-        req.flash('error', 'Tiêu đề không được để trống');
+        req.flash('error', 'Title is required');
         return res.redirect('/decks/create');
       }
       // Reject deck_type='user_created' from admin website — would create
       // an orphan (NULL user_id) deck invisible to mobile system + mine lists.
       if (deck_type && !VALID_TYPES.includes(deck_type)) {
-        req.flash('error', `Loại deck phải là một trong: ${VALID_TYPES.join(', ')}`);
+        req.flash('error', `Invalid deck type. Must be one of: ${VALID_TYPES.join(', ')}`);
         return res.redirect('/decks/create');
       }
       const tagIds = parseTagIds(req.body);
       const deck = await Deck.create({ ...req.body, created_by: req.session.admin.id }, tagIds);
-      req.flash('success', `Đã tạo deck "${deck.title}"`);
+      req.flash('success', `Deck "${deck.title}" created successfully`);
       return res.redirect(`/decks/${deck.id}`);
     } catch (err) {
       console.error('[Decks] postCreate error:', err);
-      req.flash('error', 'Đã xảy ra lỗi. Vui lòng thử lại.');
+      req.flash('error', 'An error occurred. Please try again.');
       return res.redirect('/decks/create');
     }
   },
@@ -83,7 +83,7 @@ const deckController = {
     try {
       const deck = await Deck.findById(req.params.id as string);
       if (!deck) {
-        req.flash('error', 'Không tìm thấy deck');
+        req.flash('error', 'Deck not found');
         return res.redirect('/decks');
       }
       res.render('decks/show', {
@@ -93,7 +93,7 @@ const deckController = {
       });
     } catch (err) {
       console.error('[Decks] getShow error:', err);
-      req.flash('error', 'Không thể tải thông tin deck');
+      req.flash('error', 'Failed to load deck information');
       return res.redirect('/decks');
     }
   },
@@ -106,11 +106,11 @@ const deckController = {
         DictionaryEntry.getAllTags(),
       ]);
       if (!deck) {
-        req.flash('error', 'Không tìm thấy deck');
+        req.flash('error', 'Deck not found');
         return res.redirect('/decks');
       }
       res.render('decks/edit', {
-        title: `Sửa — ${deck.title}`,
+        title: `Edit — ${deck.title}`,
         active: 'flashcards',
         deck,
         tags,
@@ -120,7 +120,7 @@ const deckController = {
       });
     } catch (err) {
       console.error('[Decks] getEdit error:', err);
-      req.flash('error', 'Không thể tải form sửa');
+      req.flash('error', 'Failed to load edit form');
       return res.redirect('/decks');
     }
   },
@@ -131,20 +131,20 @@ const deckController = {
       const { id } = req.params as { id: string };
       const { title, deck_type } = req.body;
       if (!title || !title.trim()) {
-        req.flash('error', 'Tiêu đề không được để trống');
+        req.flash('error', 'Title is required');
         return res.redirect(`/decks/${id}/edit`);
       }
       if (deck_type && !VALID_TYPES.includes(deck_type)) {
-        req.flash('error', `Loại deck phải là một trong: ${VALID_TYPES.join(', ')}`);
+        req.flash('error', `Invalid deck type. Must be one of: ${VALID_TYPES.join(', ')}`);
         return res.redirect(`/decks/${id}/edit`);
       }
       const tagIds = parseTagIds(req.body);
       await Deck.update(id, req.body, tagIds);
-      req.flash('success', 'Đã cập nhật deck');
+      req.flash('success', 'Deck updated successfully');
       return res.redirect(`/decks/${id}`);
     } catch (err) {
       console.error('[Decks] postEdit error:', err);
-      req.flash('error', 'Đã xảy ra lỗi. Vui lòng thử lại.');
+      req.flash('error', 'An error occurred. Please try again.');
       return res.redirect(`/decks/${req.params.id}/edit`);
     }
   },
@@ -156,19 +156,19 @@ const deckController = {
       const { confirm_text } = req.body;
       const deck = await Deck.findById(id);
       if (!deck) {
-        req.flash('error', 'Không tìm thấy deck');
+        req.flash('error', 'Deck not found');
         return res.redirect('/decks');
       }
       if (confirm_text !== `DELETE ${deck.title}`) {
-        req.flash('error', 'Xác nhận không đúng. Vui lòng thử lại.');
+        req.flash('error', 'Confirmation text is incorrect. Please try again.');
         return res.redirect(`/decks/${id}`);
       }
       await Deck.delete(id);
-      req.flash('success', `Đã xóa deck "${deck.title}"`);
+      req.flash('success', `Deck "${deck.title}" deleted`);
       return res.redirect('/decks');
     } catch (err) {
       console.error('[Decks] postDelete error:', err);
-      req.flash('error', 'Đã xảy ra lỗi. Vui lòng thử lại.');
+      req.flash('error', 'An error occurred. Please try again.');
       return res.redirect('/decks');
     }
   },
@@ -182,16 +182,16 @@ const deckController = {
         : req.body.entryIds ? [req.body.entryIds] : [];
 
       if (!entryIds.length) {
-        req.flash('error', 'Chưa chọn từ nào để thêm');
+        req.flash('error', 'No words selected to add');
         return res.redirect(`/decks/${id}`);
       }
 
       const { added, skipped } = await Deck.addCards(id, entryIds);
-      req.flash('success', `Đã thêm ${added} từ${skipped > 0 ? `, bỏ qua ${skipped} từ đã có` : ''}`);
+      req.flash('success', `Added ${added} word(s)${skipped > 0 ? `, skipped ${skipped} duplicate(s)` : ''}`);
       return res.redirect(`/decks/${id}`);
     } catch (err) {
       console.error('[Decks] postAddCards error:', err);
-      req.flash('error', 'Đã xảy ra lỗi. Vui lòng thử lại.');
+      req.flash('error', 'An error occurred. Please try again.');
       return res.redirect(`/decks/${req.params.id}`);
     }
   },
@@ -210,8 +210,8 @@ const deckController = {
       const result = await Deck.reorder(id, direction);
       if (result.ok === false) {
         const map = {
-          NOT_FOUND: { status: 404, code: 'NOT_FOUND', message: 'Deck không tồn tại' },
-          NOT_SYSTEM: { status: 400, code: 'NOT_SYSTEM', message: 'Chỉ system deck mới reorder được' },
+          NOT_FOUND: { status: 404, code: 'NOT_FOUND', message: 'Deck not found' },
+          NOT_SYSTEM: { status: 400, code: 'NOT_SYSTEM', message: 'Only system decks can be reordered' },
         } as const;
         const e = map[result.reason];
         return res.status(e.status).json({
@@ -224,7 +224,7 @@ const deckController = {
       console.error('[Decks] postReorder error:', err);
       return res.status(500).json({
         success: false,
-        error: { code: 'INTERNAL_ERROR', message: 'Reorder thất bại' },
+        error: { code: 'INTERNAL_ERROR', message: 'Reorder failed' },
       });
     }
   },
@@ -234,11 +234,11 @@ const deckController = {
     try {
       const { id, entryId } = req.params as { id: string; entryId: string };
       await Deck.removeCard(id, entryId);
-      req.flash('success', 'Đã xóa card khỏi deck');
+      req.flash('success', 'Card removed from deck');
       return res.redirect(`/decks/${id}`);
     } catch (err) {
       console.error('[Decks] postRemoveCard error:', err);
-      req.flash('error', 'Đã xảy ra lỗi. Vui lòng thử lại.');
+      req.flash('error', 'An error occurred. Please try again.');
       return res.redirect(`/decks/${req.params.id}`);
     }
   },

@@ -5,7 +5,7 @@ function fmt(n) {
 function fmtDate(ts) {
   if (!ts) return '—';
   const d = new Date(ts);
-  return d.toLocaleDateString('vi-VN') + ' ' + d.toLocaleTimeString('vi-VN', { hour:'2-digit', minute:'2-digit' });
+  return d.toLocaleDateString('en-US') + ' ' + d.toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' });
 }
 const statusBadge = {
   pending:   'badge-warning',
@@ -28,31 +28,31 @@ const statusBadge = {
     <div class="form-group" style="margin:0;flex:1;min-width:120px">
       <label style="font-size:12px">Status</label>
       <select name="status">
-        <option value="">Tất cả</option>
+        <option value="">All</option>
         <% ['pending','completed','failed','refunded'].forEach(function(s) { %>
           <option value="<%= s %>" <%= filters.status === s ? 'selected' : '' %>><%= s %></option>
         <% }) %>
       </select>
     </div>
     <div class="form-group" style="margin:0;flex:1;min-width:140px">
-      <label style="font-size:12px">Phương thức</label>
+      <label style="font-size:12px">Payment Method</label>
       <select name="payment_method">
-        <option value="">Tất cả</option>
+        <option value="">All</option>
         <% paymentMethods.forEach(function(m) { %>
           <option value="<%= m.code %>" <%= filters.payment_method === m.code ? 'selected' : '' %>><%= m.display_name %></option>
         <% }) %>
       </select>
     </div>
     <div class="form-group" style="margin:0;flex:1;min-width:120px">
-      <label style="font-size:12px">Từ ngày</label>
+      <label style="font-size:12px">From Date</label>
       <input type="date" name="date_from" value="<%= filters.date_from %>">
     </div>
     <div class="form-group" style="margin:0;flex:1;min-width:120px">
-      <label style="font-size:12px">Đến ngày</label>
+      <label style="font-size:12px">To Date</label>
       <input type="date" name="date_to" value="<%= filters.date_to %>">
     </div>
     <div style="display:flex;gap:6px">
-      <button type="submit" class="btn btn-primary" style="white-space:nowrap">Lọc</button>
+      <button type="submit" class="btn btn-primary" style="white-space:nowrap">Filter</button>
       <a href="/subscriptions/transactions" class="btn btn-secondary">Reset</a>
     </div>
   </form>
@@ -61,26 +61,26 @@ const statusBadge = {
 <!-- Table -->
 <div class="card">
   <div class="card-header" style="display:flex;align-items:center;justify-content:space-between">
-    <h2 style="margin:0;font-size:15px">Giao dịch (<%= pagination.total %>)</h2>
+    <h2 style="margin:0;font-size:15px">Transactions (<%= pagination.total %>)</h2>
   </div>
   <div class="table-wrapper" style="overflow-x:auto">
     <table>
       <thead>
         <tr>
-          <th>Người dùng</th>
-          <th>Gói</th>
-          <th>Số tiền</th>
-          <th>Phương thức</th>
-          <th>Loại</th>
+          <th>User</th>
+          <th>Plan</th>
+          <th>Amount</th>
+          <th>Method</th>
+          <th>Type</th>
           <th>Status</th>
-          <th>Ngày tạo</th>
-          <th style="text-align:center">Hành động</th>
+          <th>Created</th>
+          <th style="text-align:center">Actions</th>
         </tr>
       </thead>
       <tbody>
         <% if (transactions.length === 0) { %>
           <tr>
-            <td colspan="8" style="text-align:center;padding:40px;color:#a0aec0">Không có giao dịch nào</td>
+            <td colspan="8" style="text-align:center;padding:40px;color:#a0aec0">No transactions found</td>
           </tr>
         <% } %>
         <% transactions.forEach(function(t) { %>
@@ -110,12 +110,12 @@ const statusBadge = {
           <td style="text-align:center;white-space:nowrap">
             <% if (t.status === 'pending') { %>
               <form method="POST" action="/subscriptions/transactions/<%= t.id %>/approve" style="display:inline;margin:0"
-                    onsubmit="return confirm('Duyệt giao dịch này?')">
-                <button type="submit" class="btn btn-sm" style="background:#38a169;color:#fff;border:none;cursor:pointer">✓ Duyệt</button>
+                    onsubmit="return confirm('Approve this transaction?')">
+                <button type="submit" class="btn btn-sm" style="background:#38a169;color:#fff;border:none;cursor:pointer">✓ Approve</button>
               </form>
               <button type="button" class="btn btn-sm btn-danger"
                       onclick="openRejectModal('<%= t.id %>', '<%= t.full_name %>')">
-                ✕ Từ chối
+                ✕ Reject
               </button>
             <% } else { %>
               <span style="color:#a0aec0;font-size:12px"><%= t.status %></span>
@@ -133,17 +133,17 @@ const statusBadge = {
 <!-- Reject Modal -->
 <div id="reject-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center">
   <div style="background:#fff;border-radius:12px;padding:28px;width:460px;max-width:90vw;box-shadow:0 20px 60px rgba(0,0,0,.2)">
-    <h3 style="margin:0 0 8px;font-size:17px">Từ chối giao dịch</h3>
+    <h3 style="margin:0 0 8px;font-size:17px">Reject Transaction</h3>
     <p style="margin:0 0 16px;font-size:13px;color:#718096">User: <strong id="reject-user-name"></strong></p>
     <form method="POST" id="reject-form" action="">
       <div class="form-group">
-        <label style="font-size:14px">Lý do từ chối</label>
-        <textarea name="reason" rows="3" placeholder="Lý do từ chối..."
+        <label style="font-size:14px">Rejection Reason</label>
+        <textarea name="reason" rows="3" placeholder="Reason for rejection..."
                   style="width:100%;resize:vertical"></textarea>
       </div>
       <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px">
-        <button type="button" onclick="closeRejectModal()" class="btn btn-secondary">Huỷ</button>
-        <button type="submit" class="btn btn-danger">Xác nhận từ chối</button>
+        <button type="button" onclick="closeRejectModal()" class="btn btn-secondary">Cancel</button>
+        <button type="submit" class="btn btn-danger">Confirm Reject</button>
       </div>
     </form>
   </div>

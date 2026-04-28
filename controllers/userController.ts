@@ -16,7 +16,7 @@ const userController = {
         User.countByStatus(),
       ]);
       res.render('users/index', {
-        title: 'Người dùng',
+        title: 'Users',
         active: 'users',
         users: result.rows,
         pagination: result,
@@ -25,14 +25,14 @@ const userController = {
       });
     } catch (err) {
       console.error('[Users] getIndex error:', err);
-      req.flash('error', 'Không thể tải danh sách người dùng');
+      req.flash('error', 'Failed to load user list');
       return res.redirect('/dashboard');
     }
   },
 
   // GET /users/create
   getCreate(req: Request, res: Response) {
-    res.render('users/create', { title: 'Thêm người dùng', active: 'users' });
+    res.render('users/create', { title: 'Add User', active: 'users' });
   },
 
   // POST /users/create
@@ -40,10 +40,10 @@ const userController = {
     try {
       const { full_name, email, password, phone, level } = req.body;
       const errors: string[] = [];
-      if (!full_name || full_name.trim().length < 2) errors.push('Họ tên phải có ít nhất 2 ký tự');
-      if (!email || !/^\S+@\S+\.\S+$/.test(email))  errors.push('Email không hợp lệ');
-      if (!password || password.length < 6)          errors.push('Mật khẩu phải có ít nhất 6 ký tự');
-      if (!VALID_LEVELS.includes(level))             errors.push('Cấp độ không hợp lệ');
+      if (!full_name || full_name.trim().length < 2) errors.push('Full name must be at least 2 characters');
+      if (!email || !/^\S+@\S+\.\S+$/.test(email))  errors.push('Invalid email address');
+      if (!password || password.length < 6)          errors.push('Password must be at least 6 characters');
+      if (!VALID_LEVELS.includes(level))             errors.push('Invalid level');
 
       if (errors.length > 0) {
         req.flash('error', errors.join('. '));
@@ -52,7 +52,7 @@ const userController = {
 
       const existing = await User.findByEmail(email.toLowerCase().trim());
       if (existing) {
-        req.flash('error', 'Email đã được sử dụng');
+        req.flash('error', 'Email is already in use');
         return res.redirect('/users/create');
       }
 
@@ -65,11 +65,11 @@ const userController = {
         level,
       });
 
-      req.flash('success', 'Đã thêm người dùng thành công');
+      req.flash('success', 'User added successfully');
       return res.redirect('/users');
     } catch (err) {
       console.error('[Users] postCreate error:', err);
-      req.flash('error', 'Đã xảy ra lỗi. Vui lòng thử lại.');
+      req.flash('error', 'An error occurred. Please try again.');
       return res.redirect('/users/create');
     }
   },
@@ -79,7 +79,7 @@ const userController = {
     try {
       const user = await User.findById(req.params.id as string);
       if (!user) {
-        req.flash('error', 'Không tìm thấy người dùng');
+        req.flash('error', 'User not found');
         return res.redirect('/users');
       }
       const [reviewsRes, lessonsRes] = await Promise.all([
@@ -97,7 +97,7 @@ const userController = {
       });
     } catch (err) {
       console.error('[Users] getShow error:', err);
-      req.flash('error', 'Không thể tải thông tin người dùng');
+      req.flash('error', 'Failed to load user information');
       return res.redirect('/users');
     }
   },
@@ -107,13 +107,13 @@ const userController = {
     try {
       const user = await User.findById(req.params.id as string);
       if (!user) {
-        req.flash('error', 'Không tìm thấy người dùng');
+        req.flash('error', 'User not found');
         return res.redirect('/users');
       }
-      res.render('users/edit', { title: `Sửa — ${user.full_name}`, active: 'users', user });
+      res.render('users/edit', { title: `Edit — ${user.full_name}`, active: 'users', user });
     } catch (err) {
       console.error('[Users] getEdit error:', err);
-      req.flash('error', 'Không thể tải thông tin người dùng');
+      req.flash('error', 'Failed to load user information');
       return res.redirect('/users');
     }
   },
@@ -124,9 +124,9 @@ const userController = {
       const { id } = req.params as { id: string };
       const { full_name, phone, level, status } = req.body;
       const errors: string[] = [];
-      if (!full_name || full_name.trim().length < 2) errors.push('Họ tên phải có ít nhất 2 ký tự');
-      if (!VALID_LEVELS.includes(level))             errors.push('Cấp độ không hợp lệ');
-      if (!VALID_STATUSES.includes(status))          errors.push('Trạng thái không hợp lệ');
+      if (!full_name || full_name.trim().length < 2) errors.push('Full name must be at least 2 characters');
+      if (!VALID_LEVELS.includes(level))             errors.push('Invalid level');
+      if (!VALID_STATUSES.includes(status))          errors.push('Invalid status');
 
       if (errors.length > 0) {
         req.flash('error', errors.join('. '));
@@ -139,11 +139,11 @@ const userController = {
         level,
         status,
       });
-      req.flash('success', 'Đã cập nhật thông tin người dùng');
+      req.flash('success', 'User information updated');
       return res.redirect(`/users/${id}`);
     } catch (err) {
       console.error('[Users] postEdit error:', err);
-      req.flash('error', 'Đã xảy ra lỗi. Vui lòng thử lại.');
+      req.flash('error', 'An error occurred. Please try again.');
       return res.redirect(`/users/${req.params.id}/edit`);
     }
   },
@@ -155,18 +155,18 @@ const userController = {
       const { new_status } = req.body;
 
       if (!VALID_STATUSES.includes(new_status)) {
-        req.flash('error', 'Trạng thái không hợp lệ');
+        req.flash('error', 'Invalid status');
         return res.redirect('/users');
       }
 
       await User.setStatus(id, new_status);
 
-      const labels: Record<string, string> = { active: 'Đã kích hoạt', inactive: 'Đã vô hiệu hóa', banned: 'Đã cấm tài khoản' };
+      const labels: Record<string, string> = { active: 'Account activated', inactive: 'Account disabled', banned: 'Account banned' };
       req.flash('success', labels[new_status]);
       return res.redirect('back');
     } catch (err) {
       console.error('[Users] postToggleStatus error:', err);
-      req.flash('error', 'Đã xảy ra lỗi. Vui lòng thử lại.');
+      req.flash('error', 'An error occurred. Please try again.');
       return res.redirect('/users');
     }
   },

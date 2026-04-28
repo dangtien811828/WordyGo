@@ -5,24 +5,24 @@ var statusBadge = {
   cancelled: 'badge-danger',
   trial: 'badge-warning',
 };
-var cycleLabelMap = { monthly: 'Tháng', yearly: 'Năm', weekly: 'Tuần' };
-function fmt(n) { return (n != null && n !== '') ? Number(n).toLocaleString('vi-VN') + '₫' : '—'; }
-function fmtDate(d) { return d ? new Date(d).toLocaleDateString('vi-VN') : '—'; }
+var cycleLabelMap = { monthly: 'Monthly', yearly: 'Yearly', weekly: 'Weekly' };
+function fmt(n) { return (n != null && n !== '') ? Number(n).toLocaleString('en-US') + '₫' : '—'; }
+function fmtDate(d) { return d ? new Date(d).toLocaleDateString('en-US') : '—'; }
 %>
 
 <div class="page-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
   <div>
     <h1 style="margin:0">Subscribers — <%= plan.name %></h1>
     <p style="margin:4px 0 0;color:var(--text-secondary)">
-      <a href="/subscriptions" style="color:var(--text-secondary)">Gói đăng ký</a> / Subscribers
+      <a href="/subscriptions" style="color:var(--text-secondary)">Subscriptions</a> / Subscribers
     </p>
   </div>
-  <a href="/subscriptions" class="btn btn-secondary">← Quay lại</a>
+  <a href="/subscriptions" class="btn btn-secondary">← Back</a>
 </div>
 
 <div class="card">
   <div class="card-header" style="display:flex;align-items:center;justify-content:space-between">
-    <h2 style="margin:0">Danh sách subscribers (<%= pagination.total.toLocaleString() %>)</h2>
+    <h2 style="margin:0">Subscriber list (<%= pagination.total.toLocaleString() %>)</h2>
   </div>
 
   <% if (subscribers.length > 0) { %>
@@ -30,14 +30,14 @@ function fmtDate(d) { return d ? new Date(d).toLocaleDateString('vi-VN') : '—'
     <table>
       <thead>
         <tr>
-          <th>Người dùng</th>
-          <th>Gói</th>
-          <th style="text-align:center">Chu kỳ</th>
-          <th style="text-align:right">Giá đã trả</th>
-          <th style="text-align:center">Trạng thái</th>
-          <th>Bắt đầu</th>
-          <th>Kết thúc</th>
-          <th>Ngày đăng ký</th>
+          <th>User</th>
+          <th>Plan</th>
+          <th style="text-align:center">Cycle</th>
+          <th style="text-align:right">Amount Paid</th>
+          <th style="text-align:center">Status</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Joined Date</th>
         </tr>
       </thead>
       <tbody>
@@ -66,7 +66,7 @@ function fmtDate(d) { return d ? new Date(d).toLocaleDateString('vi-VN') : '—'
   <%- include('../partials/pagination', { pagination }) %>
   <% } else { %>
   <div style="padding:60px;text-align:center;color:var(--text-secondary)">
-    Chưa có subscriber nào cho gói này
+    No subscribers for this plan
   </div>
   <% } %>
 </div>

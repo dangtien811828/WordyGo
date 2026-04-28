@@ -1,26 +1,7 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npx tsc *)",
-      "Bash(echo \"EXIT: $?\")",
-      "Bash(npm test *)",
-      "Bash(git stash *)",
-      "Bash(npm run *)",
-      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/)",
-      "Bash(curl -s -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzOWEyOWNiYS0xOTczLTQ0ZjEtOTViYy1iODQxMzdmOGY5ZDgiLCJlbWFpbCI6InNtb2tlLWRlY2tzLTE3NzcyMTYzMjJAZXhhbXBsZS5jb20iLCJpYXQiOjE3NzcyMTYzMjQsImV4cCI6MTc3NzgyMTEyNH0.U_lKaERWsB1GS7l2IJH9ixqE-0soaYJj38BYSR1DQHk' 'http://localhost:3000/api/v1/decks/system?limit=5')",
-      "Bash(python -m json.tool)",
-      "Bash(git add *)",
-      "Bash(git commit -m ' *)",
-      "Bash(curl -s -o /tmp/r3a.json -w '%{http_code}' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyNzc1MTA0Yy0xZWNmLTRmZDAtOTgzZC0zMGY1MmQxYzUzNDAiLCJlbWFpbCI6InJlcG9ydC1kZWNrcy0xNzc3MjE2Nzg2QGV4YW1wbGUuY29tIiwiaWF0IjoxNzc3MjE2Nzg4LCJleHAiOjE3Nzc4MjE1ODh9.sABFvgrP7PRjZbgeXhJ3rLqiIDO57Cjy9nByJuwUecs' 'http://localhost:3000/api/v1/decks/system?page=1&limit=5')",
-      "Read(//tmp/**)",
-      "Bash(node -e \"console.log\\(JSON.stringify\\(JSON.parse\\(require\\('fs'\\).readFileSync\\(0,'utf8'\\)\\),null,2\\)\\)\")",
-      "Bash(curl -s -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyNzc1MTA0Yy0xZWNmLTRmZDAtOTgzZC0zMGY1MmQxYzUzNDAiLCJlbWFpbCI6InJlcG9ydC1kZWNrcy0xNzc3MjE2Nzg2QGV4YW1wbGUuY29tIiwiaWF0IjoxNzc3MjE2Nzg4LCJleHAiOjE3Nzc4MjE1ODh9.sABFvgrP7PRjZbgeXhJ3rLqiIDO57Cjy9nByJuwUecs' 'http://localhost:3000/api/v1/decks/system?search=_')",
-      "Bash(node -e \"const j=JSON.parse\\(require\\('fs'\\).readFileSync\\(0,'utf8'\\)\\); console.log\\(JSON.stringify\\(j.error||j.data&&{total:j.data.total}\\)\\)\")",
-      "Bash(npx tsx *)",
-      "Bash(npm install *)",
-      "Bash(node -e ' *)",
-      "Bash(grep -E \"\\\\.ts$\")",
-      "Bash(cat C:\\\\\\\\Users\\\\\\\\Admin\\\\\\\\.claude\\\\\\\\projects\\\\\\\\p--english-admin-websites\\\\\\\\f1202dc6-25e2-4492-a4fb-0833ad3d90ae\\\\\\\\tool-results\\\\\\\\bugg18i5o.txt)"
+      "Read(//p/P/english-admin-websites/controllers/**)"
     ]
   }
 }

@@ -5,12 +5,12 @@
 
 <div class="page-header" style="display:flex;align-items:center;justify-content:space-between">
   <div>
-    <h1>Từ điển</h1>
-    <p>Quản lý từ vựng English–Vietnamese</p>
+    <h1>Dictionary</h1>
+    <p>Manage English–Vietnamese vocabulary</p>
   </div>
   <div style="display:flex;gap:8px">
     <a href="/dictionary/import" class="btn btn-secondary">↑ Import JSON</a>
-    <a href="/dictionary/create" class="btn btn-primary">+ Thêm từ</a>
+    <a href="/dictionary/create" class="btn btn-primary">+ Add Word</a>
   </div>
 </div>
 
@@ -18,15 +18,15 @@
 <div class="stats-grid" style="grid-template-columns:repeat(3,1fr)">
   <div class="stat-card">
     <div class="stat-icon">📖</div>
-    <div><div class="stat-value"><%= stats.total %></div><div class="stat-label">Tổng từ</div></div>
+    <div><div class="stat-value"><%= stats.total %></div><div class="stat-label">Total Words</div></div>
   </div>
   <div class="stat-card">
     <div class="stat-icon">🔊</div>
-    <div><div class="stat-value"><%= stats.hasIpa %></div><div class="stat-label">Có IPA</div></div>
+    <div><div class="stat-value"><%= stats.hasIpa %></div><div class="stat-label">Has IPA</div></div>
   </div>
   <div class="stat-card">
     <div class="stat-icon">⚠️</div>
-    <div><div class="stat-value"><%= stats.missingIpa %></div><div class="stat-label">Thiếu IPA</div></div>
+    <div><div class="stat-value"><%= stats.missingIpa %></div><div class="stat-label">Missing IPA</div></div>
   </div>
 </div>
 
@@ -34,13 +34,13 @@
 <div class="card" style="padding:16px;margin-bottom:20px">
   <form method="GET" action="/dictionary" style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
     <div class="form-group" style="margin:0;flex:1;min-width:180px">
-      <label style="font-size:12px">Tìm kiếm</label>
-      <input type="text" name="search" value="<%= filters.search %>" placeholder="Headword, nghĩa VI...">
+      <label style="font-size:12px">Search</label>
+      <input type="text" name="search" value="<%= filters.search %>" placeholder="Headword, VI meaning...">
     </div>
     <div class="form-group" style="margin:0;min-width:120px">
       <label style="font-size:12px">POS</label>
       <select name="pos">
-        <option value="">Tất cả</option>
+        <option value="">All</option>
         <% ['noun','verb','adjective','adverb','preposition','conjunction','interjection','determiner','pronoun','phrase'].forEach(p => { %>
           <option value="<%= p %>" <%= filters.pos === p ? 'selected' : '' %>><%= p %></option>
         <% }) %>
@@ -49,32 +49,32 @@
     <div class="form-group" style="margin:0;min-width:100px">
       <label style="font-size:12px">CEFR</label>
       <select name="cefrLevel">
-        <option value="">Tất cả</option>
+        <option value="">All</option>
         <% ['A1','A2','B1','B2','C1','C2'].forEach(c => { %>
           <option value="<%= c %>" <%= filters.cefrLevel === c ? 'selected' : '' %>><%= c %></option>
         <% }) %>
       </select>
     </div>
     <div class="form-group" style="margin:0;min-width:120px">
-      <label style="font-size:12px">Nguồn</label>
+      <label style="font-size:12px">Source</label>
       <select name="source">
-        <option value="">Tất cả</option>
+        <option value="">All</option>
         <% ['manual','stardict','wiktionary','user'].forEach(s => { %>
           <option value="<%= s %>" <%= filters.source === s ? 'selected' : '' %>><%= s %></option>
         <% }) %>
       </select>
     </div>
     <div class="form-group" style="margin:0;min-width:110px">
-      <label style="font-size:12px">Trạng thái</label>
+      <label style="font-size:12px">Status</label>
       <select name="published">
-        <option value="">Tất cả</option>
+        <option value="">All</option>
         <option value="true"  <%= filters.published === 'true'  ? 'selected' : '' %>>Published</option>
         <option value="false" <%= filters.published === 'false' ? 'selected' : '' %>>Unpublished</option>
       </select>
     </div>
     <div style="display:flex;gap:8px">
-      <button type="submit" class="btn btn-primary">Lọc</button>
-      <a href="/dictionary" class="btn btn-secondary">Xóa lọc</a>
+      <button type="submit" class="btn btn-primary">Filter</button>
+      <a href="/dictionary" class="btn btn-secondary">Clear Filters</a>
     </div>
   </form>
 </div>
@@ -82,7 +82,7 @@
 <!-- Table -->
 <div class="card">
   <div class="card-header">
-    <h2>Kết quả (<%= pagination.total %>)</h2>
+    <h2>Results (<%= pagination.total %>)</h2>
   </div>
   <div class="table-wrapper">
     <table>
@@ -91,10 +91,10 @@
           <th>Headword</th>
           <th>IPA (US)</th>
           <th>POS</th>
-          <th>Nghĩa VI</th>
+          <th>VI Meaning</th>
           <th>CEFR</th>
-          <th>Nguồn</th>
-          <th>Hành động</th>
+          <th>Source</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -132,15 +132,15 @@
               </td>
               <td>
                 <div style="display:flex;gap:4px;flex-wrap:nowrap;align-items:center">
-                  <a href="/dictionary/<%= e.id %>" class="btn btn-sm btn-secondary">Xem</a>
-                  <a href="/dictionary/<%= e.id %>/edit" class="btn btn-sm btn-secondary">Sửa</a>
+                  <a href="/dictionary/<%= e.id %>" class="btn btn-sm btn-secondary">View</a>
+                  <a href="/dictionary/<%= e.id %>/edit" class="btn btn-sm btn-secondary">Edit</a>
                   <button type="button" class="btn btn-sm btn-danger"
-                          onclick="document.getElementById('del-<%= e.id %>').showModal()">Xóa</button>
+                          onclick="document.getElementById('del-<%= e.id %>').showModal()">Delete</button>
                   <dialog id="del-<%= e.id %>"
                           style="border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;max-width:400px;width:100%;box-shadow:var(--shadow-md)">
-                    <h3 style="margin-bottom:8px;color:var(--danger)">Xóa từ</h3>
+                    <h3 style="margin-bottom:8px;color:var(--danger)">Delete Word</h3>
                     <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">
-                      Hành động này không thể hoàn tác. Nhập:<br>
+                      This action cannot be undone. Type:<br>
                       <code style="background:var(--bg);padding:2px 6px;border-radius:4px;font-size:13px">DELETE <%= e.headword %></code>
                     </p>
                     <form action="/dictionary/<%= e.id %>/delete" method="POST">
@@ -150,8 +150,8 @@
                       </div>
                       <div style="display:flex;gap:8px;justify-content:flex-end">
                         <button type="button" class="btn btn-secondary"
-                                onclick="document.getElementById('del-<%= e.id %>').close()">Hủy</button>
-                        <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+                                onclick="document.getElementById('del-<%= e.id %>').close()">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Confirm Delete</button>
                       </div>
                     </form>
                   </dialog>
@@ -162,7 +162,7 @@
         <% } else { %>
           <tr>
             <td colspan="7" class="text-center" style="padding:40px;color:var(--text-secondary)">
-              Không có từ nào
+              No words found
             </td>
           </tr>
         <% } %>

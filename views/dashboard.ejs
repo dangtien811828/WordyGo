@@ -1,6 +1,6 @@
 <div class="page-header">
   <h1>Dashboard</h1>
-  <p>Tổng quan hệ thống English Learning App</p>
+  <p>English Learning App — System Overview</p>
 </div>
 
 <!-- Stat Cards -->
@@ -9,7 +9,7 @@
     <div class="stat-icon">👥</div>
     <div class="stat-info">
       <div class="stat-value"><%= stats.users || 0 %></div>
-      <div class="stat-label">Người dùng</div>
+      <div class="stat-label">Users</div>
     </div>
   </div>
   <div class="stat-card">
@@ -23,14 +23,14 @@
     <div class="stat-icon">📖</div>
     <div class="stat-info">
       <div class="stat-value"><%= stats.entries || 0 %></div>
-      <div class="stat-label">Từ vựng</div>
+      <div class="stat-label">Vocabulary</div>
     </div>
   </div>
   <div class="stat-card">
     <div class="stat-icon">📝</div>
     <div class="stat-info">
       <div class="stat-value"><%= stats.lessons || 0 %></div>
-      <div class="stat-label">Bài học</div>
+      <div class="stat-label">Lessons</div>
     </div>
   </div>
 </div>
@@ -38,18 +38,18 @@
 <!-- Admin Accounts Table -->
 <div class="card">
   <div class="card-header">
-    <h2>Tài khoản Admin</h2>
-    <a href="/auth/register" class="btn btn-primary btn-sm">+ Thêm admin</a>
+    <h2>Admin Accounts</h2>
+    <a href="/auth/register" class="btn btn-primary btn-sm">+ Add Admin</a>
   </div>
   <div class="table-wrapper">
     <table>
       <thead>
         <tr>
-          <th>Họ tên</th>
+          <th>Full Name</th>
           <th>Email</th>
-          <th>Vai trò</th>
-          <th>Trạng thái</th>
-          <th>Đăng nhập lần cuối</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th>Last Login</th>
         </tr>
       </thead>
       <tbody>
@@ -73,11 +73,11 @@
                   <%= a.status %>
                 </span>
               </td>
-              <td><%= a.last_login_at ? new Date(a.last_login_at).toLocaleString('vi-VN') : 'Chưa đăng nhập' %></td>
+              <td><%= a.last_login_at ? new Date(a.last_login_at).toLocaleString('en-US') : 'Never logged in' %></td>
             </tr>
           <% }) %>
         <% } else { %>
-          <tr><td colspan="5" class="text-center">Chưa có dữ liệu</td></tr>
+          <tr><td colspan="5" class="text-center">No data available</td></tr>
         <% } %>
       </tbody>
     </table>

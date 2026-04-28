@@ -11,9 +11,9 @@
     <p><a href="/decks" style="color:var(--text-secondary)">← Flashcard Decks</a></p>
   </div>
   <div style="display:flex;gap:8px">
-    <a href="/decks/<%= deck.id %>/edit" class="btn btn-secondary">Sửa</a>
+    <a href="/decks/<%= deck.id %>/edit" class="btn btn-secondary">Edit</a>
     <button type="button" class="btn btn-danger"
-            onclick="document.getElementById('dlg-delete').showModal()">Xóa</button>
+            onclick="document.getElementById('dlg-delete').showModal()">Delete</button>
   </div>
 </div>
 
@@ -21,7 +21,7 @@
 <div style="display:grid;grid-template-columns:1fr 280px;gap:20px;align-items:start;margin-bottom:20px">
   <div class="card">
     <div class="card-header" style="display:flex;justify-content:space-between;align-items:center">
-      <h2>Thông tin deck</h2>
+      <h2>Deck Information</h2>
       <div style="display:flex;gap:6px">
         <span class="badge <%= levelBadge[deck.level] || '' %>"><%= deck.level %></span>
         <span class="badge <%= statusBadge[deck.status] || '' %>"><%= deck.status %></span>
@@ -30,7 +30,7 @@
     <div style="padding:16px">
       <table style="width:100%;border-collapse:collapse">
         <tr style="border-bottom:1px solid var(--border)">
-          <td style="padding:8px 0;color:var(--text-secondary);width:160px;font-size:13px">Loại</td>
+          <td style="padding:8px 0;color:var(--text-secondary);width:160px;font-size:13px">Type</td>
           <td style="padding:8px 0"><%= deck.deck_type %></td>
         </tr>
         <tr style="border-bottom:1px solid var(--border)">
@@ -39,12 +39,12 @@
         </tr>
         <% if (deck.description) { %>
         <tr style="border-bottom:1px solid var(--border)">
-          <td style="padding:8px 0;color:var(--text-secondary);font-size:13px">Mô tả</td>
+          <td style="padding:8px 0;color:var(--text-secondary);font-size:13px">Description</td>
           <td style="padding:8px 0;font-size:14px"><%= deck.description %></td>
         </tr>
         <% } %>
         <tr>
-          <td style="padding:8px 0;color:var(--text-secondary);font-size:13px">Người tạo</td>
+          <td style="padding:8px 0;color:var(--text-secondary);font-size:13px">Creator</td>
           <td style="padding:8px 0;font-size:13px"><%= deck.creator_name || '—' %></td>
         </tr>
       </table>
@@ -60,7 +60,7 @@
             <span class="badge badge-primary"><%= t.name %></span>
           <% }); %>
         <% } else { %>
-          <span style="color:var(--text-secondary);font-size:13px">Chưa có tag</span>
+          <span style="color:var(--text-secondary);font-size:13px">No tags</span>
         <% } %>
       </div>
     </div>
@@ -68,7 +68,7 @@
       <div class="stat-icon">🃏</div>
       <div>
         <div class="stat-value"><%= cards.length %></div>
-        <div class="stat-label">Tổng cards</div>
+        <div class="stat-label">Total Cards</div>
       </div>
     </div>
   </div>
@@ -86,9 +86,9 @@
           <th>#</th>
           <th>Headword</th>
           <th>IPA (US)</th>
-          <th>Nghĩa VI</th>
-          <th>Ghi chú</th>
-          <th>Hành động</th>
+          <th>VI Meaning</th>
+          <th>Notes</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -116,7 +116,7 @@
               <td>
                 <form action="/decks/<%= deck.id %>/cards/<%= c.entry_id %>/remove" method="POST" style="margin:0">
                   <button type="submit" class="btn btn-sm btn-danger"
-                          onclick="return confirm('Xóa card này khỏi deck?')">Xóa</button>
+                          onclick="return confirm('Remove this card from deck?')">Remove</button>
                 </form>
               </td>
             </tr>
@@ -124,7 +124,7 @@
         <% } else { %>
           <tr>
             <td colspan="6" class="text-center" style="padding:40px;color:var(--text-secondary)">
-              Deck chưa có card nào. Thêm từ bên dưới.
+              No cards in this deck. Add words below.
             </td>
           </tr>
         <% } %>
@@ -135,11 +135,11 @@
 
 <!-- Add cards section -->
 <div class="card">
-  <div class="card-header"><h2>Thêm từ vào deck</h2></div>
+  <div class="card-header"><h2>Add Words to Deck</h2></div>
   <div style="padding:20px">
     <div class="form-group" style="margin-bottom:12px">
-      <label>Tìm từ trong từ điển</label>
-      <input type="text" id="entrySearch" placeholder="Nhập headword..." autocomplete="off">
+      <label>Search Dictionary</label>
+      <input type="text" id="entrySearch" placeholder="Enter headword..." autocomplete="off">
     </div>
     <div id="entryDropdown"
          style="display:none;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-white);max-height:220px;overflow-y:auto;margin-bottom:12px;box-shadow:var(--shadow-md)"></div>
@@ -147,9 +147,9 @@
     <form action="/decks/<%= deck.id %>/cards/add" method="POST" id="addCardsForm"
           data-existing-ids="<%= JSON.stringify(cards.map(function(c){ return c.entry_id; })) %>">
       <div id="selectedEntries" style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px">
-        <p id="noEntriesMsg" style="color:var(--text-secondary);font-size:13px">Chưa chọn từ nào.</p>
+        <p id="noEntriesMsg" style="color:var(--text-secondary);font-size:13px">No words selected.</p>
       </div>
-      <button type="submit" class="btn btn-primary" id="addBtn" disabled>+ Thêm vào deck</button>
+      <button type="submit" class="btn btn-primary" id="addBtn" disabled>+ Add to Deck</button>
     </form>
   </div>
 </div>
@@ -157,9 +157,9 @@
 <!-- Delete dialog -->
 <dialog id="dlg-delete"
         style="border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;max-width:400px;width:100%;box-shadow:var(--shadow-md)">
-  <h3 style="margin-bottom:8px;color:var(--danger)">Xóa deck "<%= deck.title %>"</h3>
+  <h3 style="margin-bottom:8px;color:var(--danger)">Delete Deck "<%= deck.title %>"</h3>
   <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">
-    Xóa deck sẽ xóa toàn bộ cards và tiến trình học của người dùng. Nhập:<br>
+    Deleting this deck will remove all cards and user learning progress. Type:<br>
     <code style="background:var(--bg);padding:2px 6px;border-radius:4px;font-size:13px">DELETE <%= deck.title %></code>
   </p>
   <form action="/decks/<%= deck.id %>/delete" method="POST">
@@ -169,8 +169,8 @@
     </div>
     <div style="display:flex;gap:8px;justify-content:flex-end">
       <button type="button" class="btn btn-secondary"
-              onclick="document.getElementById('dlg-delete').close()">Hủy</button>
-      <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+              onclick="document.getElementById('dlg-delete').close()">Cancel</button>
+      <button type="submit" class="btn btn-danger">Confirm Delete</button>
     </div>
   </form>
 </dialog>
@@ -226,7 +226,7 @@
     dropdown.innerHTML = '';
     var filtered = entries.filter(function(e) { return !existingEntryIds.has(e.id) && !selected[e.id]; });
     if (!filtered.length) {
-      dropdown.innerHTML = '<div style="padding:10px 14px;color:var(--text-secondary);font-size:13px">Không tìm thấy từ mới</div>';
+      dropdown.innerHTML = '<div style="padding:10px 14px;color:var(--text-secondary);font-size:13px">No new words found</div>';
       dropdown.style.display = 'block'; return;
     }
     filtered.forEach(function(e) {

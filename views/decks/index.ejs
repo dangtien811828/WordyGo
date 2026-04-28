@@ -18,9 +18,9 @@
 <div class="page-header" style="display:flex;align-items:center;justify-content:space-between">
   <div>
     <h1>Flashcard Decks</h1>
-    <p>Quản lý bộ flashcard</p>
+    <p>Manage flashcard decks</p>
   </div>
-  <a href="/decks/create" class="btn btn-primary">+ Tạo Deck</a>
+  <a href="/decks/create" class="btn btn-primary">+ Create Deck</a>
 </div>
 
 <!-- Type filter chips -->
@@ -38,30 +38,30 @@
   <form method="GET" action="/decks" style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
     <input type="hidden" name="type" value="<%= activeType %>">
     <div class="form-group" style="margin:0;flex:1;min-width:180px">
-      <label style="font-size:12px">Tìm kiếm</label>
-      <input type="text" name="search" value="<%= filters.search %>" placeholder="Tên deck...">
+      <label style="font-size:12px">Search</label>
+      <input type="text" name="search" value="<%= filters.search %>" placeholder="Deck name...">
     </div>
     <div class="form-group" style="margin:0;min-width:130px">
-      <label style="font-size:12px">Cấp độ</label>
+      <label style="font-size:12px">Level</label>
       <select name="level">
-        <option value="">Tất cả</option>
+        <option value="">All</option>
         <option value="beginner"     <%= filters.level === 'beginner'     ? 'selected' : '' %>>Beginner</option>
         <option value="intermediate" <%= filters.level === 'intermediate' ? 'selected' : '' %>>Intermediate</option>
         <option value="advanced"     <%= filters.level === 'advanced'     ? 'selected' : '' %>>Advanced</option>
       </select>
     </div>
     <div class="form-group" style="margin:0;min-width:120px">
-      <label style="font-size:12px">Trạng thái</label>
+      <label style="font-size:12px">Status</label>
       <select name="status">
-        <option value="">Tất cả</option>
+        <option value="">All</option>
         <option value="draft"     <%= filters.status === 'draft'     ? 'selected' : '' %>>Draft</option>
         <option value="published" <%= filters.status === 'published' ? 'selected' : '' %>>Published</option>
         <option value="archived"  <%= filters.status === 'archived'  ? 'selected' : '' %>>Archived</option>
       </select>
     </div>
     <div style="display:flex;gap:8px">
-      <button type="submit" class="btn btn-primary">Lọc</button>
-      <a href="/decks" class="btn btn-secondary">Xóa lọc</a>
+      <button type="submit" class="btn btn-primary">Filter</button>
+      <a href="/decks" class="btn btn-secondary">Clear Filters</a>
     </div>
   </form>
 </div>
@@ -69,20 +69,20 @@
 <!-- Table -->
 <div class="card">
   <div class="card-header">
-    <h2>Kết quả (<%= pagination.total %>)</h2>
+    <h2>Results (<%= pagination.total %>)</h2>
   </div>
   <div class="table-wrapper">
     <table>
       <thead>
         <tr>
-          <th>Tiêu đề</th>
+          <th>Title</th>
           <th>Type</th>
           <th style="text-align:center">Order</th>
-          <th>Cấp độ</th>
-          <th style="text-align:center">Số cards</th>
-          <th>Trạng thái</th>
-          <th>Người tạo</th>
-          <th>Hành động</th>
+          <th>Level</th>
+          <th style="text-align:center">Cards</th>
+          <th>Status</th>
+          <th>Creator</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -124,15 +124,15 @@
                     <button type="button" class="btn btn-sm btn-secondary"
                             title="Move down" onclick="moveDeck('<%= d.id %>', 'down')">↓</button>
                   <% } %>
-                  <a href="/decks/<%= d.id %>" class="btn btn-sm btn-secondary">Xem</a>
-                  <a href="/decks/<%= d.id %>/edit" class="btn btn-sm btn-secondary">Sửa</a>
+                  <a href="/decks/<%= d.id %>" class="btn btn-sm btn-secondary">View</a>
+                  <a href="/decks/<%= d.id %>/edit" class="btn btn-sm btn-secondary">Edit</a>
                   <button type="button" class="btn btn-sm btn-danger"
-                          onclick="document.getElementById('del-<%= d.id %>').showModal()">Xóa</button>
+                          onclick="document.getElementById('del-<%= d.id %>').showModal()">Delete</button>
                   <dialog id="del-<%= d.id %>"
                           style="border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;max-width:400px;width:100%;box-shadow:var(--shadow-md)">
-                    <h3 style="margin-bottom:8px;color:var(--danger)">Xóa deck</h3>
+                    <h3 style="margin-bottom:8px;color:var(--danger)">Delete Deck</h3>
                     <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px">
-                      Xóa deck sẽ xóa toàn bộ cards và tiến trình học. Nhập:<br>
+                      Deleting this deck will remove all cards and learning progress. Type:<br>
                       <code style="background:var(--bg);padding:2px 6px;border-radius:4px;font-size:13px">DELETE <%= d.title %></code>
                     </p>
                     <form action="/decks/<%= d.id %>/delete" method="POST">
@@ -142,8 +142,8 @@
                       </div>
                       <div style="display:flex;gap:8px;justify-content:flex-end">
                         <button type="button" class="btn btn-secondary"
-                                onclick="document.getElementById('del-<%= d.id %>').close()">Hủy</button>
-                        <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+                                onclick="document.getElementById('del-<%= d.id %>').close()">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Confirm Delete</button>
                       </div>
                     </form>
                   </dialog>
@@ -154,7 +154,7 @@
         <% } else { %>
           <tr>
             <td colspan="8" class="text-center" style="padding:40px;color:var(--text-secondary)">
-              Không có deck nào
+              No decks found
             </td>
           </tr>
         <% } %>

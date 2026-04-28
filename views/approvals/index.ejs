@@ -1,23 +1,23 @@
 <div class="page-header">
-  <h1>Yêu cầu chờ duyệt</h1>
-  <p>Danh sách các thao tác cần phê duyệt từ editor/moderator</p>
+  <h1>Pending Approval Requests</h1>
+  <p>Actions requiring approval from editors/moderators</p>
 </div>
 
 <div class="card">
   <div class="card-header">
-    <h2>Đang chờ (<%= requests.length %>)</h2>
+    <h2>Pending (<%= requests.length %>)</h2>
   </div>
   <div class="table-wrapper">
     <table>
       <thead>
         <tr>
-          <th>Người yêu cầu</th>
-          <th>Thao tác</th>
+          <th>Requester</th>
+          <th>Action</th>
           <th>Module</th>
-          <th>Đối tượng</th>
+          <th>Target</th>
           <th>Payload</th>
-          <th>Thời gian</th>
-          <th>Hành động</th>
+          <th>Time</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -51,27 +51,27 @@
               </td>
               <td>
                 <details>
-                  <summary class="btn btn-sm btn-secondary" style="cursor:pointer;list-style:none">Xem payload</summary>
+                  <summary class="btn btn-sm btn-secondary" style="cursor:pointer;list-style:none">View payload</summary>
                   <pre style="font-size:11px;max-width:300px;overflow:auto;padding:8px;background:var(--bg);border-radius:var(--radius);margin-top:4px"><%= JSON.stringify(r.payload, null, 2) %></pre>
                 </details>
               </td>
               <td style="font-size:12px;color:var(--text-secondary)">
-                <%= new Date(r.created_at).toLocaleString('vi-VN') %>
+                <%= new Date(r.created_at).toLocaleString('en-US') %>
               </td>
               <td>
                 <div style="display:flex;gap:6px;flex-wrap:wrap">
                   <form action="/approvals/<%= r.id %>/approve" method="POST" style="margin:0">
-                    <button type="submit" class="btn btn-sm btn-primary">Duyệt</button>
+                    <button type="submit" class="btn btn-sm btn-primary">Approve</button>
                   </form>
                   <details>
-                    <summary class="btn btn-sm btn-danger" style="list-style:none;cursor:pointer">Từ chối</summary>
+                    <summary class="btn btn-sm btn-danger" style="list-style:none;cursor:pointer">Reject</summary>
                     <form action="/approvals/<%= r.id %>/reject" method="POST"
                           style="margin-top:6px;display:flex;flex-direction:column;gap:6px;min-width:220px">
                       <div class="form-group" style="margin:0">
-                        <label>Lý do từ chối (tuỳ chọn)</label>
-                        <textarea name="reviewer_note" rows="2" placeholder="Nhập lý do..."></textarea>
+                        <label>Rejection reason (optional)</label>
+                        <textarea name="reviewer_note" rows="2" placeholder="Enter reason..."></textarea>
                       </div>
-                      <button type="submit" class="btn btn-sm btn-danger">Xác nhận từ chối</button>
+                      <button type="submit" class="btn btn-sm btn-danger">Confirm Reject</button>
                     </form>
                   </details>
                 </div>
@@ -81,7 +81,7 @@
         <% } else { %>
           <tr>
             <td colspan="7" class="text-center" style="padding:40px;color:var(--text-secondary)">
-              Không có yêu cầu nào đang chờ duyệt
+              No pending requests
             </td>
           </tr>
         <% } %>

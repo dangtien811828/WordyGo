@@ -7,7 +7,7 @@ function fmtVnd(n) {
 <div class="page-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
   <div>
     <h1 style="margin:0;font-size:24px;font-weight:700">💳 Subscriptions</h1>
-    <p style="margin:4px 0 0;color:#666;font-size:14px">Quản lý gói đăng ký, phương thức thanh toán và giao dịch</p>
+    <p style="margin:4px 0 0;color:#666;font-size:14px">Manage subscription plans, payment methods, and transactions</p>
   </div>
 </div>
 
@@ -22,7 +22,7 @@ function fmtVnd(n) {
   <div class="card" style="padding:20px">
     <div style="font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Active subscribers</div>
     <div style="font-size:26px;font-weight:700"><%= stats.totalSubscribers %></div>
-    <div style="font-size:12px;color:#999;margin-top:4px">Subscriptions đang active</div>
+    <div style="font-size:12px;color:#999;margin-top:4px">Currently active subscriptions</div>
   </div>
 
   <div class="card" style="padding:20px;<%= stats.pendingTransactions > 0 ? 'border-left:4px solid #e53e3e' : '' %>">
@@ -30,9 +30,9 @@ function fmtVnd(n) {
     <div style="font-size:26px;font-weight:700;color:<%= stats.pendingTransactions > 0 ? '#e53e3e' : 'inherit' %>"><%= stats.pendingTransactions %></div>
     <div style="font-size:12px;color:#999;margin-top:4px">
       <% if (stats.pendingTransactions > 0) { %>
-        <a href="/subscriptions/transactions?status=pending" style="color:#e53e3e">Xem ngay →</a>
+        <a href="/subscriptions/transactions?status=pending" style="color:#e53e3e">View now →</a>
       <% } else { %>
-        Không có giao dịch chờ
+        No pending transactions
       <% } %>
     </div>
   </div>
@@ -50,8 +50,8 @@ function fmtVnd(n) {
     <div class="card" style="padding:28px;text-align:center;cursor:pointer">
       <div style="font-size:36px;margin-bottom:12px">📦</div>
       <div style="font-weight:600;font-size:16px;margin-bottom:6px">Subscription Plans</div>
-      <div style="font-size:13px;color:#718096">Quản lý gói Free / Premium / Pro và features</div>
-      <a href="/subscriptions/plans/new" class="btn btn-sm btn-primary" style="margin-top:16px" onclick="event.stopPropagation()">+ Tạo gói mới</a>
+      <div style="font-size:13px;color:#718096">Manage Free / Premium / Pro plans and features</div>
+      <a href="/subscriptions/plans/new" class="btn btn-sm btn-primary" style="margin-top:16px" onclick="event.stopPropagation()">+ Create Plan</a>
     </div>
   </a>
 
@@ -60,7 +60,7 @@ function fmtVnd(n) {
       <div style="font-size:36px;margin-bottom:12px">💰</div>
       <div style="font-weight:600;font-size:16px;margin-bottom:6px">Payment Methods</div>
       <div style="font-size:13px;color:#718096">Momo, ZaloPay, Bank, Visa/Mastercard...</div>
-      <a href="/subscriptions/payment-methods/new" class="btn btn-sm btn-primary" style="margin-top:16px" onclick="event.stopPropagation()">+ Thêm method</a>
+      <a href="/subscriptions/payment-methods/new" class="btn btn-sm btn-primary" style="margin-top:16px" onclick="event.stopPropagation()">+ Add Method</a>
     </div>
   </a>
 
@@ -71,11 +71,11 @@ function fmtVnd(n) {
       <% } %>
       <div style="font-size:36px;margin-bottom:12px">📋</div>
       <div style="font-weight:600;font-size:16px;margin-bottom:6px">Transactions</div>
-      <div style="font-size:13px;color:#718096">Approve / reject giao dịch thanh toán</div>
+      <div style="font-size:13px;color:#718096">Approve / reject payment transactions</div>
       <% if (stats.pendingTransactions > 0) { %>
-        <a href="/subscriptions/transactions?status=pending" class="btn btn-sm btn-danger" style="margin-top:16px" onclick="event.stopPropagation()"><%= stats.pendingTransactions %> chờ duyệt</a>
+        <a href="/subscriptions/transactions?status=pending" class="btn btn-sm btn-danger" style="margin-top:16px" onclick="event.stopPropagation()"><%= stats.pendingTransactions %> pending</a>
       <% } else { %>
-        <a href="/subscriptions/transactions" class="btn btn-sm btn-secondary" style="margin-top:16px" onclick="event.stopPropagation()">Xem tất cả</a>
+        <a href="/subscriptions/transactions" class="btn btn-sm btn-secondary" style="margin-top:16px" onclick="event.stopPropagation()">View all</a>
       <% } %>
     </div>
   </a>

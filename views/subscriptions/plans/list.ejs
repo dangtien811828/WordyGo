@@ -10,7 +10,7 @@ const statusBadge = { active: 'badge-success', inactive: 'badge-secondary' };
     <div style="font-size:13px;color:#718096;margin-bottom:4px"><a href="/subscriptions" style="color:#718096">Subscriptions</a> / Plans</div>
     <h1 style="margin:0;font-size:22px;font-weight:700">Subscription Plans</h1>
   </div>
-  <a href="/subscriptions/plans/new" class="btn btn-primary">+ Tạo gói mới</a>
+  <a href="/subscriptions/plans/new" class="btn btn-primary">+ Create New Plan</a>
 </div>
 
 <% if (plans.length > 0) { %>
@@ -30,7 +30,7 @@ const statusBadge = { active: 'badge-success', inactive: 'badge-secondary' };
         </div>
         <div style="display:flex;gap:6px;align-items:center">
           <% if (p.is_recommended) { %>
-            <span class="badge badge-warning" style="font-size:10px">⭐ Đề xuất</span>
+            <span class="badge badge-warning" style="font-size:10px">⭐ Recommended</span>
           <% } %>
           <span class="badge <%= statusBadge[p.status] || 'badge-secondary' %>"><%= p.status %></span>
         </div>
@@ -43,25 +43,25 @@ const statusBadge = { active: 'badge-success', inactive: 'badge-secondary' };
     <div style="padding:16px;flex:1">
       <table style="width:100%;border-collapse:collapse;font-size:13px">
         <tr>
-          <td style="padding:3px 0;color:#718096">Hàng tháng</td>
+          <td style="padding:3px 0;color:#718096">Monthly</td>
           <td style="text-align:right;font-weight:600"><%= fmt(p.price_monthly) %></td>
         </tr>
         <% if (p.price_yearly) { %>
         <tr>
-          <td style="padding:3px 0;color:#718096">Hàng năm</td>
+          <td style="padding:3px 0;color:#718096">Yearly</td>
           <td style="text-align:right;font-weight:600"><%= fmt(p.price_yearly) %></td>
         </tr>
         <% } %>
         <% if (p.price_weekly) { %>
         <tr>
-          <td style="padding:3px 0;color:#718096">Hàng tuần</td>
+          <td style="padding:3px 0;color:#718096">Weekly</td>
           <td style="text-align:right;font-weight:600"><%= fmt(p.price_weekly) %></td>
         </tr>
         <% } %>
         <% if (p.trial_days) { %>
         <tr>
-          <td style="padding:3px 0;color:#718096">Dùng thử</td>
-          <td style="text-align:right"><%= p.trial_days %> ngày</td>
+          <td style="padding:3px 0;color:#718096">Trial</td>
+          <td style="text-align:right"><%= p.trial_days %> days</td>
         </tr>
         <% } %>
         <tr style="border-top:1px solid #e2e8f0">
@@ -78,12 +78,12 @@ const statusBadge = { active: 'badge-success', inactive: 'badge-secondary' };
     </div>
 
     <div style="padding:12px 16px;border-top:1px solid #e2e8f0;display:flex;gap:6px;flex-wrap:wrap">
-      <a href="/subscriptions/plans/<%= p.id %>/edit" class="btn btn-sm btn-secondary">Sửa</a>
+      <a href="/subscriptions/plans/<%= p.id %>/edit" class="btn btn-sm btn-secondary">Edit</a>
       <a href="/subscriptions/plans/<%= p.id %>/features" class="btn btn-sm btn-secondary">Features</a>
       <a href="/subscriptions/plans/<%= p.id %>/subscribers" class="btn btn-sm btn-secondary">Subscribers</a>
       <form method="POST" action="/subscriptions/plans/<%= p.id %>/delete" style="margin:0"
-            onsubmit="return confirm('Xóa gói \'' + '<%= p.name %>' + '\'? Không thể hoàn tác.')">
-        <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+            onsubmit="return confirm('Delete plan \'' + '<%= p.name %>' + '\'? This cannot be undone.')">
+        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
       </form>
     </div>
   </div>
@@ -92,7 +92,7 @@ const statusBadge = { active: 'badge-success', inactive: 'badge-secondary' };
 <% } else { %>
 <div class="card" style="padding:60px;text-align:center;color:#718096">
   <div style="font-size:40px;margin-bottom:12px">📦</div>
-  <p style="margin:0 0 16px">Chưa có gói nào. Hãy tạo gói đầu tiên.</p>
-  <a href="/subscriptions/plans/new" class="btn btn-primary">+ Tạo gói mới</a>
+  <p style="margin:0 0 16px">No plans yet. Create your first plan.</p>
+  <a href="/subscriptions/plans/new" class="btn btn-primary">+ Create New Plan</a>
 </div>
 <% } %>

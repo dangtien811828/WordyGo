@@ -14,13 +14,13 @@ var end   = Math.min(pagination.page * pagination.limit, pagination.total);
 <% if (pagination.total > 0) { %>
 <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-top:1px solid var(--border)">
   <span style="font-size:13px;color:var(--text-secondary)">
-    Hiển thị <strong><%= start %>–<%= end %></strong> / <strong><%= pagination.total %></strong> kết quả
+    Showing <strong><%= start %>–<%= end %></strong> / <strong><%= pagination.total %></strong> results
   </span>
   <div style="display:flex;gap:4px;align-items:center;flex-wrap:wrap">
     <% if (pagination.page > 1) { %>
-      <a href="?<%= buildQuery({ page: pagination.page - 1 }) %>" class="btn btn-sm btn-secondary">‹ Trước</a>
+      <a href="?<%= buildQuery({ page: pagination.page - 1 }) %>" class="btn btn-sm btn-secondary">‹ Prev</a>
     <% } else { %>
-      <button class="btn btn-sm btn-secondary" disabled>‹ Trước</button>
+      <button class="btn btn-sm btn-secondary" disabled>‹ Prev</button>
     <% } %>
 
     <%
@@ -48,9 +48,9 @@ var end   = Math.min(pagination.page * pagination.limit, pagination.total);
     <% } %>
 
     <% if (pagination.page < pagination.totalPages) { %>
-      <a href="?<%= buildQuery({ page: pagination.page + 1 }) %>" class="btn btn-sm btn-secondary">Tiếp ›</a>
+      <a href="?<%= buildQuery({ page: pagination.page + 1 }) %>" class="btn btn-sm btn-secondary">Next ›</a>
     <% } else { %>
-      <button class="btn btn-sm btn-secondary" disabled>Tiếp ›</button>
+      <button class="btn btn-sm btn-secondary" disabled>Next ›</button>
     <% } %>
   </div>
 </div>

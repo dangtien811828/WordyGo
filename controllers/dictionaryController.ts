@@ -10,7 +10,7 @@ const uploadJson = multer({
     if (file.originalname.toLowerCase().endsWith('.json')) {
       cb(null, true);
     } else {
-      cb(new Error('Chỉ chấp nhận file .json'), false);
+      cb(new Error('Only .json files are accepted'), false);
     }
   },
 }).single('jsonFile');
@@ -39,7 +39,7 @@ const dictionaryController = {
       ]);
 
       res.render('dictionary/index', {
-        title: 'Từ điển',
+        title: 'Dictionary',
         active: 'dictionary',
         entries: result.rows,
         pagination: result,
@@ -49,7 +49,7 @@ const dictionaryController = {
       });
     } catch (err) {
       console.error('[Dictionary] getIndex error:', err);
-      req.flash('error', 'Không thể tải danh sách từ điển');
+      req.flash('error', 'Failed to load dictionary list');
       return res.redirect('/dashboard');
     }
   },
@@ -59,7 +59,7 @@ const dictionaryController = {
     try {
       const tags = await DictionaryEntry.getAllTags();
       res.render('dictionary/create', {
-        title: 'Thêm từ mới',
+        title: 'Add New Word',
         active: 'dictionary',
         tags,
         VALID_POS,
@@ -68,7 +68,7 @@ const dictionaryController = {
       });
     } catch (err) {
       console.error('[Dictionary] getCreate error:', err);
-      req.flash('error', 'Không thể tải form');
+      req.flash('error', 'Failed to load form');
       return res.redirect('/dictionary');
     }
   },
@@ -79,9 +79,9 @@ const dictionaryController = {
       const { headword, lemma, meaning_vi } = req.body;
       const errors: string[] = [];
 
-      if (!headword || !headword.trim()) errors.push('Headword không được để trống');
-      if (!lemma || !lemma.trim()) errors.push('Lemma không được để trống');
-      if (!meaning_vi || !meaning_vi.trim()) errors.push('Nghĩa tiếng Việt không được để trống');
+      if (!headword || !headword.trim()) errors.push('Headword is required');
+      if (!lemma || !lemma.trim()) errors.push('Lemma is required');
+      if (!meaning_vi || !meaning_vi.trim()) errors.push('Vietnamese meaning is required');
 
       if (errors.length > 0) {
         req.flash('error', errors.join('. '));
@@ -93,7 +93,7 @@ const dictionaryController = {
         lemma.trim().toLowerCase()
       );
       if (existing) {
-        req.flash('error', 'Từ này (headword + lemma) đã tồn tại trong từ điển');
+        req.flash('error', 'This word (headword + lemma) already exists in the dictionary');
         return res.redirect('/dictionary/create');
       }
 
@@ -101,7 +101,7 @@ const dictionaryController = {
       const tagIds = Array.isArray(req.body.tagIds) ? req.body.tagIds : (req.body.tagIds ? [req.body.tagIds] : []);
 
       const entry = await DictionaryEntry.create({ ...req.body, pos, created_by: req.session.admin.id }, tagIds);
-      req.flash('success', `Đã thêm từ "${entry.headword}" thành công`);
+      req.flash('success', `Word "${entry.headword}" added successfully`);
       return res.redirect(`/dictionary/${entry.id}`);
     } catch (err) {
       console.error('[Dictionary] postCreate error:', err);
@@ -123,11 +123,11 @@ const dictionaryController = {
   postImport(req: Request, res: Response) {
     uploadJson(req, res, async (err: any) => {
       if (err) {
-        req.flash('error', err.message || 'Lỗi upload file');
+        req.flash('error', err.message || 'File upload error');
         return res.redirect('/dictionary/import');
       }
       if (!req.file) {
-        req.flash('error', 'Vui lòng chọn file JSON');
+        req.flash('error', 'Please select a JSON file');
         return res.redirect('/dictionary/import');
       }
       try {
@@ -135,11 +135,11 @@ const dictionaryController = {
         try {
           jsonArray = JSON.parse(req.file.buffer.toString('utf8'));
         } catch {
-          req.flash('error', 'File không phải JSON hợp lệ');
+          req.flash('error', 'File is not valid JSON');
           return res.redirect('/dictionary/import');
         }
         if (!Array.isArray(jsonArray)) {
-          req.flash('error', 'File JSON phải là một mảng (array) các từ');
+          req.flash('error', 'JSON file must be an array of words');
           return res.redirect('/dictionary/import');
         }
 
@@ -151,7 +151,7 @@ const dictionaryController = {
         });
       } catch (importErr) {
         console.error('[Dictionary] postImport error:', importErr);
-        req.flash('error', 'Đã xảy ra lỗi khi import. Vui lòng thử lại.');
+        req.flash('error', 'An error occurred during import. Please try again.');
         return res.redirect('/dictionary/import');
       }
     });
@@ -162,7 +162,7 @@ const dictionaryController = {
     try {
       const entry = await DictionaryEntry.findById(req.params.id as string);
       if (!entry) {
-        req.flash('error', 'Không tìm thấy từ này');
+        req.flash('error', 'Word not found');
         return res.redirect('/dictionary');
       }
       res.render('dictionary/show', {
@@ -172,7 +172,7 @@ const dictionaryController = {
       });
     } catch (err) {
       console.error('[Dictionary] getShow error:', err);
-      req.flash('error', 'Không thể tải thông tin từ');
+      req.flash('error', 'Failed to load word information');
       return res.redirect('/dictionary');
     }
   },
@@ -185,11 +185,11 @@ const dictionaryController = {
         DictionaryEntry.getAllTags(),
       ]);
       if (!entry) {
-        req.flash('error', 'Không tìm thấy từ này');
+        req.flash('error', 'Word not found');
         return res.redirect('/dictionary');
       }
       res.render('dictionary/edit', {
-        title: `Sửa — ${entry.headword}`,
+        title: `Edit — ${entry.headword}`,
         active: 'dictionary',
         entry,
         tags,
@@ -199,7 +199,7 @@ const dictionaryController = {
       });
     } catch (err) {
       console.error('[Dictionary] getEdit error:', err);
-      req.flash('error', 'Không thể tải form sửa');
+      req.flash('error', 'Failed to load edit form');
       return res.redirect('/dictionary');
     }
   },
@@ -226,7 +226,7 @@ const dictionaryController = {
         lemma.trim().toLowerCase()
       );
       if (existing && existing.id !== id) {
-        req.flash('error', 'Từ này (headword + lemma) đã tồn tại trong từ điển');
+        req.flash('error', 'This word (headword + lemma) already exists in the dictionary');
         return res.redirect(`/dictionary/${id}/edit`);
       }
 
@@ -234,7 +234,7 @@ const dictionaryController = {
       const tagIds = Array.isArray(req.body.tagIds) ? req.body.tagIds : (req.body.tagIds ? [req.body.tagIds] : []);
 
       await DictionaryEntry.update(id, { ...req.body, pos }, tagIds);
-      req.flash('success', 'Đã cập nhật từ thành công');
+      req.flash('success', 'Word updated successfully');
       return res.redirect(`/dictionary/${id}`);
     } catch (err) {
       console.error('[Dictionary] postEdit error:', err);
@@ -251,17 +251,17 @@ const dictionaryController = {
 
       const entry = await DictionaryEntry.findById(id);
       if (!entry) {
-        req.flash('error', 'Không tìm thấy từ này');
+        req.flash('error', 'Word not found');
         return res.redirect('/dictionary');
       }
 
       if (confirm_text !== `DELETE ${entry.headword}`) {
-        req.flash('error', 'Xác nhận không đúng. Vui lòng thử lại.');
+        req.flash('error', 'Confirmation text is incorrect. Please try again.');
         return res.redirect(`/dictionary/${id}`);
       }
 
       await DictionaryEntry.delete(id);
-      req.flash('success', `Đã xóa từ "${entry.headword}"`);
+      req.flash('success', `Word "${entry.headword}" deleted`);
       return res.redirect('/dictionary');
     } catch (err) {
       console.error('[Dictionary] postDelete error:', err);

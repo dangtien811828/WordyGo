@@ -6,10 +6,10 @@
 <div class="page-header" style="display:flex;align-items:center;justify-content:space-between">
   <div>
     <h1><%= user.full_name %></h1>
-    <p><a href="/users">← Quay lại danh sách</a></p>
+    <p><a href="/users">← Back to list</a></p>
   </div>
   <div style="display:flex;gap:8px">
-    <a href="/users/<%= user.id %>/edit" class="btn btn-primary">Sửa thông tin</a>
+    <a href="/users/<%= user.id %>/edit" class="btn btn-primary">Edit Info</a>
   </div>
 </div>
 
@@ -29,11 +29,11 @@
     <div style="text-align:left;display:flex;flex-direction:column;gap:8px;font-size:13px;border-top:1px solid var(--border);padding-top:12px">
       <div><span style="font-weight:500;color:var(--text)">Email:</span> <span style="color:var(--text-secondary)"><%= user.email %></span></div>
       <% if (user.phone) { %>
-        <div><span style="font-weight:500;color:var(--text)">SĐT:</span> <span style="color:var(--text-secondary)"><%= user.phone %></span></div>
+        <div><span style="font-weight:500;color:var(--text)">Phone:</span> <span style="color:var(--text-secondary)"><%= user.phone %></span></div>
       <% } %>
-      <div><span style="font-weight:500;color:var(--text)">Tham gia:</span> <span style="color:var(--text-secondary)"><%= new Date(user.created_at).toLocaleDateString('vi-VN') %></span></div>
+      <div><span style="font-weight:500;color:var(--text)">Joined:</span> <span style="color:var(--text-secondary)"><%= new Date(user.created_at).toLocaleDateString('en-US') %></span></div>
       <% if (user.last_active_at) { %>
-        <div><span style="font-weight:500;color:var(--text)">Hoạt động:</span> <span style="color:var(--text-secondary)"><%= new Date(user.last_active_at).toLocaleString('vi-VN') %></span></div>
+        <div><span style="font-weight:500;color:var(--text)">Last Active:</span> <span style="color:var(--text-secondary)"><%= new Date(user.last_active_at).toLocaleString('en-US') %></span></div>
       <% } %>
     </div>
   </div>
@@ -45,42 +45,42 @@
     <div class="stats-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:0">
       <div class="stat-card">
         <div class="stat-icon">🔥</div>
-        <div><div class="stat-value"><%= user.streak_current %></div><div class="stat-label">Streak hiện tại</div></div>
+        <div><div class="stat-value"><%= user.streak_current %></div><div class="stat-label">Current Streak</div></div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">🏆</div>
-        <div><div class="stat-value"><%= user.streak_longest %></div><div class="stat-label">Streak dài nhất</div></div>
+        <div><div class="stat-value"><%= user.streak_longest %></div><div class="stat-label">Longest Streak</div></div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">📝</div>
-        <div><div class="stat-value"><%= stats.reviews %></div><div class="stat-label">Lần ôn tập</div></div>
+        <div><div class="stat-value"><%= stats.reviews %></div><div class="stat-label">Reviews</div></div>
       </div>
       <div class="stat-card">
         <div class="stat-icon">📚</div>
-        <div><div class="stat-value"><%= stats.lessonsCompleted %></div><div class="stat-label">Bài hoàn thành</div></div>
+        <div><div class="stat-value"><%= stats.lessonsCompleted %></div><div class="stat-label">Lessons Done</div></div>
       </div>
     </div>
 
     <!-- Quản lý trạng thái -->
     <div class="card">
-      <div class="card-header"><h2>Quản lý trạng thái</h2></div>
+      <div class="card-header"><h2>Manage Status</h2></div>
       <div style="padding:16px;display:flex;gap:8px;flex-wrap:wrap">
         <% if (user.status !== 'active') { %>
           <form action="/users/<%= user.id %>/toggle-status" method="POST" style="margin:0">
             <input type="hidden" name="new_status" value="active">
-            <button class="btn btn-secondary">✅ Kích hoạt</button>
+            <button class="btn btn-secondary">✅ Activate</button>
           </form>
         <% } %>
         <% if (user.status !== 'inactive') { %>
           <form action="/users/<%= user.id %>/toggle-status" method="POST" style="margin:0">
             <input type="hidden" name="new_status" value="inactive">
-            <button class="btn btn-secondary">⏸️ Vô hiệu hóa</button>
+            <button class="btn btn-secondary">⏸️ Disable</button>
           </form>
         <% } %>
         <% if (user.status !== 'banned') { %>
           <form action="/users/<%= user.id %>/toggle-status" method="POST" style="margin:0">
             <input type="hidden" name="new_status" value="banned">
-            <button class="btn btn-danger">🚫 Cấm tài khoản</button>
+            <button class="btn btn-danger">🚫 Ban Account</button>
           </form>
         <% } %>
       </div>

@@ -5,8 +5,8 @@
 
 <div class="page-header" style="display:flex;align-items:center;justify-content:space-between">
   <div>
-    <h1>Sửa từ: <strong><%= entry.headword %></strong></h1>
-    <p><a href="/dictionary/<%= entry.id %>" style="color:var(--text-secondary)">← Xem chi tiết</a></p>
+    <h1>Edit Word: <strong><%= entry.headword %></strong></h1>
+    <p><a href="/dictionary/<%= entry.id %>" style="color:var(--text-secondary)">← View Details</a></p>
   </div>
 </div>
 
@@ -17,7 +17,7 @@
     <div style="display:flex;flex-direction:column;gap:16px">
 
       <div class="card">
-        <div class="card-header"><h2>Từ gốc</h2></div>
+        <div class="card-header"><h2>Base Word</h2></div>
         <div style="padding:20px;display:flex;flex-direction:column;gap:14px">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
             <div class="form-group" style="margin:0">
@@ -65,35 +65,35 @@
       </div>
 
       <div class="card">
-        <div class="card-header"><h2>Nghĩa</h2></div>
+        <div class="card-header"><h2>Meaning</h2></div>
         <div style="padding:20px;display:flex;flex-direction:column;gap:14px">
           <div class="form-group" style="margin:0">
-            <label>Nghĩa tiếng Việt <span style="color:var(--danger)">*</span></label>
+            <label>Vietnamese Meaning <span style="color:var(--danger)">*</span></label>
             <textarea name="meaning_vi" rows="3" required><%= entry.meaning_vi %></textarea>
           </div>
           <div class="form-group" style="margin:0">
-            <label>Nghĩa tiếng Anh</label>
+            <label>English Meaning</label>
             <textarea name="meaning_en" rows="2"><%= entry.meaning_en || '' %></textarea>
           </div>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-header"><h2>Ví dụ</h2></div>
+        <div class="card-header"><h2>Examples</h2></div>
         <div style="padding:20px;display:flex;flex-direction:column;gap:14px">
           <div class="form-group" style="margin:0">
-            <label>Câu ví dụ (EN)</label>
+            <label>Example Sentence (EN)</label>
             <textarea name="example_en" rows="2"><%= entry.example_en || '' %></textarea>
           </div>
           <div class="form-group" style="margin:0">
-            <label>Câu ví dụ (VI)</label>
+            <label>Example Sentence (VI)</label>
             <textarea name="example_vi" rows="2"><%= entry.example_vi || '' %></textarea>
           </div>
         </div>
       </div>
 
       <div class="card">
-        <div class="card-header"><h2>Ghi chú nội bộ</h2></div>
+        <div class="card-header"><h2>Internal Notes</h2></div>
         <div style="padding:16px">
           <div class="form-group" style="margin:0">
             <textarea name="admin_note" rows="2"><%= entry.admin_note || '' %></textarea>
@@ -107,12 +107,12 @@
     <div style="display:flex;flex-direction:column;gap:16px">
 
       <div class="card">
-        <div class="card-header"><h2>Phân loại</h2></div>
+        <div class="card-header"><h2>Classification</h2></div>
         <div style="padding:16px;display:flex;flex-direction:column;gap:14px">
           <div class="form-group" style="margin:0">
             <label>CEFR Level</label>
             <select name="cefr_level">
-              <option value="">— Chọn —</option>
+              <option value="">— Select —</option>
               <% VALID_CEFR.forEach(c => { %>
                 <option value="<%= c %>" <%= entry.cefr_level === c ? 'selected' : '' %>><%= c %></option>
               <% }) %>
@@ -123,7 +123,7 @@
             <input type="number" name="frequency_rank" min="1" value="<%= entry.frequency_rank || '' %>">
           </div>
           <div class="form-group" style="margin:0">
-            <label>Nguồn</label>
+            <label>Source</label>
             <select name="source">
               <% VALID_SOURCES.forEach(s => { %>
                 <option value="<%= s %>" <%= entry.source === s ? 'selected' : '' %>><%= s %></option>
@@ -147,13 +147,13 @@
               <option value="<%= t.id %>" <%= entryTags.includes(t.id) ? 'selected' : '' %>><%= t.name %></option>
             <% }) %>
           </select>
-          <p style="font-size:11px;color:var(--text-secondary);margin-top:6px">Ctrl+Click để chọn nhiều</p>
+          <p style="font-size:11px;color:var(--text-secondary);margin-top:6px">Ctrl+Click to select multiple</p>
         </div>
       </div>
 
       <div style="display:flex;flex-direction:column;gap:8px">
-        <button type="submit" class="btn btn-primary" style="width:100%">Lưu thay đổi</button>
-        <a href="/dictionary/<%= entry.id %>" class="btn btn-secondary" style="width:100%;text-align:center">Hủy</a>
+        <button type="submit" class="btn btn-primary" style="width:100%">Save Changes</button>
+        <a href="/dictionary/<%= entry.id %>" class="btn btn-secondary" style="width:100%;text-align:center">Cancel</a>
       </div>
 
     </div>

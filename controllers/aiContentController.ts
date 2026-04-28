@@ -11,7 +11,7 @@ const aiContentController = {
         AIContent.getRecentModerationLogs(5),
       ]);
       res.render('ai-content/index', {
-        title: 'Nội dung AI',
+        title: 'AI Content',
         active: 'ai',
         stats,
         recentSessions,
@@ -19,7 +19,7 @@ const aiContentController = {
       });
     } catch (err) {
       console.error('[AIContent] getIndex error:', err);
-      req.flash('error', 'Không thể tải trang AI Content');
+      req.flash('error', 'Failed to load AI Content page');
       return res.redirect('/dashboard');
     }
   },
@@ -38,7 +38,7 @@ const aiContentController = {
       });
     } catch (err) {
       console.error('[AIContent] getSessions error:', err);
-      req.flash('error', 'Không thể tải danh sách sessions');
+      req.flash('error', 'Failed to load session list');
       return res.redirect('/ai-content');
     }
   },
@@ -48,17 +48,17 @@ const aiContentController = {
     try {
       const session = await AIContent.getRetrievalSessionById(req.params.id as string);
       if (!session) {
-        req.flash('error', 'Session không tồn tại');
+        req.flash('error', 'Session not found');
         return res.redirect('/ai-content/sessions');
       }
       res.render('ai-content/session-detail', {
-        title: 'Chi tiết Session',
+        title: 'Session Detail',
         active: 'ai',
         session,
       });
     } catch (err) {
       console.error('[AIContent] getSessionDetail error:', err);
-      req.flash('error', 'Không thể tải chi tiết session');
+      req.flash('error', 'Failed to load session detail');
       return res.redirect('/ai-content/sessions');
     }
   },
@@ -77,7 +77,7 @@ const aiContentController = {
       });
     } catch (err) {
       console.error('[AIContent] getModeration error:', err);
-      req.flash('error', 'Không thể tải moderation logs');
+      req.flash('error', 'Failed to load moderation logs');
       return res.redirect('/ai-content');
     }
   },
@@ -87,17 +87,17 @@ const aiContentController = {
     try {
       const log = await AIContent.getModerationLogById(req.params.id as string);
       if (!log) {
-        req.flash('error', 'Moderation log không tồn tại');
+        req.flash('error', 'Moderation log not found');
         return res.redirect('/ai-content/moderation');
       }
       res.render('ai-content/moderation-detail', {
-        title: 'Chi tiết Moderation',
+        title: 'Moderation Detail',
         active: 'ai',
         log,
       });
     } catch (err) {
       console.error('[AIContent] getModerationDetail error:', err);
-      req.flash('error', 'Không thể tải chi tiết moderation log');
+      req.flash('error', 'Failed to load moderation log detail');
       return res.redirect('/ai-content/moderation');
     }
   },
@@ -113,7 +113,7 @@ const aiContentController = {
       });
     } catch (err) {
       console.error('[AIContent] getPrompts error:', err);
-      req.flash('error', 'Không thể tải prompt templates');
+      req.flash('error', 'Failed to load prompt templates');
       return res.redirect('/ai-content');
     }
   },

@@ -62,7 +62,7 @@ const SUGGESTED_KEYS = [
           <% } else { %>
             <tr id="empty-placeholder">
               <td colspan="3" style="padding:24px;text-align:center;color:#a0aec0;font-size:13px">
-                Chưa có feature nào. Nhấn "+ Add row" để thêm.
+                No features yet. Click "+ Add row" to add.
               </td>
             </tr>
           <% } %>
@@ -70,16 +70,16 @@ const SUGGESTED_KEYS = [
       </table>
 
       <div style="margin-top:16px;display:flex;gap:8px">
-        <button type="submit" class="btn btn-primary">💾 Lưu features</button>
-        <a href="/subscriptions/plans/<%= plan.id %>/edit" class="btn btn-secondary">← Quay lại gói</a>
+        <button type="submit" class="btn btn-primary">💾 Save Features</button>
+        <a href="/subscriptions/plans/<%= plan.id %>/edit" class="btn btn-secondary">← Back to Plan</a>
       </div>
     </form>
   </div>
 
   <!-- Suggested keys -->
   <div class="card" style="padding:20px">
-    <h2 style="margin:0 0 12px;font-size:15px;font-weight:600">Keys gợi ý</h2>
-    <p style="margin:0 0 12px;font-size:13px;color:#718096">Click để thêm nhanh vào danh sách</p>
+    <h2 style="margin:0 0 12px;font-size:15px;font-weight:600">Suggested Keys</h2>
+    <p style="margin:0 0 12px;font-size:13px;color:#718096">Click to quickly add to the list</p>
     <div style="display:flex;flex-direction:column;gap:6px">
       <% SUGGESTED_KEYS.forEach(function(k) { %>
         <button type="button" onclick="addRowWithKey('<%= k %>')"
@@ -91,9 +91,9 @@ const SUGGESTED_KEYS = [
     <hr style="margin:16px 0;border:none;border-top:1px solid #e2e8f0">
     <div style="font-size:12px;color:#a0aec0">
       <div style="margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.5px">Value examples</div>
-      <div><code>unlimited</code> — không giới hạn</div>
-      <div><code>true / false</code> — bật/tắt</div>
-      <div><code>50</code> — số lượng</div>
+      <div><code>unlimited</code> — no limit</div>
+      <div><code>true / false</code> — on/off</div>
+      <div><code>50</code> — quantity</div>
       <div><code>all / basic</code> — tier</div>
     </div>
   </div>
@@ -105,7 +105,7 @@ function removeRow(btn) {
   btn.closest('tr').remove();
   const body = document.getElementById('features-body');
   if (body.querySelectorAll('.feature-row').length === 0) {
-    body.innerHTML = '<tr id="empty-placeholder"><td colspan="3" style="padding:24px;text-align:center;color:#a0aec0;font-size:13px">Chưa có feature nào.</td></tr>';
+    body.innerHTML = '<tr id="empty-placeholder"><td colspan="3" style="padding:24px;text-align:center;color:#a0aec0;font-size:13px">No features.</td></tr>';
   }
 }
 

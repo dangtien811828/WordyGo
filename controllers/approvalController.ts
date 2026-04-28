@@ -9,13 +9,13 @@ const approvalController = {
     try {
       const requests = await Approval.findPending();
       res.render('approvals/index', {
-        title: 'Chờ duyệt',
+        title: 'Pending Approvals',
         active: 'approvals',
         requests,
       });
     } catch (err) {
       console.error('[Approvals] getIndex error:', err);
-      req.flash('error', 'Không thể tải danh sách yêu cầu');
+      req.flash('error', 'Failed to load request list');
       return res.redirect('/dashboard');
     }
   },
@@ -27,7 +27,7 @@ const approvalController = {
       const { reviewer_note } = req.body;
       const result = await Approval.approve(id, req.session.admin.id, reviewer_note || null);
       if (!result) {
-        req.flash('error', 'Yêu cầu không tồn tại hoặc đã được xử lý');
+        req.flash('error', 'Request not found or already processed');
         return res.redirect('/approvals');
       }
 
@@ -48,11 +48,11 @@ const approvalController = {
         await Ebook.delete(result.payload.targetId);
       }
 
-      req.flash('success', 'Đã phê duyệt và thực thi yêu cầu');
+      req.flash('success', 'Request approved and executed');
       return res.redirect('/approvals');
     } catch (err) {
       console.error('[Approvals] postApprove error:', err);
-      req.flash('error', 'Đã xảy ra lỗi. Vui lòng thử lại.');
+      req.flash('error', 'An error occurred. Please try again.');
       return res.redirect('/approvals');
     }
   },
@@ -64,14 +64,14 @@ const approvalController = {
       const { reviewer_note } = req.body;
       const result = await Approval.reject(id, req.session.admin.id, reviewer_note || null);
       if (!result) {
-        req.flash('error', 'Yêu cầu không tồn tại hoặc đã được xử lý');
+        req.flash('error', 'Request not found or already processed');
       } else {
-        req.flash('success', 'Đã từ chối yêu cầu');
+        req.flash('success', 'Request rejected');
       }
       return res.redirect('/approvals');
     } catch (err) {
       console.error('[Approvals] postReject error:', err);
-      req.flash('error', 'Đã xảy ra lỗi. Vui lòng thử lại.');
+      req.flash('error', 'An error occurred. Please try again.');
       return res.redirect('/approvals');
     }
   },

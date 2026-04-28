@@ -11,29 +11,29 @@
 
 <div class="page-header" style="display:flex;align-items:center;justify-content:space-between">
   <div>
-    <h1>Người dùng</h1>
-    <p>Quản lý tài khoản người dùng mobile app</p>
+    <h1>Users</h1>
+    <p>Manage mobile app user accounts</p>
   </div>
-  <a href="/users/create" class="btn btn-primary">+ Thêm người dùng</a>
+  <a href="/users/create" class="btn btn-primary">+ Add User</a>
 </div>
 
 <!-- Stat cards -->
 <div class="stats-grid" style="grid-template-columns:repeat(4,1fr)">
   <div class="stat-card">
     <div class="stat-icon">👥</div>
-    <div><div class="stat-value"><%= total %></div><div class="stat-label">Tổng cộng</div></div>
+    <div><div class="stat-value"><%= total %></div><div class="stat-label">Total</div></div>
   </div>
   <div class="stat-card">
     <div class="stat-icon">✅</div>
-    <div><div class="stat-value"><%= statusCounts.active %></div><div class="stat-label">Đang hoạt động</div></div>
+    <div><div class="stat-value"><%= statusCounts.active %></div><div class="stat-label">Active</div></div>
   </div>
   <div class="stat-card">
     <div class="stat-icon">⏸️</div>
-    <div><div class="stat-value"><%= statusCounts.inactive %></div><div class="stat-label">Vô hiệu hóa</div></div>
+    <div><div class="stat-value"><%= statusCounts.inactive %></div><div class="stat-label">Disabled</div></div>
   </div>
   <div class="stat-card">
     <div class="stat-icon">🚫</div>
-    <div><div class="stat-value"><%= statusCounts.banned %></div><div class="stat-label">Bị cấm</div></div>
+    <div><div class="stat-value"><%= statusCounts.banned %></div><div class="stat-label">Banned</div></div>
   </div>
 </div>
 
@@ -41,30 +41,30 @@
 <div class="card" style="padding:16px;margin-bottom:20px">
   <form method="GET" action="/users" style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
     <div class="form-group" style="margin:0;flex:1;min-width:200px">
-      <label style="font-size:12px">Tìm kiếm</label>
-      <input type="text" name="search" value="<%= filters.search %>" placeholder="Tên, email...">
+      <label style="font-size:12px">Search</label>
+      <input type="text" name="search" value="<%= filters.search %>" placeholder="Name, email...">
     </div>
     <div class="form-group" style="margin:0;min-width:140px">
-      <label style="font-size:12px">Trạng thái</label>
+      <label style="font-size:12px">Status</label>
       <select name="status">
-        <option value="">Tất cả</option>
+        <option value="">All</option>
         <option value="active"   <%= filters.status === 'active'   ? 'selected' : '' %>>Active</option>
         <option value="inactive" <%= filters.status === 'inactive' ? 'selected' : '' %>>Inactive</option>
         <option value="banned"   <%= filters.status === 'banned'   ? 'selected' : '' %>>Banned</option>
       </select>
     </div>
     <div class="form-group" style="margin:0;min-width:140px">
-      <label style="font-size:12px">Cấp độ</label>
+      <label style="font-size:12px">Level</label>
       <select name="level">
-        <option value="">Tất cả</option>
+        <option value="">All</option>
         <option value="beginner"     <%= filters.level === 'beginner'     ? 'selected' : '' %>>Beginner</option>
         <option value="intermediate" <%= filters.level === 'intermediate' ? 'selected' : '' %>>Intermediate</option>
         <option value="advanced"     <%= filters.level === 'advanced'     ? 'selected' : '' %>>Advanced</option>
       </select>
     </div>
     <div style="display:flex;gap:8px">
-      <button type="submit" class="btn btn-primary">Lọc</button>
-      <a href="/users" class="btn btn-secondary">Xóa bộ lọc</a>
+      <button type="submit" class="btn btn-primary">Filter</button>
+      <a href="/users" class="btn btn-secondary">Clear Filters</a>
     </div>
   </form>
 </div>
@@ -72,18 +72,18 @@
 <!-- Table -->
 <div class="card">
   <div class="card-header">
-    <h2>Kết quả (<%= pagination.total %>)</h2>
+    <h2>Results (<%= pagination.total %>)</h2>
   </div>
   <div class="table-wrapper">
     <table>
       <thead>
         <tr>
-          <th>Người dùng</th>
-          <th>Cấp độ</th>
-          <th>Gói</th>
-          <th>Trạng thái</th>
-          <th>Ngày đăng ký</th>
-          <th>Hành động</th>
+          <th>User</th>
+          <th>Level</th>
+          <th>Plan</th>
+          <th>Status</th>
+          <th>Registered</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -108,29 +108,29 @@
               <td><span class="badge" style="<%= tierStyle[u.subscription_tier] || tierStyle.FREE %>"><%= u.subscription_tier %></span></td>
               <td><span class="badge <%= statusBadge[u.status] || '' %>"><%= u.status %></span></td>
               <td style="font-size:13px;color:var(--text-secondary)">
-                <%= new Date(u.created_at).toLocaleDateString('vi-VN') %>
+                <%= new Date(u.created_at).toLocaleDateString('en-US') %>
               </td>
               <td>
                 <div style="display:flex;gap:4px;flex-wrap:nowrap;align-items:center">
-                  <a href="/users/<%= u.id %>" class="btn btn-sm btn-secondary">Xem</a>
-                  <a href="/users/<%= u.id %>/edit" class="btn btn-sm btn-secondary">Sửa</a>
+                  <a href="/users/<%= u.id %>" class="btn btn-sm btn-secondary">View</a>
+                  <a href="/users/<%= u.id %>/edit" class="btn btn-sm btn-secondary">Edit</a>
                   <form action="/users/<%= u.id %>/toggle-status" method="POST" style="margin:0">
                     <% if (u.status === 'banned') { %>
                       <input type="hidden" name="new_status" value="active">
-                      <button class="btn btn-sm btn-secondary">Bỏ cấm</button>
+                      <button class="btn btn-sm btn-secondary">Unban</button>
                     <% } else if (u.status === 'active') { %>
                       <input type="hidden" name="new_status" value="inactive">
-                      <button class="btn btn-sm btn-secondary">Vô hiệu</button>
+                      <button class="btn btn-sm btn-secondary">Disable</button>
                     <% } else { %>
                       <input type="hidden" name="new_status" value="active">
-                      <button class="btn btn-sm btn-secondary">Kích hoạt</button>
+                      <button class="btn btn-sm btn-secondary">Activate</button>
                     <% } %>
                   </form>
                   <% if (u.status !== 'banned') { %>
                     <form action="/users/<%= u.id %>/toggle-status" method="POST" style="margin:0"
-                          onsubmit="return confirm('Cấm tài khoản này? Người dùng sẽ không thể đăng nhập.')">
+                          onsubmit="return confirm('Ban this account? The user will not be able to log in.')">
                       <input type="hidden" name="new_status" value="banned">
-                      <button class="btn btn-sm btn-danger">Cấm</button>
+                      <button class="btn btn-sm btn-danger">Ban</button>
                     </form>
                   <% } %>
                 </div>
@@ -140,7 +140,7 @@
         <% } else { %>
           <tr>
             <td colspan="6" class="text-center" style="padding:40px;color:var(--text-secondary)">
-              Không có người dùng nào
+              No users found
             </td>
           </tr>
         <% } %>

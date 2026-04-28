@@ -19,9 +19,9 @@ function fmtDate(ts) {
   <div style="font-size:13px;color:#718096;margin-bottom:4px">
     <a href="/subscriptions" style="color:#718096">Subscriptions</a> /
     <a href="/subscriptions/plans" style="color:#718096">Plans</a> /
-    <%= isEdit ? 'Sửa' : 'Tạo mới' %>
+    <%= isEdit ? 'Edit' : 'Create New' %>
   </div>
-  <h1 style="margin:0;font-size:22px;font-weight:700"><%= isEdit ? 'Sửa gói: ' + plan.name : 'Tạo gói mới' %></h1>
+  <h1 style="margin:0;font-size:22px;font-weight:700"><%= isEdit ? 'Edit Plan: ' + plan.name : 'Create New Plan' %></h1>
 </div>
 
 <form method="POST" action="<%= action %>">
@@ -32,14 +32,14 @@ function fmtDate(ts) {
 
       <!-- Basic info -->
       <div class="card" style="padding:20px">
-        <h2 style="margin:0 0 16px;font-size:15px;font-weight:600;border-bottom:1px solid #e2e8f0;padding-bottom:10px">Thông tin cơ bản</h2>
+        <h2 style="margin:0 0 16px;font-size:15px;font-weight:600;border-bottom:1px solid #e2e8f0;padding-bottom:10px">Basic Information</h2>
         <div class="form-group">
-          <label>Tên gói <span style="color:#e53e3e">*</span></label>
+          <label>Plan Name <span style="color:#e53e3e">*</span></label>
           <input type="text" name="name" value="<%= val('name') %>" placeholder="VD: Premium" required>
         </div>
         <div class="form-group">
-          <label>Mô tả</label>
-          <textarea name="description" rows="3" placeholder="Mô tả ngắn về gói..."><%= val('description') %></textarea>
+          <label>Description</label>
+          <textarea name="description" rows="3" placeholder="Brief description of the plan..."><%= val('description') %></textarea>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
           <div class="form-group">
@@ -61,39 +61,39 @@ function fmtDate(ts) {
 
       <!-- Pricing -->
       <div class="card" style="padding:20px">
-        <h2 style="margin:0 0 16px;font-size:15px;font-weight:600;border-bottom:1px solid #e2e8f0;padding-bottom:10px">Giá</h2>
+        <h2 style="margin:0 0 16px;font-size:15px;font-weight:600;border-bottom:1px solid #e2e8f0;padding-bottom:10px">Pricing</h2>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
           <div class="form-group">
-            <label>Hàng tháng (₫) <span style="color:#e53e3e">*</span></label>
+            <label>Monthly (₫) <span style="color:#e53e3e">*</span></label>
             <input type="number" name="price_monthly" value="<%= val('price_monthly', 0) %>" min="0" required>
           </div>
           <div class="form-group">
-            <label>Hàng năm (₫)</label>
+            <label>Yearly (₫)</label>
             <input type="number" name="price_yearly" value="<%= val('price_yearly') %>" min="0">
           </div>
           <div class="form-group">
-            <label>Hàng tuần (₫)</label>
+            <label>Weekly (₫)</label>
             <input type="number" name="price_weekly" value="<%= val('price_weekly') %>" min="0">
           </div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:4px">
           <div class="form-group">
-            <label>Dùng thử (ngày)</label>
+            <label>Trial (days)</label>
             <input type="number" name="trial_days" value="<%= val('trial_days', 0) %>" min="0">
           </div>
           <div class="form-group">
-            <label>Giá khuyến mãi (₫)</label>
+            <label>Promo Price (₫)</label>
             <input type="number" name="promo_price" value="<%= val('promo_price') %>" min="0">
           </div>
           <div></div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px">
           <div class="form-group">
-            <label>KM từ ngày</label>
+            <label>Promo From</label>
             <input type="date" name="promo_start" value="<%= fmtDate(v.promo_start) %>">
           </div>
           <div class="form-group">
-            <label>KM đến ngày</label>
+            <label>Promo To</label>
             <input type="date" name="promo_end" value="<%= fmtDate(v.promo_end) %>">
           </div>
         </div>
@@ -101,8 +101,8 @@ function fmtDate(ts) {
 
       <!-- Payment methods -->
       <div class="card" style="padding:20px">
-        <h2 style="margin:0 0 4px;font-size:15px;font-weight:600">Phương thức thanh toán</h2>
-        <p style="margin:0 0 14px;font-size:13px;color:#718096">Chọn các phương thức thanh toán được chấp nhận cho gói này</p>
+        <h2 style="margin:0 0 4px;font-size:15px;font-weight:600">Payment Methods</h2>
+        <p style="margin:0 0 14px;font-size:13px;color:#718096">Select payment methods accepted for this plan</p>
         <% if (allMethods.length > 0) { %>
           <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">
             <%
@@ -118,7 +118,7 @@ function fmtDate(ts) {
                  const opacity = isDisabled ? 0.55 : 1;
             %>
               <label style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;cursor:<%= cursor %>;background:<%= bg %>;opacity:<%= opacity %>"
-                     <% if (isDisabled) { %>title="Method này đang inactive — cần activate trước khi gán cho plan"<% } %>>
+                     <% if (isDisabled) { %>title="This method is inactive — activate it before assigning to a plan"<% } %>>
                 <input type="checkbox" name="payment_method_ids[]" value="<%= m.id %>"
                        <%= isLinked ? 'checked' : '' %>
                        <%= isDisabled ? 'disabled' : '' %>
@@ -131,7 +131,7 @@ function fmtDate(ts) {
                   <div style="font-size:11px;color:#718096"><%= m.method_type %><%= m.fee_percent > 0 ? ' · ' + m.fee_percent + '%' : '' %></div>
                 </div>
                 <% if (isDisabled && isLinked) { %>
-                  <span class="badge badge-warning" style="font-size:10px;margin-left:auto" title="Link cũ được giữ lại — reactivate method để chỉnh sửa">Inactive (legacy link)</span>
+                  <span class="badge badge-warning" style="font-size:10px;margin-left:auto" title="Legacy link preserved — reactivate method to edit">Inactive (legacy link)</span>
                 <% } else if (isDisabled) { %>
                   <span class="badge badge-secondary" style="font-size:10px;margin-left:auto">Inactive</span>
                 <% } %>
@@ -139,7 +139,7 @@ function fmtDate(ts) {
             <% }) %>
           </div>
         <% } else { %>
-          <p style="color:#718096;font-size:13px;margin:0">Chưa có payment method nào. <a href="/subscriptions/payment-methods/new">Tạo mới →</a></p>
+          <p style="color:#718096;font-size:13px;margin:0">No payment methods yet. <a href="/subscriptions/payment-methods/new">Create one →</a></p>
         <% } %>
       </div>
 
@@ -150,7 +150,7 @@ function fmtDate(ts) {
 
       <!-- Status & flags -->
       <div class="card" style="padding:20px">
-        <h2 style="margin:0 0 16px;font-size:15px;font-weight:600;border-bottom:1px solid #e2e8f0;padding-bottom:10px">Trạng thái</h2>
+        <h2 style="margin:0 0 16px;font-size:15px;font-weight:600;border-bottom:1px solid #e2e8f0;padding-bottom:10px">Status</h2>
         <div class="form-group">
           <label>Status</label>
           <select name="status">
@@ -161,7 +161,7 @@ function fmtDate(ts) {
         <div style="margin-top:8px">
           <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
             <input type="checkbox" name="is_recommended" <%= checked('is_recommended') %>>
-            <span style="font-size:14px">⭐ Đây là gói được đề xuất</span>
+            <span style="font-size:14px">⭐ This is the recommended plan</span>
           </label>
         </div>
       </div>
@@ -169,13 +169,13 @@ function fmtDate(ts) {
       <!-- Actions -->
       <div class="card" style="padding:16px">
         <button type="submit" class="btn btn-primary" style="width:100%;margin-bottom:8px">
-          <%= isEdit ? '💾 Lưu thay đổi' : '✅ Tạo gói' %>
+          <%= isEdit ? '💾 Save Changes' : '✅ Create Plan' %>
         </button>
-        <a href="/subscriptions/plans" class="btn btn-secondary" style="width:100%;display:block;text-align:center">Huỷ</a>
+        <a href="/subscriptions/plans" class="btn btn-secondary" style="width:100%;display:block;text-align:center">Cancel</a>
         <% if (isEdit) { %>
           <hr style="margin:12px 0;border:none;border-top:1px solid #e2e8f0">
           <a href="/subscriptions/plans/<%= plan.id %>/features" class="btn btn-secondary" style="width:100%;display:block;text-align:center">
-            🔧 Quản lý Features →
+            🔧 Manage Features →
           </a>
         <% } %>
       </div>

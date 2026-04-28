@@ -14,13 +14,13 @@
     </a>
     <a href="/users" class="nav-item <%= typeof active !== 'undefined' && active === 'users' ? 'active' : '' %>">
       <span class="nav-icon">👥</span>
-      <span class="nav-label">Người dùng</span>
+      <span class="nav-label">Users</span>
     </a>
     <a href="/dictionary" class="nav-item <%= typeof active !== 'undefined' && active === 'dictionary' ? 'active' : '' %>">
       <span class="nav-icon">📖</span>
-      <span class="nav-label">Từ điển</span>
+      <span class="nav-label">Dictionary</span>
     </a>
-    <%# Bài học (lessons) — đã ẩn khỏi sidebar; route /lessons vẫn hoạt động qua URL %>
+    <%# Lessons — hidden from sidebar; route /lessons still accessible via URL %>
     <a href="/decks" class="nav-item <%= typeof active !== 'undefined' && active === 'flashcards' ? 'active' : '' %>">
       <span class="nav-icon">🃏</span>
       <span class="nav-label">Flashcard Decks</span>
@@ -65,7 +65,7 @@
     <% } %>
     <a href="/ai-content" class="nav-item <%= typeof active !== 'undefined' && active === 'ai' ? 'active' : '' %>">
       <span class="nav-icon">🤖</span>
-      <span class="nav-label">Nội dung AI</span>
+      <span class="nav-label">AI Content</span>
     </a>
 
     <% if (admin && admin.role === 'super_admin') { %>
@@ -73,7 +73,7 @@
       <a href="/approvals" class="nav-item <%= typeof active !== 'undefined' && active === 'approvals' ? 'active' : '' %>">
         <span class="nav-icon">📋</span>
         <span class="nav-label">
-          Chờ duyệt
+          Pending Approvals
           <% if (pendingApprovals > 0) { %>
             <span class="badge badge-danger" style="margin-left:6px"><%= pendingApprovals %></span>
           <% } %>
@@ -81,7 +81,7 @@
       </a>
       <a href="/settings" class="nav-item <%= typeof active !== 'undefined' && active === 'settings' ? 'active' : '' %>">
         <span class="nav-icon">⚙️</span>
-        <span class="nav-label">Cấu hình</span>
+        <span class="nav-label">Settings</span>
       </a>
     <% } %>
   </nav>
@@ -100,7 +100,7 @@
       </div>
     </a>
     <form action="/auth/logout" method="POST" style="margin:0">
-      <button type="submit" class="btn-logout" title="Đăng xuất">↪</button>
+      <button type="submit" class="btn-logout" title="Logout">↪</button>
     </form>
   </div>
 </aside>

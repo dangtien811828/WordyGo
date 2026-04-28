@@ -17,9 +17,9 @@ const typeLabel = {
   <div>
     <div style="font-size:13px;color:#718096;margin-bottom:4px"><a href="/subscriptions" style="color:#718096">Subscriptions</a> / Payment Methods</div>
     <h1 style="margin:0;font-size:22px;font-weight:700">Payment Methods</h1>
-    <p style="margin:4px 0 0;font-size:13px;color:#718096"><%= methods.length %> phương thức thanh toán</p>
+    <p style="margin:4px 0 0;font-size:13px;color:#718096"><%= methods.length %> payment method(s)</p>
   </div>
-  <a href="/subscriptions/payment-methods/new" class="btn btn-primary">+ Thêm mới</a>
+  <a href="/subscriptions/payment-methods/new" class="btn btn-primary">+ Add New</a>
 </div>
 
 <% if (methods.length > 0) { %>
@@ -56,7 +56,7 @@ const typeLabel = {
       <span style="font-size:12px;font-weight:600;color:<%= statusColor %>"><%= statusLabel %></span>
       <% if (!v.is_valid) { %>
         <span style="font-size:11px;color:#e53e3e;text-align:right;line-height:1.4">
-          Thiếu: <%= v.missing_fields.join(', ') %>
+          Missing: <%= v.missing_fields.join(', ') %>
         </span>
       <% } %>
     </div>
@@ -66,28 +66,28 @@ const typeLabel = {
     <% } %>
 
     <div style="padding:10px 16px;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:#718096;border-bottom:1px solid #e2e8f0">
-      <span>Fee: <%= m.fee_percent > 0 ? m.fee_percent + '%' : 'Miễn phí' %></span>
+      <span>Fee: <%= m.fee_percent > 0 ? m.fee_percent + '%' : 'Free' %></span>
       <span>Sort: #<%= m.sort_order %></span>
     </div>
 
     <div style="padding:10px 12px;display:flex;gap:6px;flex-wrap:wrap">
-      <a href="/subscriptions/payment-methods/<%= m.id %>/edit" class="btn btn-sm btn-secondary">Sửa</a>
+      <a href="/subscriptions/payment-methods/<%= m.id %>/edit" class="btn btn-sm btn-secondary">Edit</a>
 
       <form method="POST" action="/subscriptions/payment-methods/<%= m.id %>/toggle-active" style="margin:0">
         <button type="submit"
                 class="btn btn-sm <%= m.is_active ? 'btn-secondary' : 'btn-primary' %>"
                 <% if (!m.is_active && !v.is_valid) { %>
-                  title="Cần điền đủ thông tin trước khi activate"
+                  title="Complete required fields before activating"
                   style="opacity:.5;cursor:not-allowed"
-                  onclick="return confirm('Method này chưa đủ config (thiếu: <%= v.missing_fields.join(', ') %>). Vẫn muốn thử activate?')"
+                  onclick="return confirm('This method is not fully configured (missing: <%= v.missing_fields.join(', ') %>). Try to activate anyway?')"
                 <% } %>>
-          <%= m.is_active ? '⏸ Tắt' : '▶ Bật' %>
+          <%= m.is_active ? '⏸ Disable' : '▶ Enable' %>
         </button>
       </form>
 
       <form method="POST" action="/subscriptions/payment-methods/<%= m.id %>/delete" style="margin:0"
-            onsubmit="return confirm('Xóa phương thức \'' + '<%= m.display_name %>' + '\'?')">
-        <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+            onsubmit="return confirm('Delete payment method \'' + '<%= m.display_name %>' + '\'?')">
+        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
       </form>
     </div>
   </div>
@@ -96,7 +96,7 @@ const typeLabel = {
 <% } else { %>
 <div class="card" style="padding:60px;text-align:center;color:#718096">
   <div style="font-size:40px;margin-bottom:12px">💰</div>
-  <p style="margin:0 0 16px">Chưa có phương thức thanh toán nào.</p>
-  <a href="/subscriptions/payment-methods/new" class="btn btn-primary">+ Thêm mới</a>
+  <p style="margin:0 0 16px">No payment methods yet.</p>
+  <a href="/subscriptions/payment-methods/new" class="btn btn-primary">+ Add New</a>
 </div>
 <% } %>

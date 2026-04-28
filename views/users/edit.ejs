@@ -1,16 +1,16 @@
 <div class="page-header">
-  <h1>Sửa thông tin</h1>
-  <p><a href="/users/<%= user.id %>">← Quay lại <%= user.full_name %></a></p>
+  <h1>Edit User</h1>
+  <p><a href="/users/<%= user.id %>">← Back to <%= user.full_name %></a></p>
 </div>
 
 <div style="max-width:560px">
   <div class="card">
-    <div class="card-header"><h2>Thông tin người dùng</h2></div>
+    <div class="card-header"><h2>User Information</h2></div>
     <div style="padding:20px">
       <form action="/users/<%= user.id %>/edit" method="POST">
         <div style="display:flex;flex-direction:column;gap:16px">
           <div class="form-group">
-            <label>Họ tên <span style="color:var(--danger)">*</span></label>
+            <label>Full Name <span style="color:var(--danger)">*</span></label>
             <input type="text" name="full_name" value="<%= user.full_name %>" required minlength="2">
           </div>
           <div class="form-group">
@@ -19,11 +19,11 @@
                    style="background:var(--bg);color:var(--text-secondary);cursor:not-allowed">
           </div>
           <div class="form-group">
-            <label>Số điện thoại</label>
+            <label>Phone Number</label>
             <input type="text" name="phone" value="<%= user.phone || '' %>" placeholder="0912345678">
           </div>
           <div class="form-group">
-            <label>Cấp độ <span style="color:var(--danger)">*</span></label>
+            <label>Level <span style="color:var(--danger)">*</span></label>
             <select name="level" required>
               <option value="beginner"     <%= user.level === 'beginner'     ? 'selected' : '' %>>Beginner</option>
               <option value="intermediate" <%= user.level === 'intermediate' ? 'selected' : '' %>>Intermediate</option>
@@ -31,7 +31,7 @@
             </select>
           </div>
           <div class="form-group">
-            <label>Trạng thái <span style="color:var(--danger)">*</span></label>
+            <label>Status <span style="color:var(--danger)">*</span></label>
             <select name="status" required>
               <option value="active"   <%= user.status === 'active'   ? 'selected' : '' %>>Active</option>
               <option value="inactive" <%= user.status === 'inactive' ? 'selected' : '' %>>Inactive</option>
@@ -39,8 +39,8 @@
             </select>
           </div>
           <div style="display:flex;gap:8px">
-            <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
-            <a href="/users/<%= user.id %>" class="btn btn-secondary">Hủy</a>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a href="/users/<%= user.id %>" class="btn btn-secondary">Cancel</a>
           </div>
         </div>
       </form>
