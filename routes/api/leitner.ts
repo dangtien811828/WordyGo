@@ -1,10 +1,19 @@
 import { Router, Response } from 'express';
+import { z } from 'zod';
 import NodeCache from 'node-cache';
 import pool from '../../config/db';
 import { ApiRequest } from '../../middlewares/apiAuth';
 import { asyncHandler } from '../../utils/asyncHandler';
 import { apiSuccess, apiError } from '../../utils/apiResponse';
 import { getIntervals, moveCard } from '../../utils/leitnerManager';
+import {
+  VI_COALESCE,
+  shuffleArray,
+  buildSwiftChoiceQuestion,
+  buildClozeQuestion,
+  InsufficientDistractorsError,
+  NoExamplesError,
+} from '../../utils/questionHelpers';
 
 const statsCache = new NodeCache({ stdTTL: 300, checkperiod: 60 });
 
@@ -405,6 +414,197 @@ router.get(
 
     statsCache.set(cacheKey, statsData);
     return apiSuccess(res, statsData);
+  })
+);
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  Question generation for Leitner review modes (SwiftChoice / Cloze / PairLink)
+//
+//  Lookup is by leitner_cards.id (not cards.id) so these endpoints work for
+//  cross-deck SRS reviews. Distractors for SwiftChoice and Cloze are drawn from
+//  a global pool (cefr_level + pos), same as /practice/* — no deck filter.
+//
+//  The mobile flow per due card:
+//    1. Mobile picks one of the 3 modes per card.
+//    2. Calls the matching endpoint here to fetch a question.
+//    3. User answers; mobile decides correct/wrong (first-attempt rule).
+//    4. Mobile calls POST /api/v1/leitner/review with leitner_card_id + correct
+//       to apply the SRS box transition.
+// ─────────────────────────────────────────────────────────────────────────────
+
+// ── POST /api/v1/leitner/swift-choice/question ────────────────────────────────
+const swiftChoiceSchema = z.object({
+  leitner_card_id: z.string().uuid(),
+});
+
+router.post(
+  '/swift-choice/question',
+  asyncHandler(async (req: ApiRequest, res: Response) => {
+    const userId = req.user!.id;
+    const parsed = swiftChoiceSchema.safeParse(req.body);
+    if (!parsed.success) {
+      return apiError(
+        res, 400, 'VALIDATION_ERROR', 'Dữ liệu không hợp lệ', parsed.error.issues
+      );
+    }
+    const { leitner_card_id } = parsed.data;
+
+    const { rows } = await pool.query(
+      `SELECT lc.id AS leitner_card_id, lc.entry_id,
+              de.headword, de.ipa_us, de.pos, de.cefr_level,
+              ${VI_COALESCE} AS correct_vi
+       FROM leitner_cards lc
+       JOIN dictionary_entries de ON de.id = lc.entry_id
+       WHERE lc.id = $1 AND lc.user_id = $2`,
+      [leitner_card_id, userId]
+    );
+    if (rows.length === 0) {
+      return apiError(res, 404, 'LEITNER_CARD_NOT_FOUND', 'Leitner card không tồn tại');
+    }
+    const card = rows[0];
+
+    try {
+      const question = await buildSwiftChoiceQuestion({
+        entry_id: card.entry_id,
+        headword: card.headword,
+        ipa_us: card.ipa_us,
+        pos: card.pos,
+        cefr_level: card.cefr_level,
+        correct_vi: card.correct_vi,
+      });
+      return apiSuccess(res, {
+        leitner_card_id: card.leitner_card_id,
+        entry_id: card.entry_id,
+        ...question,
+      });
+    } catch (err) {
+      if (err instanceof InsufficientDistractorsError) {
+        return apiError(res, 422, 'INSUFFICIENT_DISTRACTORS', 'Không đủ distractors');
+      }
+      throw err;
+    }
+  })
+);
+
+// ── POST /api/v1/leitner/cloze/question ───────────────────────────────────────
+const clozeSchema = z.object({
+  leitner_card_id: z.string().uuid(),
+  level: z.union([z.literal(1), z.literal(2), z.literal(3)]),
+});
+
+router.post(
+  '/cloze/question',
+  asyncHandler(async (req: ApiRequest, res: Response) => {
+    const userId = req.user!.id;
+    const parsed = clozeSchema.safeParse(req.body);
+    if (!parsed.success) {
+      return apiError(
+        res, 400, 'VALIDATION_ERROR', 'Dữ liệu không hợp lệ', parsed.error.issues
+      );
+    }
+    const { leitner_card_id, level } = parsed.data;
+
+    const { rows } = await pool.query(
+      `SELECT lc.entry_id, de.headword, de.pos
+       FROM leitner_cards lc
+       JOIN dictionary_entries de ON de.id = lc.entry_id
+       WHERE lc.id = $1 AND lc.user_id = $2`,
+      [leitner_card_id, userId]
+    );
+    if (rows.length === 0) {
+      return apiError(res, 404, 'LEITNER_CARD_NOT_FOUND', 'Leitner card không tồn tại');
+    }
+    const card = rows[0];
+
+    try {
+      const question = await buildClozeQuestion(
+        { entry_id: card.entry_id, headword: card.headword, pos: card.pos },
+        level
+      );
+      return apiSuccess(res, {
+        leitner_card_id,
+        entry_id: card.entry_id,
+        ...question,
+      });
+    } catch (err) {
+      if (err instanceof NoExamplesError) {
+        return apiError(res, 422, 'NO_EXAMPLES', 'Card này không có câu ví dụ');
+      }
+      throw err;
+    }
+  })
+);
+
+// ── POST /api/v1/leitner/pair-link/session ────────────────────────────────────
+//
+// Schema-level rule: min(1) keeps the array non-empty (empty = invalid input shape
+// → VALIDATION_ERROR). The "need at least 2 to play" rule is functional, not
+// structural, so it's enforced inside the handler with a domain-specific
+// INSUFFICIENT_PAIRS code.
+const pairLinkSchema = z.object({
+  leitner_card_ids: z
+    .array(z.string().uuid())
+    .min(1, { message: 'leitner_card_ids phải có ít nhất 1 phần tử' })
+    .max(20, { message: 'Tối đa 20 leitner cards' }),
+});
+
+router.post(
+  '/pair-link/session',
+  asyncHandler(async (req: ApiRequest, res: Response) => {
+    const userId = req.user!.id;
+    const parsed = pairLinkSchema.safeParse(req.body);
+    if (!parsed.success) {
+      return apiError(
+        res, 400, 'VALIDATION_ERROR', 'Dữ liệu không hợp lệ', parsed.error.issues
+      );
+    }
+    const uniqueIds = Array.from(new Set(parsed.data.leitner_card_ids));
+
+    if (uniqueIds.length < 2) {
+      return apiError(
+        res, 400, 'INSUFFICIENT_PAIRS',
+        'Cần tối thiểu 2 thẻ đến hạn để chơi PairLink'
+      );
+    }
+
+    const { rows } = await pool.query(
+      `SELECT lc.id AS leitner_card_id, lc.entry_id,
+              de.headword, ${VI_COALESCE} AS vi_text
+       FROM leitner_cards lc
+       JOIN dictionary_entries de ON de.id = lc.entry_id
+       WHERE lc.user_id = $1 AND lc.id = ANY($2::uuid[])`,
+      [userId, uniqueIds]
+    );
+
+    if (rows.length < 2) {
+      // Most/all ids invalid (foreign user or non-existent) — surface as enumeration-safe
+      // INSUFFICIENT_PAIRS rather than leaking which specific ids exist.
+      return apiError(
+        res, 400, 'INSUFFICIENT_PAIRS',
+        'Cần tối thiểu 2 thẻ đến hạn để chơi PairLink'
+      );
+    }
+
+    const validIds = new Set(rows.map((r: any) => r.leitner_card_id as string));
+    const invalid = uniqueIds.filter((id) => !validIds.has(id));
+    if (invalid.length > 0) {
+      return apiError(
+        res, 404, 'LEITNER_CARD_NOT_FOUND',
+        'Một số leitner_card_id không tồn tại hoặc không thuộc bạn',
+        { invalid_leitner_card_ids: invalid }
+      );
+    }
+
+    const shuffled = shuffleArray(rows);
+    const pairs = shuffled.map((row: any, idx: number) => ({
+      leitner_card_id: row.leitner_card_id,
+      entry_id: row.entry_id,
+      pair_id: `p${idx + 1}`,
+      en: row.headword,
+      vi: row.vi_text || '',
+    }));
+
+    return apiSuccess(res, { pairs });
   })
 );
 

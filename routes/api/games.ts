@@ -136,12 +136,20 @@ router.get(
       return apiError(res, 400, 'VALIDATION_ERROR', `game_type phải là: lexisweep hoặc anagram`);
     }
 
+    // Accept numeric level_number (1/2/3) from mobile or string proficiency name
+    const LEVEL_MAP: Record<string, string> = { '1': 'beginner', '2': 'intermediate', '3': 'advanced' };
+    const VALID_LEVELS = ['beginner', 'intermediate', 'advanced'];
+    const normalizedLevel = level ? (LEVEL_MAP[level] ?? level) : undefined;
+    if (normalizedLevel && !VALID_LEVELS.includes(normalizedLevel)) {
+      return apiError(res, 400, 'VALIDATION_ERROR', `level phải là: beginner/intermediate/advanced hoặc 1/2/3`);
+    }
+
     const params: any[] = [];
     const conds: string[] = [`gwl.status = 'published'`];
 
     if (type) { params.push(type); conds.push(`gwl.game_type = $${params.length}`); }
     if (topic) { params.push(topic); conds.push(`gwl.topic ILIKE $${params.length}`); }
-    if (level) { params.push(level); conds.push(`gwl.level = $${params.length}`); }
+    if (normalizedLevel) { params.push(normalizedLevel); conds.push(`gwl.level = $${params.length}`); }
 
     const where = `WHERE ${conds.join(' AND ')}`;
 
@@ -205,17 +213,16 @@ router.get(
   asyncHandler(async (req: ApiRequest, res: Response) => {
     const { level } = req.query as { level?: string };
 
+    // Accept numeric level_number (1/2/3) from mobile or string proficiency name
+    const LEVEL_MAP: Record<string, string> = { '1': 'beginner', '2': 'intermediate', '3': 'advanced' };
     const VALID_LEVELS = ['beginner', 'intermediate', 'advanced'];
-    if (level && !VALID_LEVELS.includes(level)) {
-      return apiError(res, 400, 'VALIDATION_ERROR', `level phải là: ${VALID_LEVELS.join(', ')}`);
+    const normalizedLevel = level ? (LEVEL_MAP[level] ?? level) : undefined;
+    if (normalizedLevel && !VALID_LEVELS.includes(normalizedLevel)) {
+      return apiError(res, 400, 'VALIDATION_ERROR', `level phải là: beginner/intermediate/advanced hoặc 1/2/3`);
     }
 
-    const params: any[] = [`'published'`];
-    let where = `WHERE ss.status = 'published'`;
-    if (level) {
-      params.push(level);
-      where += ` AND ss.level = $${params.length}`;
-    }
+    const params: any[] = [];
+    if (normalizedLevel) params.push(normalizedLevel);
 
     const { rows } = await pool.query(
       `SELECT ss.id, ss.name, ss.scale_description, ss.level,
@@ -223,10 +230,10 @@ router.get(
          FROM semantic_sets ss
          LEFT JOIN semantic_set_items ssi ON ssi.set_id = ss.id
          WHERE ss.status = 'published'
-         ${level ? `AND ss.level = $1` : ''}
+         ${normalizedLevel ? `AND ss.level = $1` : ''}
          GROUP BY ss.id
          ORDER BY ss.name ASC`,
-      level ? [level] : []
+      params
     );
 
     return apiSuccess(res, { items: rows });
