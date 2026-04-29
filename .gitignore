@@ -1,5 +1,4 @@
 node_modules/
-CLAUDE.md
 .env
 *.log
 .DS_Store
@@ -8,4 +7,4 @@ CLAUDE.md
 dist/
 *.tsbuildinfo
 /docs
-/scripts/precompute-checkpoint.json
+/scripts
