@@ -8,3 +8,4 @@ dist/
 *.tsbuildinfo
 /docs
 /scripts
+/tests

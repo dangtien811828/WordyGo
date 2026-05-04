@@ -198,7 +198,7 @@ const DictionaryEntry = {
 
     for (const item of jsonArray) {
       if (!item.headword || !item.lemma || !item.meaning_vi) {
-        errors.push(`Thiếu trường bắt buộc: ${JSON.stringify(item).slice(0, 80)}`);
+        errors.push(`Thiếu trường bắt buộc: ${JSON.stringify(item)}`);
         continue;
       }
       try {
