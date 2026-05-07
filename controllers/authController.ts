@@ -5,7 +5,7 @@ import Admin from '../models/Admin';
 const authController = {
   // ── GET /auth/login ──
   getLogin(req: Request, res: Response) {
-    res.render('auth/login', { title: 'Đăng nhập' });
+    res.render('auth/login', { title: 'Login' });
   },
 
   // ── POST /auth/login ──

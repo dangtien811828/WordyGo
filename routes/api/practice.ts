@@ -413,7 +413,9 @@ router.post(
     const posArray: string[] | null =
       Array.isArray(card.pos) && card.pos.length > 0 ? card.pos : null;
 
-    const DISTRACTOR_SELECT = 'SELECT ${VI_COALESCE} AS display_vi FROM dictionary_entries de';
+    const DISTRACTOR_SELECT = `
+      SELECT ${VI_COALESCE} AS display_vi
+      FROM dictionary_entries de`;
     let distractors: any[] = [];
 
     if (posArray) {

@@ -20,7 +20,7 @@ const dashboardController = {
         lessons: lessonsCount.rows[0].count,
       };
 
-      // Admin list (cho hiển thị nhanh)
+      // Admin list
       const admins = await Admin.getAll();
 
       res.render('dashboard', {

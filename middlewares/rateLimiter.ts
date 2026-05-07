@@ -14,11 +14,11 @@ const handler = (
     'TOO_MANY_REQUESTS',
     typeof options.message === 'string'
       ? options.message
-      : 'Quá nhiều yêu cầu, vui lòng thử lại sau'
+      : 'Too many requests, please try again later'
   );
 };
 
-// Bỏ qua rate limit trong test env — localhost share IP làm mọi test đếm chung counter.
+// Skip rate limiting in test env — localhost shares IP so all tests count against the same counter.
 const skipInTests = () => process.env.NODE_ENV === 'test';
 
 export const loginLimiter = rateLimit({
@@ -26,7 +26,7 @@ export const loginLimiter = rateLimit({
   limit: 5,
   standardHeaders: true,
   legacyHeaders: false,
-  message: 'Quá nhiều lần thử đăng nhập, vui lòng thử lại sau 15 phút',
+  message: 'Too many login attempts, please try again after 15 minutes',
   handler,
   skip: skipInTests,
 });
@@ -36,7 +36,7 @@ export const registerLimiter = rateLimit({
   limit: 3,
   standardHeaders: true,
   legacyHeaders: false,
-  message: 'Quá nhiều lần đăng ký, vui lòng thử lại sau 1 giờ',
+  message: 'Too many registration attempts, please try again after 1 hour',
   handler,
   skip: skipInTests,
 });
@@ -46,7 +46,7 @@ export const refreshLimiter = rateLimit({
   limit: 10,
   standardHeaders: true,
   legacyHeaders: false,
-  message: 'Quá nhiều lần refresh token, vui lòng thử lại sau 1 giờ',
+  message: 'Too many token refresh attempts, please try again after 1 hour',
   handler,
   skip: skipInTests,
 });

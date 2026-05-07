@@ -300,9 +300,7 @@ router.post(
             [decoded.tokenId, req.user!.id]
           );
         }
-      } catch {
-        // Silently ignore invalid/expired refresh tokens on logout.
-      }
+      } catch {}
     }
 
     await pool.query(

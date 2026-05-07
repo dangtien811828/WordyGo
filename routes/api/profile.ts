@@ -186,7 +186,6 @@ router.post(
     if (oldPath && oldPath.startsWith('/uploads/avatars/') && oldPath !== relativePath) {
       const diskPath = path.join(process.cwd(), 'public', oldPath);
       fs.unlink(diskPath).catch(() => {
-        /* file có thể đã không còn tồn tại — bỏ qua */
       });
     }
 
