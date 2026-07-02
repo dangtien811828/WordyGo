@@ -121,8 +121,13 @@
 
 <!-- Chapters list -->
 <div class="card">
-  <div class="card-header">
+  <div class="card-header" style="display:flex;align-items:center;justify-content:space-between;gap:12px">
     <h2>Chapter List (<%= chapters.length %>)</h2>
+    <% if (chapters.length > 0) { %>
+      <button type="button" id="btn-generate-ebook-tts" class="btn btn-primary">
+        Generate All Audio
+      </button>
+    <% } %>
   </div>
   <% if (chapters.length > 0) { %>
   <div class="table-wrapper">

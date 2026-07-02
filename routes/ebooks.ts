@@ -5,6 +5,9 @@ import pool from '../config/db';
 import { generateChapterAudio } from '../services/chapterTtsService';
 
 const router = Router();
+const ebookTtsJobs = new Map<string, Promise<void>>();
+
+type Accent = 'us' | 'uk';
 
 // All authenticated roles can access ebooks
 router.use(requireAuth);
@@ -23,6 +26,129 @@ router.post('/:id/delete', ctrl.postDelete);
 // ─────────────────────────────────────────────────────────────────────────────
 //  Chapter TTS — admin-triggered background generation
 // ─────────────────────────────────────────────────────────────────────────────
+
+async function runEbookAudioJob(
+  ebookId: string,
+  chapterIds: string[],
+  accent: Accent
+): Promise<void> {
+  for (const chapterId of chapterIds) {
+    try {
+      const { rows } = await pool.query<{ tts_status: string | null }>(
+        `SELECT COALESCE(tts_status, 'none') AS tts_status
+           FROM chapters
+          WHERE id = $1 AND ebook_id = $2`,
+        [chapterId, ebookId]
+      );
+
+      if (rows.length === 0) continue;
+
+      const status = rows[0].tts_status ?? 'none';
+      if (status === 'ready' || status === 'generating') continue;
+
+      await generateChapterAudio(chapterId, accent);
+    } catch (err: any) {
+      const message = String(err?.message ?? err);
+      if (message !== 'ALREADY_GENERATING') {
+        console.error(`[admin/ebooks] ebook ${ebookId} chapter ${chapterId} bulk TTS failed:`, err);
+      }
+    }
+  }
+}
+
+// POST /ebooks/:ebook_id/generate-tts
+// Body: { accent?: 'us' | 'uk' } (default 'us')
+// Fire-and-forget: queues all non-ready chapters and generates them one chapter at a time.
+router.post('/:ebook_id/generate-tts', async (req: Request, res: Response) => {
+  const { ebook_id } = req.params as { ebook_id: string };
+  const accent = (req.body?.accent ?? 'us') as string;
+
+  if (accent !== 'us' && accent !== 'uk') {
+    return res.status(400).json({
+      success: false,
+      error: { code: 'VALIDATION_ERROR', message: "accent must be 'us' or 'uk'" },
+    });
+  }
+
+  try {
+    const ebookResult = await pool.query<{ id: string }>(
+      `SELECT id FROM ebooks WHERE id = $1`,
+      [ebook_id]
+    );
+
+    if (ebookResult.rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        error: { code: 'NOT_FOUND', message: 'Ebook không tồn tại' },
+      });
+    }
+
+    if (ebookTtsJobs.has(ebook_id)) {
+      return res.status(409).json({
+        success: false,
+        error: {
+          code: 'ALREADY_GENERATING',
+          message: 'TTS đang được tạo cho ebook này, vui lòng đợi.',
+        },
+      });
+    }
+
+    const { rows: chapters } = await pool.query<{ id: string; tts_status: string | null }>(
+      `SELECT id, COALESCE(tts_status, 'none') AS tts_status
+         FROM chapters
+        WHERE ebook_id = $1
+        ORDER BY chapter_index ASC`,
+      [ebook_id]
+    );
+
+    const monitorChapterIds = chapters
+      .filter((chapter) => chapter.tts_status !== 'ready')
+      .map((chapter) => chapter.id);
+
+    const generateChapterIds = chapters
+      .filter((chapter) => chapter.tts_status !== 'ready' && chapter.tts_status !== 'generating')
+      .map((chapter) => chapter.id);
+
+    if (monitorChapterIds.length === 0) {
+      return res.status(200).json({
+        success: true,
+        message: 'All chapters already have audio',
+        chapter_ids: [],
+        queued_count: 0,
+        already_generating_count: 0,
+        skipped_ready_count: chapters.length,
+      });
+    }
+
+    if (generateChapterIds.length > 0) {
+      const job = runEbookAudioJob(ebook_id, generateChapterIds, accent as Accent)
+        .catch((err) => {
+          console.error(`[admin/ebooks] ebook ${ebook_id} bulk TTS crashed:`, err);
+        })
+        .finally(() => {
+          ebookTtsJobs.delete(ebook_id);
+        });
+
+      ebookTtsJobs.set(ebook_id, job);
+    }
+
+    return res.status(202).json({
+      success: true,
+      message: 'Generation started',
+      ebook_id,
+      chapter_ids: monitorChapterIds,
+      queued_count: generateChapterIds.length,
+      already_generating_count: monitorChapterIds.length - generateChapterIds.length,
+      skipped_ready_count: chapters.length - monitorChapterIds.length,
+    });
+  } catch (err) {
+    console.error('[admin/ebooks] generate ebook tts error:', err);
+    return res.status(500).json({
+      success: false,
+      error: { code: 'INTERNAL_ERROR', message: 'Không thể khởi động generation cho ebook' },
+    });
+  }
+});
 
 // POST /ebooks/:ebook_id/chapters/:chapter_id/generate-tts
 // Body: { accent?: 'us' | 'uk' } (default 'us')

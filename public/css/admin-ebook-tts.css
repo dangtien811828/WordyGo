@@ -41,6 +41,18 @@
   text-align: center;
 }
 
+/* Queued by the bulk ebook job, waiting for the sequential worker to reach it. */
+.tts-queued {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 96px;
+  min-height: 28px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+}
+
 /* Ready state */
 .tts-done {
   color: var(--success);
