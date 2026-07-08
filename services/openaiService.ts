@@ -60,6 +60,15 @@ const GradeOutputSchema = z.object({
 
 export type GradeOutput = z.infer<typeof GradeOutputSchema>;
 
+const VietnameseAnswerGradeOutputSchema = z.object({
+  verdict: z.enum(['correct', 'near_correct', 'wrong']),
+  confidence: z.number().min(0).max(1),
+  matched_answer: z.string().nullable(),
+  reason_vi: z.string(),
+});
+
+export type VietnameseAnswerGradeOutput = z.infer<typeof VietnameseAnswerGradeOutputSchema>;
+
 export interface GradeInput {
   targetWords: Array<{ headword: string; meaning_vi: string | null; pos: string[] }>;
   sentences: string[];
@@ -75,6 +84,41 @@ export interface GradeResult {
   tokens_out: number;
   cost_usd: number;
 }
+
+export interface VietnameseAnswerGradeInput {
+  headword: string;
+  pos: string[];
+  expectedAnswers: string[];
+  userAnswer: string;
+  systemPrompt?: string;
+}
+
+export interface VietnameseAnswerGradeResult {
+  output: VietnameseAnswerGradeOutput;
+  model_used: string;
+  latency_ms: number;
+  tokens_in: number;
+  tokens_out: number;
+  cost_usd: number;
+}
+
+const DEFAULT_VI_ANSWER_GRADER_PROMPT = `
+You are a strict but fair grader for English-to-Vietnamese flashcard answers.
+
+Grade whether the user's Vietnamese answer is an acceptable meaning of the English headword.
+Use the part of speech and accepted answers as context, but do not require exact wording.
+
+Return:
+- correct: the user answer is a natural Vietnamese equivalent or synonym for the headword.
+- near_correct: the answer is close, related, too broad, too narrow, or slightly off in nuance.
+- wrong: the answer has a different meaning, is unrelated, or only matches by spelling accident.
+
+Rules:
+- Prefer common Vietnamese usage.
+- Do not accept antonyms.
+- Do not accept example sentences unless the answer phrase itself is clearly correct.
+- Keep reason_vi short and user-friendly.
+`.trim();
 
 // ── moderateInput ─────────────────────────────────────────────────────────────
 
@@ -135,6 +179,48 @@ export async function gradeSentences(input: GradeInput): Promise<GradeResult> {
   const tokens_in  = usage.prompt_tokens;
   const tokens_out = usage.completion_tokens;
   const cost_usd   = tokens_in * PRICE_IN + tokens_out * PRICE_OUT;
+
+  const output = completion.choices[0].message.parsed;
+  if (!output) throw new Error('OpenAI returned empty parsed output');
+
+  return { output, model_used: completion.model, latency_ms, tokens_in, tokens_out, cost_usd };
+}
+
+// ── gradeVietnameseAnswer ────────────────────────────────────────────────────
+
+export async function gradeVietnameseAnswer(
+  input: VietnameseAnswerGradeInput
+): Promise<VietnameseAnswerGradeResult> {
+  const start = Date.now();
+
+  const completion = await getClient().chat.completions.parse({
+    model: MODEL,
+    messages: [
+      {
+        role: 'system',
+        content: input.systemPrompt || DEFAULT_VI_ANSWER_GRADER_PROMPT,
+      },
+      {
+        role: 'user',
+        content: JSON.stringify({
+          headword: input.headword,
+          pos: input.pos,
+          accepted_answers: input.expectedAnswers,
+          user_answer: input.userAnswer,
+        }),
+      },
+    ],
+    response_format: zodResponseFormat(
+      VietnameseAnswerGradeOutputSchema,
+      'vietnamese_answer_grade'
+    ),
+  });
+
+  const latency_ms = Date.now() - start;
+  const usage = completion.usage!;
+  const tokens_in = usage.prompt_tokens;
+  const tokens_out = usage.completion_tokens;
+  const cost_usd = tokens_in * PRICE_IN + tokens_out * PRICE_OUT;
 
   const output = completion.choices[0].message.parsed;
   if (!output) throw new Error('OpenAI returned empty parsed output');

@@ -58,6 +58,7 @@ const migrations: MigrationDef[] = [
   { key: '26_word_translation_cache', name: 'Phase 9.6: word_translation_cache + word_lookups fallback fields', file: './migrations/26_word_translation_cache' },
   { key: '27_rename_plan_features',   name: 'Rename plan_features keys to mobile convention + translation_daily quotas', file: './migrations/27_rename_plan_features' },
   { key: '28_user_notifications',     name: 'Phase 11: user_notifications + user_fcm_tokens',          file: './migrations/28_user_notifications' },
+  { key: '29_answer_grading',         name: 'Typed Vietnamese answer aliases + semantic grading cache', file: './migrations/29_answer_grading' },
 ];
 
 /**

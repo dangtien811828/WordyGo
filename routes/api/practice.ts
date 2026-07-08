@@ -7,6 +7,7 @@ import { apiSuccess, apiError } from '../../utils/apiResponse';
 import { addBatchToBox1 } from '../../utils/leitnerManager';
 import { updateStreak } from '../../utils/streakCalculator';
 import { parsePagination } from '../../utils/pagination';
+import { gradePracticeAnswer, PracticeAnswerGradeResult } from '../../services/answerGradingService';
 
 const router = Router();
 
@@ -206,7 +207,9 @@ router.post(
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  POST /api/v1/practice/session/answer
-//  body: { session_id, card_id, correct, time_ms, user_answer? }
+//  body:
+//    Legacy client-graded: { session_id, card_id, correct, time_ms?, user_answer? }
+//    Typed answer:         { session_id, card_id, user_answer, time_ms? }
 // ─────────────────────────────────────────────────────────────────────────────
 router.post(
   '/session/answer',
@@ -220,8 +223,16 @@ router.post(
       user_answer?: string;
     };
 
-    if (!session_id || !card_id || typeof correct !== 'boolean') {
-      return apiError(res, 400, 'VALIDATION_ERROR', 'session_id, card_id và correct là bắt buộc');
+    const hasLegacyCorrect = typeof correct === 'boolean';
+    const hasTypedAnswer = typeof user_answer === 'string';
+
+    if (!session_id || !card_id || (!hasLegacyCorrect && !hasTypedAnswer)) {
+      return apiError(
+        res,
+        400,
+        'VALIDATION_ERROR',
+        'session_id, card_id và correct hoặc user_answer là bắt buộc'
+      );
     }
 
     // Fetch and validate session
@@ -245,11 +256,45 @@ router.post(
       return apiError(res, 404, 'CARD_NOT_FOUND', 'Card không tồn tại');
     }
 
+    let finalCorrect = hasLegacyCorrect ? correct : false;
+    let grading: PracticeAnswerGradeResult = {
+      correct: finalCorrect,
+      verdict: finalCorrect ? 'correct' : 'wrong',
+      confidence: 1,
+      grading_source: 'client_legacy',
+      matched_answer: null,
+      accepted_answers: [],
+      reason_vi: null,
+      details: {},
+    };
+
+    if (!hasLegacyCorrect) {
+      grading = await gradePracticeAnswer(card_id, user_answer ?? '');
+      finalCorrect = grading.correct;
+    }
+
     // Record answer
     await pool.query(
-      `INSERT INTO practice_answers (session_id, card_id, correct, time_ms, user_answer)
-       VALUES ($1, $2, $3, $4, $5)`,
-      [session_id, card_id, correct, time_ms ?? null, user_answer ?? null]
+      `INSERT INTO practice_answers
+         (session_id, card_id, correct, time_ms, user_answer,
+          grading_source, verdict, confidence, matched_answer, accepted_answers, grading_details)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)`,
+      [
+        session_id,
+        card_id,
+        finalCorrect,
+        time_ms ?? null,
+        user_answer ?? null,
+        grading.grading_source,
+        grading.verdict,
+        grading.confidence,
+        grading.matched_answer,
+        JSON.stringify(grading.accepted_answers),
+        JSON.stringify({
+          reason_vi: grading.reason_vi,
+          ...grading.details,
+        }),
+      ]
     );
 
     // Update session counters
@@ -260,7 +305,7 @@ router.post(
            wrong_count    = wrong_count    + (1 - $3::int)
        WHERE id = $1 AND user_id = $2
        RETURNING answered_count, correct_count, wrong_count, total_count`,
-      [session_id, userId, correct ? 1 : 0]
+      [session_id, userId, finalCorrect ? 1 : 0]
     );
     const s = updated[0];
 
@@ -273,13 +318,22 @@ router.post(
          times_correct = user_card_progress.times_correct + $3,
          last_review   = NOW(),
          updated_at    = NOW()`,
-      [userId, card_id, correct ? 1 : 0]
+      [userId, card_id, finalCorrect ? 1 : 0]
     );
 
     return apiSuccess(res, {
       progress: `${s.answered_count}/${s.total_count}`,
       correct_so_far: s.correct_count,
       wrong_so_far: s.wrong_count,
+      grading: {
+        correct: finalCorrect,
+        verdict: grading.verdict,
+        confidence: grading.confidence,
+        grading_source: grading.grading_source,
+        matched_answer: grading.matched_answer,
+        accepted_answers: grading.accepted_answers,
+        reason_vi: grading.reason_vi,
+      },
     });
   })
 );

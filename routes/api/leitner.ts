@@ -14,6 +14,8 @@ import {
   InsufficientDistractorsError,
   NoExamplesError,
 } from '../../utils/questionHelpers';
+import { buildAcceptedAnswerTexts } from '../../utils/answerMatcher';
+import { gradeLeitnerAnswer, PracticeAnswerGradeResult } from '../../services/answerGradingService';
 
 const statsCache = new NodeCache({ stdTTL: 300, checkperiod: 60 });
 
@@ -171,6 +173,7 @@ router.get(
           audio_uk_url: row.audio_uk_url ?? null,
           pos: row.pos ?? [],
           meaning_preview: row.meaning_preview ?? null,
+          accepted_answers: buildAcceptedAnswerTexts({ meaningVi: row.meaning_preview ?? null }),
           cefr_level: row.cefr_level ?? null,
         },
       })),
@@ -262,6 +265,7 @@ router.get(
           audio_uk_url: row.audio_uk_url ?? null,
           pos: row.pos ?? [],
           meaning_preview: row.meaning_preview ?? null,
+          accepted_answers: buildAcceptedAnswerTexts({ meaningVi: row.meaning_preview ?? null }),
           cefr_level: row.cefr_level ?? null,
         },
       })),
@@ -274,28 +278,54 @@ router.get(
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  POST /api/v1/leitner/review
-//  body: { leitner_card_id, correct, time_ms? }
+//  body:
+//    Legacy client-graded: { leitner_card_id, correct, time_ms? }
+//    Typed answer:         { leitner_card_id, user_answer, time_ms? }
 // ─────────────────────────────────────────────────────────────────────────────
 router.post(
   '/review',
   asyncHandler(async (req: ApiRequest, res: Response) => {
     const userId = req.user!.id;
-    const { leitner_card_id, correct, time_ms } = req.body as {
+    const { leitner_card_id, correct, time_ms, user_answer } = req.body as {
       leitner_card_id: string;
-      correct: boolean;
+      correct?: boolean;
       time_ms?: number;
+      user_answer?: string;
     };
 
     if (!leitner_card_id || typeof leitner_card_id !== 'string') {
       return apiError(res, 400, 'VALIDATION_ERROR', 'leitner_card_id là bắt buộc');
     }
-    if (typeof correct !== 'boolean') {
-      return apiError(res, 400, 'VALIDATION_ERROR', 'correct phải là boolean');
+
+    const hasTypedAnswer = typeof user_answer === 'string';
+    const hasLegacyCorrect = typeof correct === 'boolean';
+    if (!hasTypedAnswer && !hasLegacyCorrect) {
+      return apiError(
+        res,
+        400,
+        'VALIDATION_ERROR',
+        'correct hoặc user_answer là bắt buộc'
+      );
+    }
+
+    let finalCorrect = hasLegacyCorrect ? correct! : false;
+    let grading: PracticeAnswerGradeResult | null = null;
+
+    if (hasTypedAnswer) {
+      try {
+        grading = await gradeLeitnerAnswer(leitner_card_id, userId, user_answer ?? '');
+      } catch (err: any) {
+        if (err.statusCode === 404) {
+          return apiError(res, 404, 'CARD_NOT_FOUND', 'Leitner card không tồn tại');
+        }
+        throw err;
+      }
+      finalCorrect = grading.correct;
     }
 
     let result: { newBoxNumber: number; nextDueAt: Date; masteredNow: boolean };
     try {
-      result = await moveCard(leitner_card_id, userId, correct, time_ms);
+      result = await moveCard(leitner_card_id, userId, finalCorrect, time_ms);
     } catch (err: any) {
       if (err.statusCode === 404) {
         return apiError(res, 404, 'CARD_NOT_FOUND', 'Leitner card không tồn tại');
@@ -307,6 +337,25 @@ router.post(
       new_box_number: result.newBoxNumber,
       next_due_at: result.nextDueAt,
       mastered_now: result.masteredNow,
+      grading: grading
+        ? {
+            correct: finalCorrect,
+            verdict: grading.verdict,
+            confidence: grading.confidence,
+            grading_source: grading.grading_source,
+            matched_answer: grading.matched_answer,
+            accepted_answers: grading.accepted_answers,
+            reason_vi: grading.reason_vi,
+          }
+        : {
+            correct: finalCorrect,
+            verdict: finalCorrect ? 'correct' : 'wrong',
+            confidence: 1,
+            grading_source: 'client_legacy',
+            matched_answer: null,
+            accepted_answers: [],
+            reason_vi: null,
+          },
     });
   })
 );
@@ -427,9 +476,10 @@ router.get(
 //  The mobile flow per due card:
 //    1. Mobile picks one of the 3 modes per card.
 //    2. Calls the matching endpoint here to fetch a question.
-//    3. User answers; mobile decides correct/wrong (first-attempt rule).
-//    4. Mobile calls POST /api/v1/leitner/review with leitner_card_id + correct
-//       to apply the SRS box transition.
+//    3. User answers. Typed-answer modes should send user_answer so the API can
+//       apply the same accepted-answer grading as practice.
+//    4. Mobile calls POST /api/v1/leitner/review with leitner_card_id +
+//       user_answer (preferred) or correct (legacy) to apply the SRS transition.
 // ─────────────────────────────────────────────────────────────────────────────
 
 // ── POST /api/v1/leitner/swift-choice/question ────────────────────────────────
